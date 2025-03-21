@@ -1,0 +1,198 @@
+$primary-color: #e30119;
+$category-color: #bc1728;
+$main-width: 1200px;
+$bg-white: #fff;
+
+
+.contentBanner{
+    background-color: black;
+
+    .bannerTopImg{
+        width: 100%;
+    }
+}
+.contentHeader{
+    background-color: $primary-color;
+    height: 74px;
+
+    .navbarHeader{
+        height: inherit;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .categoryHeader{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 9px;
+            width: 105px;
+            height: 42px;
+            padding: 2px 4px;
+            background-color: $category-color;
+            color: $bg-white;
+            border-radius: 4px;
+    
+            .categoryIcon{
+                font-size: 24px;
+                display: inline-flex;
+            }
+            .categoryText{
+                font-weight: 600;
+                font-size: 12px;
+            }
+        }
+        .categoryHeader:hover {
+            cursor: pointer;
+        }
+        
+        .link{
+            height: inherit;
+            display: block;
+        }
+        .inputSearchWrap{
+            position: relative;
+
+            .inputSearch{
+                width: 416px;
+                height: 42px;
+                border-radius: 4px;
+                padding: 8px 50px 8px 15px;
+                font-size: 14px;
+                font-weight: 500;
+                border: none;
+                outline: none;
+            }
+
+            .inputIcon{
+                width: 30px;
+                height: 100%;
+                position: absolute;
+                text-align: center;
+                border-top-right-radius: 6px;
+                border-bottom-right-radius: 6px;
+                top: 50%;
+                right: 0;
+                font-size: 18px;
+                transform: translateY(-50%);
+                color: #212529;
+            }
+            .inputIcon > *:first-child {
+                display: inline-block;
+                height: 100%;
+            }
+        }
+        
+    }
+    .navbarHeader li{
+        height: 42px;
+    }
+}
+
+.iconSize{
+    width: 36px;
+    height: 100%;
+    font-size: 22px;
+    text-align: center;
+}
+.iconSize > svg {
+    height: inherit;
+}
+.logoHeader{
+    width: 140px;
+    height: 100%;
+    display: block;
+}
+
+.navbarListRight{
+    display: flex;
+    justify-content: space-between;
+
+
+    
+}
+.navbarText{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: $bg-white;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.wrapText{
+    height: 100%;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+    line-height: 16px;
+    white-space: nowrap;
+}
+.bgColorLogin{
+    width: 90px; 
+    height: 42px;
+    border-radius: 6px;
+    background-color: $category-color;
+}
+
+.contentNavigate{
+    background-color: $bg-white;
+
+    .navigate{
+        height: 48px;
+        background-color: $bg-white;
+
+        .navigateList{
+            height: 100%;
+            display: flex;
+            justify-content: space-between;
+            
+            
+            .navigateItem{
+                padding: 10px 22px;
+                
+                position: relative;
+                cursor: pointer;
+            }
+            .navigateItem::after{
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 1px;
+                height: 62%;
+                margin: auto;
+                background: #CFCFCF;
+            }
+
+            .navigateItem:last-child::after{
+                content: none;
+            }
+            .navigateItem a{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 6px;
+                white-space: nowrap;
+                color: #111111;
+                font-weight: 600;
+                font-size: 13px;
+                text-decoration: none;
+            }
+            .navigateItem a:hover{
+                color: #E30019;
+
+            }
+        
+            .navigateIcon{
+                font-size: 20px;
+            }
+            
+        }
+    }
+}

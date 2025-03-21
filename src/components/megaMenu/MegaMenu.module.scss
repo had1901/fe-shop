@@ -1,0 +1,47 @@
+.megaMenu{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: calc(1220px - 235px);
+    bottom: 0;
+    background-color: #fff;
+    border-radius: 6px;
+    border-left: 8px solid #e0e0e0;
+
+    .megaMenuList{
+        display: flex;
+        align-items: start;
+        align-content: start;
+        flex-flow: row wrap;
+        height: 100%;
+        padding: 10px;
+    }
+
+    .megaMenuItem{
+        width: 20%;
+        padding: 5px 5px 16px;
+    }
+
+    .megaMenuLinkTitle{
+        display: block;
+        color: #e30119;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+    
+
+    .submenuItem{
+        display: block;
+        margin-top: 8px;
+        font-size: 12.5px;
+        color: #111111;
+        cursor: pointer;
+        line-height: 1.5;
+    }
+}
+.megaMenu a {
+    text-decoration: none;
+    outline: none;
+}

@@ -1,0 +1,60 @@
+.navMenu{
+    position: relative;
+    width: 216px;
+    background-color: #fff;
+    border-radius: 4px;
+
+    .menuItemLink{
+        position: relative;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #111111;
+        padding: 2px 16px;
+        height: 31px;
+        z-index: 1;
+        font-weight: 500;
+    }
+    .menuItemLink:hover{
+        background-color: #E30019;
+        color: #fff;
+    }
+    .menuItemLink::after{
+        display: none;
+        content: '';
+        position: absolute;
+        top: 50%;
+        width: 22px;
+        height: 22px;
+        background-color: #E30019;
+        right: -12px;
+        transform: translateY(-50%) rotate(45deg);
+    }
+    .menuItemLink:hover::after {
+        display: block;
+    }
+
+    .menuItemIcon{
+        font-size: 18px;
+        margin-right: 8px;
+    }
+    .menuItemText{
+        font-size: 12px;
+        font-weight: 600;
+    }
+    .menuItemArrow{
+        position: absolute;
+        right: 4px;
+        width: 28px;
+        height: 28px;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+    }
+}
+
+.menuItem:hover :global(.megaMenu-hover){
+    display: block;
+}
