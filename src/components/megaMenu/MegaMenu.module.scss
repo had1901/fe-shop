@@ -3,11 +3,14 @@
     position: absolute;
     top: 0;
     left: 100%;
+    z-index: 10;
     width: calc(1220px - 235px);
-    bottom: 0;
+    min-height: 496px;
+    max-height: 100vh;
     background-color: #fff;
     border-radius: 6px;
     border-left: 8px solid #e0e0e0;
+    overflow: auto;
 
     .megaMenuList{
         display: flex;

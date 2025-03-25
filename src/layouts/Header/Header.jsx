@@ -11,21 +11,21 @@ import { GiPositionMarker } from "react-icons/gi";
 import { BsClipboard2Check } from "react-icons/bs";
 import { BsCartCheck } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa6";
-import { CiCreditCard1 } from "react-icons/ci";
-import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
-import { GiAutoRepair } from "react-icons/gi";
-import { IoCardOutline } from "react-icons/io5";
-import { RiCoinsFill } from "react-icons/ri";
-import { AiOutlineFileProtect } from "react-icons/ai";
-import Container from '../../components/container/Container';
+
+import Container from '../Container/Container';
+import { navigateList } from './_navigation';
+
+
+
+
 
 function Header() {
   return (
     <>
        <header className={clsx(styles.header)}>
-            <div className={clsx(styles.contentBanner)}>
+            <div className={clsx(styles.headerBanner)}>
               <Container>
-                  <img src={bannerHeader} className={clsx(styles.bannerTopImg)} />
+                  <img src={bannerHeader} className={clsx(styles.headerBannerImg)} />
               </Container>
             </div>
             <div className={clsx(styles.contentHeader)}>
@@ -98,42 +98,17 @@ function Header() {
               <Container>
                   <div className={clsx(styles.navigate)}>
                     <ul className={clsx(styles.navigateList)}>
-                      <li className={clsx(styles.navigateItem)}>
-                        <a href='#' >
-                          <span className={clsx(styles.navigateIcon)}><CiCreditCard1 /></span>
-                          <span>Tự Build PC theo ý của bạn</span>
-                        </a>
-                      </li>
-                      <li className={clsx(styles.navigateItem)}>
-                        <a href='#'>
-                          <span className={clsx(styles.navigateIcon)}><HiOutlineClipboardDocumentList /></span>
-                          <span>Tin công nghệ</span>
-                          </a>
-                      </li>
-                      <li className={clsx(styles.navigateItem)}>
-                        <a href='#'>
-                          <span className={clsx(styles.navigateIcon)}><GiAutoRepair /></span>
-                          <span>Dịch vụ sửa chữa</span>
-                        </a>
-                      </li>
-                      <li className={clsx(styles.navigateItem)}>
-                        <a href='#'>
-                          <span className={clsx(styles.navigateIcon)}><IoCardOutline /></span>
-                          <span>Dịch vụ kỹ thuật tại nhà</span>
-                        </a>
-                      </li>
-                      <li className={clsx(styles.navigateItem)}>
-                        <a href='#'>
-                          <span className={clsx(styles.navigateIcon)}><RiCoinsFill /></span>
-                          <span>Thu cũ đổi mới</span>
-                        </a>
-                      </li>
-                      <li className={clsx(styles.navigateItem)}>
-                        <a href='#'>
-                          <span className={clsx(styles.navigateIcon)}><AiOutlineFileProtect /></span>
-                          <span>Tra cứu bảo hành</span>
-                        </a>
-                      </li>
+                      {
+                        navigateList.map(item => (
+                          <li key={item.id} className={clsx(styles.navigateItem)}>
+                            <a href='#' >
+                                <span className={clsx(styles.navigateIcon)}>{item.icon}</span>
+                                <span>{item.label}</span>
+                            </a>
+                        </li>
+                        ))
+                      }
+                      
                     </ul>
                   </div>
               </Container>

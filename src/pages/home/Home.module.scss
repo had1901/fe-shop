@@ -1,12 +1,19 @@
 .wrapper{
     width: 100%;
+
+    &Main{
+        padding: 18px;
+        background-color: #ececec;
+    }
+
+    &Feature{
+        display: flex;
+        gap: 8px;
+    }
+
+    .bannerList{
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
-.wrapperMain{
-    height: 500px;
-    padding: 18px;
-    background-color: #ececec;
-}
-.wrapFeature{
-    display: flex;
-    gap: 8px;
-}
+

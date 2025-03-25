@@ -4,10 +4,10 @@ $main-width: 1200px;
 $bg-white: #fff;
 
 
-.contentBanner{
+.headerBanner{
     background-color: black;
 
-    .bannerTopImg{
+    &Img{
         width: 100%;
     }
 }
@@ -149,15 +149,14 @@ $bg-white: #fff;
             height: 100%;
             display: flex;
             justify-content: space-between;
-            
-            
-            .navigateItem{
-                padding: 10px 22px;
-                
-                position: relative;
-                cursor: pointer;
-            }
-            .navigateItem::after{
+        }
+
+        .navigateItem{
+            padding: 10px 22px;
+            position: relative;
+            cursor: pointer;
+
+            &::after{
                 content: '';
                 position: absolute;
                 top: 0;
@@ -168,31 +167,32 @@ $bg-white: #fff;
                 margin: auto;
                 background: #CFCFCF;
             }
-
-            .navigateItem:last-child::after{
-                content: none;
-            }
-            .navigateItem a{
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 6px;
-                white-space: nowrap;
-                color: #111111;
-                font-weight: 600;
-                font-size: 13px;
-                text-decoration: none;
-            }
-            .navigateItem a:hover{
-                color: #E30019;
-
-            }
+        }
         
-            .navigateIcon{
-                font-size: 20px;
+        
+        .navigateItem:last-child::after{
+            content: none;
+        }
+        .navigateItem a{
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            white-space: nowrap;
+            color: #111111;
+            font-weight: 600;
+            font-size: 13px;
+            text-decoration: none;
+            transition: ease 0.3s;
+
+            &:hover{
+                color: #E30019;
+        
             }
-            
+        }
+        .navigateIcon{
+            font-size: 20px;
         }
     }
 }

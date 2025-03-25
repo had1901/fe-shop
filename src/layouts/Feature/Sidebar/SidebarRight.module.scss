@@ -4,8 +4,11 @@
     border-radius: 6px;
 
     .sidebarSliderLeft{
+        display: flex;
+        flex-direction: column;
         width: calc(100% / 3 * 2);
         height: 100%;
+
     }
 
     .sidebarBannerRight{
@@ -13,9 +16,7 @@
         padding-left: 8px;
     }
 
-    .sidebarSliderImg{
-        display: block;
-    }
+    
 
     .sidebarBannerList{
         display: flex;

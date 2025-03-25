@@ -16,6 +16,11 @@ import clsx from "clsx";
 import styles from './SidebarMenu.module.scss';
 import MegaMenu from './../../../components/megaMenu/MegaMenu';
 
+import banner1 from "../../../assets/banner/b1.webp";
+import banner2 from "../../../assets/banner/b2.webp";
+import banner3 from "../../../assets/banner/b3.webp";
+import banner4 from "../../../assets/banner/b4.webp";
+import banner5 from "../../../assets/banner/b5.webp";
 
 export const menuItems = [
     {
@@ -786,13 +791,63 @@ export const menuItems = [
         label: 'Bàn phím',
         products: [
             {
-                label: 'Thương hiệu loa',
+                label: 'Thương hiệu',
                 href: '/thuong-hieu',
                 items: [
-                    'Edifier',
-                    'Razer',
+                    'AKKO',
+                    'AULA',
+                    'Dare-U',
+                    'Durgod',
+                    'FL-Esports',
+                    'Corsair',
+                    'E-Dra',
+                    'E-Cidoo',
+                    'E-Machenike',
+                ]
+            },
+            {
+                label: 'Thương hiệu',
+                href: '/thuong-hieu',
+                items: [
+                    'ASUS',
                     'Logitech',
-                    'SoundMax',
+                    'Razer',
+                    'Leopold',
+                    'Steelseries',
+                    'Rapoo',
+                    'VGN',
+                ]
+            },
+            {
+                label: 'Giá tiền',
+                href: '/thuong-hieu',
+                items: [
+                    'Dưới 1 triệu',
+                    '1 triệu - 2 triệu',
+                    '2 triệu - 3 triệu',
+                    '3 triệu - 4 triệu',
+                    'Trên 4 triệu',
+                ]
+            },
+            {
+                label: 'Kết nối',
+                href: '/thuong-hieu',
+                items: [
+                    'Bluetooth',
+                    'Wireless',
+                ]
+            },
+            {
+                label: 'Phụ kiện bàn phím cơ',
+                href: '/thuong-hieu',
+                items: [
+                    'Keycaps',
+                    'Dwarf Factory',
+                    'Kê tay',
+                    'Leopold',
+                    'Steelseries',
+                    'Rapoo',
+                    'VGN',
                 ]
             },
         ]
@@ -916,6 +971,18 @@ export const menuItems = [
             },
         ]
     },
+]
+
+
+export const bannerListRight = [
+    banner1,
+    banner2,
+    banner3,
+    
+]
+export const bannerListLeft = [
+    banner4,
+    banner5,
 ]
 
 export const renderMenuItems = (menus) => {
