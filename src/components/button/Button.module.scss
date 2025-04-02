@@ -1,0 +1,52 @@
+.btnFlashSale{
+    background-color: #fff;
+    color: #000;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+    margin-left: auto;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #fff;
+    white-space: nowrap;
+
+}
+.btn_view_more{
+    display: inline-flex;
+    align-items: center;
+    padding: 7px 50px;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: #ffffff;
+    background: #1AA6F7;
+    border-radius: 8px;
+}
+.btn-slider{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 32px;
+    height: 32px;
+    background: #ECECEC;
+    box-shadow: 0px 0px 4.80687px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+}
+.btn-left-viewed{
+    left: 10px;
+}
+.btn-right-viewed{
+    right: 10px;
+}
+.btn-prev-sale{
+    left: 10px;
+}
+.btn-next-sale{
+    right: 10px;
+}
+.btn-left-products{
+    left: 10px;
+}
+.btn-right-products{
+    right: 10px;
+}

@@ -1,5 +1,5 @@
 
-import './App.css'
+import './App.scss'
 import { Routes, Route } from 'react-router'
 import AuthPage from './pages/auth/index';
 import DetailPage from './pages/details';

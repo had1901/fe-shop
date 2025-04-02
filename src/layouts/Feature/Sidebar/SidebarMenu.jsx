@@ -8,10 +8,10 @@ import { renderMenuItems, menuItems } from './_sidebarMenu';
 
 function SidebarMenu() {
   return (
-    <div className={clsx(styles.navMenu)}>
-        <ul>
-            {renderMenuItems(menuItems)}
-        </ul>
+    <div className={clsx(styles.navbar, 'col-xl-2')}>
+      <ul className={clsx(styles.navMenu)}>
+          {renderMenuItems(menuItems)}
+      </ul>
     </div>
   )
 }

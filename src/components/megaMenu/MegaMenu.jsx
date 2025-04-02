@@ -7,11 +7,11 @@ function MegaMenu({ products }) {
     <div className={clsx(styles.megaMenu, 'megaMenu-hover')}>
         <ul className={clsx(styles.megaMenuList)}>
             {products.map(product => (
-                <li className={clsx(styles.megaMenuItem)}>
+                <li key={product.id} className={clsx(styles.megaMenuItem)}>
                     <a href={product.href} className={clsx(styles.megaMenuLinkTitle)}>{product.label}</a>
                     <div className={clsx(styles.megaMenuProductList)}>
-                      {product.items.map(item => (
-                        <a href={product.href} className={clsx(styles.submenuItem)}>{item}</a>
+                      {product.items.map((item, index) => (
+                        <a key={index} href={product.href} className={clsx(styles.submenuItem)}>{item}</a>
                       ))}
                     </div>
                 </li>

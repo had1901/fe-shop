@@ -1,0 +1,35 @@
+@mixin position($pos) {
+    @if $pos == top-left {
+        top: 0;
+        left: 0;
+    }
+    @if $pos == top-right {
+        top: 0;
+        right: 0;
+    }
+    @if $pos == bottom-left {
+        bottom: 0;
+        left: 0;
+    }
+    @if $pos == bottom-right {
+        bottom: 0;
+        right: 0;
+    }
+    @if $pos == center {
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+    }
+}
+
+@mixin flexCenter{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@mixin size($width, $height: $width) {
+    width: $width;
+    height: $height;
+}
+

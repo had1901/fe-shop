@@ -1,0 +1,88 @@
+.product_list{
+    background-color: #fff;
+    border-radius: 6px;
+    margin-top: 20px;
+}
+.container{
+    padding: 10px;
+}
+.header{
+    display: flex;
+    padding: 12px 20px 12px;
+}
+.top{
+    display: flex;
+    align-items: center;
+}
+.heading{
+    font-size: 24px;
+    font-weight: 500;
+    padding-right: 20px;
+    position: relative;
+
+    &::after{
+        content: '';
+        position: absolute;
+        height: 80%;
+        width: 1px;
+        top: 50%;
+        left: 100%;
+        transform: translateY(-50%);
+        background-color: #ccc;
+
+    }
+}
+.pay_method{
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    padding-left: 20px;
+}
+.icon{
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    color: red;
+    margin-right: 8px;
+}
+.icon svg{
+    line-height: 1;
+}
+
+.pc_list{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+.pc_item{
+    padding: 8px 16px;
+}
+.pc_item_link{
+    font-size: 18px;
+    transition: color 0.3s ease;
+    &:hover{
+        color: #e35050;
+    }
+}
+
+.sliders{
+    position: relative;
+
+}
+.slider_track{
+    display: flex;
+    overflow-x: scroll;
+    width: 100%;
+    scroll-snap-type: x proximity;
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar{
+        display: none;
+    }    
+}
+.btn-slider{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+

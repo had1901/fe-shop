@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import styles from './BannerSale.module.scss';
 import clsx from "clsx";
 
-function BannerSale({source, index}) {
+function BannerSale({ bannerList }) {
   return (
-    <div key={index}>
-        <img src={source} className={clsx(styles.bannerImg)}/>
-    </div>
+    <Fragment>
+      {bannerList.map((src, index) => (
+        <div key={index} className='col-xxl-3 '>
+            <img src={src} className={clsx(styles.bannerImg)}/>
+        </div>
+      ))}
+    </Fragment>
    
   )
 }

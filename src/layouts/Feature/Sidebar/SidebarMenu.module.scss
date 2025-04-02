@@ -1,11 +1,19 @@
+.navbar{
+
+}
 .navMenu{
     position: relative;
-    width: 216px;
-    background-color: #fff;
     border-radius: 4px;
-
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    width: 100%;
+    background-color: #fff;
+    
     .menuItemLink{
         position: relative;
+        
         display: flex;
         align-items: center;
         text-decoration: none;
@@ -32,6 +40,7 @@
     }
     .menuItemLink:hover::after {
         display: block;
+        z-index: 999;
     }
 
     .menuItemIcon{
@@ -41,10 +50,15 @@
     .menuItemText{
         font-size: 12px;
         font-weight: 600;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .menuItemArrow{
         position: absolute;
-        right: 4px;
+        right: 0;
         width: 28px;
         height: 28px;
         font-size: 13px;
@@ -57,4 +71,24 @@
 
 .menuItem:hover :global(.megaMenu-hover){
     display: block;
+}
+
+
+@media (min-width: 992px) and (max-width: 1200px) {
+    .navMenu{
+        display: none;
+    }
+}
+
+@media (min-width: 740px) and (max-width: 991px) {
+    .navbar{
+        display: none;
+    }
+
+}
+
+@media (max-width: 739px) {
+    .navMenu{
+        display: none;
+    }
 }
