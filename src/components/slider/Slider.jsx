@@ -83,7 +83,7 @@ function Slider({ sliders }) {
         ))}
         <ul className={clsx(styles.sliderDots)}>
             {sliders.map((_, index) => (
-                <li className={clsx(styles.dot)}>
+                <li key={index} className={clsx(styles.dot)}>
                     <button 
                         className={clsx(styles.dotBtn, { [styles.active]: index === currentIndex })}
                         onClick={() => handleChangeSlider(index)}

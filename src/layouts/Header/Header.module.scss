@@ -6,17 +6,22 @@ $bg-white: #fff;
 
 .headerBanner{
     background-color: black;
-
+    min-height: 52px;
     &Img{
         width: 100%;
     }
 }
 .contentHeader{
     background-color: $primary-color;
+    position: relative;
+    position: sticky;
+    top: 0;
+    z-index: 16;
 
     .navbarHeader{
+        position: relative;
         flex-wrap: nowrap;
-        height: inherit;
+        // height: inherit;
         align-items: center;
         padding: 16px 0;
         gap: 10px;
@@ -32,7 +37,7 @@ $bg-white: #fff;
             background-color: $category-color;
             color: $bg-white;
             border-radius: 4px;
-    
+
             .categoryIcon{
                 font-size: 24px;
                 display: inline-flex;
@@ -40,6 +45,7 @@ $bg-white: #fff;
             .categoryText{
                 font-weight: 600;
                 font-size: 12px;
+                user-select: none;
             }
         }
         .categoryHeader:hover {
@@ -88,9 +94,9 @@ $bg-white: #fff;
         }
         
     }
-    .navbarHeader li{
-        height: 42px;
-    }
+    // .navbarHeader li{
+    //     height: 42px;
+    // }
     
 }
 .option_wrap{
@@ -149,10 +155,11 @@ $bg-white: #fff;
     border-radius: 6px;
     background-color: $category-color;
 }
-
+.mt_banner{
+    margin-top: 126px;
+}
 .contentNavigate{
     background-color: $bg-white;
-
     .navigate{
         
     }
@@ -161,7 +168,7 @@ $bg-white: #fff;
         display: flex;
         padding: 6px 0;
     }
-
+    
     .navigateItem{
         
         position: relative;

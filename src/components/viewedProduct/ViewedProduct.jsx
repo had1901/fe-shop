@@ -1,41 +1,42 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 import styles from './ViewedProduct.module.scss';
-import clsx from "clsx";
 import { useSlider } from '../../hooks/useSlider';
 import Button from '../button/Button';
 import { useResponsive } from '../../hooks/useResponsive';
 import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa6";
-import { viewedProduct } from './../viewedProduct/_viewedProduct';
+import { productList } from '../../api/_products';
+import useStyles from '../../hooks/useStyles';
 
 function ViewedProduct({ title }) {
     const btnLeftRef = useRef()
     const btnRightRef = useRef()
     const itemRefs = useRef([])
-    
+    // console.log(productList)
     const numDisplay = useResponsive()
-    const {trackRef, prevSlide, nextSlide} = useSlider(viewedProduct.length, numDisplay)
+    const {trackRef, prevSlide, nextSlide} = useSlider(productList.length, numDisplay)
+    const [cs] = useStyles(styles)
 
   return (
-    <div className={clsx(styles.viewedProduct)}>
+    <div className={cs('viewedProduct')}>
         <div className=''>
-            <h2 className={clsx(styles.heading)}>{title}</h2>
+            <h2 className={cs('heading')}>{title}</h2>
         </div>
-        <div className={clsx(styles.productListWrap)}>
-            <ul ref={trackRef} className={clsx(styles.productList)}>
-                {viewedProduct.length && viewedProduct.map(product => (
-                    <li ref={(el) => itemRefs.current.push(el)} className={clsx(styles.productItem)} >
-                        <a href={product.href} className={clsx(styles.productLink)}>
-                            <div className={clsx(styles.productLinkWrap)}>
-                                <div className={clsx(styles.productWrapImg)}>
-                                    <img src={product.src} className={clsx(styles.productImg)}/>
+        <div className={cs('productListWrap')}>
+            <ul ref={trackRef} className={cs('productList')}>
+                {productList.length && productList.map((item, index) => (
+                    <li key={index} ref={(el) => itemRefs.current.push(el)} className={cs('productItem')} >
+                        <a href={item.products.href} className={cs('productLink')}>
+                            <div className={cs('productLinkWrap')}>
+                                <div className={cs('productWrapImg')}>
+                                    <img src={item.products.src} className={cs('productImg')}/>
                                 </div>
-                                <div className={clsx(styles.productInfo)}>
-                                    <h3 className={clsx(styles.productHeading)}>{product.name}</h3>
-                                    <del className={clsx(styles.productPriceDefault)}>{product.price}</del>
-                                    <div className={clsx(styles.productPriceSale)}>
-                                        <span className={clsx(styles.priceSale)}>{product.priceSale}</span>
-                                        <span className={clsx(styles.percentSale)}>{`-${product.salePercent}%`}</span>
+                                <div className={cs('productInfo')}>
+                                    <h3 className={cs('productHeading')}>{item.products.name}</h3>
+                                    <del className={cs('productPriceDefault')}>{item.products.price}</del>
+                                    <div className={cs('productPriceSale')}>
+                                        <span className={cs('priceSale')}>{item.products.priceSale}</span>
+                                        <span className={cs('percentSale')}>{`-${item.products.salePercent}%`}</span>
                                     </div>
                                 </div>
                             </div>

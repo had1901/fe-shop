@@ -1,8 +1,9 @@
 .app{
     width: 100%;
-
+    
     &_main{
         background-color: #ececec;
+        padding-top: 20px;
     }
 
     &_feature{
@@ -12,6 +13,7 @@
     }
 
 }
+
 .bannerList{
     flex-wrap: nowrap;
 }

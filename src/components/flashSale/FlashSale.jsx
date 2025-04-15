@@ -3,10 +3,10 @@ import Button from '../button/Button';
 import ProductCard from '../productCard/ProductCard';
 import { listProductSale } from './_flashSale';
 import styles from './FlashSale.module.scss';
-import clsx from "clsx";
 import { IoIosFlash } from "react-icons/io";
 import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa6";
+import useStyles from '../../hooks/useStyles';
 
 function FlashSale() {
     // const [currentIndex, setCurrentIndex] = useState(0)
@@ -18,6 +18,7 @@ function FlashSale() {
     const [startX, setStartX] = useState()
     const [startScrollLeft, setStartScrollLeft] = useState()
     const [isClick, setIsClick] = useState(false)
+    const [cs] = useStyles(styles)
 
 
     const handleDragStop = () => {
@@ -115,34 +116,34 @@ function FlashSale() {
     }, [nextSlide])
 
   return (
-    <div ref={flashSaleRef} className={clsx(styles.flashSale)}>
-        <div className={clsx(styles.flash_sale_body)}>
-            <div className={clsx(styles.flash_sale_content)}>
-                <section className={clsx(styles.heading)}>
-                    <div className={clsx(styles.wrap)}>
-                        <div className={clsx(styles.tabCountDown)}>
-                            <span className={clsx(styles.countDown)}>00</span>
-                            <span className={clsx(styles.countDownDot)}>:</span>
-                            <span className={clsx(styles.countDown)}>00</span>
-                            <span className={clsx(styles.countDownDot)}>:</span>
-                            <span className={clsx(styles.countDown)}>00</span>
-                            <span className={clsx(styles.countDownDot)}>:</span>
-                            <span className={clsx(styles.countDown)}>00</span>
+    <div ref={flashSaleRef} className={cs('flashSale')}>
+        <div className={cs('flash_sale_body')}>
+            <div className={cs('flash_sale_content')}>
+                <section className={cs('heading')}>
+                    <div className={cs('wrap')}>
+                        <div className={cs('tabCountDown')}>
+                            <span className={cs('countDown')}>00</span>
+                            <span className={cs('countDownDot')}>:</span>
+                            <span className={cs('countDown')}>00</span>
+                            <span className={cs('countDownDot')}>:</span>
+                            <span className={cs('countDown')}>00</span>
+                            <span className={cs('countDownDot')}>:</span>
+                            <span className={cs('countDown')}>00</span>
                         </div>
-                        <i className={clsx(styles.icon)}><IoIosFlash /></i>
-                        <h3 className={clsx(styles.title)}>Flash sale 10h mỗi ngày</h3>
+                        <i className={cs('icon')}><IoIosFlash /></i>
+                        <h3 className={cs('title')}>Flash sale 10h mỗi ngày</h3>
                         <Button content='25/3' customClass='btnFlashSale' isLink />
                     </div>
                 </section>
-                <section ref={productContentRef} className={clsx(styles.content_sale)}>
+                <section ref={productContentRef} className={cs('content_sale')}>
                     {/* <div><Button content='Flash sale' customStyle='btnFlashSale' /></div> */}
-                    <div    className={clsx(styles.wrap_product_sale)}>
+                    <div    className={cs('wrap_product_sale')}>
                         <div 
                             ref={productSaleRef} 
                             onMouseUp={handleDragStop} 
                             onMouseDown={handleDragStart} 
                             onMouseMove={handleDragMove} 
-                            className={clsx(styles.list_product_sale, { [styles.dragging]: isDragging})}
+                            className={cs(`list_product_sale ${isDragging && 'dragging'}`)}
                         >
                             {listProductSale.map((product, i) => (
                                 <ProductCard ref={(el) => itemRef.current[i] = el} key={i} columnValue={6} productItem={product} hasFlashSale />
@@ -152,7 +153,7 @@ function FlashSale() {
                         <Button onclick={nextSlide} content={<FaChevronRight/>} customClass='btn-slider btn-next-sale' />
                     </div>
                 </section>
-                <div className={clsx(styles.list_product_more)}>
+                <div className={cs('list_product_more')}>
                     <Button content='Xem thêm khuyến mãi' customClass='btn_view_more' isLink />
                 </div>
             </div>

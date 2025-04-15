@@ -82,5 +82,5 @@ export function useSlider(length, numDisplayItem = 4) {
 
     
 
-    return { index, trackRef, prevSlide, nextSlide }
+    return {index, trackRef, prevSlide, nextSlide}
 }

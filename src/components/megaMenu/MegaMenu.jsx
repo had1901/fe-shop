@@ -1,17 +1,19 @@
 import React from 'react'
-import clsx from "clsx";
 import styles from './MegaMenu.module.scss';
+import useStyles from '../../hooks/useStyles';
 
 function MegaMenu({ products }) {
+  const [cs] = useStyles(styles)
+
   return (
-    <div className={clsx(styles.megaMenu, 'megaMenu-hover')}>
-        <ul className={clsx(styles.megaMenuList)}>
-            {products.map(product => (
-                <li key={product.id} className={clsx(styles.megaMenuItem)}>
-                    <a href={product.href} className={clsx(styles.megaMenuLinkTitle)}>{product.label}</a>
-                    <div className={clsx(styles.megaMenuProductList)}>
+    <div className={cs('megaMenu', 'megaMenu-hover')}>
+        <ul className={cs('megaMenuList')}>
+            {products.map((product, index) => (
+                <li key={index} className={cs('megaMenuItem')}>
+                    <a href={product.href} className={cs('megaMenuLinkTitle')}>{product.label}</a>
+                    <div className={cs('megaMenuProductList')}>
                       {product.items.map((item, index) => (
-                        <a key={index} href={product.href} className={clsx(styles.submenuItem)}>{item}</a>
+                        <a key={index} href={product.href} className={cs('submenuItem')}>{item}</a>
                       ))}
                     </div>
                 </li>

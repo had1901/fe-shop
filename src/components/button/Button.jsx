@@ -1,8 +1,11 @@
 import React, { forwardRef } from 'react'
 import styles from './Button.module.scss';
-import clsx from "clsx";
-console.log(styles)
+import useStyles from '../../hooks/useStyles';
+
+
 const Button = forwardRef(({ content, customClass = '', isLink, onclick}, ref) => {
+  const [cs] = useStyles(styles)
+
   return (
     <>
         {
@@ -11,14 +14,14 @@ const Button = forwardRef(({ content, customClass = '', isLink, onclick}, ref) =
                 ref={ref} 
                 onClick={onclick} 
                 href='#' 
-                className={clsx(customClass.split(" ").map(cls => styles[cls]))}
+                className={cs(customClass)}
             >
                 {content}
             </a>
            : <button 
                 ref={ref} 
                 onClick={onclick} 
-                className={clsx(customClass.split(" ").map(cls => styles[cls]))}
+                className={cs(customClass)}
             >
                 {content}
             </button>

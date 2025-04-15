@@ -1,0 +1,40 @@
+:root{
+    --bg-navbar: linear-gradient(90deg, #ffe183, #fcc71d);
+    --bg-brand: #00a0ff;
+}
+.seller_wrap{
+}
+.navbar{
+    padding: 14px 0;
+    background: var(--bg-navbar);
+}
+.sub_row{
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.nav_img{
+}
+.sub_col{
+    flex: 0 0 calc(100% / 7);
+    
+}
+.brand{
+    padding: 15px 0;
+    background: var(--bg-brand);
+}
+
+.brand_col{
+    
+}
+
+.hover{
+    transition: all linear 150ms;
+    &:hover {
+        transform: scale(1.02);
+    }
+}
+
+
+
+
