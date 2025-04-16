@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import styles from './Button.module.scss';
-import useStyles from '../../hooks/useStyles';
+import useStyles from '~/hooks/useStyles';
 
 
 const Button = forwardRef(({ content, customClass = '', isLink, onclick}, ref) => {

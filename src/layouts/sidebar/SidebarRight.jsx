@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './SidebarRight.module.scss';
 import { bannerListLeft, bannerListRight } from './_sidebarMenu';
-import Slider from '../../components/slider/Slider';
-import { sliderListImage } from '../../components/slider/_slider';
-import useStyles from '../../hooks/useStyles';
+import Slider from '~/components/slider/Slider';
+import { sliderListImage } from '~/components/slider/_slider';
+import useStyles from '~/hooks/useStyles';
 
 
 function SidebarRight() {

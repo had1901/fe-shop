@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
-import bannerHeader from '../../assets/logo/banner-header.webp'
-import logoHeader from '../../assets/logo/logo-gearvn.svg'
-import logoMobile from '../../assets/logo/logo-mobile.svg'
+import bannerHeader from '~/assets/logo/banner-header.webp'
+import logoHeader from '~/assets/logo/logo-gearvn.svg'
+import logoMobile from '~/assets/logo/logo-mobile.svg'
 import styles from './Header.module.scss';
 
 import { LuMenu } from "react-icons/lu";
@@ -15,11 +15,11 @@ import { FaRegUser } from "react-icons/fa6";
 import { navigateList } from './_navigation';
 // import { menuItems, renderMenuItems } from '../sidebar/_sidebarMenu';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggle } from '../../store/navbar/navbarSlice';
+import { toggle } from '~/store/navbar/navbarSlice';
 import SidebarMenu from './../sidebar/SidebarMenu';
-import { debounce } from '../../utils/debounce/_debounce';
+import { debounce } from '~/utils/debounce/_debounce';
 import { Link } from 'react-router';
-import useStyles from '../../hooks/useStyles';
+import useStyles from '~/hooks/useStyles';
 
 
 console.log(styles)

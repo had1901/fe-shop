@@ -1,12 +1,12 @@
 import React, { useRef } from 'react'
 import styles from './ViewedProduct.module.scss';
-import { useSlider } from '../../hooks/useSlider';
+import { useSlider } from '~/hooks/useSlider';
 import Button from '../button/Button';
-import { useResponsive } from '../../hooks/useResponsive';
+import { useResponsive } from '~/hooks/useResponsive';
 import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa6";
-import { productList } from '../../api/_products';
-import useStyles from '../../hooks/useStyles';
+import { productList } from '~/api/_products';
+import useStyles from '~/hooks/useStyles';
 
 function ViewedProduct({ title }) {
     const btnLeftRef = useRef()

@@ -16,13 +16,13 @@ import { PiGiftLight } from "react-icons/pi";
 // import styles from './SidebarMenu.module.scss';
 import MegaMenu from '../../components/megaMenu/MegaMenu';
 
-import banner1 from "../../assets/banner/b1.webp";
-import banner2 from "../../assets/banner/b2.webp";
-import banner3 from "../../assets/banner/b3.webp";
-import banner4 from "../../assets/banner/b4.webp";
-import banner5 from "../../assets/banner/b5.webp";
-import SellerLaptop from "../../pages/seller/laptop/SellerLaptop";
-import SellerPC from './../../pages/seller/pc/SellerPC';
+import banner1 from "~/assets/banner/b1.webp";
+import banner2 from "~/assets/banner/b2.webp";
+import banner3 from "~/assets/banner/b3.webp";
+import banner4 from "~/assets/banner/b4.webp";
+import banner5 from "~/assets/banner/b5.webp";
+import SellerLaptop from "~/pages/seller/laptop/SellerLaptop";
+import SellerPC from '~/pages/seller/pc/SellerPC';
 import { Link } from "react-router";
 
 export const menuItems = [

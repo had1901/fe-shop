@@ -7,7 +7,7 @@ import { IoCardOutline } from "react-icons/io5";
 import { PiHardDrivesFill } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
 import { FaGripfire } from "react-icons/fa";
-import useStyles from '../../hooks/useStyles';
+import useStyles from '~/hooks/useStyles';
 
 const ProductCard = forwardRef(({ 
   productItem, 

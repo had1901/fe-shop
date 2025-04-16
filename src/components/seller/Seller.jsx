@@ -1,11 +1,11 @@
 import React from 'react'
-import { productList } from '../../api/_products'
-import viewMore from '../../assets/seller/laptop/brand/xem-them.webp'
-import bestSeller from '../../../assets/seller/laptop/brand/best-seller.webp'
+import { productList } from '~/api/_products'
+import viewMore from '~/assets/seller/laptop/brand/xem-them.webp'
+import bestSeller from '~/assets/seller/laptop/brand/best-seller.webp'
 import { Link } from 'react-router'
-import ProductList from '../../../components/productList/ProductList'
-import useStyles from '../../hooks/useStyles'
-import styles from './SellerLaptop.module.scss'
+import ProductList from '~/components/productList/ProductList'
+import useStyles from '~/hooks/useStyles'
+import styles from './Seller.module.scss'
 
 function Seller() {
     const [cs] = useStyles(styles)

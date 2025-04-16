@@ -1,22 +1,22 @@
 
 import styles from './SellerLaptop.module.scss'
-import n1 from '../../../assets/seller/laptop/nav/n1.webp'
-import n2 from '../../../assets/seller/laptop/nav/n2.webp'
-import n3 from '../../../assets/seller/laptop/nav/n3.webp'
-import n4 from '../../../assets/seller/laptop/nav/n4.webp'
+import n1 from '~/assets/seller/laptop/nav/n1.webp'
+import n2 from '~/assets/seller/laptop/nav/n2.webp'
+import n3 from '~/assets/seller/laptop/nav/n3.webp'
+import n4 from '~/assets/seller/laptop/nav/n4.webp'
 
-import s1 from '../../../assets/seller/laptop/sale.webp'
+import s1 from '~/assets/seller/laptop/sale.webp'
 
-import b1 from '../../../assets/seller/laptop/brand/asus.webp'
-import b2 from '../../../assets/seller/laptop/brand/acer.webp'
-import b3 from '../../../assets/seller/laptop/brand/dell.webp'
-import b4 from '../../../assets/seller/laptop/brand/msi.webp'
-import b5 from '../../../assets/seller/laptop/brand/lenovo.webp'
-import b6 from '../../../assets/seller/laptop/brand/hp.webp'
-import b7 from '../../../assets/seller/laptop/brand/lg.webp'
+import b1 from '~/assets/seller/laptop/brand/asus.webp'
+import b2 from '~/assets/seller/laptop/brand/acer.webp'
+import b3 from '~/assets/seller/laptop/brand/dell.webp'
+import b4 from '~/assets/seller/laptop/brand/msi.webp'
+import b5 from '~/assets/seller/laptop/brand/lenovo.webp'
+import b6 from '~/assets/seller/laptop/brand/hp.webp'
+import b7 from '~/assets/seller/laptop/brand/lg.webp'
 
-import useStyles from '../../../hooks/useStyles'
-import Seller from './../../../components/seller/Seller';
+import useStyles from '~/hooks/useStyles'
+import Seller from '~/components/seller/Seller';
 
 const navLaptop = [
     n1,

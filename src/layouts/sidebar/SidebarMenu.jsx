@@ -5,9 +5,9 @@ import { menuItems } from './_sidebarMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router';
 import { TiChevronRight } from "react-icons/ti";
-import MegaMenu from '../../components/megaMenu/MegaMenu';
-import { toggle } from '../../store/navbar/navbarSlice';
-import useStyles from '../../hooks/useStyles';
+import MegaMenu from '~/components/megaMenu/MegaMenu';
+import { toggle } from '~/store/navbar/navbarSlice';
+import useStyles from '~/hooks/useStyles';
 
 
 

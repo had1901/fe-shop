@@ -6,7 +6,7 @@ import styles from './FlashSale.module.scss';
 import { IoIosFlash } from "react-icons/io";
 import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa6";
-import useStyles from '../../hooks/useStyles';
+import useStyles from '~/hooks/useStyles';
 
 function FlashSale() {
     // const [currentIndex, setCurrentIndex] = useState(0)

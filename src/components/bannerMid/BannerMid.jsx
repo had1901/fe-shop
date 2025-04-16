@@ -1,8 +1,8 @@
 import React from 'react'
-import m1 from '../../assets/banner/banner-mid/m1.webp'
-import m2 from '../../assets/banner/banner-mid/m2.webp'
+import m1 from '~/assets/banner/banner-mid/m1.webp'
+import m2 from '~/assets/banner/banner-mid/m2.webp'
 import styles from './BannerMid.module.scss';
-import useStyles from './../../hooks/useStyles';
+import useStyles from '~/hooks/useStyles';
 
 function BannerMid() {
   const [cs] = useStyles(styles)

@@ -1,7 +1,7 @@
 import React from 'react'
 import { newsListSale, newsListTech } from './_news';
 import styles from './News.module.scss';
-import useStyles from '../../hooks/useStyles';
+import useStyles from '~/hooks/useStyles';
 function News() {
     const [cs] = useStyles(styles)
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import Footer from './../../components/footer/Footer';
+import Footer from '~/components/footer/Footer';
 import { Outlet } from 'react-router';
 import Header from '../header/Header';
 import styles from './MainLayout.module.scss'
-import { toggle } from '../../store/navbar/navbarSlice';
+import { toggle } from '~/store/navbar/navbarSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import useStyles from '../../hooks/useStyles';
+import useStyles from '~/hooks/useStyles';
 
 function MainLayout() {
   const [toggleClass, setToggleClass] = useState('')

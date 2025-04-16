@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './MegaMenu.module.scss';
-import useStyles from '../../hooks/useStyles';
+import useStyles from '~/hooks/useStyles';
 
 function MegaMenu({ products }) {
   const [cs] = useStyles(styles)

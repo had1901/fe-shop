@@ -1,13 +1,13 @@
-import slider1 from "../../assets/slide/a1.webp";
-import slider2 from "../../assets/slide/a2.webp";
-import slider3 from "../../assets/slide/a3.webp";
-import slider4 from "../../assets/slide/a4.webp";
-import slider5 from "../../assets/slide/a5.webp";
-import slider6 from "../../assets/slide/a6.webp";
-import slider7 from "../../assets/slide/a7.webp";
-import slider8 from "../../assets/slide/a8.webp";
-import slider9 from "../../assets/slide/a9.webp";
-import slider10 from "../../assets/slide/a10.webp";
+import slider1 from "~/assets/slide/a1.webp";
+import slider2 from "~/assets/slide/a2.webp";
+import slider3 from "~/assets/slide/a3.webp";
+import slider4 from "~/assets/slide/a4.webp";
+import slider5 from "~/assets/slide/a5.webp";
+import slider6 from "~/assets/slide/a6.webp";
+import slider7 from "~/assets/slide/a7.webp";
+import slider8 from "~/assets/slide/a8.webp";
+import slider9 from "~/assets/slide/a9.webp";
+import slider10 from "~/assets/slide/a10.webp";
 
 
 export const sliderListImage = [

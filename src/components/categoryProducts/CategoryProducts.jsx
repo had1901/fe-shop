@@ -1,5 +1,5 @@
-import { categoryProducts } from '../../api/_categoryProducts';
-import useStyles from '../../hooks/useStyles';
+import { categoryProducts } from '~/api/_categoryProducts';
+import useStyles from '~/hooks/useStyles';
 import styles from './CategoryProducts.module.scss';
 
 function CategoryProducts() {
