@@ -5,10 +5,104 @@ import viewed4 from '../assets/viewedProduct/a4.webp'
 
 export const productList = [
     {
+        id: 1,
         title: 'PC bán chạy',
         method: 'Trả góp 0%',
         products: [
             {
+                id: 1,
+                href: '#',
+                name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
+                src: viewed1,
+                price: '3.190.000',
+                priceSale: '2.190.000',
+                salePercent: '31', 
+                ratingCount: 5,
+                category: {
+                    id: 1,
+                    name: '',
+                    slug: '',
+
+                },
+                indexTech: [
+                    'i3 10100F',
+                    'RTX 4060',
+                    'B760',
+                    '16BG',
+                    '1TB',
+                ]
+            },
+            {
+                id: 2,
+                href: '#',
+                name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
+                src: viewed2,
+                price: '3.190.000',
+                priceSale: '2.190.000',
+                salePercent: '31', 
+                ratingCount: 5,
+                category: {
+                    id: 1,
+                    name: '',
+                    slug: '',
+
+                },
+                indexTech: [
+                    'i3 10100F',
+                    'RTX 4060',
+                    'B760',
+                    '16BG',
+                    '1TB',
+                ]
+            },
+            {
+                id: 3,
+                href: '#',
+                name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
+                src: viewed3,
+                price: '3.190.000',
+                priceSale: '2.190.000',
+                salePercent: '31', 
+                ratingCount: 5,
+                category: {
+                    id: 1,
+                    name: '',
+                    slug: '',
+
+                },
+                indexTech: [
+                    'i3 10100F',
+                    'RTX 4060',
+                    'B760',
+                    '16BG',
+                    '1TB',
+                ]
+            },
+            {
+                id: 4,
+                href: '#',
+                name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
+                src: viewed4,
+                price: '3.190.000',
+                priceSale: '2.190.000',
+                salePercent: '31', 
+                ratingCount: 5,
+                category: {
+                    id: 1,
+                    name: '',
+                    slug: '',
+
+                },
+                indexTech: [
+                    'i3 10100F',
+                    'RTX 4060',
+                    'B760',
+                    '16BG',
+                    '1TB',
+                ]
+            },
+            {
+                id: 5,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -25,6 +119,24 @@ export const productList = [
                 ]
             },
             {
+                id: 6,
+                href: '#',
+                name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
+                src: viewed1,
+                price: '3.190.000',
+                priceSale: '2.190.000',
+                salePercent: '31', 
+                ratingCount: 5,
+                indexTech: [
+                    'i3 10100F',
+                    'RTX 4060',
+                    'B760',
+                    '16BG',
+                    '1TB',
+                ]
+            },
+            {
+                id: 7,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -41,6 +153,7 @@ export const productList = [
                 ]
             },
             {
+                id: 8,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -57,6 +170,7 @@ export const productList = [
                 ]
             },
             {
+                id: 9,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -73,86 +187,7 @@ export const productList = [
                 ]
             },
             {
-                href: '#',
-                name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
-                src: viewed1,
-                price: '3.190.000',
-                priceSale: '2.190.000',
-                salePercent: '31', 
-                ratingCount: 5,
-                indexTech: [
-                    'i3 10100F',
-                    'RTX 4060',
-                    'B760',
-                    '16BG',
-                    '1TB',
-                ]
-            },
-            {
-                href: '#',
-                name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
-                src: viewed1,
-                price: '3.190.000',
-                priceSale: '2.190.000',
-                salePercent: '31', 
-                ratingCount: 5,
-                indexTech: [
-                    'i3 10100F',
-                    'RTX 4060',
-                    'B760',
-                    '16BG',
-                    '1TB',
-                ]
-            },
-            {
-                href: '#',
-                name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
-                src: viewed2,
-                price: '3.190.000',
-                priceSale: '2.190.000',
-                salePercent: '31', 
-                ratingCount: 5,
-                indexTech: [
-                    'i3 10100F',
-                    'RTX 4060',
-                    'B760',
-                    '16BG',
-                    '1TB',
-                ]
-            },
-            {
-                href: '#',
-                name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
-                src: viewed3,
-                price: '3.190.000',
-                priceSale: '2.190.000',
-                salePercent: '31', 
-                ratingCount: 5,
-                indexTech: [
-                    'i3 10100F',
-                    'RTX 4060',
-                    'B760',
-                    '16BG',
-                    '1TB',
-                ]
-            },
-            {
-                href: '#',
-                name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
-                src: viewed4,
-                price: '3.190.000',
-                priceSale: '2.190.000',
-                salePercent: '31', 
-                ratingCount: 5,
-                indexTech: [
-                    'i3 10100F',
-                    'RTX 4060',
-                    'B760',
-                    '16BG',
-                    '1TB',
-                ]
-            },
-            {
+                id: 10,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -181,10 +216,12 @@ export const productList = [
         ]
     },
     {
+        id: 2,
         title: 'Laptop gaming bán chạy',
         method: 'Miễn phí giao hàng',
         products: [
             {
+                id: 1,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -195,6 +232,7 @@ export const productList = [
         
             },
             {
+                id: 2,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -204,6 +242,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 3,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -213,6 +252,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 4,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -222,6 +262,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 5,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -231,6 +272,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 6,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -240,6 +282,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 7,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -249,6 +292,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 8,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -258,6 +302,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 9,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -267,6 +312,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 10,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -286,10 +332,12 @@ export const productList = [
         ]
     },
     {
+        id: 3,
         title: 'Laptop văn phòng bán chạy',
         method: 'Miễn phí giao hàng',
         products: [
             {
+                id: 1,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -300,6 +348,7 @@ export const productList = [
         
             },
             {
+                id: 2,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -309,6 +358,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 3,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -318,6 +368,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 4,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -327,6 +378,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 5,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -336,6 +388,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 6,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -345,6 +398,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 7,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -354,6 +408,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 8,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -363,6 +418,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 9,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -372,6 +428,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 10,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -391,10 +448,12 @@ export const productList = [
         ]
     },
     {
+        id: 4,
         title: 'Chuột bán chạy',
         method: 'Giao hàng toàn quốc',
         products: [
             {
+                id: 1,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -405,6 +464,7 @@ export const productList = [
         
             },
             {
+                id: 2,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -414,6 +474,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 3,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -423,6 +484,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 4,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -432,6 +494,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 5,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -441,6 +504,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 6,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -450,6 +514,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 7,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -459,6 +524,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 8,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -468,6 +534,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 9,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -477,6 +544,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 10,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -496,10 +564,12 @@ export const productList = [
         ]
     },
     {
+        id: 5,
         title: 'Bàn phím bán chạy',
         method: 'Giao hàng toàn quốc',
         products: [
             {
+                id: 1,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -510,6 +580,7 @@ export const productList = [
         
             },
             {
+                id: 2,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -519,6 +590,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 3,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -528,6 +600,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 4,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -537,6 +610,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 5,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -546,6 +620,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 6,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -555,6 +630,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 7,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -564,6 +640,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 8,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -573,6 +650,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 9,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -582,6 +660,7 @@ export const productList = [
                 ratingCount: 5,
             },
             {
+                id: 10,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -601,10 +680,12 @@ export const productList = [
         ]
     },
     {
+        id: 6,
         title: 'Màn hình bán chạy',
         method: 'Bảo hành 1 đổi 1',
         products: [
             {
+                id: 1,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -612,9 +693,15 @@ export const productList = [
                 priceSale: '2.190.000',
                 salePercent: '31', 
                 ratingCount: 5,
+                category: {
+                    id: 1,
+                    name: 'Chuột máy tính',
+                    slug: 'chuot-may-tinh',
+                }
         
             },
             {
+                id: 2,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -622,8 +709,14 @@ export const productList = [
                 priceSale: '2.190.000',
                 salePercent: '31', 
                 ratingCount: 5,
+                category: {
+                    id: 2,
+                    name: 'Màn hình máy tính',
+                    slug: 'man-hinh-may-tinh',
+                }
             },
             {
+                id: 3,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -631,8 +724,14 @@ export const productList = [
                 priceSale: '2.190.000',
                 salePercent: '31', 
                 ratingCount: 5,
+                category: {
+                    id: 3,
+                    name: 'Màn hình máy tính',
+                    slug: 'man-hinh-may-tinh',
+                }
             },
             {
+                id: 4,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -640,8 +739,14 @@ export const productList = [
                 priceSale: '2.190.000',
                 salePercent: '31', 
                 ratingCount: 5,
+                category: {
+                    id: 4,
+                    name: 'Màn hình máy tính',
+                    slug: 'man-hinh-may-tinh',
+                }
             },
             {
+                id: 5,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -649,8 +754,14 @@ export const productList = [
                 priceSale: '2.190.000',
                 salePercent: '31', 
                 ratingCount: 5,
+                category: {
+                    id: 5,
+                    name: 'Chuột máy tính',
+                    slug: 'chuot-may-tinh',
+                }
             },
             {
+                id: 6,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -658,8 +769,14 @@ export const productList = [
                 priceSale: '2.190.000',
                 salePercent: '31', 
                 ratingCount: 5,
+                category: {
+                    id: 6,
+                    name: 'Chuột máy tính',
+                    slug: 'chuot-may-tinh',
+                }
             },
             {
+                id: 7,
                 href: '#',
                 name: 'Màn hình ASUS ROG Strix XG27AQMR 27" IPS 2K 300Hz 1ms G-Sync',
                 src: viewed2,
@@ -667,8 +784,14 @@ export const productList = [
                 priceSale: '2.190.000',
                 salePercent: '31', 
                 ratingCount: 5,
+                category: {
+                    id: 7,
+                    name: 'Màn hình máy tính',
+                    slug: 'man-hinh-may-tinh',
+                }
             },
             {
+                id: 8,
                 href: '#',
                 name: 'Màn hình Acer KG270-X1 27" IPS 200Hz Gsync chuyên game',
                 src: viewed3,
@@ -676,8 +799,14 @@ export const productList = [
                 priceSale: '2.190.000',
                 salePercent: '31', 
                 ratingCount: 5,
+                category: {
+                    id: 8,
+                    name: 'Màn hình máy tính',
+                    slug: 'man-hinh-may-tinh',
+                }
             },
             {
+                id: 9,
                 href: '#',
                 name: 'Màn hình Viewsonic VA2432-H 24" IPS 100Hz viền mỏng',
                 src: viewed4,
@@ -685,8 +814,14 @@ export const productList = [
                 priceSale: '2.190.000',
                 salePercent: '31', 
                 ratingCount: 5,
+                category: {
+                    id: 9,
+                    name: 'Màn hình máy tính',
+                    slug: 'man-hinh-may-tinh',
+                }
             },
             {
+                id: 10,
                 href: '#',
                 name: 'Chuột Steelseries Aerox 3 Wireless Onyx',
                 src: viewed1,
@@ -694,6 +829,11 @@ export const productList = [
                 priceSale: '2.190.000',
                 salePercent: '31', 
                 ratingCount: 5,
+                category: {
+                    id: 10,
+                    name: 'Chuột máy tính',
+                    slug: 'chuot-may-tinh',
+                }
             },
         ],
         brands: [

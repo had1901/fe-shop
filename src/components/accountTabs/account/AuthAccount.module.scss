@@ -1,0 +1,69 @@
+.account{
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    min-height: 450px;
+
+}
+.title{
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 20px;
+}
+.form-information{
+    // padding: ;
+}
+.input-form{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.input-label{
+    flex: 0 0 26%;
+    display: inline-block;
+    max-width: 26%;
+    font-size: 18px;
+    text-align: right;
+}
+.input-field{
+    font-size: 16px;
+    flex: 0 0 50%;
+    max-width: 50%;
+    height: 36px;
+    margin-left: 30px;
+    padding: 6px 8px;
+}
+.gender-radio{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-left: 30px;
+}
+.gender-group{
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.select-form{
+    min-width: 100px;
+    height: 40px;
+    border: 1px solid #adadadc2;
+    margin-left: 30px;
+    padding: 3px 6px;
+}
+.label-gender{
+    font-size: 18px;
+}
+.submit-btn{
+    position: relative;
+    display: inline-block;
+    padding: 10px 28px;
+    line-height: normal;
+    font-size: 14px;
+    font-weight: 500;
+    text-align: center;
+    color: #fff;
+    background-color: #E30019;
+    border: 1px solid #E30019;
+    border-radius: 4px;
+}

@@ -20,28 +20,47 @@ import SidebarMenu from './../sidebar/SidebarMenu';
 import { debounce } from '~/utils/debounce/_debounce';
 import { Link } from 'react-router';
 import useStyles from '~/hooks/useStyles';
+import { open } from '../../store/navbar/formLoginSlice';
+import FormModal from '../../components/form/FormModal';
+import { PiHandWaving } from 'react-icons/pi';
+import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
+import { MdOutlineLogout } from 'react-icons/md';
+import useAxios from './../../hooks/userAxios';
+import usePost from '../../hooks/usePost.js';
+import { logout, setUser } from '../../store/auth/authSlice.js';
 
-
-console.log(styles)
+const emptyPayload = {}
 
 function Header() {
   const categoryRef = useRef()
   const [fixedClass, setFixedClass] = useState('')
   const state = useSelector(state => state.navbar.isToggle)
+  const isOpen = useSelector(state => state.formLogin.isOpen)
+  const user = useSelector(state => state.auth.info)
   const dispatch = useDispatch()
-  const [cs] = useStyles(styles)
+  const [cs] = useStyles(styles)  
+  const { data, loading, postData, error } = usePost()
 
   const handleToggleNavbar = debounce(() => {
     dispatch(toggle())
   }, 200)
 
-    useEffect(() => {
-      if(state) {
-        setFixedClass('fixed_block')
-      } else {
-        setFixedClass('fixed_none')
-      }
-    },[state])
+  const openForm = () => {
+    dispatch(open())
+  }
+
+  const handleLogout = () => {
+    postData('/auth/logout', {})
+    dispatch(logout())
+  }
+
+  useEffect(() => {
+    if(state) {
+      setFixedClass('fixed_block')
+    } else {
+      setFixedClass('fixed_none')
+    }
+  },[state])
   return (
     <>
             <div className={cs('headerBanner')}>
@@ -101,32 +120,82 @@ function Header() {
                             </a>
                           </div>
                           <div className=''>
-                            <a href='#' className={cs('navbarText')}>
+                            <Link to='cart' className={cs('navbarText')}>
                                 <span className={cs('iconSize')}><BsCartCheck /></span>
                                 <div className={cs('wrapText')}>
                                   <span>Giỏ</span>
                                   <span>hàng</span>
                                 </div>
-                            </a>
+                            </Link>
                           </div>
-                          <div className={cs('bgColorLogin')}>
-                            <a href='#' className={cs('navbarText')}>
-                                <span className={cs('iconSize')}><FaRegUser /></span>
-                                <div className={cs('wrapText')}>
-                                  <span>Đăng</span>
-                                  <span>nhập</span>
-                                </div>
-                            </a>
+                          <div className={cs('bgColorLogin')} onClick={openForm}>
+                            {user && user.username 
+                              ?
+                              <div className={cs('navbarText user-info')}>
+                                  <span className={cs('iconSize')}><FaRegUser /></span>
+                                  <div className={cs('text-user')}>
+                                      <span>{`Xin chào, ${user.username}`}</span>
+                                  </div>
+                                  <div className={cs('dropdown-model-user')}>
+                                    <ul className={cs('dropdown-model-user-list')}>
+                                      <li className={cs('dropdown-model-user-item')}>
+                                        <Link to='/auth/account'>
+                                            <span className={cs('dropdown-model-user-link')}>
+                                              <PiHandWaving />
+                                              <span>{`Xin chào, ${user.username}`}</span>
+                                            </span>
+                                        </Link>
+                                      </li>
+                                      <li className={cs('dropdown-model-user-item')}>
+                                        <Link to='/auth/account/orders-history'>
+                                          <span className={cs('dropdown-model-user-link')}>
+                                            <HiOutlineClipboardDocumentList />
+                                            <span>Đơn hàng của tôi</span>
+                                          </span>
+
+                                        </Link>
+                                      </li>
+                                      {/* <li className={cs('dropdown-model-user-item')}>
+                                        <Link to='/logout'>
+                                          <span className={cs('dropdown-model-user-link')}>
+                                            <MdOutlineLogout />
+                                            <span>Đã xem gần đây</span>
+                                          </span>
+
+                                        </Link>
+                                      </li> */}
+                                      <li className={cs('dropdown-model-user-item')} onClick={handleLogout}>
+                                        <a href='#' >
+                                          <span className={cs('dropdown-model-user-link')}>
+                                            <MdOutlineLogout />
+                                            <span>Đăng xuất</span>
+                                          </span>
+
+                                        </a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                              </div>
+                              :
+                              <Link to='/auth' className={cs('navbarText')}>
+                                  <span className={cs('iconSize')}><FaRegUser /></span>
+                                  <div className={cs('wrapText')}>
+                                      <span>Đăng</span>
+                                      <span>nhập</span>
+                                  </div>
+                              </Link>
+                            }
+                            
                           </div>
                        </div>
                        <div className={cs('cart_mb')}>
-                            <a href='#' className={cs('navbarText')}>
+                            <Link href='#' className={cs('navbarText')}>
                                 <span className={cs('iconSize')}><BsCartCheck /></span>
                                 <div className={cs('wrapText')}>
                                   <span>Giỏ</span>
                                   <span>hàng</span>
                                 </div>
-                            </a>
+                            </Link>
                         </div>
                         <SidebarMenu fixedClass={fixedClass} />
                     </div>
@@ -154,6 +223,7 @@ function Header() {
                     </ul>
                 </div>
             </div>
+
     </>
   )
 }

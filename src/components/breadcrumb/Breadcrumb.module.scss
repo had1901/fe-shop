@@ -1,0 +1,27 @@
+.breadcrumb-navigate{
+    padding: 16px 0;
+}
+.img-nav{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+}
+.breadcrumb-link{
+    color: #1250dc;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+.breadcrumb-link-sub{
+    font-weight: 400;
+    color: #6D6E72;
+    font-size: 14px;
+}
+.breadcrumb-link-home{
+    color: #1250dc;
+
+}
+
+.breadcrumb-link-home{
+    font-size: 20px;
+}

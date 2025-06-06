@@ -1,8 +1,10 @@
 import React from 'react'
+import FormModal from '../../components/form/FormModal'
 
 function Register() {
+
   return (
-    <div>Register</div>
+      <FormModal />
   )
 }
 

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { Fragment } from 'react'
 import { NavLink, Link } from "react-router"
 import styles from './Home.module.scss';
 import clsx from "clsx";
@@ -16,7 +16,6 @@ import SidebarRight from '../../layouts/Sidebar/SidebarRight';
 import News from '../../components/news/News';
 
 function HomePage() {
-
   return (
       <main className={clsx(styles.app)}>
             <div className={clsx(styles.app_main)}>
@@ -24,6 +23,7 @@ function HomePage() {
                   <div className={clsx(styles.wrapper_feature , 'row')}>
                     <SidebarMenu></SidebarMenu>
                     <SidebarRight></SidebarRight>
+
                   </div>
                   <div className={clsx(styles.bannerList, 'row')}>
                     <BannerSale bannerList={bannerListBottom}/>
@@ -31,8 +31,8 @@ function HomePage() {
                   <ViewedProduct title='Sản phẩm đã xem' />
                   <FlashSale />
                   <BannerMid />
-                  {productList.map((products, index) => (
-                    <ProductList key={index} products={products} numberDisplay={5} title='PC bán chạy' method='Trả góp 0%'/>
+                  {productList.map((item) => (
+                    <ProductList key={item.id} productList={item} numberDisplay={5} title='PC bán chạy' method='Trả góp 0%'/>
                   ))}
                   <BannerDisplay />  
                   <CategoryProducts />

@@ -21,8 +21,8 @@ function Seller() {
                     <ul className={cs('product_listing')}>
                         {productList.slice(0,1).map((products, index) => (
                             <ProductList 
-                                key={index} 
-                                products={products} 
+                                key={products.title} 
+                                productList={products} 
                                 numberDisplay={6}
                                 noHeading
                             />

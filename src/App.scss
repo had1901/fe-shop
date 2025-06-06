@@ -38,8 +38,8 @@ $grid-gutter: 20px;
 .row{
     display: flex;
     flex-wrap: wrap;
-    margin-left: calc(var(--grid-gutter-x) * 0.5 * -1);
-    margin-right: calc(var(--grid-gutter-x) * 0.5 * -1);
+    margin-left: calc(($grid-gutter) * 0.5 * -1);
+    margin-right: calc(($grid-gutter) * 0.5 * -1);
     margin-top: calc(var(--grid-gutter-y) - 1) ;
 
      > * {
@@ -146,4 +146,7 @@ $gutters: (
             display: none;
         }
     }
+}
+.toast{
+    color: red;
 }

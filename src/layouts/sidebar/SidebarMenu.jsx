@@ -51,11 +51,8 @@ function SidebarMenu(props) {
   useLayoutEffect(() => {
     if(navbarRef.current) {
       document.documentElement.style.setProperty('--height-navbar', `${height}px`)
-      console.log('co')
     } else {
       document.documentElement.style.setProperty('--height-navbar', `auto`)
-      console.log('koo')
-
     }
   },[height])
 

@@ -4,6 +4,7 @@ $main-width: 1200px;
 $bg-white: #fff;
 
 
+
 .headerBanner{
     background-color: black;
     min-height: 52px;
@@ -137,9 +138,10 @@ $bg-white: #fff;
     text-decoration: none;
     font-size: 13px;
     font-weight: 600;
+    padding: 4px 6px;
 }
 
-.wrapText{
+.text-user{
     height: 100%;
     text-align: left;
     display: flex;
@@ -149,8 +151,24 @@ $bg-white: #fff;
     line-height: 16px;
     white-space: nowrap;
 }
+.user-info{
+    position: relative;
+}
+.user-info::after{
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 30px;
+    left: 0;
+    top: 96%;
+    background: transparent;
+}
+.user-info:hover .dropdown-model-user{
+    opacity: 1;
+    visibility: visible;
+}
 .bgColorLogin{
-    width: 90px; 
+    width: auto; 
     height: 42px;
     border-radius: 6px;
     background-color: $category-color;
@@ -173,7 +191,8 @@ $bg-white: #fff;
         
         position: relative;
         cursor: pointer;
-
+        flex: 1;
+        
         &::after{
             content: '';
             position: absolute;
@@ -362,4 +381,34 @@ $bg-white: #fff;
     right: 0;
     z-index: 99;
     transition: all 2s ease-in;
+}
+
+.user-info{
+    position: relative;
+    cursor: pointer;
+}
+.dropdown-model-user{
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    min-width: 300px;
+    top: 134%;
+    right: 0;
+    background: #fff;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0px 2px 6px rgba(193, 193, 193, 0.25);
+    transition: all 0.2s linear;
+}
+.dropdown-model-user-item{
+    padding: 14px 0;
+}
+.dropdown-model-user-link{
+    display: flex; 
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+}
+.dropdown-model-user-link:hover span{
+    text-decoration: underline;
 }

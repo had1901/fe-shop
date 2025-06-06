@@ -1,0 +1,64 @@
+.sale{
+    border: 1px solid #FFD9D9;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+.sale strong {
+    color: #E30019;
+    font-weight: 600;
+}
+.box-header{
+    // height: 42px;
+    background: #FFD9D9;
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+}
+.gift-icon{
+
+}
+.box-header h2{
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+    color: #E30019;
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+.gift-promo-list{
+    padding: 6px 0;
+}
+.list-highlight{
+    counter-reset: section;
+}
+.highlight-item{
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding: 6px 24px;
+}
+.highlight-item::before{
+    counter-increment: section;
+    align-self: flex-start;
+    content: counter(section);
+    border-radius: 50%;
+    height: 16px;
+    width: 16px;
+    text-align: center;
+    display: inline-block;
+    background: #E30019;
+    color: #fff;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    margin-right: 12px;
+    margin-top: 3px;
+}
+.highlight-link{
+    font-size: 14px;
+    line-height: 1.6;
+    width: calc(100% - 32px);
+    display: inline-block;
+    color: #111111;
+}
