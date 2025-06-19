@@ -11,7 +11,7 @@ function MainLayout() {
   const [toggleClass, setToggleClass] = useState('')
     const state = useSelector(state => state.navbar.isToggle)
     const dispatch = useDispatch()
-    const [cs] = useStyles(styles)
+    const cs = useStyles(styles)
   
     const handleToggleNavbar = (e) => {
       e.preventDefault()

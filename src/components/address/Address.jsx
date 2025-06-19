@@ -3,7 +3,7 @@ import useStyles from '../../hooks/useStyles'
 import styles from './Address.module.scss'
 
 function Address({ place, placeList }) {
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
   return (
     <div className={cs('address')}>
         <h3 className={cs('title')}>Showroom {place}</h3>

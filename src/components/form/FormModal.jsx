@@ -4,24 +4,23 @@ import { useDispatch, useSelector } from 'react-redux'
 import styles from './FormModel.module.scss';
 import useStyles from '../../hooks/useStyles';
 import { close } from '../../store/navbar/formLoginSlice';
-import axios from 'axios';
-import { Link, useLocation, useNavigate, useParams } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import axiosApi from '../../services/axios';
 import { setUser } from '../../store/auth/authSlice';
-
+import { GoogleLogin } from '@react-oauth/google';
+import { CgLayoutGrid } from 'react-icons/cg';
 
 function FormModal({ isLogin }) {
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
   const dispatch = useDispatch()
   const state = useSelector(state => state.auth)
   const navigate = useNavigate()
-  console.log('info', state)
 
 
     const submitFormLogin = async values => {                                                       
         try{
-          const result = await toast.promise(
+          const user = await toast.promise(
             axiosApi.post('auth/login', values),
             {
               pending: 'Đang đăng nhập...',
@@ -29,11 +28,10 @@ function FormModal({ isLogin }) {
               error: 'Lỗi đăng nhập'
             }
           )
-          dispatch(setUser(result.data.dt))
-          localStorage.setItem('_infoClient', JSON.stringify(result.data.dt))
-          // const result = await axios.post('auth/login', values)
+          dispatch(setUser(user.dt))
+          localStorage.setItem('_infoClient', JSON.stringify(user.dt))
+          // await axiosApi.post('/create-cart', user.dt)
           navigate('/')
-          console.log('result-login', result)
         } catch(e) {
           console.log(e)
         }
@@ -76,10 +74,22 @@ function FormModal({ isLogin }) {
       dispatch(close())
     }
 
+    const handleLoginGoogle = async (credentialResponse) => {
+      const { credential } = credentialResponse
+      const res = await axiosApi.post('auth/google-login', {token: credential})
+      dispatch(setUser({
+        username: res.dt.name,
+        ...res.dt
+      }))
+      navigate('/')
+      console.log('res-decode', res)
+    }
+
     const validateMessages = {
       required: `Vui lòng nhập ${name}!`,
       // ...
     }
+
     if(isLogin) {
       return (
         <Form
@@ -129,8 +139,18 @@ function FormModal({ isLogin }) {
         </div>
     
         <div className={cs('close')} onClick={closeForm}>X</div>
+        <div className={cs('google-box')}>
+          <GoogleLogin 
+            onSuccess={handleLoginGoogle} 
+            onError={() => console.log('Fail login gg')}
+            auto_select='false'
+            ux_mode="popup"
+            prompt="select_account"
+          >
+          </GoogleLogin>
+        </div>
       </Form>
-    
+      
       )
     } else {
       return (
@@ -203,7 +223,7 @@ function FormModal({ isLogin }) {
       
           <div className={cs('close')} onClick={closeForm}>X</div>
         </Form>
-       
+        
         </>
       )
     }

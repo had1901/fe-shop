@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router'
 import { MdHome } from 'react-icons/md'
 
 function Breadcrumb({product}) {
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
   const location = useLocation()
   const pathnames = location.pathname.split('/').filter(path => path)
 

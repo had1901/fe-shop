@@ -4,7 +4,7 @@ import useStyles from '~/hooks/useStyles';
 
 
 const Button = forwardRef(({ content, customClass = '', isLink, onclick}, ref) => {
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
 
   return (
     <>

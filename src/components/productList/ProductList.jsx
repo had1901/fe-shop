@@ -6,26 +6,29 @@ import { FaChevronLeft, FaChevronRight } from 'react-icons/fa6';
 import { MdLocalShipping } from "react-icons/md";
 import useStyles from '../../hooks/useStyles';
 import { CgLayoutGrid } from 'react-icons/cg';
+import { useSlider } from '~/hooks/useSlider';
 
 
 
-function ProductList({ productList, numberDisplay, noHeading }) {
+function ProductList({ products, title, numberDisplay, noHeading }) {
   const cardRef = useRef()
-  // const {trackRef, prevSlide, nextSlide} = useSlider(products.length, numberDisplay)
-  const [ cs ] = useStyles(styles)
+  const {trackRef, prevSlide, nextSlide} = useSlider(3, numberDisplay)
+  const cs = useStyles(styles)
+
+  
   return (
     <section className={cs('product_list')}>
       <div className={cs('content')}>
         <div className={cs('header')} hidden={noHeading ? true : false}>
           <div className={cs('top')} >
-            <h3 className={cs('heading')}>{productList?.title}</h3>
+            <h3 className={cs('heading')}>{title}</h3>
             <span className={cs('pay_method')}>
               <i className={cs('icon')}><MdLocalShipping /></i>
-              <span className={cs('text')}>{productList?.method}</span>
+              <span className={cs('text')}>{products?.method}</span>
             </span>
           </div>
-          <ul className={cs('pc_list')}>
-            {productList.brands.map((brand) => (
+          {/* <ul className={cs('pc_list')}>
+            {productList.map((brand) => (
               <li key={brand} className={cs('pc_item')}>
                 <a href='#' className={cs('pc_item_link')}>{brand}</a>
               </li>
@@ -34,24 +37,22 @@ function ProductList({ productList, numberDisplay, noHeading }) {
               <li className={cs('pc_item')}>
                 <a href='#' className={cs('pc_item_link')}>Xem tất cả</a>
               </li>
-          </ul>
+          </ul> */}
         </div>
         <div className={cs('sliders')}>
-          <div  className={cs('slider_track')}>
-              {
-                productList.products.map((product) => (
-                  <ProductCard 
-                    key={product.id} 
+          <div ref={trackRef}  className={cs('slider_track')}>
+            {products.length && products.map(item => (
+              <ProductCard 
+                    key={item.id} 
                     ref={cardRef} 
-                    productItem={product} 
+                    productItem={item} 
                     columnValue={numberDisplay} 
                     hasTechnical 
                     hasLabelTop 
                   />
-                ))
-              }
-              <Button content={<FaChevronLeft/>} customClass='btn-slider btn-left-products' />
-              <Button content={<FaChevronRight/>} customClass='btn-slider btn-right-products' />
+            ))}
+            <Button onclick={prevSlide} content={<FaChevronLeft/>} customClass='btn-slider btn-left-products' />
+            <Button onclick={nextSlide} content={<FaChevronRight/>} customClass='btn-slider btn-right-products' />
           </div>
         </div>
       </div>

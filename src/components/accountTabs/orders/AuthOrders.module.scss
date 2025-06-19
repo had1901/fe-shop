@@ -1,5 +1,92 @@
+
+.orders{
+    // background: #fff;
+    
+}
 .title{
-    font-size: 24px;
-    font-weight: 600;
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
     padding: 20px;
+
+}
+.action-tab-list{
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.action-tab-item{
+    text-align: center;
+    font-size: 18px;
+    padding: 10px 0;
+    flex: 1;
+    cursor: pointer;
+}
+.action-tab-after{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    height: 3px;
+    background: #e30119;
+    transition: transform 0.3s ease;
+}
+.underline{
+    height: 2px;
+    background-color: red;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+}
+
+
+.search-order{
+    padding: 20px 0;
+    background: #ececec;
+}
+.box-search-order{
+    position: relative;
+}
+.inner-search-order{
+    position: relative;
+}
+.search-order-input{
+    background: #fff;
+    padding: 0 0 0 28px;
+    font-size: 16px;
+    border: 0;
+    background: #fff;
+    outline: none;
+    width: 100%;
+    height: 40px;
+}
+.search-order-icon{
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+.search-order-text{
+    position: absolute;
+    font-size: 14px;
+    color: #1982F9;
+    right: 0;
+    top: 50%;
+    height: 100%;
+    line-height: 40px;
+    padding: 0 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.search-order-text::before{
+    display: block;
+    position: absolute;
+    content: '';
+    height: 60%;
+    width: 2px;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ccc;
 }

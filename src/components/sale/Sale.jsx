@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 import { IoGiftSharp } from 'react-icons/io5'
 
 function Sale({ title, headerColor, listSale, isIconGift }) {
-    const [cs] = useStyles(styles)
+    const cs = useStyles(styles)
   return (
     <div className={cs('sale')} style={{borderColor: headerColor ? "#CFCFCF" : ''}}>
         <header className={cs('box-header')} style={{background: headerColor ? headerColor : ''}} >

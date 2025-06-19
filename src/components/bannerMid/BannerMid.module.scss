@@ -4,6 +4,22 @@
     gap: 10px;
     margin-top: 14px;
 }
+.banner_mid_wrap > * {
+    width: 100%;
+}
 .banner_mid_img{
     width: 100%;
+}
+
+@media (min-width: 740px) and (max-width: 991px) {
+    
+}
+
+@media (min-width: 576px) and (max-width: 739px) {
+   
+}
+@media (max-width: 575px) {
+    .banner_mid_wrap{
+        flex-wrap: wrap;
+    }
 }

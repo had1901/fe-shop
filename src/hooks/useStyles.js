@@ -17,7 +17,7 @@ const useStyles = (styles) => {
         return result.join(' ')
       }
 
-    return [cs]
+    return cs
 }
 
 export default useStyles

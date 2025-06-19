@@ -3,7 +3,7 @@ import styles from './BannerSale.module.scss';
 import useStyles from '~/hooks/useStyles';
 
 function BannerSale({ bannerList }) {
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
   
   return (
     <Fragment>

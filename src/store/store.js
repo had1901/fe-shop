@@ -4,6 +4,7 @@ import navbarReducer from "./navbar/navbarSlice";
 import formLoginReducer from "./navbar/formLoginSlice";
 import authReducer from "./auth/authSlice";
 import productReducer from './product/productSlice';
+import cartReducer from './cart/cartSlice';
 
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' 
@@ -11,14 +12,15 @@ import storage from 'redux-persist/lib/storage'
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['auth', 'product'] // only navigation will be persisted
+    // whitelist: ['auth', 'product', 'cart'] // only navigation will be persisted
   }
 
   const rootReducer = combineReducers({
         navbar: navbarReducer,
         formLogin: formLoginReducer,
         auth: authReducer,
-        product: productReducer
+        product: productReducer,
+        cart: cartReducer,
   })
   const persistedReducer = persistReducer(persistConfig, rootReducer)
 
@@ -27,3 +29,4 @@ export const store = configureStore({
 })
 
 export const persistor = persistStore(store)
+persistor.purge()

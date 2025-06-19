@@ -1,17 +1,18 @@
 .account{
-    background: #fff;
+    // background: #fff;
     border-radius: 6px;
-    padding: 20px;
     min-height: 450px;
 
 }
 .title{
-    font-size: 24px;
-    font-weight: bold;
-    padding-bottom: 20px;
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: uppercase;
+    padding: 20px;
+
 }
 .form-information{
-    // padding: ;
+    padding: 20px 20px 0 ;
 }
 .input-form{
     display: flex;
@@ -22,7 +23,7 @@
     flex: 0 0 26%;
     display: inline-block;
     max-width: 26%;
-    font-size: 18px;
+    font-size: 16px;
     text-align: right;
 }
 .input-field{
@@ -52,7 +53,7 @@
     padding: 3px 6px;
 }
 .label-gender{
-    font-size: 18px;
+    font-size: 15px;
 }
 .submit-btn{
     position: relative;

@@ -5,17 +5,17 @@ import Button from '../button/Button';
 import { useResponsive } from '~/hooks/useResponsive';
 import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa6";
-import { productList } from '~/api/_products';
 import useStyles from '~/hooks/useStyles';
+import { computerList } from '~/api/_products';
+import { convertPrice } from '../../utils/convertString/_convertPrice';
 
 function ViewedProduct({ title }) {
     const btnLeftRef = useRef()
     const btnRightRef = useRef()
     const itemRefs = useRef([])
-    // console.log(productList)
     const numDisplay = useResponsive()
-    const {trackRef, prevSlide, nextSlide} = useSlider(productList.length, numDisplay)
-    const [cs] = useStyles(styles)
+    const {trackRef, prevSlide, nextSlide, percent} = useSlider(computerList.length, numDisplay)
+    const cs = useStyles(styles)
 
   return (
     <div className={cs('viewedProduct')}>
@@ -24,19 +24,19 @@ function ViewedProduct({ title }) {
         </div>
         <div className={cs('productListWrap')}>
             <ul ref={trackRef} className={cs('productList')}>
-                {productList.length && productList.map((item, index) => (
-                    <li key={index} ref={(el) => itemRefs.current.push(el)} className={cs('productItem')} >
-                        <a href={item.products.href} className={cs('productLink')}>
+                {computerList.length && computerList.map((item, index) => (
+                    <li key={index} ref={(el) => itemRefs.current.push(el)} className={cs('productItem')} style={{ width: `${percent}%`}}>
+                        <a href={item.href} className={cs('productLink')}>
                             <div className={cs('productLinkWrap')}>
                                 <div className={cs('productWrapImg')}>
-                                    <img src={item.products.src} className={cs('productImg')}/>
+                                    <img src={item.src} className={cs('productImg')}/>
                                 </div>
                                 <div className={cs('productInfo')}>
-                                    <h3 className={cs('productHeading')}>{item.products.name}</h3>
-                                    <del className={cs('productPriceDefault')}>{item.products.price}</del>
+                                    <h3 className={cs('productHeading')}>{item.name}</h3>
+                                    <del className={cs('productPriceDefault')}>{convertPrice(item.price)}</del>
                                     <div className={cs('productPriceSale')}>
-                                        <span className={cs('priceSale')}>{item.products.priceSale}</span>
-                                        <span className={cs('percentSale')}>{`-${item.products.salePercent}%`}</span>
+                                        <span className={cs('priceSale')}>{convertPrice(item.priceSale)}</span>
+                                        <span className={cs('percentSale')}>{`-${item.salePercent}%`}</span>
                                     </div>
                                 </div>
                             </div>

@@ -102,19 +102,19 @@ $bg-white: #fff;
 }
 .option_wrap{
     display: flex;
-    align-items: center;
+    // align-items: center;
     gap: 10px;
 }
 .logo_mobile{
     display: none;
 }
-.iconSize{
+.icon-size{
     width: 36px;
     height: 100%;
     font-size: 22px;
     text-align: center;
 }
-.iconSize > svg {
+.icon-size > svg {
     height: inherit;
 }
 .logoHeader{
@@ -130,15 +130,16 @@ $bg-white: #fff;
 
     
 }
-.navbarText{
-    height: 100%;
+.navbar-text-link{
+    // height: 100%;
     display: flex;
+    flex: 1;
     align-items: center;
     color: $bg-white;
     text-decoration: none;
     font-size: 13px;
     font-weight: 600;
-    padding: 4px 6px;
+    // padding: 4px 6px;
 }
 
 .text-user{
@@ -148,6 +149,7 @@ $bg-white: #fff;
     flex-direction: column;
     justify-content: center;
     flex: 1;
+    padding-right: 4px;
     line-height: 16px;
     white-space: nowrap;
 }
@@ -172,6 +174,10 @@ $bg-white: #fff;
     height: 42px;
     border-radius: 6px;
     background-color: $category-color;
+}
+.bgColorLogin .navbar-text-link{
+    height: 100%;
+    padding-right: 10px;
 }
 .mt_banner{
     margin-top: 126px;
@@ -234,11 +240,31 @@ $bg-white: #fff;
 }
 .cart_mb{
     display: none;
+    margin: 0;
 }
 .menu_mb_list{
     display: none;
 }
-
+.cart-notify{
+    position: relative;
+}
+.notification-cart{
+    position: absolute;
+    top: 0;
+    left: 24px;
+    display: inline-block;
+    vertical-align: top;
+    background: #FDD835;
+    border: 2px solid #fff;
+    color: #111111;
+    width: 14px;
+    height: 14px;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 12px;
+    text-align: center;
+    border-radius: 999px;
+}
 // laptop
 @media (min-width: 992px) and (max-width: 1200px) {
     .contentHeader{
@@ -352,7 +378,7 @@ $bg-white: #fff;
 
 
 // mobile
-@media (max-width: 739px) {
+@media (min-width: 576px) and (max-width: 739px) {
     .logoHeader{
         display: none;
     }
@@ -368,8 +394,18 @@ $bg-white: #fff;
     }
     .cart_mb{
         display: block;
+        margin: 0;
     }
     .contentNavigate{
+        display: none;
+    }
+    .option_wrap{
+        display: none;
+    }
+}
+
+@media (max-width: 575px) {
+    .viewedProduct{
         display: none;
     }
 }
@@ -385,6 +421,7 @@ $bg-white: #fff;
 
 .user-info{
     position: relative;
+    height: 100%;
     cursor: pointer;
 }
 .dropdown-model-user{

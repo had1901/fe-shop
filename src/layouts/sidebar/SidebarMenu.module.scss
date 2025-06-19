@@ -106,7 +106,13 @@
 
 }
 
-@media (max-width: 739px) {
+@media (min-width: 576px) and (max-width: 739px) {
+    .navbar{
+        display: none;
+    }
+}
+
+@media (max-width: 575px) {
     .navbar{
         display: none;
     }

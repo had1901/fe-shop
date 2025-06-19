@@ -1,14 +1,17 @@
-import React from 'react'
-import { productList } from '~/api/_products'
+import React, { useEffect, useState } from 'react'
 import viewMore from '~/assets/seller/laptop/brand/xem-them.webp'
 import bestSeller from '~/assets/seller/laptop/brand/best-seller.webp'
 import { Link } from 'react-router'
 import ProductList from '~/components/productList/ProductList'
 import useStyles from '~/hooks/useStyles'
 import styles from './Seller.module.scss'
+import { computerList } from '~/api/_products'
+import axiosApi from '../../services/axios'
 
-function Seller() {
-    const [cs] = useStyles(styles)
+function Seller({ data }) {
+    const cs = useStyles(styles)
+    
+
   return (
     <section className={cs('bottom')}>
             <div className="container">
@@ -19,7 +22,7 @@ function Seller() {
                 </div>
                 <div className={cs('products')}>
                     <ul className={cs('product_listing')}>
-                        {productList.slice(0,1).map((products, index) => (
+                        {computerList.slice(0,1).map((products, index) => (
                             <ProductList 
                                 key={products.title} 
                                 productList={products} 

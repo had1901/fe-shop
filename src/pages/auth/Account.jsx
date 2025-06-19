@@ -14,6 +14,8 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaWpforms } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
 import { AiOutlineLogout } from 'react-icons/ai'
+import { AnimatePresence, motion } from 'framer-motion';
+import nodata from '~/assets/nodata/no-data.png'
 
 const accountTabs = [
     {
@@ -39,7 +41,7 @@ const accountTabs = [
         title: 'Quản lý đơn hàng',
         icon: <FaWpforms />,
         href: '/orders',
-        component: <AuthOrders/>, 
+        component: <AuthOrders />, 
 
     },
     {
@@ -61,10 +63,11 @@ const accountTabs = [
          
     },
 ]
+const orders = []
 function Account() {
     const [accountTab, setAccountTab] = useState('account')
     const user = useSelector(state => state.auth.info)
-    const [cs] = useStyles(styles)
+    const cs = useStyles(styles)
     let currentTab = accountTabs.find(tab => tab.key === accountTab)
 
   return (
@@ -90,8 +93,20 @@ function Account() {
                     </div>
                 </div>
                 <div className='col-xl-9'>
-                    <div className={cs('sidebar-right')}>
-                        {currentTab?.component}
+                    <div className='content-right' style={{background: '#fff', height: '100%'}}>
+                        {/* {orders.length < 0 && <div><img src={nodata} alt="" /></div>} */}
+                        <AnimatePresence mode="wait" className={cs('sidebar-right')}>
+                            <motion.div
+                                key={accountTab}
+                                initial={{ opacity: 0}}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                
+                            >
+                                {currentTab?.component}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>

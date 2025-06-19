@@ -7,11 +7,11 @@ export function useSlider(length, numDisplayItem = 4) {
     const [widthTrack, setWidthTrack] = useState(0) // độ rộng của slider
     const [widthItem, setWidthItem] = useState(200) // độ rộng của 1 item
     const [percent, setPercent] = useState(25) // phần trăm độ rộng mỗi item 
+    const trackRef = useRef(null) // tham chiếu đến element slider
+
     // const [startLeft, setStartLeft] = useState(0) // vị trí left slider ban đầu
     // const [startX, setStartX] = useState(0) // vị trí chuột ban đầu
     // const [isNext, setIsNext] = useState(false) // check đang có kéo next hay không
-
-    const trackRef = useRef(null) // tham chiếu đến element slider
 
     const prevSlide = () => {
         if(isClick) return
@@ -64,7 +64,6 @@ export function useSlider(length, numDisplayItem = 4) {
         setWidthTrack(trackRef.current.getBoundingClientRect().width)
         // tính số lượng phần tử hiển thị dựa trên input "numDisplayItem"
         setPercent(100 / numDisplayItem)
-        
     },[numDisplayItem])
 
     useEffect(() => {
@@ -82,5 +81,5 @@ export function useSlider(length, numDisplayItem = 4) {
 
     
 
-    return {index, trackRef, prevSlide, nextSlide}
+    return {index, trackRef, prevSlide, nextSlide, percent}
 }

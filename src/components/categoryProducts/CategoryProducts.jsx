@@ -3,7 +3,7 @@ import useStyles from '~/hooks/useStyles';
 import styles from './CategoryProducts.module.scss';
 
 function CategoryProducts() {
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
 
   return (
     <div className={cs('category_products')}>

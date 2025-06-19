@@ -3,7 +3,7 @@ import styles from './MegaMenu.module.scss';
 import useStyles from '~/hooks/useStyles';
 
 function MegaMenu({ products }) {
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
 
   return (
     <div className={cs('megaMenu', 'megaMenu-hover')}>

@@ -18,7 +18,7 @@ function SidebarMenu(props) {
   const [height, setHeight] = useState('100')
   const isToggle = useSelector(state => state.navbar.isToggle)
   const dispatch = useDispatch()
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
 
   const handleToggleNavbar = () => {
     dispatch(toggle())
@@ -57,7 +57,7 @@ function SidebarMenu(props) {
   },[height])
 
   return (
-      <div ref={navbarRef} className={cs(`navbar ${fixedClass} col-xl-2 col-lg-2 `)}>
+      <div ref={navbarRef} className={cs(`navbar ${fixedClass}`, 'col-xl-2 col-lg-2')}>
         <ul className={cs('navMenu')}>
             {menuItems.map((menu) => (
               <li key={menu.id} data-index={menu.id} className={cs('menuItem')}>

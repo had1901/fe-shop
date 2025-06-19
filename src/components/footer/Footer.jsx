@@ -88,7 +88,7 @@ const payMethod = [
   pay8,
 ]
 function Footer() {
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
 
   return (
     <footer className={cs('footer')}>

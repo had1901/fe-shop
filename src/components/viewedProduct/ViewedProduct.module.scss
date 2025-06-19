@@ -117,3 +117,25 @@
 }
 
 
+@media (min-width: 992px) and (max-width: 1200px) {
+    
+}
+// Laptop - tablet
+@media (min-width: 740px) and (max-width: 991px) {
+    .viewedProduct{
+        display: none;
+    }
+}
+// Mobile
+@media (min-width: 576px) and (max-width: 739px) {
+    .viewedProduct{
+        display: none;
+    }
+}
+@media (max-width: 575px) {
+    .viewedProduct{
+        display: none;
+    }
+}
+
+

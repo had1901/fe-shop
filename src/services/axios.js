@@ -10,11 +10,13 @@ const axiosApi = axios.create({
 
 
 
-axiosApi.interceptors.request.use((config) => {
-  return config
+axiosApi.interceptors.request.use((request) => {
+  // console.log('request', request)
+  return request
+
 }, (error) => {
-  console.log('error-request', error)
-  return Promise.reject(error);
+  // console.log('error-request', error)
+  return Promise.reject(error)
 
 })
 
@@ -22,8 +24,8 @@ axiosApi.interceptors.request.use((config) => {
 
 
 axiosApi.interceptors.response.use((response) => {
-  console.log('response', response)
-  return response
+  // console.log('response', response)
+  return response.data
 }, (error) => {
   if(error.response?.status === 404) {
     const handleLogout = async () => {
@@ -31,7 +33,7 @@ axiosApi.interceptors.response.use((response) => {
     }
     handleLogout()
   }
-  console.log('error-response', error)
+  // console.log('error-response', error)
   return Promise.reject(error)
 })
 

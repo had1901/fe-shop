@@ -1,17 +1,18 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { useLocation } from 'react-router'
 import styles from './DetailProduct.module.scss'
 import useStyles from '../../hooks/useStyles'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaCartPlus, FaChevronLeft, FaChevronRight, FaStar } from 'react-icons/fa6'
 import { convertPrice } from '../../utils/convertString/_convertPrice'
 import Breadcrumb from './../../components/breadcrumb/Breadcrumb';
 import Sale from '../../components/sale/Sale'
-import Button from './../../components/button/Button';
 import { placeList } from './../../components/address/_listPlace';
 import Address from './../../components/address/Address';
 import { debounce } from './../../utils/debounce/_debounce';
 import { IoChevronUpOutline } from 'react-icons/io5'
+import { addToCart } from '../../store/cart/cartSlice'
+import axiosApi from './../../services/axios';
+import { toast } from 'react-toastify'
 
 const sliders = [
   'http://localhost:5173/src/assets/flash_sale/img/f1.webp',
@@ -33,47 +34,58 @@ const arr = [
   6,
   
 ]
+
+const arr2 = [
+  'Đế Tản nhiệt Cooler Master Notepal C3',
+  'b',
+  'c'
+]
+
 function DetailProductPage() {
   const imgRef = useRef()
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [width, setWidth] = useState(0)
-  const product = useSelector(state => state.product.info)
-  const [cs] = useStyles(styles)
+  const [open, setOpen] = useState(false)
+  const cs = useStyles(styles)
   const boxRef = useRef()
   const btnRef = useRef()
   const newsRef = useRef()
-  const [open, setOpen] = useState(false)
+  const dispatch = useDispatch()
+  const product = useSelector(state => state.product.info)
+  const user = useSelector(state => state.auth.info)
+  const carts = useSelector(state => state.cart.carts)
   
+
   const handlePrev = debounce(() => {
     if(currentIndex > 0) {
         setIsAnimating(true)
         setCurrentIndex(prev => prev - 1)
     }
-  }, 300)
+  }, 200)
 
   const handleNext = debounce(() => {
     if(currentIndex < sliders.length - 1) { 
         setIsAnimating(true)
         setCurrentIndex(prev => prev + 1)
-        
     }
-  }, 300)
+  }, 200)
 
-  const arr2 = [
-    'Đế Tản nhiệt Cooler Master Notepal C3',
-    'b',
-    'c'
-  ]
+  
   const handleToggle = () => {
-    console.log('first')
     setOpen(!open)
+  }
+
+  const handleBuy = async (product) => {
+    // dispatch(addToCart({...product, quantity: 1}))
+    toast('Đã thêm vào giỏ hàng')
+    await axiosApi.post('/add-cart', ({product, user}))
+
   }
 
   useEffect(() => {
     setWidth(imgRef.current.getBoundingClientRect().width)
   },[currentIndex])
-
 
   useLayoutEffect(() => {
     if(open) {
@@ -85,6 +97,15 @@ function DetailProductPage() {
     }
   },[open])
 
+  // useEffect(() => {
+  //   const handleAddCart = async (user) => {
+  //     if(carts.length > 0) {
+  //       console.log('cart change', carts)
+  //     }
+  //   }
+  //   handleAddCart(user)
+  // }, [carts])
+
   return (
     <div className={cs('product-inner', 'container')}>
       <Breadcrumb product={product} />
@@ -94,9 +115,9 @@ function DetailProductPage() {
             <div className={cs('wrapper-slide')}>
               <div className={cs('carousel')}>
                 <div className={cs('slide-show')} style={{ transform: `translateX(${-currentIndex * width}px)`}}>
-                  {sliders.length && sliders.map(src => (
-                    <span className={cs('img-item')} ref={imgRef}>
-                      <img src={src} alt="product" className={cs('img')}/>
+                  {sliders.length && sliders.map((src, index) => (
+                    <span key={index} className={cs('img-item')} ref={imgRef}>
+                      <img src={product?.thumbnail} alt="product" className={cs('img')}/>
                     </span>
                   ))}
                 </div>
@@ -152,19 +173,19 @@ function DetailProductPage() {
 
               <h1 className={cs('product-name')}>{product?.name}</h1>
               <div className={cs('review')}>
-                <span className={cs('rating')}>{product?.ratingCount}.0 <FaStar fill='#FF8A00' className={cs('rating-star')}/></span>
+                <span className={cs('rating')}>{product?.rating_count}.0 <FaStar fill='#FF8A00' className={cs('rating-star')}/></span>
                 <span className={cs('review-comment')}>Xem đánh giá</span>
               </div>
 
               <div className={cs('product-price')}>
-                <span className={cs('price')}>{convertPrice(product?.priceDefault)}</span>
-                <del>{convertPrice(product?.priceSale)}</del>
-                <span className={cs('percent')}>-{product?.salePercent}%</span>
+                <span className={cs('price')}>{convertPrice(product?.price)}</span>
+                <del>{convertPrice(product?.sale_price)}</del>
+                <span className={cs('percent')}>-{product?.salce_percent}%</span>
               </div>
               
               <Sale title='Quà tặng khuyến mãi' isIconGift listSale={arr2}/>
               <div className={cs('action-buys')}>
-                <button className={cs('btn-buynow')}>
+                <button className={cs('btn-buynow')} onClick={() => handleBuy(product)}>
                   <span>Mua ngay</span>
                   <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
                 </button>
@@ -193,51 +214,53 @@ function DetailProductPage() {
                   <h4>Thông số kỹ thuật</h4>
                   <div className={cs('box-table')}>
                     <table className={cs('table-product-info')}>
-                      <tr>
-                        <td>Mainboard</td>
-                        <td>Bo mạch chủ MSI MAG B760M MORTAR II WIFI DDR5</td>
-                        <td>36 Tháng</td>
-                      </tr>
-                      <tr>
-                        <td>CPU</td>
-                        <td>CPU Intel Core i5 13400F / 2.7GHz Turbo 5.0GHz / 10 Nhân 16 Luồng</td>
-                        <td>36 Tháng</td>
-                      </tr>
-                      <tr>
-                        <td>RAM</td>
-                        <td>Ram Corsair Vengeance RGB 32GB 5600 DDR5</td>
-                        <td>36 Tháng</td>
-                      </tr>
-                      <tr>
-                        <td>VGA</td>
-                        <td>Card màn hình Gigabyte GeForce RTX 5060 Ti Windforce OC 8GB</td>
-                        <td>36 Tháng</td>
-                      </tr>
-                      <tr>
-                        <td>HDD</td>
-                        <td><strong>Có thể tuỳ chọn Nâng cấp</strong></td>
-                        <td>24 Tháng</td>
-                      </tr>
-                      <tr>
-                        <td>SSD</td>
-                        <td>Ổ cứng SSD Kingston NV3 1TB M.2 PCIe NVMe Gen4</td>
-                        <td>36 Tháng</td>
-                      </tr>
-                      <tr>
-                        <td>PSU</td>
-                        <td>Nguồn FSP HV PRO 650W - 80 Plus Bronze</td>
-                        <td>36 Tháng</td>
-                      </tr>
-                      <tr>
-                        <td>Case</td>
-                        <td>Vỏ máy tính Xigmatek QUANTUM 3GF</td>
-                        <td>12 Tháng</td>
-                      </tr>
-                      <tr>
-                        <td>Tản nhiệt</td>
-                        <td>Cooler Master Hyper 212 Spectrum V3 ARGB</td>
-                        <td>24 Tháng</td>
-                      </tr>
+                      <tbody>
+                        <tr>
+                          <td>Mainboard</td>
+                          <td>Bo mạch chủ MSI MAG B760M MORTAR II WIFI DDR5</td>
+                          <td>36 Tháng</td>
+                        </tr>
+                        <tr>
+                          <td>CPU</td>
+                          <td>CPU Intel Core i5 13400F / 2.7GHz Turbo 5.0GHz / 10 Nhân 16 Luồng</td>
+                          <td>36 Tháng</td>
+                        </tr>
+                        <tr>
+                          <td>RAM</td>
+                          <td>Ram Corsair Vengeance RGB 32GB 5600 DDR5</td>
+                          <td>36 Tháng</td>
+                        </tr>
+                        <tr>
+                          <td>VGA</td>
+                          <td>Card màn hình Gigabyte GeForce RTX 5060 Ti Windforce OC 8GB</td>
+                          <td>36 Tháng</td>
+                        </tr>
+                        <tr>
+                          <td>HDD</td>
+                          <td><strong>Có thể tuỳ chọn Nâng cấp</strong></td>
+                          <td>24 Tháng</td>
+                        </tr>
+                        <tr>
+                          <td>SSD</td>
+                          <td>Ổ cứng SSD Kingston NV3 1TB M.2 PCIe NVMe Gen4</td>
+                          <td>36 Tháng</td>
+                        </tr>
+                        <tr>
+                          <td>PSU</td>
+                          <td>Nguồn FSP HV PRO 650W - 80 Plus Bronze</td>
+                          <td>36 Tháng</td>
+                        </tr>
+                        <tr>
+                          <td>Case</td>
+                          <td>Vỏ máy tính Xigmatek QUANTUM 3GF</td>
+                          <td>12 Tháng</td>
+                        </tr>
+                        <tr>
+                          <td>Tản nhiệt</td>
+                          <td>Cooler Master Hyper 212 Spectrum V3 ARGB</td>
+                          <td>24 Tháng</td>
+                        </tr>
+                      </tbody>
                     </table>
                   </div>
                   <p className={cs('text-example')}>* Hình ảnh minh hoạ có thể khác với cấu hình thực tế </p>

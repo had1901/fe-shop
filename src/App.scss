@@ -36,6 +36,9 @@ $grid-gutter: 20px;
 }
 
 .row{
+    --grid-gutter-y: #{$grid-gutter};
+    --grid-gutter-x: #{$grid-gutter};
+
     display: flex;
     flex-wrap: wrap;
     margin-left: calc(($grid-gutter) * 0.5 * -1);
@@ -69,7 +72,7 @@ $grid-breakpoints: (
 );
 
 $container-max-widths: (
-  sm: 540px,
+  sm: 576px,
   md: 720px,
   lg: 960px,
   xl: 1140px,

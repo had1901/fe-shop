@@ -21,24 +21,23 @@ import { debounce } from '~/utils/debounce/_debounce';
 import { Link } from 'react-router';
 import useStyles from '~/hooks/useStyles';
 import { open } from '../../store/navbar/formLoginSlice';
-import FormModal from '../../components/form/FormModal';
 import { PiHandWaving } from 'react-icons/pi';
 import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
 import { MdOutlineLogout } from 'react-icons/md';
-import useAxios from './../../hooks/userAxios';
 import usePost from '../../hooks/usePost.js';
-import { logout, setUser } from '../../store/auth/authSlice.js';
+import { logout } from '../../store/auth/authSlice.js';
 
-const emptyPayload = {}
+
 
 function Header() {
   const categoryRef = useRef()
   const [fixedClass, setFixedClass] = useState('')
   const state = useSelector(state => state.navbar.isToggle)
-  const isOpen = useSelector(state => state.formLogin.isOpen)
   const user = useSelector(state => state.auth.info)
+  const cart = useSelector(state => state.cart.carts)
+  
   const dispatch = useDispatch()
-  const [cs] = useStyles(styles)  
+  const cs = useStyles(styles)  
   const { data, loading, postData, error } = usePost()
 
   const handleToggleNavbar = debounce(() => {
@@ -49,6 +48,16 @@ function Header() {
     dispatch(open())
   }
 
+
+  const total = (cart) => {
+    if(cart.length > 0) {
+      return cart.reduce((init, currentValue) => {
+        return init + currentValue.quantity
+      }, 0)
+    }
+    return 0
+  }
+  
   const handleLogout = () => {
     postData('/auth/logout', {})
     dispatch(logout())
@@ -92,49 +101,32 @@ function Header() {
                           </div>
                         </div>
                        <div className={cs('option_wrap')}>
-                          <div className=''>
-                            <a href='#' className={cs('navbarText')}>
-                                <span className={cs('iconSize')}><TfiHeadphoneAlt /></span>
-                                <div className={cs('wrapText')}>
-                                  <span>Hotdivne</span>
-                                  <span>1900.5301</span>
-                                </div>
-                            </a>
-                          </div>
-                          <div className=''>
-                            <a href='#' className={cs('navbarText')}>
-                                <span className={cs('iconSize')}><GiPositionMarker /></span>
-                                <div className={cs('wrapText')}>
-                                  <span>Hệ thống</span>
-                                  <span>Showroom</span>
-                                </div>
-                            </a>
-                          </div>
-                          <div className=''>
-                            <a href='#' className={cs('navbarText')}>
-                                <span className={cs('iconSize')}><BsClipboard2Check /></span>
-                                <div className={cs('wrapText')}>
-                                  <span>Tra cứu</span>
-                                  <span>đơn hàng</span>
-                                </div>
-                            </a>
-                          </div>
-                          <div className=''>
-                            <Link to='cart' className={cs('navbarText')}>
-                                <span className={cs('iconSize')}><BsCartCheck /></span>
-                                <div className={cs('wrapText')}>
-                                  <span>Giỏ</span>
-                                  <span>hàng</span>
-                                </div>
+                            <Link href='#' className={cs('navbar-text-link')}>
+                                <span className={cs('icon-size')}><TfiHeadphoneAlt /></span>
+                                <span className={cs('wrapText')}>Hotline 1900.5301</span>
                             </Link>
-                          </div>
+                            <Link href='#' className={cs('navbar-text-link')}>
+                                <span className={cs('icon-size')}><GiPositionMarker /></span>
+                                <span className={cs('wrapText')}>Hệ thống Showroom</span>
+                            </Link>
+                            <Link href='#' className={cs('navbar-text-link')}>
+                                <span className={cs('icon-size')}><BsClipboard2Check /></span>
+                                <span className={cs('wrapText')}>Tra cứu đơn hàng</span>
+                            </Link>
+                            <Link to='cart' className={cs('navbar-text-link cart-notify')}>
+                                <span className={cs('icon-size')}><BsCartCheck /></span>
+                                <div className={cs('wrapText')}>Giỏ hàng</div>
+                                <span className={cs('notification-cart')}>
+                                  {total(cart)}
+                                </span>
+                            </Link>
                           <div className={cs('bgColorLogin')} onClick={openForm}>
-                            {user && user.username 
+                            {user && (user.username || user.name)
                               ?
-                              <div className={cs('navbarText user-info')}>
-                                  <span className={cs('iconSize')}><FaRegUser /></span>
+                              <div className={cs('navbar-text-link user-info')}>
+                                  <span className={cs('icon-size')}><FaRegUser /></span>
                                   <div className={cs('text-user')}>
-                                      <span>{`Xin chào, ${user.username}`}</span>
+                                      <span>{`Xin chào, ${user.username || user.name}`}</span>
                                   </div>
                                   <div className={cs('dropdown-model-user')}>
                                     <ul className={cs('dropdown-model-user-list')}>
@@ -142,7 +134,7 @@ function Header() {
                                         <Link to='/auth/account'>
                                             <span className={cs('dropdown-model-user-link')}>
                                               <PiHandWaving />
-                                              <span>{`Xin chào, ${user.username}`}</span>
+                                              <span>{`Xin chào, ${user.username || user.name}`}</span>
                                             </span>
                                         </Link>
                                       </li>
@@ -165,36 +157,29 @@ function Header() {
                                         </Link>
                                       </li> */}
                                       <li className={cs('dropdown-model-user-item')} onClick={handleLogout}>
-                                        <a href='#' >
+                                        <Link href='#' >
                                           <span className={cs('dropdown-model-user-link')}>
                                             <MdOutlineLogout />
                                             <span>Đăng xuất</span>
                                           </span>
-
-                                        </a>
+                                        </Link>
                                       </li>
                                     </ul>
                                   </div>
                               </div>
                               :
-                              <Link to='/auth' className={cs('navbarText')}>
-                                  <span className={cs('iconSize')}><FaRegUser /></span>
-                                  <div className={cs('wrapText')}>
-                                      <span>Đăng</span>
-                                      <span>nhập</span>
-                                  </div>
+                              <Link to='/auth' className={cs('navbar-text-link')}>
+                                  <span className={cs('icon-size')}><FaRegUser /></span>
+                                  <span className={cs('wrapText')}>Đăng nhập</span>
                               </Link>
                             }
                             
                           </div>
                        </div>
                        <div className={cs('cart_mb')}>
-                            <Link href='#' className={cs('navbarText')}>
-                                <span className={cs('iconSize')}><BsCartCheck /></span>
-                                <div className={cs('wrapText')}>
-                                  <span>Giỏ</span>
-                                  <span>hàng</span>
-                                </div>
+                            <Link href='#' className={cs('navbar-text-link')}>
+                                <span className={cs('icon-size')}><BsCartCheck /></span>
+                                <div className={cs('wrapText')}>Giỏ hàng</div>
                             </Link>
                         </div>
                         <SidebarMenu fixedClass={fixedClass} />

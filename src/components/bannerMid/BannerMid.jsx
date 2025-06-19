@@ -5,7 +5,7 @@ import styles from './BannerMid.module.scss';
 import useStyles from '~/hooks/useStyles';
 
 function BannerMid() {
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
 
   return (
     <div className={cs('banner_mid_wrap')}>

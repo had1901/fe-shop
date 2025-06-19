@@ -22,7 +22,8 @@ import { Flex, Spin } from 'antd';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import AuthPrivateRoute from './components/PrivateRoute/AuthPrivateRoute';
 import Account from './pages/auth/Account';
-import Cart from './pages/cart/Cart';
+import CartPage from './pages/cart/CartPage';
+import Payment from './pages/payment/Payment';
 
 
 
@@ -47,7 +48,7 @@ function App() {
           const profile = await axiosApi.get('auth/profile')
           
           if(profile.data.ec === 0) {
-            dispatch(setUser(profile.data.dt))
+            dispatch(setUser(profile.dt))
             setIsLoading(false)
           }
         } catch(e) {
@@ -55,8 +56,8 @@ function App() {
             try{
               await axiosApi.post('auth/refresh-token')
               const profile = await axiosApi.get("auth/profile")
-              if (profile.data.ec === 0) {
-                dispatch(setUser(profile.data.dt))
+              if (profile.ec === 0) {
+                dispatch(setUser(profile.dt))
               }
             } catch(e) {
               throw new Error(e)
@@ -88,7 +89,8 @@ function App() {
           </Route> */}
           <Route path='products/:slug' element={<DetailProductPage />} />
           <Route path='dashboard' element={<DashboardPage />} />
-          <Route path='cart' element={<Cart />} />
+          <Route path='cart' element={<CartPage />} />
+          <Route path='payment/vnpay-return' element={<Payment />} />
   
           <Route path='pages' element={<SellerHome />} >
             {render(menuItems)}
@@ -112,7 +114,7 @@ function App() {
         </Route>
       </Routes>
       <ToastContainer
-        position="top-right"
+        position="top-center"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}

@@ -36,7 +36,7 @@ const brandLaptop = [
 
 
 function SellerLaptop() {
-    const [cs] = useStyles(styles)
+    const cs = useStyles(styles)
   return (
     <div className={cs('seller_wrap')}>
         <section className={cs('top')}>
@@ -64,7 +64,7 @@ function SellerLaptop() {
                 </div>
             </div>
         </section>
-        <Seller />
+        {/* <Seller /> */}
 
     </div>
   )

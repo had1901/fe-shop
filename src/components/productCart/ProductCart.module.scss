@@ -1,0 +1,105 @@
+
+.product-cart{
+    margin-top: 30px;
+}
+.inner-product-cart{
+    display: flex;
+    padding: 0 10px;
+}
+
+.product-cart-img{
+    flex: 1;
+}
+.product-cart-img-link{
+    display: inline-block;
+    border: 1px solid #ECECEC ;
+    vertical-align: middle;
+}
+.btn-delete{
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #6D6E72;
+}
+.product-cart-title{
+    flex: 3;
+    font-size: 15px;
+    font-weight: 500;
+    margin-left: 8px;
+    text-align: left;
+}
+.product-cart-title h3{
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    line-clamp: 4;
+    box-orient: vertical;
+    line-height: 1.15;
+    overflow: hidden;
+}
+.product-cart-price{
+    text-align: right;
+    flex: 1;
+}
+.product-cart-price-sale{
+    display: block;
+    font-weight: 600;
+    font-size: 18px;
+    color: #E30019;
+}
+.product-cart-price-origin{
+    display: block;
+    margin-top: 6px;
+    font-size: 14px;
+    color: #6D6E72;
+    text-decoration: line-through;
+}
+.product-cart-quantity{
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+}
+.btn-quantity{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    height: 32px;
+    width: 32px;
+    padding: 0;
+    text-align: center;
+    appearance: none;
+    -webkit-appearance: none;
+    font-size: 20px;
+    border-radius: 0;
+    border: 1px solid #CFCFCF;
+    border-radius: 4px 0 0 4px;
+}
+.input-quantity{
+    background: #fff;
+    font-weight: 400;
+    font-size: 14px;
+    height: 32px;
+    width: 50px;
+    padding: 0;
+    text-align: center;
+    border: 1px solid #CFCFCF;
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    overflow: visible;
+    user-select: none;
+}
+// .input-quantity:focus{
+//     display: none;
+// }
+.btn-delete{
+    cursor: pointer;
+    
+    &:hover{
+        color: #E30019;
+    }
+}

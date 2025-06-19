@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { NavLink, Link } from "react-router"
 import styles from './Home.module.scss';
 import clsx from "clsx";
@@ -8,14 +8,60 @@ import FlashSale from '../../components/flashSale/FlashSale';
 import BannerMid from '../../components/bannerMid/BannerMid';
 import ViewedProduct from '../../components/viewedProduct/ViewedProduct';
 import ProductList from '../../components/productList/ProductList';
-import { productList } from '../../api/_products';
+import { computerList, keyboardList, laptopGamingList, laptopOfficeOList, mouseList, screenList } from '../../api/_products';
 import BannerDisplay from '../../components/bannerDisplay/BannerDisplay';
 import CategoryProducts from '../../components/categoryProducts/CategoryProducts';
 import SidebarMenu from '../../layouts/sidebar/SidebarMenu';
 import SidebarRight from '../../layouts/Sidebar/SidebarRight';
 import News from '../../components/news/News';
+import { useResponsive } from '~/hooks/useResponsive';
+import axiosApi from './../../services/axios';
 
 function HomePage() {
+  const numberDisplay = useResponsive()
+  const [data, setData] = useState([])
+  const [products, setProducts] = useState([])
+  const [listProductSale, setProductSale] = useState([])
+
+  
+  useEffect(() => {
+    const getProducts = async () => {
+      const products =  await axiosApi.get('api/get-all')
+      setData(products.dt)
+    }
+    const getProductFlashSale = async () => {
+      const products = await axiosApi.get('api/get-all')
+      if(products) {
+          const filterFlashSale = products.dt.filter(item => item.flash_sale === 1) 
+          setProductSale(filterFlashSale)
+      }
+    }
+    getProducts()
+    getProductFlashSale()
+  },[])
+
+    
+  useEffect(() => {
+      
+  },[])
+  useLayoutEffect(() => {
+    const groupedByCategory = data.reduce((acc, product) => {
+      const categoryId = product.category_id
+      if (!acc[categoryId]) {
+        acc[categoryId] = {
+          category: product.Category, 
+          items: []
+        }
+      }
+      acc[categoryId].items.push(product)
+      return acc
+    }, {})
+    const resultArray = Object.values(groupedByCategory)
+    setProducts(resultArray)
+
+  },[data])
+
+
   return (
       <main className={clsx(styles.app)}>
             <div className={clsx(styles.app_main)}>
@@ -23,7 +69,6 @@ function HomePage() {
                   <div className={clsx(styles.wrapper_feature , 'row')}>
                     <SidebarMenu></SidebarMenu>
                     <SidebarRight></SidebarRight>
-
                   </div>
                   <div className={clsx(styles.bannerList, 'row')}>
                     <BannerSale bannerList={bannerListBottom}/>
@@ -31,9 +76,11 @@ function HomePage() {
                   <ViewedProduct title='Sản phẩm đã xem' />
                   <FlashSale />
                   <BannerMid />
-                  {productList.map((item) => (
-                    <ProductList key={item.id} productList={item} numberDisplay={5} title='PC bán chạy' method='Trả góp 0%'/>
-                  ))}
+                  <ProductList products={products[0]?.items || []} numberDisplay={numberDisplay} title='Màn hình bán chạy' method='Trả góp 0%'/>               
+                  <ProductList products={products[3]?.items || []} numberDisplay={numberDisplay} title='PC bán chạy' method='Trả góp 0%'/>               
+                  <ProductList products={products[1]?.items || []} numberDisplay={numberDisplay} title='Bàn phím bán chạy' method='Trả góp 0%'/>  
+                  <ProductList products={products[2]?.items || []} numberDisplay={numberDisplay} title='Laptop gaming bán chạy' method='Trả góp 0%'/>           
+                  
                   <BannerDisplay />  
                   <CategoryProducts />
                   <News />

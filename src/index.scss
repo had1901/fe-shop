@@ -69,3 +69,21 @@ button, table, select{
 	outline: none;
 	cursor: pointer;
 }
+
+
+
+// PC
+@media (min-width: 992px) and (max-width: 1200px) {
+    
+}
+// Laptop - tablet
+@media (min-width: 740px) and (max-width: 991px) {
+    
+}
+// Mobile
+@media (min-width: 576px) and (max-width: 739px) {
+   
+}
+@media (max-width: 575px) {
+   
+}

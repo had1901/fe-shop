@@ -7,13 +7,15 @@ import useStyles from '~/hooks/useStyles';
 
 
 function SidebarRight() {
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
 
   return (
     <div className='col-xl-10 col-lg-12 col-md-12 col-sm-12'>
         <div className={cs('sidebarRight')}>
             <div className={cs('sidebarSliderLeft')}>
-                <Slider sliders={sliderListImage}/>
+                <div>
+                    <Slider sliders={sliderListImage}/>
+                </div>
                 <div className={cs('sidebarBannerList')}>
                     {bannerListLeft.map((item, index) => (
                         <div key={index}>

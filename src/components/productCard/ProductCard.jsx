@@ -9,10 +9,12 @@ import { FaStar } from "react-icons/fa6";
 import { FaGripfire } from "react-icons/fa";
 import useStyles from '~/hooks/useStyles';
 import { memo } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { setProduct } from '../../store/product/productSlice';
 import { convertStringToUrl } from '../../utils/convertString/_convertStringToUrl';
+import { convertPrice } from './../../utils/convertString/_convertPrice';
+import axiosApi from '../../services/axios';
 
 
 const ProductCard = memo(forwardRef(({ 
@@ -23,16 +25,17 @@ const ProductCard = memo(forwardRef(({
   hasLabelTop, 
 }, ref) => {
   const imgRef = useRef()
-  const [cs] = useStyles(styles)
+  const cs = useStyles(styles)
   const navigate = useNavigate()
   const dispatch = useDispatch()
- 
-  const handleGetProduct = (item) => {
-    dispatch(setProduct(item))
-  console.log('pro', item)
 
+
+  const handleGetProduct = async (item) => {
+    dispatch(setProduct(item))
     navigate(`products/${convertStringToUrl(item.name)}`)
+
   }
+
   // useEffect(() => {
   //   const options = {
   //     root: null,
@@ -66,7 +69,7 @@ const ProductCard = memo(forwardRef(({
           </div>
         }
         <picture className={cs('product_card_img')}>
-          <img ref={imgRef} src={productItem.src} alt={productItem.src} data-src={productItem.src} data-id={productItem.src}/>
+          <img ref={imgRef} src={productItem.thumbnail} alt={productItem.thumbnail} data-src={productItem.thumbnail} data-id={productItem.src}/>
         </picture>
         <div className={cs('product_card_bottom')}>
           <div className={cs('product_label')}>
@@ -86,14 +89,14 @@ const ProductCard = memo(forwardRef(({
             </div>
           }
           <div className={cs('price')}>
-            <del className={cs('price_default')}>{productItem.priceDefault}</del>
+            <del className={cs('price_default')}>{convertPrice(productItem.price)}</del>
             <div className={cs('price_sale')}>
-              <span className={cs('price_sale_main')}>{productItem.priceSale}</span>
-              <span className={cs('price_sale_percent')}>{`-${productItem.salePercent}%`}</span>
+              <span className={cs('price_sale_main')}>{convertPrice(productItem.sale_price)}</span>
+              <span className={cs('price_sale_percent')}>{`-${productItem.sale_percent}%`}</span>
             </div>
           </div>
           <div className={cs('product_rating')}>
-            <span className={cs('product_rating_number')}>{productItem.ratingCount}</span>
+            <span className={cs('product_rating_number')}>{productItem.rating_count}</span>
             <span className={cs('product_rating_icon')}><FaStar /></span>
             <span className={cs('product_rating_count')}>(0 đánh giá)</span>
           </div>
