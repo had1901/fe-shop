@@ -1,20 +1,15 @@
-import React, { forwardRef, useEffect, useRef } from 'react'
+import React, { forwardRef, useRef } from 'react'
 import styles from './ProductCard.module.scss';
 import { BsCpuFill } from "react-icons/bs";
-import { PiGraphicsCard } from "react-icons/pi";
-import { BsGpuCard } from "react-icons/bs";
-import { IoCardOutline } from "react-icons/io5";
-import { PiHardDrivesFill } from "react-icons/pi";
 import { FaStar } from "react-icons/fa6";
 import { FaGripfire } from "react-icons/fa";
 import useStyles from '~/hooks/useStyles';
 import { memo } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router';
 import { setProduct } from '../../store/product/productSlice';
 import { convertStringToUrl } from '../../utils/convertString/_convertStringToUrl';
 import { convertPrice } from './../../utils/convertString/_convertPrice';
-import axiosApi from '../../services/axios';
 
 
 const ProductCard = memo(forwardRef(({ 
@@ -29,39 +24,20 @@ const ProductCard = memo(forwardRef(({
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-
-  const handleGetProduct = async (item) => {
-    dispatch(setProduct(item))
-    navigate(`products/${convertStringToUrl(item.name)}`)
-
-  }
-
-  // useEffect(() => {
-  //   const options = {
-  //     root: null,
-  //     rootMargin: "0px",
-  //     threshold: 1,
-  //   }
-  //   const observer = new IntersectionObserver((entries, observer) => {
-  //     entries.forEach(entry => {
-  //       if(entry.isIntersecting && entry.target.dataset.src) {
-  //         entry.target.style.backgroundColor = 'red'
-  //         entry.target.src = entry.target.dataset.src
-
-  //       } else {
-  //         entry.target.style.backgroundColor = ''
-
-  //       }
-        
-  //     })
-  //   }, options)
-
-  //   observer.observe(imgRef.current)
-
-  // },[])
+  // const handleGetProduct = (item) => {
+  //   // dispatch(setProduct(item))
+  //   // navigate(`product/${convertStringToUrl(item.name)}`)
+  // }
 
   return (
-    <div ref={ref} onClick={() => handleGetProduct(productItem)} className={cs('product_card')} draggable="false" style={{"--column": `${columnValue}`}}>
+    <Link 
+      to={`product/${productItem.id}/${convertStringToUrl(productItem.name)}`}
+      ref={ref} 
+      className={cs('product_card')} 
+      // onClick={() => handleGetProduct(productItem)} 
+      style={{"--column": `${columnValue}`}}
+      draggable="false" 
+    >
       <div className={cs('product_card_bg')}>
         {hasLabelTop && 
           <div className={cs('product_label_top')}>
@@ -76,7 +52,7 @@ const ProductCard = memo(forwardRef(({
             <span className={cs('product_label_tag_new')}>Sản phẩm mới</span>
           </div>
           <div className={cs('product_desc')}>
-            <a href=''>{productItem.name}</a>
+            <h3>{productItem.name}</h3>
           </div>
           {hasTechnical && productItem.indexTech &&
             <div className={cs('technical')}>
@@ -108,7 +84,7 @@ const ProductCard = memo(forwardRef(({
           }
         </div>
       </div>
-    </div>
+    </Link>
   )
 }))
 

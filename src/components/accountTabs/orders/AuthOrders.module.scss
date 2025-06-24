@@ -90,3 +90,55 @@
     transform: translateY(-50%);
     background: #ccc;
 }
+.table-order{
+    border: 1px solid #000;
+    width: 100%;
+}
+.order-cart{
+    display: flex;
+}
+.table-label{
+    text-align: center;
+    vertical-align: middle;
+    height: 40px;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 0 8px;
+    background: #ccc;
+    border: 1px solid #818181;
+}
+.table-col{
+    padding: 8px;
+    font-size: 14px;
+    vertical-align: middle;
+    text-align: center;
+
+}
+.total-price{
+    color: #e30119;
+    font-weight: 500;
+}
+.status-order{
+    text-align: center;
+    margin: 0 auto;
+    padding: 2px 4px;
+    // text-transform: capitalize;
+    font-size: 14px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+.pending{
+    border: 1px solid #caae2d;
+    color: #caae2d;
+}
+.completed{
+    border: 1px solid #08ae70;
+    color: #08ae70;
+}
+.shipping{
+    border: 1px solid #4a90e2;
+    color: #4a90e2;
+}
+.center{
+    text-align: center;
+}

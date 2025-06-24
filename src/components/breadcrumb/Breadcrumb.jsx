@@ -8,12 +8,12 @@ function Breadcrumb({product}) {
   const cs = useStyles(styles)
   const location = useLocation()
   const pathnames = location.pathname.split('/').filter(path => path)
-
+    
   return (
     <div className={cs('breadcrumb-navigate')}>
         <div className={cs('img-nav')}>
             <MdHome className={cs('breadcrumb-link-home')}/> 
-            <Link className={cs('breadcrumb-link')}>
+            <Link to={'/'} className={cs('breadcrumb-link')}>
                 <span>Trang chủ / </span>
             </Link>
             {pathnames.length && pathnames.map((name, index) => {
@@ -21,7 +21,7 @@ function Breadcrumb({product}) {
                 if(isLast) {
                     return <span className={cs('breadcrumb-link-sub')}>{product?.name}</span>
                 } else {
-                    return <Link className={cs('breadcrumb-link')}>{product?.category?.name} / </Link>
+                    return <Link className={cs('breadcrumb-link')}>{product?.Category?.name} / </Link>
                 }
             })}
         </div>

@@ -82,6 +82,8 @@
     width: 100%;
     scroll-snap-type: x proximity;
     scroll-behavior: smooth;
+    // position: relative;
+    overflow: hidden;
 
     &::-webkit-scrollbar{
         display: none;

@@ -5,6 +5,7 @@ import styles from './AuthAccount.module.scss'
 import { useForm } from "react-hook-form"
 import { useSelector } from 'react-redux'
 import { AnimatePresence, motion } from "framer-motion";
+import { Button } from 'antd'
 
 const day = [...Array(32).keys()]
 const month = [...Array(13).keys()]
@@ -100,7 +101,7 @@ function AuthAccount() {
               {errors.year && <span>Vui lòng chọn năm sinh</span>}
     
             </div>
-              <input type='submit' className={cs('submit-btn')} value='Lưu thay đổi'/>
+              <Button type='submit' value='Lưu thay đổi'>Lưu thay đổi</Button>
           </form>
         </motion.div>
       </div>

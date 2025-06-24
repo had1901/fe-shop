@@ -24,6 +24,8 @@ import AuthPrivateRoute from './components/PrivateRoute/AuthPrivateRoute';
 import Account from './pages/auth/Account';
 import CartPage from './pages/cart/CartPage';
 import Payment from './pages/payment/Payment';
+import { setCarts } from './store/cart/cartSlice';
+import OrderPage from './pages/order/OrderPage';
 
 
 
@@ -84,14 +86,13 @@ function App() {
       <Routes>
         <Route path='/' element={<MainLayout />}>
           <Route index element={<HomePage />} />
-          {/* <Route element={<PrivateRoute allowRole={['admin']} />}>
-              <Route path='detail' element={<DetailProductPage />} />
-          </Route> */}
-          <Route path='products/:slug' element={<DetailProductPage />} />
+          <Route path='product/:id/:slug' element={<DetailProductPage />} />
           <Route path='dashboard' element={<DashboardPage />} />
           <Route path='cart' element={<CartPage />} />
           <Route path='payment/vnpay-return' element={<Payment />} />
-  
+          <Route path='payment/vnpay-return' element={<Payment />} />
+          <Route path='order' element={<OrderPage />} />
+            
           <Route path='pages' element={<SellerHome />} >
             {render(menuItems)}
           </Route>
@@ -113,6 +114,7 @@ function App() {
           <Route path='*' element={<NotFoundPage />} />
         </Route>
       </Routes>
+      
       <ToastContainer
         position="top-center"
         autoClose={5000}

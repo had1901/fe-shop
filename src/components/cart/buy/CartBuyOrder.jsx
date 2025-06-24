@@ -14,7 +14,7 @@ import { Link } from 'react-router'
 function CartBuyOrder() {
     const cs = useStyles(styles)
     const carts = useSelector(state => state.cart.carts)
-    console.log(carts)
+    
   return (
         <div className={cs('form-cart')}>
             <div className={cs('cart-content')}>

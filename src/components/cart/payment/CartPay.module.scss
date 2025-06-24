@@ -1,0 +1,53 @@
+
+.cart-pay{
+    margin: 20px 0;
+}
+
+.heading{
+    font-size: 22px;
+    font-weight: 600;
+}
+.info-list{
+    margin: 14px 14px 24px;
+}
+.info-list li{
+    display: flex;
+    gap: 6px;
+    margin-top: 20px;
+    min-width: 110px;
+}
+.info-list li span:first-child{
+    font-weight: 500;
+    min-width: 24%;
+}
+.price{
+    font-weight: 500;
+    color: #E30019;
+}
+.pay-method{
+    padding: 14px;
+    border-top: 1px solid #ccc;
+}
+.pay-method h2{
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.pay-method label{
+    font-weight: 500;
+    cursor: pointer;
+}
+.radio-method{
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.radio-method input{
+    margin-right: 8px;
+    cursor: pointer;
+}
+.logo-method{
+    max-width: 40px;
+    margin-left: 8px;
+}

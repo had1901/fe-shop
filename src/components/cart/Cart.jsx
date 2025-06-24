@@ -9,8 +9,15 @@ import { BsFillCartCheckFill } from 'react-icons/bs'
 import { FaAddressCard, FaCheck } from 'react-icons/fa6'
 import { IoCard, IoShieldCheckmark } from 'react-icons/io5'
 import { convertPrice } from '../../utils/convertString/_convertPrice'
-import { setCarts, setInfoCustomer } from '../../store/cart/cartSlice'
+import { setCarts, setInfoCustomer, setTotal } from '../../store/cart/cartSlice'
 import axiosApi from '../../services/axios'
+import FadeLoader from './../../../node_modules/react-spinners/esm/FadeLoader';
+import CountUp from 'react-countup';
+import CartStatus from './status/CartStatus'
+import { useNavigate } from 'react-router'
+import { useForm } from "react-hook-form";
+import { Button } from 'antd'
+import { generateOrderCode } from '../../utils/convertString/_gennerateOrderCode'
 
 const checkoutSteps = [
     {
@@ -31,66 +38,125 @@ const checkoutSteps = [
     },
 ]
 
+
+
 function Cart() {
     const [currentStep, setCurrentStep] = useState(1)
     const cs = useStyles(styles)
     const stepIconRef = useRef([])
+    const stepRef = useRef()
+    const carts = useSelector(state => state.cart.carts)
+    const user = useSelector(state => state.auth.info)
+    const isLoading = useSelector(state => state.cart.isLoading)
+    const total = useSelector(state => state.cart.total)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [margins, setMargins] = useState({
         marginLeft: 0,
         marginRight: 0
     })
-    const stepRef = useRef()
-    const carts = useSelector(state => state.cart.carts)
-    // const info = useSelector(state => state.cart.infoCustomer)
-    const user = useSelector(state => state.auth.info)
-    // console.log('carts', carts)
-    
-    const dispatch = useDispatch()
+    const selected = useSelector(state => state.cart.selected)
+    const customer = useSelector(state => state.cart.infoCustomer)
+    const infoPayment = useSelector(state => state.order.infoPayment)
 
-    const handleNext = async () => {
-        if(currentStep <= checkoutSteps.length - 1) {
-            setCurrentStep(currentStep + 1)
-        }
-        if(currentStep === 3) {
-            const info = {
-                amount: 50000,
-                bankCode: "NCB", 
-                orderDescription: "Thanh toan don hang",
-                orderType: "billpayment",
-                language: "vn"
-              }
-            const res = await axiosApi.post('payment/create-payment-url', info)
-            if(res.redirectUrl) {
-                window.location.href = res.redirectUrl
+    // console.log(carts)
+
+    const isValidateForm = () => {
+        const isAllFieldsFilled = Object.values(customer).every(value => value)
+        return isAllFieldsFilled
+    }
+
+    const stepConfigs = {
+        1: {
+          label: "Đặt hàng ngay",
+          action: () => setCurrentStep(2),
+        },
+        2: {
+          label: "Đặt hàng",
+          action: () => {
+            if(isValidateForm()) setCurrentStep(3)
+          },
+        },
+        3: {
+          label: "Thanh toán",
+          action: async () => {
+            dispatch(setInfoCustomer({...customer, methodPay: selected}))
+            if(selected === "vnp") {
+                await handleCreatePaymentUrl()
+                setCurrentStep(4)
             }
-            console.log('payment', res)
+            if(selected === 'cod' || selected === 'qr-code') {
+                setCurrentStep(4)
+            }
+          },
+        },
+        4: {
+          label: "Hoàn tất",
+          action: async () => {
+            const res = await handleCreateOrder()
+            if(res?.ec === 0) {
+                await handleRemoveCart()
+            }
+            navigate("/order")
+          },
+        },
+    }
+
+    // API tạo URL thanh toán VNPAY
+    const handleCreatePaymentUrl = async () => {
+        const info = {
+            amount: Number(total),
+            bankCode: "NCB", 
+            orderDescription: "Thanh toan don hang",
+            orderType: "billpayment",
+            language: "vn"
+        }
+        const res = await axiosApi.post('payment/create-payment-url', info)
+        if(res.redirectUrl) {
+            window.location.href = res.redirectUrl
         }
     }
 
+    const handleCreateOrder = async () => {
+        const info = {
+                ...customer,
+                userId: user.id,
+                total,
+                carts,
+                orderCode: generateOrderCode()
+            }
+        const res = await axiosApi.post('/create-order', info)
+        return res
+    }
+
+    const handleRemoveCart = async () => {
+        const res = await axiosApi.post('/delete-all-cart', { userId: user.id })
+        if(res?.ec !== 0) {
+            throw new Error('Không xóa được giỏ hàng')
+        }
+        dispatch(setCarts([]))
+        return
+    }
+    // Tính % các bước checkout
     const calculatorProcessBar = () => {
         if (checkoutSteps.length <= 1) return 0
         return ((currentStep - 1) / (checkoutSteps.length - 1)) * 100
     }
-
-    const handleCalculatorTotalPrice = () => {
-        return carts.reduce((init, currentItem) => {
-            return init + currentItem.sale_price * currentItem.quantity
-        },0)
-    }
-    const checkStep = () => {
-            switch (currentStep) {
-                case 1:
-                    return 'Đặt hàng ngay'
-                case 2:
-                    return 'Đặt hàng ngay'
-                case 3:
-                    return 'Thanh toán'
-                case 4:
-                    return 'Hoàn tất'
-                default:
-                    return ''
-            }
-        }
+    
+    // const renderButtonByStep = () => {
+    //         switch (currentStep) {
+    //             case 1:
+    //                 return <Button className={cs('btn-checkout')}>Đặt hàng ngay</Button>
+    //             case 2:
+    //                 return <Button className={cs('btn-checkout')}>Đặt hàng</Button>
+    //             case 3:
+    //                 return <Button className={cs('btn-checkout')}>Thanh toán</Button>
+    //             case 4:
+    //                 return <Button className={cs('btn-checkout')}>Hoàn tất</Button>
+    //             default:
+    //                 return ''
+    //         }
+    // }
 
     const renderComponentByStep = (currentStep) => {
             switch (currentStep) {
@@ -101,11 +167,12 @@ function Cart() {
                 case 3:
                     return <CartPay />
                 case 4:
-                    return <CartPay />
+                    return <CartStatus />
                 default:
                     return <CartBuyOrder />
             }
-        }
+    }
+
     useLayoutEffect(() => {
         const firstEl = stepIconRef.current[0];
         const left = firstEl.offsetLeft + firstEl.offsetWidth / 2
@@ -115,74 +182,100 @@ function Cart() {
         })
         stepIconRef.current = []
     },[currentStep, stepIconRef])
-    
 
+    // API lấy danh sách product
     useEffect(() => {
         const fetchCarts = async () => {
             const res = await axiosApi.post('get-all-cart', {id: user.id})
-            console.log('all-cart', res.dt)
-            // if(res.dt) {
-            //     dispatch(setCarts(res.dt))
-            // }
-        }
+            if(res.dt) {
+                dispatch(setCarts(res.dt))
+            }
+          }
         fetchCarts()
-    },[user?.id])
+    },[user?.id, dispatch, isLoading])
 
-  return (
-    <div className={cs('form-cart')}>
-        <div className={cs('cart-header')}>
-            <div ref={stepRef} className={cs('cart-checkout')}>
-                <ul  className={cs('steps')}>
-                    {checkoutSteps.length && checkoutSteps.map((step, index) => (
-                        <li  
-                            key={step.name} 
-                            className={cs(`step-item `)}
-                        >
-                            <span 
-                                ref={el => stepIconRef.current[index] = el}
-                                className={cs(`step-icon ${currentStep > index + 1 || currentStep === checkoutSteps.length ? 'completed-step' : currentStep === index + 1 ? 'active-step' : ''}`)}
-                            >
-                                {currentStep > index + 1 || currentStep === checkoutSteps.length ? <FaCheck /> : step.icon}
-                            </span>
-                            <span 
-                                className={cs(`step-text ${currentStep > index + 1 || currentStep === checkoutSteps.length ? 'completed-text-step' : currentStep === index + 1 ? 'active-text-step' : ''}`)}
-                            >
-                                {step.name}
-                            </span>
-                        </li>
-                    ))}
-                </ul>
-                <div 
-                    className={cs('process-bar')} 
-                    style={{
-                        
-                        left: margins.marginLeft + 'px',
-                        right: margins.marginLeft + 'px',
-                    }}
-                >
-                    <div className={cs('process')} style={{width: `${calculatorProcessBar()}%`}}></div>
-                </div>
-            </div>
-        </div>
-        {renderComponentByStep(currentStep)}
-        {carts.length > 0 && 
-            <div className={cs('cart-bot')}>
-                <div className={cs('shipping')}>
-                    <span>Phí vận chuyển:</span>
-                    <span>Miễn phí</span>
-                </div>
-                <div className={cs('total-price')}>
-                    <span className={cs('total-text')}>Tổng tiền:</span>
-                    <span className={cs('total-number')}>{convertPrice(handleCalculatorTotalPrice())}</span>
-                </div>
-                
-                <button className={cs('btn-checkout')} onClick={handleNext}>
-                    {checkStep()}
-                </button>
-            </div>
+    // Tính tổng tiền giỏ hàng
+    useEffect(() => {
+        const handleCalculatorTotalPrice = () => {
+            return carts.reduce((init, currentItem) => {
+                if(currentItem.product) {
+                    dispatch(setTotal(init + currentItem?.product.sale_price * currentItem.quantity))
+                    return init + currentItem?.product.sale_price * currentItem.quantity
+                } else{
+                    dispatch(setTotal(init + currentItem.sale_price * currentItem.quantity))
+                    return init + currentItem.sale_price * currentItem.quantity
+                }
+            },0)
         }
-    </div>
-  )
+        handleCalculatorTotalPrice()
+    },[dispatch, carts])
+
+    return (
+        <div className={cs('form-cart')}>
+            <div className={cs('cart-header')}>
+                <div ref={stepRef} className={cs('cart-checkout')}>
+                    <ul  className={cs('steps')}>
+                        {checkoutSteps.length && checkoutSteps.map((step, index) => (
+                            <li  
+                                key={step.name} 
+                                className={cs(`step-item `)}
+                            >
+                                <span 
+                                    ref={el => stepIconRef.current[index] = el}
+                                    className={cs(`step-icon ${currentStep > index + 1 || currentStep === checkoutSteps.length ? 'completed-step' : currentStep === index + 1 ? 'active-step' : ''}`)}
+                                >
+                                    {currentStep > index + 1 || currentStep === checkoutSteps.length ? <FaCheck /> : step.icon}
+                                </span>
+                                <span 
+                                    className={cs(`step-text ${currentStep > index + 1 || currentStep === checkoutSteps.length ? 'completed-text-step' : currentStep === index + 1 ? 'active-text-step' : ''}`)}
+                                >
+                                    {step.name}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                    <div 
+                        className={cs('process-bar')} 
+                        style={{
+                            left: margins.marginLeft + 'px',
+                            right: margins.marginLeft + 'px',
+                        }}
+                    >
+                        <div className={cs('process')} style={{width: `${calculatorProcessBar()}%`}}></div>
+                    </div>
+                </div>
+            </div>
+            {   isLoading 
+                ? (<div className={cs('spinner')}><FadeLoader  color="#ff8f8f" size={60} width={2} speedMultiplier={2} cssOverride={{ margin: '20px auto'}} /></div>) 
+                : renderComponentByStep(currentStep)
+            } 
+            {carts.length > 0 && 
+                <div className={cs('cart-bot')}>
+                    <div className={cs('shipping')}>
+                        <span>Phí vận chuyển:</span>
+                        <span>Miễn phí</span>
+                    </div>
+                    <div className={cs('total-price')}>
+                        <span className={cs('total-text')}>Tổng tiền:</span>
+                        <span className={cs('total-number')}>
+                            <CountUp
+                                end={total}
+                                duration={2}
+                                separator="."
+                                suffix=" ₫"
+                            />
+                        </span>
+                    </div>
+                    
+                    <div onClick={() => stepConfigs[currentStep]?.action()}>
+                        <Button className={cs('btn-checkout')}>
+                            {stepConfigs[currentStep]?.label}
+                        </Button>
+                    </div>
+                </div>}
+                
+        </div>
+    )
 }
 
 export default Cart

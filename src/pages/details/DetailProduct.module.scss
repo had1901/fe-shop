@@ -292,6 +292,15 @@
     margin-top: 10px;
     
 }
+.news-title{
+    display: -webkit-box;
+    -webkit-line-clamp: 2;     /* 👈 Số dòng muốn giới hạn */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 14px;
+    line-height: 1.2;
+}
 .list-news-link{
     display: flex;
     align-items: flex-start;
@@ -314,6 +323,6 @@
 .list-news-item p{
     width: 80%;
     max-width: 80%;
-    padding: 2px 14px;
+    padding: 0px 14px;
     height: 100%;
 }

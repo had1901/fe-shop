@@ -1,5 +1,6 @@
 .form-cart{
     max-width: 620px;
+    min-height: 500px;
     margin: 20px auto;
     padding: 10px;
     background: #fff;
@@ -49,16 +50,19 @@
 
 }
 .active-step{
-    background-color: #E30019;
+    background-color: rgb(0, 155, 39);
     color: #fff;
-    border: 1px solid #E30019;
+    // border: 1px solid #E30019;
+    border: 1px solid rgb(0, 155, 39);
     
 }
 .completed-text-step{
     color: rgb(0, 155, 39);
 }
 .active-text-step{
-    color: #E30019;
+    // color: #E30019;
+    color: rgb(0, 155, 39);
+    font-weight: 500;
 }
 .completed-step, .active-step, .completed-step, .active-text-step{
     // transition: color 0.2s ease;
@@ -66,11 +70,7 @@
 }
 .process-bar{
     position: absolute;
-    // width: 100%;
-    // right: 0;
-    
-    top: 31%;
-    // left: 0;
+    top: 36%;
     height: 4px;
     background-color: #ccc;
 }
@@ -148,3 +148,7 @@
     background-color: #E30019;
     padding-top: 50%;
 }
+// .spinner{
+//     display: flex;
+//     justify-content: center;
+// }

@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import bannerHeader from '~/assets/logo/banner-header.webp'
 import logoHeader from '~/assets/logo/logo-gearvn.svg'
 import logoMobile from '~/assets/logo/logo-mobile.svg'
@@ -26,6 +26,8 @@ import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
 import { MdOutlineLogout } from 'react-icons/md';
 import usePost from '../../hooks/usePost.js';
 import { logout } from '../../store/auth/authSlice.js';
+import { setCarts } from '../../store/cart/cartSlice.js';
+import axiosApi from '../../services/axios.js';
 
 
 
@@ -34,11 +36,11 @@ function Header() {
   const [fixedClass, setFixedClass] = useState('')
   const state = useSelector(state => state.navbar.isToggle)
   const user = useSelector(state => state.auth.info)
-  const cart = useSelector(state => state.cart.carts)
-  
+  const carts = useSelector(state => state.cart.carts)
   const dispatch = useDispatch()
   const cs = useStyles(styles)  
   const { data, loading, postData, error } = usePost()
+  const isLoading = useSelector(state => state.cart.isLoading)
 
   const handleToggleNavbar = debounce(() => {
     dispatch(toggle())
@@ -58,9 +60,11 @@ function Header() {
     return 0
   }
   
-  const handleLogout = () => {
-    postData('/auth/logout', {})
+  const handleLogout = async () => {
+    await postData('/auth/logout', {})
+    localStorage.clear()
     dispatch(logout())
+    window.location.reload()
   }
 
   useEffect(() => {
@@ -70,6 +74,20 @@ function Header() {
       setFixedClass('fixed_none')
     }
   },[state])
+
+  
+  useLayoutEffect(() => {
+    if(user) {
+      const fetchCarts = async () => {
+        const res = await axiosApi.post('get-all-cart', {id: user.id})
+        if(res.dt) {
+            dispatch(setCarts(res.dt))
+        }
+      }
+      fetchCarts()
+    }
+  },[user, user?.id, dispatch])
+
   return (
     <>
             <div className={cs('headerBanner')}>
@@ -117,7 +135,7 @@ function Header() {
                                 <span className={cs('icon-size')}><BsCartCheck /></span>
                                 <div className={cs('wrapText')}>Giỏ hàng</div>
                                 <span className={cs('notification-cart')}>
-                                  {total(cart)}
+                                  {total(carts)}
                                 </span>
                             </Link>
                           <div className={cs('bgColorLogin')} onClick={openForm}>

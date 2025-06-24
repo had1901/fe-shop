@@ -14,7 +14,6 @@ import { CgLayoutGrid } from 'react-icons/cg';
 function FormModal({ isLogin }) {
   const cs = useStyles(styles)
   const dispatch = useDispatch()
-  const state = useSelector(state => state.auth)
   const navigate = useNavigate()
 
 
@@ -30,7 +29,6 @@ function FormModal({ isLogin }) {
           )
           dispatch(setUser(user.dt))
           localStorage.setItem('_infoClient', JSON.stringify(user.dt))
-          // await axiosApi.post('/create-cart', user.dt)
           navigate('/')
         } catch(e) {
           console.log(e)

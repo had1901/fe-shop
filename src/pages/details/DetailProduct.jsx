@@ -10,9 +10,12 @@ import { placeList } from './../../components/address/_listPlace';
 import Address from './../../components/address/Address';
 import { debounce } from './../../utils/debounce/_debounce';
 import { IoChevronUpOutline } from 'react-icons/io5'
-import { addToCart } from '../../store/cart/cartSlice'
+import { addToCart, setCarts, setLoading } from '../../store/cart/cartSlice'
 import axiosApi from './../../services/axios';
 import { toast } from 'react-toastify'
+import { useNavigate, useParams } from 'react-router'
+import { Button, Modal } from 'antd';
+import { setProduct } from '../../store/product/productSlice'
 
 const sliders = [
   'http://localhost:5173/src/assets/flash_sale/img/f1.webp',
@@ -24,14 +27,27 @@ const sliders = [
   'http://localhost:5173/src/assets/flash_sale/img/f7.webp',
   
 ]
-const arr = [
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
+const blogs = [
+  {
+    id: 1,
+    title: 'Sửa lỗi không đánh được số trên bàn phím laptop Dell, HP, ASUS, Macbook nhanh chóng',
+  },
+  {
+    id: 2,
+    title: 'Hướng dẫn cách sửa lỗi không vào được Roblox dành cho PC và điện thoại',
+  },
+  {
+    id: 3,
+    title: 'Sửa lỗi không đánh được số trên bàn phím laptop Dell, HP, ASUS, Macbook nhanh chóngChi tiết cách ẩn bạn bè trên Facebook trên máy tính, điện thoại nhanh chóng',
+  },
+  {
+    id: 4,
+    title: 'Link nhận Spin Coin Master free, code Spin Master mới nhất 2025',
+  },
+  {
+    id: 5,
+    title: 'Cách tạo Zalo không cần số điện thoại trên PC, điện thoại nhanh chóng',
+  },
   
 ]
 
@@ -55,7 +71,10 @@ function DetailProductPage() {
   const product = useSelector(state => state.product.info)
   const user = useSelector(state => state.auth.info)
   const carts = useSelector(state => state.cart.carts)
-  
+  const navigate = useNavigate()
+  const [cartTemp, setCartTemp] = useState([])
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { id } = useParams()
 
   const handlePrev = debounce(() => {
     if(currentIndex > 0) {
@@ -71,16 +90,36 @@ function DetailProductPage() {
     }
   }, 200)
 
-  
   const handleToggle = () => {
     setOpen(!open)
   }
 
   const handleBuy = async (product) => {
     // dispatch(addToCart({...product, quantity: 1}))
-    toast('Đã thêm vào giỏ hàng')
-    await axiosApi.post('/add-cart', ({product, user}))
+    if(!user) {
+      showModal()
+      return
+    }
+    dispatch(setLoading(true))
+    const res = await axiosApi.post('/add-cart', ({product, user}))
+    if(res.ec === 0) {
+      toast('Đã thêm vào giỏ hàng')
+      setTimeout(() => {
+        dispatch(setLoading(false))
+      }, 1000)
+      navigate('/cart')
+    }
+  }
 
+  const showModal = () => {
+    setIsModalOpen(true)
+  }
+  const handleOk = () => {
+    setIsModalOpen(false)
+    navigate('/auth')
+  }
+  const handleCancel = () => {
+    setIsModalOpen(false)
   }
 
   useEffect(() => {
@@ -97,17 +136,30 @@ function DetailProductPage() {
     }
   },[open])
 
-  // useEffect(() => {
-  //   const handleAddCart = async (user) => {
-  //     if(carts.length > 0) {
-  //       console.log('cart change', carts)
-  //     }
-  //   }
-  //   handleAddCart(user)
-  // }, [carts])
+  useEffect(() => {
+    const getProduct = async () => {
+      const res = await axiosApi.post('/api/get-product', { id: id })
+      console.log(res)
+      if(res.ec === 0) {
+        dispatch(setProduct(res.dt))
+      }
+    }
+    getProduct()
+  },[dispatch, id])
+
 
   return (
     <div className={cs('product-inner', 'container')}>
+      <Modal
+        title="Thông báo"
+        closable={{ 'aria-label': 'Custom Close Button' }}
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        cancelText='Hủy'
+      >
+        <p>Vui lòng đăng nhập để đặt hàng!</p>
+      </Modal>
       <Breadcrumb product={product} />
       <div className={cs('product-main', 'row')}>
         <section className='col-xl-7'>
@@ -139,9 +191,9 @@ function DetailProductPage() {
               
             </div>
             <ul className={cs('list-img-product')}>
-                {arr.length && arr.map((item, index) => (
+                {blogs.length && blogs.map((item, index) => (
                     <li 
-                      onClick={() => setCurrentIndex(item)} 
+                      onClick={() => setCurrentIndex(index)} 
                       className={cs('img-item')} 
                       style={{ 
                         width: '50px', 
@@ -151,8 +203,9 @@ function DetailProductPage() {
                         borderRadius: '6px',
                         border: index === currentIndex ? '5px solid red' : 'transparent'
                       }}
+                      key={index}
                     >
-                      <span>{item}</span>
+                      <span>{index}</span>
                     </li>
                   ))}
             </ul>
@@ -275,13 +328,13 @@ function DetailProductPage() {
           <div ref={newsRef} className={cs(`news ${open && 'sticky-news'}`)}>
             <h3>Tin tức về công nghệ</h3>
             <ul className={cs('list-news')}>
-              {arr.slice(0,5).map(item => (
-                <li className={cs('list-news-item')}>
+              {blogs.map(item => (
+                <li key={item.id} className={cs('list-news-item')}>
                     <a className={cs('list-news-link')}>
                       <div className={cs('content-thumbnail')}>
-                        <img src="https://file.hstatic.net/200000722513/article/pika-ai-la-gi-thumbnail_504a219d2a3f4d4490757b4ae8b96462_grande.jpg" alt="" />
+                        <img src="https://file.hstatic.net/200000722513/article/gearvn-link-nhan-spin-coin-master-banner_c728769f9fe84e42a60b56bdf6773831_grande.jpg" alt="" />
                       </div>
-                      <p>{item}</p>
+                      <p className={cs('news-title')}>{item.title}</p>
                     </a>
                 </li>
               ))}

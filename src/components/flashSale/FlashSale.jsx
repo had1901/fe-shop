@@ -142,7 +142,13 @@ function FlashSale() {
                             className={cs(`list_product_sale ${isDragging && 'dragging'}`)}
                         >
                             {data.map((product, i) => (
-                                <ProductCard ref={(el) => itemRef.current[i] = el} key={i} columnValue={6} productItem={product} hasFlashSale />
+                                <ProductCard 
+                                    key={i} 
+                                    ref={(el) => itemRef.current[i] = el} 
+                                    columnValue={6} 
+                                    productItem={product} 
+                                    hasFlashSale
+                                />
                             ))}
                         </div>
                         <Button onclick={prevSlide} content={<FaChevronLeft/>} customClass='btn-slider btn-prev-sale' />

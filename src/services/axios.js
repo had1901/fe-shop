@@ -24,7 +24,6 @@ axiosApi.interceptors.request.use((request) => {
 
 
 axiosApi.interceptors.response.use((response) => {
-  // console.log('response', response)
   return response.data
 }, (error) => {
   if(error.response?.status === 404) {
@@ -34,7 +33,7 @@ axiosApi.interceptors.response.use((response) => {
     handleLogout()
   }
   // console.log('error-response', error)
-  return Promise.reject(error)
+  return Promise.reject(error.response.data)
 })
 
 export default axiosApi

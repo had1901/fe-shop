@@ -1,0 +1,56 @@
+
+
+.payment{
+    margin: 20px 0;
+}
+.box-payment{
+    max-width: 70%;
+    background: #fff;
+    border-radius: 6px;
+    padding: 20px;
+    margin: 0 auto;
+}
+.icon-status{
+    width: 30%;
+    margin: 0 auto;
+    position: relative;
+}
+.payment-info{
+    font-size: 18px;
+    margin-top: 14px;
+}
+.payment-result{
+    margin-top: 10px;
+    
+}
+.payment-title{
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+}
+.payment-table{
+    width: 100%;
+}
+.payment-table td:first-child {
+    font-weight: 500;
+    font-size: 18px;
+}
+.payment-table tr{
+    height: 50px;
+}
+.payment-table td{
+    height: 100%;
+    vertical-align: middle;
+    padding: 10px 10px;
+    line-height: 1.2;
+}
+.payment-total-price{
+    color: #e30119;
+    font-weight: 500;
+}
+.btn-return{
+    text-align: center;
+    margin: 20px 0 0;
+    font-size: 20px;
+}

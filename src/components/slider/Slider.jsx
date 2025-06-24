@@ -3,6 +3,7 @@ import styles from './Slider.module.scss';
 import clsx from "clsx";
 import { FaChevronRight } from "react-icons/fa6";
 import { FaChevronLeft } from "react-icons/fa6";
+import gsap from 'gsap';
 
 
 
@@ -11,7 +12,8 @@ function Slider({ sliders }) {
     const [isAnimating, setIsAnimating] = useState(false)
     const chevLeftRef = useRef(null)
     const chevRightRef = useRef(null)
-    
+    const sliderRef = useRef()
+
     // Click dot change slide
     const handleChangeSlider = (index) => {
         setCurrentIndex(index)
@@ -27,6 +29,7 @@ function Slider({ sliders }) {
         }
         
     }
+
     const handleNext= () => {
         if(isAnimating) return 
         console.log('Next', currentIndex)
@@ -36,7 +39,6 @@ function Slider({ sliders }) {
 
         }
     }
-
 
     useEffect(() => {
         // Hide - show cursor
@@ -71,8 +73,26 @@ function Slider({ sliders }) {
         }
     }, [currentIndex, sliders.length])
 
+    useEffect(() => {
+        const slider = sliderRef.current
+            if (!slider) return
+
+            gsap.fromTo(
+                slider, 
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    delay: 0.2,
+                    ease: 'power1.inOut',
+                },
+            )
+            
+        
+    },[])
   return (
-    <div className={clsx(styles.slider)}>
+    <div ref={sliderRef} className={clsx(styles.slider)}>
         {sliders.map((img, index) => (
             <img 
                 key={index} 

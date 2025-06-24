@@ -60,3 +60,13 @@
     gap: 8px;
     margin-top: 14px;
 }
+input:focus,
+input:valid {
+  background-color: white !important;
+  outline: none; /* nếu không muốn viền */
+}
+input:-webkit-autofill {
+    background-color: white !important;
+    transition: background-color 100000s ease-in-out 0s; /* trick để giữ màu */
+    -webkit-text-fill-color: black !important; /* màu chữ */
+  }
