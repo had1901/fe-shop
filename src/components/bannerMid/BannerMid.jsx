@@ -6,6 +6,7 @@ import useStyles from '~/hooks/useStyles';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect } from 'react';
+import { Link } from 'react-router';
 
 gsap.registerPlugin(ScrollTrigger)
 const listBanner = [
@@ -23,6 +24,18 @@ function BannerMid() {
   const cs = useStyles(styles)
   const bannerRef = useRef([])
 
+  const handleMove = () => {
+    const banner = bannerRef.current
+    gsap.to(banner[0], 
+        {
+            // opacity: 0,
+            y: 100,
+            duration: 0.8,
+            // delay: 0.6,
+            ease: 'power1.inOut',
+        },
+      )
+  }
   useLayoutEffect(() => {
     const banner = bannerRef.current
     if (!banner[0] || !banner[1]) return
@@ -72,9 +85,9 @@ function BannerMid() {
     <div className={cs('banner_mid_wrap')}>
       {listBanner.length && 
         listBanner.map((item, i) => (
-          <a key={i} ref={el => bannerRef.current[i] = el} href='#' className={cs('banner_mid_item')}>
+          <Link key={i} ref={el => bannerRef.current[i] = el} to='#' className={cs('banner_mid_item')} onClick={handleMove}>
             <img src={item.src} className={cs('banner_mid_img')} alt={item.alt} />
-          </a>
+          </Link>
         ))}
     </div>
   )

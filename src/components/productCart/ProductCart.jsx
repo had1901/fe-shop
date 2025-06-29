@@ -59,7 +59,8 @@ function ProductCart({ item }) {
         const res = await axiosApi.post('/delete-cart', {productId: item?.product?.id, userId: user?.id})
         if(res.ec === 0) {
             setTimeout(() => {
-                dispatch(setLoading(false)) 
+                dispatch(setLoading(false))
+                dispatch(setCarts([])) 
             }, 1000)
         }
     }

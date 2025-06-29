@@ -14,9 +14,9 @@ function OrderDetail({ detail }) {
     'Cổng thanh toán',
     'Địa chỉ giao hàng',
     'Ngày đặt hàng',
+    'Giảm giá',
     'Tổng tiền',
     'Trạng thái',
-    // 'Trạng thái giao hàng',
     'Hành động',
   ]
 
@@ -36,6 +36,7 @@ function OrderDetail({ detail }) {
                     <td className={cs('table-col')}>{detail.pay_method}</td>
                     <td className={cs('table-col')}>{detail.shipping_address}</td>
                     <td className={cs('table-col')}>{formatDate(detail.createdAt)}</td>
+                    <td className={cs('table-col')}>{detail.discount}</td>
                     <td className={cs('table-col price')}>{convertPrice(detail.total_price)}</td>
                     <td className={cs(`table-col`)}>
                         <span className={cs(`status-order ${generateClass(detail.status_payment)}`)}>{generateStatusText(detail.status_payment)}</span>
@@ -54,23 +55,24 @@ function OrderDetail({ detail }) {
                 <h2>Danh sách sản phẩm đã đặt hàng</h2>
             </div>
             <table className={cs('list-order-product')}>
-                <tr>
-                    <td className={cs('order-label')}><span>Hình ảnh</span></td>
-                    <td className={cs('order-label')}><span>Tên sản phẩm</span></td>
-                    <td className={cs('order-label')}><span>Số lượng</span></td>
-                    <td className={cs('order-label')}><span>Giá tiền</span></td>
-                </tr>
-                {detail?.Order_details?.length && detail?.Order_details.map(item => (
-                    <tbody>
-                        
-                        <tr>
+                <thead>
+                    <tr>
+                        <td className={cs('order-label')}><span>Hình ảnh</span></td>
+                        <td className={cs('order-label')}><span>Tên sản phẩm</span></td>
+                        <td className={cs('order-label')}><span>Số lượng</span></td>
+                        <td className={cs('order-label')}><span>Giá tiền</span></td>
+                    </tr>
+                </thead>
+                <tbody>
+                    {detail?.Order_details?.length && detail?.Order_details.map((item, i) => (
+                        <tr key={i}>
                             <td className={cs('order-col img-product')}><img src={item?.Product?.thumbnail} /></td>
                             <td className={cs('order-col')}><span>{item?.Product?.name}</span></td>
                             <td className={cs('order-col')}><span>{item?.quantity}</span></td>
                             <td className={cs('order-col price')}><span>{convertPrice(item?.Product?.sale_price)}</span></td>
                         </tr>
-                    </tbody>
-                ))}
+                    ))}
+                </tbody>
             </table>
         </div>
     </div>

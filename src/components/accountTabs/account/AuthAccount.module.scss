@@ -33,6 +33,11 @@
     height: 36px;
     margin-left: 30px;
     padding: 6px 8px;
+    outline: none;
+    border: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333333;
 }
 .gender-radio{
     display: flex;

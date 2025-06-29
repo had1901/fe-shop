@@ -6,10 +6,11 @@ import { FaGripfire } from "react-icons/fa";
 import useStyles from '~/hooks/useStyles';
 import { memo } from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { setProduct } from '../../store/product/productSlice';
 import { convertStringToUrl } from '../../utils/convertString/_convertStringToUrl';
 import { convertPrice } from './../../utils/convertString/_convertPrice';
+import { IoGiftSharp } from 'react-icons/io5';
 
 
 const ProductCard = memo(forwardRef(({ 
@@ -17,31 +18,25 @@ const ProductCard = memo(forwardRef(({
   columnValue = 5,  
   hasTechnical, 
   hasFlashSale, 
-  hasLabelTop, 
+  hasLabelTop,
+  linkTo, 
 }, ref) => {
   const imgRef = useRef()
   const cs = useStyles(styles)
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-
-  // const handleGetProduct = (item) => {
-  //   // dispatch(setProduct(item))
-  //   // navigate(`product/${convertStringToUrl(item.name)}`)
-  // }
-
+  
   return (
     <Link 
-      to={`product/${productItem.id}/${convertStringToUrl(productItem.name)}`}
+      to={linkTo || `/product/${productItem.id}/${convertStringToUrl(productItem.name)}`}
       ref={ref} 
       className={cs('product_card')} 
-      // onClick={() => handleGetProduct(productItem)} 
       style={{"--column": `${columnValue}`}}
       draggable="false" 
     >
       <div className={cs('product_card_bg')}>
         {hasLabelTop && 
           <div className={cs('product_label_top')}>
-            <label className={cs('product_label_tag')}></label>
+            <label className={cs('product_label_tag')}>Quà tặng HOT</label>
+            <IoGiftSharp className={cs('icon-gift')} />
           </div>
         }
         <picture className={cs('product_card_img')}>

@@ -126,6 +126,8 @@
     font-size: 14px;
     border-radius: 4px;
     font-weight: 500;
+    display: block;
+
 }
 .pending{
     border: 1px solid #caae2d;
@@ -138,6 +140,10 @@
 .shipping{
     border: 1px solid #4a90e2;
     color: #4a90e2;
+}
+.destroy{
+    border: 1px solid #e30119;
+    color: #e30119;
 }
 .center{
     text-align: center;

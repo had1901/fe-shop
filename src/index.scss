@@ -70,7 +70,9 @@ button, table, select{
 	cursor: pointer;
 }
 
-
+.ant-col-16{
+	min-width: 100% !important;
+}
 
 // PC
 @media (min-width: 992px) and (max-width: 1200px) {

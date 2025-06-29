@@ -1,9 +1,9 @@
 
 import './App.scss'
-import { Routes, Route } from 'react-router'
+import { Routes, Route, useNavigate } from 'react-router'
 import AuthPage from './pages/auth/index';
 import DetailProductPage from './pages/details/DetailProduct';
-import DashboardPage from './pages/dashboard/index';
+import DashboardPage from './pages/admin/dashboard/Dashboard';
 import NotFoundPage from './pages/not-found';
 import Login from './pages/auth/Login';
 import Register from './pages/auth/Register';
@@ -26,11 +26,67 @@ import CartPage from './pages/cart/CartPage';
 import Payment from './pages/payment/Payment';
 import { setCarts } from './store/cart/cartSlice';
 import OrderPage from './pages/order/OrderPage';
+import Seller from './components/seller/Seller';
+import LayoutAdmin from './pages/admin/LayoutAdmin';
+import Dashboard from './pages/admin/dashboard/Dashboard';
+import ProductAdmin from './pages/admin/products/ProductAdmin';
+import ProductEdit from './pages/admin/products/ProductEdit';
 
 
+const menuAdmin = [
+  {
+      path: '',
+      component: <Dashboard category='keyboard' />,
+  },
+  {
+      path: '',
+      component: <Seller category='pc' />,
+  },
+  {
+      path: 'products',
+      component: <ProductAdmin  />,
+  },
+  {
+      path: 'products/edit/:id',
+      component: <ProductEdit  />,
+  },
+  {
+      path: 'categories',
+      component: <Seller category='laptop' />,
+  },
+  {
+      path: 'brands',
+      component: <Seller category='pc' />,
+  },
+  {
+      path: 'orders',
+      component: <Seller category='pc' />,
+  },
+  {
+      path: 'accounts',
+      component: <Seller category='pc' />,
+  },
+  {
+      path: 'promotion',
+      component: <Seller category='pc' />,
+  },
+  {
+      path: 'feedback',
+      component: <Seller category='pc' />,
+  },
+  {
+      path: 'analytics',
+      component: <Seller category='pc' />,
+  },
+  {
+      path: 'setting',
+      component: <Seller category='pc' />,
+  },
+]
 
 function App() {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
   const user = useSelector(state => state.auth.info)
 
@@ -65,7 +121,6 @@ function App() {
               throw new Error(e)
             }
           }
-          // console.log('error', e)
 
         } finally {
           setIsLoading(false)
@@ -73,6 +128,10 @@ function App() {
     })()
     
   },[dispatch])
+
+  // useEffect(() => {
+  //   if(user.Role.name === 'admin') navigate('/auth/admin')
+  // },[user, navigate])
 
   if(isLoading) return (
     <>
@@ -90,29 +149,37 @@ function App() {
           <Route path='dashboard' element={<DashboardPage />} />
           <Route path='cart' element={<CartPage />} />
           <Route path='payment/vnpay-return' element={<Payment />} />
-          <Route path='payment/vnpay-return' element={<Payment />} />
           <Route path='order' element={<OrderPage />} />
             
           <Route path='pages' element={<SellerHome />} >
             {render(menuItems)}
           </Route>
-  
-  
-          {/* <Route element={<AuthPrivateRoute />}> */}
+
+          {/* Private route Auth */}
+          <Route element={<AuthPrivateRoute />}>
             <Route path='auth' element={<AuthPage />}>
                 <Route index element={<Login />}></Route>
                 <Route path='register' element={<Register />}></Route>
                 <Route path='forgotPassword' element={<ForgotPassword />}></Route>
             </Route>
-          {/* </Route> */}
+          </Route>
 
-          {/* Private route */}
+          
           <Route element={<AuthPrivateRoute />}> 
             <Route path='auth/account' element={<Account />} />
           </Route>
 
           <Route path='*' element={<NotFoundPage />} />
         </Route>
+
+        <Route element={<AuthPrivateRoute />}>
+          <Route path='/auth/admin' element={<LayoutAdmin />}>
+            {menuAdmin.map(route => (
+              <Route path={route.path} element={route.component} />
+            ))}
+          </Route>
+        </Route>
+
       </Routes>
       
       <ToastContainer

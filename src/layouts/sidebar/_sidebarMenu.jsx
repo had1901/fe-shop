@@ -11,25 +11,20 @@ import { PiOfficeChairLight } from "react-icons/pi";
 import { GrCloudSoftware } from "react-icons/gr";
 import { PiGameControllerLight } from "react-icons/pi";
 import { PiGiftLight } from "react-icons/pi";
-// import { TiChevronRight } from "react-icons/ti";
-// import clsx from "clsx";
-// import styles from './SidebarMenu.module.scss';
-import MegaMenu from '../../components/megaMenu/MegaMenu';
+
 
 import banner1 from "~/assets/banner/b1.webp";
 import banner2 from "~/assets/banner/b2.webp";
 import banner3 from "~/assets/banner/b3.webp";
 import banner4 from "~/assets/banner/b4.webp";
 import banner5 from "~/assets/banner/b5.webp";
-import SellerLaptop from "~/pages/seller/laptop/SellerLaptop";
-import SellerPC from '~/pages/seller/pc/SellerPC';
-import { Link } from "react-router";
+import SellerProduct from "../../pages/seller/SellerProduct";
 
 export const menuItems = [
     {
         id: 1,
         icon: <IoLaptopOutline />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='laptop' />,
         label: 'Laptop',
         href: 'laptop-van-phong',
         products: [
@@ -135,7 +130,7 @@ export const menuItems = [
     {
         id: 2,
         icon: <MdLaptopMac />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='laptop' />,
         label: 'Laptop Gaming',
         href: 'laptop-gaming',
         products: [
@@ -255,7 +250,7 @@ export const menuItems = [
     {
         id: 3,
         icon: <PiComputerTower />,
-        component: <SellerPC />,
+        component: <SellerProduct category='pc' />,
         label: 'PC GVN',
         href: 'pc-gvn',
         products: [
@@ -361,7 +356,7 @@ export const menuItems = [
     {
         id: 4,
         icon: <PiComputerTower />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='pc' />,
         label: 'Main, CPU, VGA',
         href: 'pc-gvn#',
         products: [
@@ -457,7 +452,7 @@ export const menuItems = [
     {
         id: 5,
         icon: <PiComputerTower />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='pc' />,
         label: 'Case, Nguồn, Tản',
         href: 'pc-gvn#',
         products: [
@@ -537,7 +532,7 @@ export const menuItems = [
     {
         id: 6,
         icon: <PiGraphicsCardLight />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='pc' />,
         label: 'Ỏ cứng, RAM, Thẻ nhớ',
         href: 'pc-gvn#',
         products: [
@@ -635,7 +630,7 @@ export const menuItems = [
     {
         id: 7,
         icon: <PiSpeakerHifiLight />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='pc' />,
         label: 'Loa, Micro, Webcam',
         href: 'pc-gvn#',
         products: [
@@ -681,7 +676,7 @@ export const menuItems = [
     {
         id: 8,
         icon: <BsDisplay />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='screen' />,
         label: 'Màn hình',
         href: 'man-hinh',
         products: [
@@ -807,7 +802,7 @@ export const menuItems = [
     {
         id: 9,
         icon: <CiKeyboard />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='keyboard' />,
         label: 'Bàn phím',
         href: 'ban-phim-may-tinh',
         products: [
@@ -876,7 +871,7 @@ export const menuItems = [
     {
         id: 10,
         icon: <PiMouseSimpleLight />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='pc' />,
         label: 'Chuột + Lót chuột',
         href: 'chuot-may-tinh',
         products: [
@@ -895,7 +890,7 @@ export const menuItems = [
     {
         id: 11,
         icon: <TfiHeadphone />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='' />,
         label: 'Tai Nghe',
         href: 'tai-nghe-may-tinh',
         products: [
@@ -914,7 +909,7 @@ export const menuItems = [
     {
         id: 12,
         icon: <PiOfficeChairLight />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='' />,
         label: 'Ghế - Bàn',
         href: 'ghe-gia-tot',
         products: [
@@ -933,7 +928,7 @@ export const menuItems = [
     {
         id: 13,
         icon: <GrCloudSoftware />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='' />,
         label: 'Phần mềm, mạng',
         href: 'thiet-bi-mang',
         products: [
@@ -952,7 +947,7 @@ export const menuItems = [
     {
         id: 14,
         icon: <PiGameControllerLight />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='' />,
         label: 'Handheld, Console',
         href: 'may-choi-game',
         products: [
@@ -971,7 +966,7 @@ export const menuItems = [
     {
         id: 15,
         icon: <PiGameControllerLight />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='' />,
         label: 'Phụ kiện (Hub, sạc, cáp..)',
         href: 'phu-kien',
         products: [
@@ -990,7 +985,7 @@ export const menuItems = [
     {
         id: 16,
         icon: <PiGiftLight />,
-        component: <SellerLaptop />,
+        component: <SellerProduct category='' />,
         label: 'Dịch vụ và thông tin khác',
         href: '',
         products: [

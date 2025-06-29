@@ -5,12 +5,21 @@ import { Link } from 'react-router'
 import ProductList from '~/components/productList/ProductList'
 import useStyles from '~/hooks/useStyles'
 import styles from './Seller.module.scss'
-import { computerList } from '~/api/_products'
 import axiosApi from '../../services/axios'
 
-function Seller({ data }) {
+function Seller({ category }) {
     const cs = useStyles(styles)
-    
+    const [data, setDate] = useState([])
+
+    useEffect(() => {
+        const fetchProductByCategory = async () => {
+            const res = await axiosApi.get(`api/get-product-type?category=${category}`)
+            if(res?.ec === 0 && res.dt) {
+                setDate(res.dt)
+            }
+        }
+        fetchProductByCategory() 
+    },[category])
 
   return (
     <section className={cs('bottom')}>
@@ -22,14 +31,7 @@ function Seller({ data }) {
                 </div>
                 <div className={cs('products')}>
                     <ul className={cs('product_listing')}>
-                        {computerList.slice(0,1).map((products, index) => (
-                            <ProductList 
-                                key={products.title} 
-                                productList={products} 
-                                numberDisplay={6}
-                                noHeading
-                            />
-                        ))}
+                        <ProductList products={data} numberDisplay={5} noHeading />
                     </ul>
                 </div>
                 <div>

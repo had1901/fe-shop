@@ -41,7 +41,7 @@ function Header() {
   const cs = useStyles(styles)  
   const { data, loading, postData, error } = usePost()
   const isLoading = useSelector(state => state.cart.isLoading)
-
+  console.log(carts)
   const handleToggleNavbar = debounce(() => {
     dispatch(toggle())
   }, 200)
@@ -51,9 +51,9 @@ function Header() {
   }
 
 
-  const total = (cart) => {
-    if(cart.length > 0) {
-      return cart.reduce((init, currentValue) => {
+  const total = (carts) => {
+    if(carts.length > 0) {
+      return carts.reduce((init, currentValue) => {
         return init + currentValue.quantity
       }, 0)
     }

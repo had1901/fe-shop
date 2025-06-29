@@ -13,7 +13,7 @@
     &_img{
         display: block;
         text-align: center;
-        padding: 10px;
+        // padding: 0 10px;
         user-select: none;
     }
 }
@@ -28,6 +28,7 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    padding: 14px;
     background-color: #fff;
     border-radius: 4px;
     box-shadow: inset 1px 0px 0px #EDEDED, inset -1px 0px 0px #EDEDED, inset 0px 1px 0px #EDEDED, inset 0px -1px 0px #EDEDED;
@@ -35,26 +36,44 @@
 .product_label_top{
     display: flex;
     align-items: center;
+    justify-content: space-between;
     flex-wrap: nowrap;
     padding-bottom: 10px;
     height: 34px;
     white-space: nowrap;
 }
+.product_card_img_wrap{
+    
+}
 .product_card_img{
     display: flex;
     align-items: center;
-    flex: 1;
+    flex: 2;
 }
-.product_card_img img{
-    
-}
+
 .product_card_bottom{
-    padding: 16px;
+    padding: 16px 0;
+    flex: 1;
 }
 .product_label{
     font-size: 11px;
     color: #fff;
     margin: 6px 0;
+}
+.product_label_tag{
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px 4px 6px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    background: #E30019;
+    color: #fff;
+
+}
+.icon-gift{
+    color: #E30019;
+    font-size: 24px;
 }
 .product_label_tag_new{
     display: inline-block;
@@ -75,7 +94,7 @@
     user-select: none;
     pointer-events: none;
     
-    & a{
+    & h3{
         color: #333333;
         line-height: 20px;
         height: 40px;

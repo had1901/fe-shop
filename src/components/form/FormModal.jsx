@@ -17,23 +17,31 @@ function FormModal({ isLogin }) {
   const navigate = useNavigate()
 
 
-    const submitFormLogin = async values => {                                                       
-        try{
-          const user = await toast.promise(
-            axiosApi.post('auth/login', values),
-            {
-              pending: 'Đang đăng nhập...',
-              success: 'Đăng nhập thành công',
-              error: 'Lỗi đăng nhập'
-            }
-          )
-          dispatch(setUser(user.dt))
-          localStorage.setItem('_infoClient', JSON.stringify(user.dt))
-          navigate('/')
-        } catch(e) {
-          console.log(e)
+  const submitFormLogin = async values => {                                                        
+    try {
+      const response = await toast.promise(
+        axiosApi.post('auth/login', values),
+        {
+          pending: 'Đang đăng nhập...',
+          success: 'Đăng nhập thành công',
+          error: 'Lỗi đăng nhập'
         }
+      )
+      const user = response?.dt
+      if (!user) throw new Error('Không nhận được dữ liệu người dùng')
+      dispatch(setUser(user))
+      localStorage.setItem('_infoClient', JSON.stringify(user))
+
+      // Navigate sau khi đã có user rõ ràng
+      if (user?.Role?.name === 'admin') {
+        navigate('/auth/admin', { replace: true })
+      } else {
+        navigate('/', { replace: true })
       }
+    } catch (e) {
+      console.log('Lỗi đăng nhập:', e)
+    }
+  } 
 
     const submitFailedLogin = errorInfo => {
         console.log('Failed:', errorInfo)

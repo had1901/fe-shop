@@ -38,13 +38,12 @@ export const orderSlice = createSlice({
                 '99': 'Lỗi thanh toán, vui lòng thử lại',
             }
             const statusText = statusMap[action.payload.vnp_ResponseCode] || 'Giao dịch thất bại'
-            if(action.payload.vnp_ResponseCode === '24') {
+            
                 state.infoPayment = {
                     ...state.infoPayment,
                     ...action.payload,
                     statusText
                   }
-            }
         },
         setOrders: (state, action) => {
             state.orders = action.payload

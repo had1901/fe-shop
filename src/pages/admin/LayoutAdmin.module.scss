@@ -1,0 +1,125 @@
+
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    background: #fff;
+}
+.logo{
+    padding: 15px 24px;
+    display: block;
+    background: #e30119;
+}
+.logo-header{
+    
+    background: #e30119;
+}
+.bell-notification{
+    // color: #fff;
+    color: #818181;
+
+    font-size: 24px;
+}
+.dot-bell{
+    color: #000;
+    // background: #fff;
+}
+.user-info{
+    margin-left: 20px;
+}
+.sidebar{
+    position: relative;
+}
+.menu-sidebar{
+    position: sticky;
+    top: 0;
+    left: 0;
+}
+.menu-active{
+    color: #1677ff;
+    text-decoration: none;
+    background-color: transparent;
+    outline: none;
+    cursor: pointer;
+    transition: color 0.3s;
+    -webkit-text-decoration-skip: objects;
+}
+.pro-dashboard{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+}
+.pro-analytics{
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    width: 25%;
+    padding: 20px;
+    min-height: 150px;
+    border-radius: 8px;
+}
+.pro-info{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+.pro-compare{
+    margin-top: auto;
+}
+.pro-analytics h4{
+    font-size: 14px;
+    font-weight: 500;
+    color: #858585;
+}
+.pro-total{
+    display: block;
+    margin-top: 10px;
+    font-size: 28px;
+    font-weight: 500;
+}
+.pro-icon{
+    font-size: 30px;
+    padding: 10px;
+    border-radius: 8px;
+}
+.pro-compare{
+    font-size: 16px;
+    color: #3f3f3f;
+}
+.pro-compare-number-up{
+    color: #05a158;
+}
+.pro-compare-number-down{
+    color: #fe5252;
+}
+.pro-analytics:nth-child(1) .pro-total {
+    color: #8d22c3;
+}
+.pro-analytics:nth-child(2) .pro-total {
+    color: #dfab0e;
+}
+.pro-analytics:nth-child(3) .pro-total {
+    color: #fe5252;
+}
+.pro-analytics:nth-child(4) .pro-total {
+    color: #0dc25e;
+}
+
+
+.pro-analytics:nth-child(1) .pro-icon {
+    color: #8d22c3;
+    background: rgb(238, 204, 255);
+}
+.pro-analytics:nth-child(2) .pro-icon {
+    color: #dfab0e;
+    background: rgb(255, 242, 205);
+}
+.pro-analytics:nth-child(3) .pro-icon {
+    color: #fe5252;
+    background: rgb(255, 200, 200);
+}
+.pro-analytics:nth-child(4) .pro-icon {
+    color: #0dc25e;
+    background: #bcfdd9;
+}

@@ -49,9 +49,7 @@ export const cartSlice = createSlice({
             state.infoCustomer = action.payload
         },
         setCarts: (state, action) => {
-            if(action.payload.length) {
-                state.carts = action.payload
-            }
+            state.carts = action.payload
         },
         setLoading: (state, action) => {
             state.isLoading = action.payload

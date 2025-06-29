@@ -11,15 +11,14 @@ import { useSlider } from '~/hooks/useSlider';
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-gsap.registerPlugin(ScrollTrigger) 
 
 function ProductList({ products, title, numberDisplay, noHeading }) {
   const cardRef = useRef([])
   const {trackRef, prevSlide, nextSlide} = useSlider(3, numberDisplay)
   const cs = useStyles(styles)
-  cardRef.current = []
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger) 
     const ctx = gsap.context(() => {
       cardRef.current.forEach((element, index) => {
         if (!element) return

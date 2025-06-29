@@ -103,7 +103,7 @@ function FlashSale() {
 
     useEffect(() => {
         const getProductFlashSale = async () => {
-            const products = await axiosApi.get('api/get-all')
+            const products = await axiosApi.get('api/get-all-product')
             if(products) {
                 const filterFlashSale = products.dt.filter(item => item.flash_sale === 1) 
                 setData(filterFlashSale)

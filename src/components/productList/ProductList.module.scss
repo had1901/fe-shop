@@ -67,6 +67,7 @@
 .pc_item_link{
     font-size: 18px;
     transition: color 0.3s ease;
+    
     &:hover{
         color: #e35050;
     }
@@ -74,7 +75,6 @@
 
 .sliders{
     position: relative;
-
 }
 .slider_track{
     display: flex;
@@ -82,7 +82,6 @@
     width: 100%;
     scroll-snap-type: x proximity;
     scroll-behavior: smooth;
-    // position: relative;
     overflow: hidden;
 
     &::-webkit-scrollbar{

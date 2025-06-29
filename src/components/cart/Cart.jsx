@@ -47,8 +47,8 @@ function Cart() {
     const stepRef = useRef()
     const carts = useSelector(state => state.cart.carts)
     const user = useSelector(state => state.auth.info)
-    const isLoading = useSelector(state => state.cart.isLoading)
     const total = useSelector(state => state.cart.total)
+    const isLoading = useSelector(state => state.cart.isLoading)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [margins, setMargins] = useState({
@@ -58,8 +58,6 @@ function Cart() {
     const selected = useSelector(state => state.cart.selected)
     const customer = useSelector(state => state.cart.infoCustomer)
     const infoPayment = useSelector(state => state.order.infoPayment)
-
-    // console.log(carts)
 
     const isValidateForm = () => {
         const isAllFieldsFilled = Object.values(customer).every(value => value)
@@ -80,11 +78,16 @@ function Cart() {
         3: {
           label: "Thanh toán",
           action: async () => {
-            dispatch(setInfoCustomer({...customer, methodPay: selected}))
+            const info = {
+                ...customer, 
+                methodPay: selected,
+                total,
+                carts
+            }
             if(selected === "vnp") {
                 await handleCreatePaymentUrl()
-                setCurrentStep(4)
             }
+            localStorage.setItem('infoPayment', JSON.stringify(info))
             if(selected === 'cod' || selected === 'qr-code') {
                 setCurrentStep(4)
             }
@@ -109,7 +112,8 @@ function Cart() {
             bankCode: "NCB", 
             orderDescription: "Thanh toan don hang",
             orderType: "billpayment",
-            language: "vn"
+            language: "vn",
+            orderCode: generateOrderCode()
         }
         const res = await axiosApi.post('payment/create-payment-url', info)
         if(res.redirectUrl) {
@@ -123,8 +127,10 @@ function Cart() {
                 userId: user.id,
                 total,
                 carts,
+                methodPay: selected,
                 orderCode: generateOrderCode()
             }
+        localStorage.setItem('infoPayment', JSON.stringify(info))
         const res = await axiosApi.post('/create-order', info)
         return res
     }
@@ -134,6 +140,7 @@ function Cart() {
         if(res?.ec !== 0) {
             throw new Error('Không xóa được giỏ hàng')
         }
+        localStorage.removeItem('infoPayment')
         dispatch(setCarts([]))
         return
     }
@@ -142,21 +149,6 @@ function Cart() {
         if (checkoutSteps.length <= 1) return 0
         return ((currentStep - 1) / (checkoutSteps.length - 1)) * 100
     }
-    
-    // const renderButtonByStep = () => {
-    //         switch (currentStep) {
-    //             case 1:
-    //                 return <Button className={cs('btn-checkout')}>Đặt hàng ngay</Button>
-    //             case 2:
-    //                 return <Button className={cs('btn-checkout')}>Đặt hàng</Button>
-    //             case 3:
-    //                 return <Button className={cs('btn-checkout')}>Thanh toán</Button>
-    //             case 4:
-    //                 return <Button className={cs('btn-checkout')}>Hoàn tất</Button>
-    //             default:
-    //                 return ''
-    //         }
-    // }
 
     const renderComponentByStep = (currentStep) => {
             switch (currentStep) {
@@ -187,8 +179,8 @@ function Cart() {
     useEffect(() => {
         const fetchCarts = async () => {
             const res = await axiosApi.post('get-all-cart', {id: user.id})
-            if(res.dt) {
-                dispatch(setCarts(res.dt))
+            if(res?.dt?.length > 0) {
+                dispatch(setCarts(res?.dt))
             }
           }
         fetchCarts()

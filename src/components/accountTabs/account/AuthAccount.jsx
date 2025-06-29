@@ -20,6 +20,13 @@ function AuthAccount() {
       console.log('data', data)
   }
 
+  // const configInput = [
+  //   {
+  //     label: 'Họ tên',
+  //     name: 'username',
+  //     errorMessage: 'Vui lòng nhập tên'
+  //   }
+  // ]
   useEffect(() => {
     const createYear = () => {
       const arr = []
@@ -33,15 +40,8 @@ function AuthAccount() {
   
 
   return (
-      <div 
-        
-        className={cs('account')}
-      >
-        <motion.div
-          // initial={{ opacity: 0 }}
-          // animate={{ opacity: 1 }}
-          // transition={{ duration: 1 }}
-        >
+      <div className={cs('account')}>
+        <motion.div>
           <div className={cs('title')}>
             <h1 >Thông tin tài khoản</h1>
           </div>
@@ -57,7 +57,7 @@ function AuthAccount() {
               <div className={cs('gender-radio')}>
                 <div className={cs('gender-group')}>
                   <label htmlFor="nam" className={cs('label-gender')}>Nam</label>
-                  <input id='nam'  type="radio" name='sex' value='Nam' defaultChecked {...register('gender', { required: true, maxLength: 14 })}/>
+                  <input id='nam'  type="radio" name='sex' value='Nam' {...register('gender', { required: true, maxLength: 14 })}/>
                 </div>
                 <div className={cs('gender-group')}>
                   <label htmlFor="nu" className={cs('label-gender')}>Nữ</label>

@@ -1,0 +1,93 @@
+
+.edit{
+    min-height: 300px;
+} 
+.form{
+    display: flex;
+    align-items: start;
+    gap: 20px;
+}
+.heading{
+    font-size: 22px;
+    margin-bottom: 8px;
+}
+.form-left, .form-right{
+    width: 100%;
+    background: #fff;
+    border-radius: 8px;
+    padding: 24px;
+}
+.form-left{
+    flex: 2;
+}
+.form-right{
+    flex: 1;
+}
+.price{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.label-editor{
+    color: #808080;
+    font-size: 14px;
+}
+.input-box{
+    display: flex;
+    column-gap: 20px;
+    align-items: flex-start;
+}
+.input-box > *{
+    // flex: 1;
+}
+.select-brand{
+    width: 100%;
+}
+.flex-switch{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+.flex-item{
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+    gap: 8px;
+    margin-right: 14px;
+}
+
+.list-img{
+    display: flex;
+    align-items: flex-start;
+    max-height: 100px;
+    // height: 100px;
+    margin-bottom: 14px;
+    gap: 4px;
+}
+.list-img-item{
+    background-color: #e2e2e28a;
+    padding: 0 10px;
+    max-width: 20%;
+    height: 100%;
+    position: relative;
+}
+.remove{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    padding: 2px;
+    font-size: 12px;
+    text-align: center;
+    border-radius: 50%;
+    vertical-align: middle;
+    top: -8px;
+    right: -4px;
+    background-color: #ccc;
+    cursor: pointer;
+}
+.list-img-item img{
+    // height: 100%;
+    height: 100px;
+    object-fit: cover;
+}

@@ -8,6 +8,9 @@ import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { setInfoPayment } from '../../store/order/orderSlice';
+import axiosApi from '../../services/axios';
+import { generateOrderCode } from '../../utils/convertString/_gennerateOrderCode';
+import { setCarts } from '../../store/cart/cartSlice';
 
 
 function Payment() {
@@ -17,28 +20,70 @@ function Payment() {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const infoPayment = useSelector(state => state.order.infoPayment)
- 
-  console.log(infoPayment)
+  const user = useSelector(state => state.auth.info)
+  // const customer = useSelector(state => state.cart.infoCustomer)
+  // const carts = useSelector(state => state.cart.carts)
+  // const total = useSelector(state => state.cart.total)
+
+
+  console.log('infoPayment', infoPayment)
+  
   useEffect(() => {
     let result = {}
     const params = new URLSearchParams(search)
     for (const [key, value] of params.entries()) {
       result[key] = value
     }
+    dispatch(setInfoPayment(result))
     setResponseCode(params.get('vnp_ResponseCode'))
   },[search, dispatch])
 
+
+  useEffect(() => {
+    const handleCreateOrder = async (mergeObj) => {
+      const info = {
+              ...infoPayment,
+              ...mergeObj,
+              userId: user.id,
+              total: mergeObj.vnp_Amount / 100,
+              carts: mergeObj.carts,
+              orderCode: mergeObj.vnp_OrderInfo
+          }
+      localStorage.removeItem('infoPayment')
+      const res = await axiosApi.post('/create-order', info)
+      if(res?.ec === 0) {
+        const handleRemoveCart = async () => {
+          const res = await axiosApi.post('/delete-all-cart', { userId: user.id })
+          if(res?.ec !== 0) {
+              throw new Error('Không xóa được giỏ hàng')
+          }
+          dispatch(setCarts([]))
+        }
+        handleRemoveCart()
+      }
+    }
+
+    if(responseCode && responseCode == '00') {
+      const raw = localStorage.getItem('infoPayment')
+      const info = raw ? JSON.parse(raw) : null
+      console.log('raw', info)
+      if(info) {
+        const mergeObj = {...info, ...infoPayment}
+        console.log('mergeObj', mergeObj)
+        handleCreateOrder(mergeObj)
+    }}
+  },[responseCode, infoPayment.vnp_OrderInfo])
 
   return (
     <div className={cs('payment')}>
       <div className='container'>
         <div className={cs('box-payment')}>
           <div className={cs('icon-status')}>
-            <DotLottieReact src={`../../../public/${infoPayment.vnp_ResponseCode === 0 ? 'check-success' : 'fail-error'}.lottie`} autoplay  />
+            <DotLottieReact src={`../../../public/${infoPayment.vnp_ResponseCode == '00' ? 'check-success' : 'fail-error'}.lottie`} autoplay  />
           </div>
           <div className={cs('payment-result')}>
             <h1 className={cs('payment-title')} style={{ color: `${infoPayment.vnp_ResponseCode !== 0 && '#e30119'}`}}>
-              <span>{infoPayment.vnp_ResponseCode && infoPayment.vnp_TransactionStatus === '00'  ? 'Thanh toán thành công' : infoPayment.statusText}</span>
+              <span>{infoPayment.statusText}</span>
             </h1>
 
             <table className={cs('payment-table')}>

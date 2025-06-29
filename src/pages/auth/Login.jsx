@@ -5,9 +5,7 @@ import styles from './Login.module.scss'
 
 function Login() {
   return (
-    <><FormModal isLogin />
-    
-    </>
+    <FormModal isLogin />
   )
 }
 

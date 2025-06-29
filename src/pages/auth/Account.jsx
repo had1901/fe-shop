@@ -23,7 +23,7 @@ const accountTabs = [
         key: 'account',
         title: 'Thông tin tài khoản',
         icon: <FaUser />,
-        href: '/profile',
+        href: '#profile',
         component: <AuthAccount />, 
     },
     {
@@ -31,7 +31,7 @@ const accountTabs = [
         title: 'Số địa chỉ',
         key: 'address',
         icon: <GiPositionMarker />,
-        href: '/address',
+        href: '#address',
         component: <AuthAddress />, 
 
     },
@@ -40,7 +40,7 @@ const accountTabs = [
         key: 'orders',
         title: 'Quản lý đơn hàng',
         icon: <FaWpforms />,
-        href: '/orders',
+        href: '#orders',
         component: <AuthOrders />, 
 
     },
@@ -49,7 +49,7 @@ const accountTabs = [
         key: 'viewed',
         title: 'Sản phẩm đã xem',
         icon: <IoEye />,
-        href: '/viewed',
+        href: '#viewed',
         component: <AuthViewed />, 
 
     },
@@ -58,23 +58,23 @@ const accountTabs = [
         key: 'logout',
         title: 'Đăng xuất',
         icon: <AiOutlineLogout />,
-        href: '/logout',
+        href: '#logout',
         component: <AuthModelLogout />, 
          
     },
 ]
-const orders = []
+
 function Account() {
     const [accountTab, setAccountTab] = useState('account')
     const user = useSelector(state => state.auth.info)
     const cs = useStyles(styles)
     let currentTab = accountTabs.find(tab => tab.key === accountTab)
-
+    
   return (
     <div className={cs('account')}>
         <div className='container'>
             <div className={cs('information', 'row')}>
-                <div className='col-xl-3'>
+                <div className='col-xl-3 col-lg-3 col-md-3 col-sm-3'>
                     <div className={cs('sidebar-left')}>
                         <div className={cs('username')}>
                             <div className={cs('avatar')}><FaUserCircle /></div>
@@ -83,7 +83,7 @@ function Account() {
                         <ul className={cs('menu-profile')}>
                             <li>
                                 {accountTabs.map(nav => (
-                                    <Link to={'#'} key={nav.key} className={cs('menu-profile-link')} onClick={() => setAccountTab(nav.key)}>
+                                    <Link to={`#`} key={nav.key} className={cs('menu-profile-link')} onClick={() => setAccountTab(nav.key)}>
                                         <span className={cs('menu-profile-icon')}>{nav.icon}</span>
                                         <span>{nav.title}</span>
                                     </Link>
@@ -92,7 +92,7 @@ function Account() {
                         </ul>
                     </div>
                 </div>
-                <div className='col-xl-9'>
+                <div className='col-xl-9 col-lg-9 col-md-9 col-sm-9'>
                     <div className='content-right' style={{background: '#fff', height: '100%'}}>
                         {/* {orders.length < 0 && <div><img src={nodata} alt="" /></div>} */}
                         <AnimatePresence mode="wait" className={cs('sidebar-right')}>

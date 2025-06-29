@@ -12,6 +12,7 @@ import { Button, Modal } from 'antd';
 import { formatDate } from '../../../utils/convertString/_formatTime';
 import OrderDetail from '../../orderDetail/OrderDetail';
 import { generateClass, generateStatusText } from '../../../utils/convertString/_gennerateOrderCode';
+import { fetchOrders } from './api_order';
 
 const tabsAction = [
   {
@@ -19,33 +20,34 @@ const tabsAction = [
     label: 'Tất cả',
     status: 'all'
   },
+  // {
+  //   id: 1,
+  //   label: 'Mới',
+  //   status: 'new'
+  // },
   {
     id: 1,
-    label: 'Mới',
-    status: 'new'
-  },
-  {
-    id: 2,
     label: 'Đang xử lý',
     status: 'pending'
   },
   {
-    id: 3,
+    id: 2,
     label: 'Đang vận chuyển',
     status: 'shipping'
   },
   {
-    id: 4,
+    id: 3,
     label: 'Hoàn thành',
     status: 'completed'
   },
   {
-    id: 5,
+    id: 4,
     label: 'Hủy',
     status: 'destroy'
   },
   
 ]
+
 function AuthOrders() {
   const cs = useStyles(styles)
   const [tabActive, setTabActive] = useState(0)
@@ -55,11 +57,11 @@ function AuthOrders() {
   const tabRef = useRef()
   const user = useSelector(state => state.auth.info)
   const orders = useSelector(state => state.order.orders)
-  const cus = useSelector(state => state.cart.infoCustomer)
   const dispatch = useDispatch()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [detail, setDetail] = useState({})
-console.log(cus)
+  const [searchOrder, setSearchOrder] = useState('')
+
   const tableHeaders = [
     'Mã đơn hàng',
     'Địa chỉ giao hàng',
@@ -67,15 +69,34 @@ console.log(cus)
     'Trạng thái',
     'Xem chi tiết'
   ]
+  // // const filterOrders = () => 
+  // const filterOrders = orders.filter(item => {
+  //   const searchItem = item.order_code.includes(searchOrder)
 
-  console.log('orders',orders)
+  //   if(tabsAction[tabActive]?.status == 'all' && searchItem) {
+  //     return item
+  //   }
+  //   return searchItem && item.status_payment == tabsAction[tabActive]?.status
+  // })
+
+  const statusFilter = tabsAction[tabActive]?.status || 'all'
+  const filterOrders = orders.filter(item => {
+    const matchSearch = item.order_code.includes(searchOrder)
+    const matchStatus = statusFilter === 'all' || item.status_payment === statusFilter
+    return matchSearch && matchStatus
+  })
+  
   const handleViewDetail = (orderId) => {
     const filterOrderById = orders.filter(order => order.id === orderId)
-    console.log(filterOrderById)
     if(filterOrderById)
       setDetail(filterOrderById[0])
       setIsModalOpen(true)
   }
+
+  const handleSearchOrder = (e) => {
+    setSearchOrder(e.target.value)
+  }
+
   const handleOk = () => {
     setIsModalOpen(false)
   }
@@ -105,13 +126,11 @@ console.log(cus)
   },[tabActive, widthEl])
 
   useEffect(() => {
-    const fetchOrders = async () => {
-      const res = await axiosApi.post('/get-orders', { userId: user.id })
-      if(res?.ec === 0 && res?.dt) {
-        dispatch(setOrders(res.dt))
-      }
-    }
-    fetchOrders()
+    if(!user.id) return
+    (async () => {
+      const data = await fetchOrders(user.id)
+      if(data) return dispatch(setOrders(data))
+    })()
   },[user.id, dispatch])
 
   return (
@@ -142,7 +161,13 @@ console.log(cus)
         <div className={cs('search-order')}>
           <div className={cs('box-search-order')}>
             <div className={cs('inner-search-order')}>
-              <input type="text" placeholder='Tìm đơn hàng theo Mã đơn hàng' className={cs('search-order-input')}/>
+              <input 
+                type="text" 
+                placeholder='Tìm đơn hàng theo Mã đơn hàng' 
+                className={cs('search-order-input')}
+                value={searchOrder}
+                onChange={handleSearchOrder}
+                />
               <IoIosSearch className={cs('search-order-icon')}/>
               <label htmlFor="" className={cs('search-order-text')}>Tìm đơn hàng</label>
             </div>
@@ -159,7 +184,7 @@ console.log(cus)
                 </tr>
               </thead>
               <tbody>
-                {orders.length && orders.map((order) => (
+                {filterOrders.length > 0 && filterOrders.map((order) => (
                   <tr key={order.id}>
                     <td className={cs('table-col')}>{order.order_code}</td>
                     <td className={cs('table-col')}>{order.shipping_address}</td>
@@ -176,8 +201,6 @@ console.log(cus)
                         onOk={handleOk}
                         onCancel={handleCancel}
                         cancelText='Đóng'
-                        mask={true}
-                        closeIcon={false}
                         focusTriggerAfterClose={true}
                         width={{
                           xs: '90%',

@@ -16,6 +16,7 @@ import { toast } from 'react-toastify'
 import { useNavigate, useParams } from 'react-router'
 import { Button, Modal } from 'antd';
 import { setProduct } from '../../store/product/productSlice'
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 const sliders = [
   'http://localhost:5173/src/assets/flash_sale/img/f1.webp',
@@ -74,6 +75,7 @@ function DetailProductPage() {
   const navigate = useNavigate()
   const [cartTemp, setCartTemp] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [addCart, setAddCart] = useState(false)
   const { id } = useParams()
 
   const handlePrev = debounce(() => {
@@ -96,6 +98,7 @@ function DetailProductPage() {
 
   const handleBuy = async (product) => {
     // dispatch(addToCart({...product, quantity: 1}))
+    setAddCart(true)
     if(!user) {
       showModal()
       return
@@ -106,9 +109,21 @@ function DetailProductPage() {
       toast('Đã thêm vào giỏ hàng')
       setTimeout(() => {
         dispatch(setLoading(false))
+        // setAddCart(false)
       }, 1000)
-      navigate('/cart')
+      setTimeout(() => {
+        // navigate('/cart')
+        setAddCart(false)
+      }, 2500)
     }
+    
+    const fetchCarts = async () => {
+      const res = await axiosApi.post('get-all-cart', {id: user.id})
+      if(res.dt) {
+          dispatch(setCarts(res.dt))
+        }
+      }
+    fetchCarts()
   }
 
   const showModal = () => {
@@ -239,8 +254,13 @@ function DetailProductPage() {
               <Sale title='Quà tặng khuyến mãi' isIconGift listSale={arr2}/>
               <div className={cs('action-buys')}>
                 <button className={cs('btn-buynow')} onClick={() => handleBuy(product)}>
-                  <span>Mua ngay</span>
-                  <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
+                  {addCart 
+                  ? <DotLottieReact src='../../../public/add-to-cart.lottie' loop autoplay style={{ width: '20%', margin: '0 auto'}}/>
+                  : (<>
+                      <span>Mua ngay</span>
+                      <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
+                    </>)
+                  }
                 </button>
               </div>
               <div className={cs('info-general')}>
