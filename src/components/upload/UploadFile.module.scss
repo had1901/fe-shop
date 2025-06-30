@@ -1,23 +1,36 @@
 .upload{
-    margin-bottom: 14px;
-    // height: 300px;
+    margin-top: 14px;
 }
 .upload label{
     color: #727272;
 }
+.upload-box{
+    position: relative;
+
+}
+.upload-drag{
+    // height: 300px;
+}
 .preview-img{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
     border-radius: 6px;
     background: #dfdfdfee;
 }
 .preview-img-box{
     position: relative;
-    height: 300px;
+    height: 100%;
     text-align: center;
 }
 .preview-img-box img{
     height: 100%;
     border: 1px solid #d3d3d3cb;
     margin: 0 auto;
+}
+.preview-img-list{
+    height: 100%;
 }
 .preview-drop{
     position: absolute;
@@ -36,6 +49,20 @@
 .preview-drop:hover{
     color: #ccc;
 }
+.preview-drop-list{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    top: 0px;
+    right: 0px;
+    color: #8f8f8f;
+    background: #fff;
+    vertical-align: middle;
+    border-radius: 50%;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease-in;
+}
 .list-img{
     display: flex;
     align-items: flex-start;
@@ -49,6 +76,14 @@
     max-width: 20%;
     height: 100%;
     position: relative;
+}
+.loading{
+    background-color: #ccc;
+    border-radius: 6px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .remove{
     position: absolute;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Space, Table, Tag } from 'antd'
+import { Button, Input, Select, Space, Table, Tag } from 'antd'
 import styles from './ProductAdmin.module.scss'
 import useStyles from '../../../hooks/useStyles'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons'
@@ -37,12 +37,31 @@ import { Link } from 'react-router'
 function ProductAdmin() {
     const cs = useStyles(styles)
     const [products, setProducts] = useState([])
+    const [filterProduct, setFilterProduct] = useState({
+        category: '',
+        price_name: ''
+    })
+    
+    console.log(products)
+    console.log(filterProduct)
+
+
     const handleGetProductById = (id) => {
         console.log(id)
     }
+
+    const handleChangeSortCategory = value => {
+        console.log(`Category: ${value}`)
+        setFilterProduct(prev => ({...prev, category: value}))
+    }
+
+    const handleChangeSortProduct = value => {
+        console.log(`Product: ${value}`)
+        setFilterProduct(prev => ({...prev, category: value}))
+    }
     const columns = [
         {
-            title: 'ID',
+            title: "ID",
             dataIndex: 'id',
             key: 'id',
             width: '4%',
@@ -133,7 +152,7 @@ function ProductAdmin() {
             className: cs('col-table')
     
         },
-      ]
+    ]
     
     useEffect(() => {
         (async () => {
@@ -144,17 +163,70 @@ function ProductAdmin() {
         })()
     },[])
 
+    const text = ['character', 'apple', 'banana', 'home', 'zed']
+    const number = [3, 5, 70, 11, 9]
+    // console.log(text.sort())
+    const newProducts = products.filter(item => {
+        // if(filterProduct.price_name === 'min-max') {
+
+        // }
+        return item.Category.tag === filterProduct.category 
+    })
+
+    console.log('newProducts', newProducts)
+
   return (
-    <div>
+    <div className={cs('products-admin')}>
+        <div className={cs('filter')}>
+            <div className={cs('filter-search input-search')}>
+                <h3 htmlFor="">Tìm kiếm</h3>
+                <Input name='filter' placeholder='Tìm kiếm theo tên' />
+            </div>
+            <div className={cs('filter-search')}>
+                <h3 htmlFor="">Danh mục</h3>
+                <Select
+                    defaultValue="Tất cả"
+                    style={{ minWidth: 160 }}
+                    onChange={handleChangeSortCategory}
+                    options={[
+                        { value: 'all', label: 'Tất cả' },
+                        { value: 'pc', label: 'PC' },
+                        { value: 'laptop', label: 'Laptop' },
+                        { value: 'screen', label: 'Màn hình' },
+                        { value: 'keyboard', label: 'Bàn phím' },
+                        { value: 'mouse', label: 'Chuột' },
+                        { value: 'chair', label: 'Ghế gaming' },
+                        { value: 'network', label: 'Thiết bị mạng' },
+                    ]}
+                />
+            </div>
+            <div className={cs('filter-search')}>
+                <h3 htmlFor="">Lọc sản phẩm</h3>
+                <Select
+                    defaultValue="Tất cả"
+                    style={{ minWidth: 160 }}
+                    onChange={handleChangeSortProduct}
+                    options={[
+                        { value: 'all', label: 'Tất cả' },
+                        { value: 'min-max', label: 'Giá tăng dần' },
+                        { value: 'max-min', label: 'Giá giảm dần' },
+                        { value: 'asc', label: 'Theo tên từ A - Z' },
+                        { value: 'desc', label: 'Theo tên từ Z - A' },
+                    ]}
+                />
+            </div>
+
+        </div>
         <Table 
             columns={columns} 
             dataSource={products} 
             rowClassName={() => `${cs('row-table')}`}
-            // bordered={true}
+            bordered={false}
             pagination={{
                 position: ['bottomCenter'],
                 pageSize: 15,
             }}
+            sticky={true}
         />
     </div>
   )

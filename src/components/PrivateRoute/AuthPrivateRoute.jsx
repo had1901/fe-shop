@@ -5,7 +5,6 @@ import { Navigate, Outlet, useLocation } from 'react-router'
 function AuthPrivateRoute() {
     const user = useSelector(state => state.auth.info)
     const location = useLocation()
-    console.log(user)
 
     if(!user) {
         if(location.pathname !== '/auth') {
