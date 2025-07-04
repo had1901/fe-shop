@@ -1,12 +1,28 @@
 
 .edit{
     min-height: 300px;
+    position: relative;
 } 
+.overlay-loading{
+    display: none;
+}
+.show{
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    inset: 0;
+    background: rgba(77, 77, 77, 0.233);
+    border-radius: 4px;
+    z-index: 9;
+}
+
 .form{
     display: flex;
     align-items: start;
     gap: 20px;
 }
+
 .heading{
     font-size: 22px;
     margin-bottom: 8px;
@@ -66,6 +82,9 @@
     align-items: center;
     gap: 10px;
     margin-top: 14px;
+}
+.flex-switch label{
+    white-space: nowrap;
 }
 .flex-item{
     display: flex;

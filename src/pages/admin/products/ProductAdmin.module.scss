@@ -1,7 +1,7 @@
 
 .products-admin{
     background: #fff;
-    border-radius: 8px;
+    // border-radius: 8px;
     padding: 20px 40px;
 }
 .row-table{
@@ -9,29 +9,21 @@
 }
 .col-table{
     vertical-align: middle;
+    width: auto;
     padding: 8px 10px !important;
+    overflow: hidden;
 }
 .price{
     color: #e30119;
     font-weight: 500;
+    white-space: nowrap;
 }
 .text-color{
     font-weight: 600;
 }
 
-.filter{
-    display: flex;
-    align-items: center;
+.heading-tab{
+    // display: flex;
+    // align-items: center;
     margin-bottom: 20px;
-}
-.input-search{
-    min-width: 500px;
-}
-.filter-search{
-    max-width: 500px;
-    margin-right: 20px;    
-}
-.filter-search h3{
-    margin-bottom: 4px;
-    color: #808080;  
 }

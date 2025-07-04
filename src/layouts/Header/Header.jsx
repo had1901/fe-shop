@@ -41,7 +41,7 @@ function Header() {
   const cs = useStyles(styles)  
   const { data, loading, postData, error } = usePost()
   const isLoading = useSelector(state => state.cart.isLoading)
-  console.log(carts)
+  
   const handleToggleNavbar = debounce(() => {
     dispatch(toggle())
   }, 200)

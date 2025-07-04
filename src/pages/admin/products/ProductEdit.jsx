@@ -1,60 +1,235 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styles from './ProductEdit.module.scss'
 import useStyles from '../../../hooks/useStyles'
-import { Button, Checkbox, Form, Input, Select, Space, Switch } from 'antd'
+import { Button, Checkbox, Form, Input, Select, Space, Spin, Switch } from 'antd'
 import Editor from '../../../components/editor/Editor'
 import InputItem from '../../../components/input/Input'
 import UploadFile from '../../../components/upload/UploadFile'
-import { useParams } from 'react-router'
+import { useNavigate, useParams } from 'react-router'
 import axiosApi from '../../../services/axios'
 import { convertPrice } from '../../../utils/convertString/_convertPrice'
 import { IoMdArrowDropdown } from "react-icons/io";
+import { toast } from 'react-toastify'
+import axios from 'axios'
+import { urlToFile } from '../../../utils/convertString/_convertURLtoFile'
+import { v4 as uuidv4 } from 'uuid'
+
+// import { Cloudinary } from '@cloudinary/url-gen';
+// import { auto } from '@cloudinary/url-gen/actions/resize';
+// import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
+// import { AdvancedImage } from '@cloudinary/react';
+
  
-function ProductEdit() {
+function ProductEdit({ title, mode = 'edit' }) {
     const cs = useStyles(styles)
-    // const [img, setImg] = useState([])
-    // const [listImg, setListImg] = useState([])
+    const navigate = useNavigate()
+    const { id } = useParams()
+    const [form] = Form.useForm()
     const [products, setProducts] = useState({})
     const [pricePreview, setPricePreview] = useState(0)
     const [salePricePreview, setSalePricePreview] = useState(0)
     const [content, setContent] = useState('')
-    const { id } = useParams()
-    const [form] = Form.useForm()
-    const [fileList, setFileList] = useState([
-        {
-          uid: '-1',
-          name: 'avatar.png',
-          status: 'done',
-          url: 'products?.thumbnail', // hoặc base64 nếu local
-        },
-    ])
-    const [valuesForm, setValuesForm] = useState({})
+    const [isLoadingUpdate, setIsLoadingUpdate] = useState(false)
 
+  
 
-    const onFinish = values => {
-        // const fileList = values.avatar 
-        
-        // if (fileList && fileList.length > 0) {
-        //     const file = fileList[0].originFileObj
-        //     const previewURL = URL.createObjectURL(file)
-        //     setImg(previewURL)
-        //     setDataForm({...values, file: previewURL, fileList: listImg})
-        // } 
-        console.log('values', values)
-        if(values) {
-            setValuesForm(values)
+    const handleUploadCloud = async (file, folder) => {
+        const formData = new FormData()
+        console.log('file', file)
+        formData.append('file', file)
+        formData.append('upload_preset', 'gearvn')
+        formData.append('folder', folder)
+        const res = await axios.post('https://api.cloudinary.com/v1_1/mp3-img/image/upload', formData)
+        console.log(res)
+        if (res.data){
+            return res.data.secure_url
         }
     }
+
+    const handleSubmitAndUploadClient = async (values) => {
+        const formData = new FormData()
+        const collectionUrls = []
+        console.log('values', values)
+        setIsLoadingUpdate(true)
+
+        // upload avatar
+        let avatarUrl = values.avatar[0]?.originFileObj 
+            ? await handleUploadCloud(values.avatar[0].originFileObj, 'gearvn/product-images/avatar')
+            : values.avatar[0].url || ''
+
+        // if (values.avatar && values.avatar.length > 0) {
+        //     let file
+        //     const item = values.avatar[0]
+    
+        //     if (item.originFileObj) {
+        //         file = item.originFileObj
+        //     } else if (item.url) {
+        //         file = await urlToFile(item.url, Date.now(), 'image/*')
+        //     }
+        //     if (file) {
+        //         avatarUrl = 
+        //     }
+        // }
+        
+        
+        // upload collection
+        for(const file of values.collection) {
+            if(file.originFileObj) {
+                const url = await handleUploadCloud(file.originFileObj, 'gearvn/product-images/collection')
+                collectionUrls.push(url)
+            } else if(file.url) {
+                collectionUrls.push(file.url)
+            }
+        }
+        // await Promise.all(
+        //     values.collection.map(async (file, i) => {
+        //         let realFile
+        //         if (file.originFileObj) {
+        //             realFile = file.originFileObj
+        //         }
+        //         if (file.url) {
+        //             realFile = await urlToFile(file.url, Date.now(), 'image/*')
+        //         }
+        //         if(realFile) {
+        //             const url = await handleUploadCloud(realFile, 'gearvn/product-images/collection')
+        //             collectionUrls.push(url?.secure_url)
+        //         }
+        //     })
+        // )
+        console.log('avatar', avatarUrl )
+        console.log('collection', collectionUrls )
+
+        formData.append('id', values.id)
+        formData.append('name', values.name)
+        formData.append('description', values.description)
+        formData.append('price', values.price)
+        formData.append('sale_price', values.sale_price)
+        formData.append('flash_sale', values.flash_sale)
+        formData.append('content', values.content)
+        formData.append('stock', values.stock)
+        formData.append('Brand', values.Brand)
+        formData.append('Category', values.Category)
+        formData.append('avatar', avatarUrl)
+
+        collectionUrls.map(item => (
+            formData.append('collection', item)
+        ))
+
+        try{
+            const url_API = mode === 'edit' ? '/api/client/update-product' : '/api/client/create-new-product'
+            const resProduct = await axiosApi.post(url_API, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            })
+            // console.log('res', resProduct)
+
+            if(resProduct.ec === 0) {
+                setIsLoadingUpdate(false)
+                toast(resProduct.ms)
+                if(mode === 'edit') {
+                    navigate('/auth/admin/products')
+                } else {
+                    form.resetFields()
+                    setPricePreview('')
+                    setSalePricePreview('')
+                }
+            } else {
+                setIsLoadingUpdate(false)
+                toast(resProduct.ms)
+            }
+        } catch(e){
+            setIsLoadingUpdate(false)
+            toast(e?.ms || 'Có lỗi xảy ra')
+            console.error('Lỗi khi tạo/cập nhật sản phẩm:', e)
+        }
+    }
+
+
+    // const handleSubmitAndUploadServer = async (values) => {
+    //     const formData = new FormData()
+
+    //     formData.append('id', values.id)
+    //     formData.append('name', values.name)
+    //     formData.append('description', values.description)
+    //     formData.append('price', values.price)
+    //     formData.append('sale_price', values.sale_price)
+    //     formData.append('flash_sale', values.flash_sale)
+    //     formData.append('content', values.content)
+    //     formData.append('stock', values.stock)
+    //     formData.append('Brand', values.Brand)
+    //     formData.append('Category', values.Category)
+
+    //     const createFile = async (fileUrl, i) => {
+    //         let files = await urlToFile(fileUrl, `collection${i}.jpg`, 'image/*')
+    //         return files
+    //     } 
+    
+    //     if (values.avatar && values.avatar.length > 0) {
+    //         let file
+    //         const item = values.avatar[0]
+    //         if (item.originFileObj) {
+    //             file = item.originFileObj
+    //         } else if (item.url) {
+    //             file = await urlToFile(item.url, 'thumbnail.jpg', 'image/*')
+    //         }
+    //         if (file) {
+    //             formData.append('avatar', file)
+    //         }
+    //     }
+
+    
+    //     const filesFromUrl = await Promise.all(
+    //         values.collection.map(async (file, i) => {
+    //             if (file.originFileObj) {
+    //                 return file.originFileObj
+    //             }
+    //             if (file.url) {
+    //                 return await createFile(file.url, i)
+    //             }
+    //             return null
+    //         })
+    //         )
+
+    //     filesFromUrl.forEach((file) => {
+    //         if (file) {
+    //             formData.append('collection', file)
+    //         }
+    //     })
+
+    //     try{
+    //         setIsLoadingUpdate(true)
+    //         const url_API = mode === 'edit' ? '/api/update-product' : '/api/create-new-product'
+    //         const resProduct = await axiosApi.post(url_API, formData, {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //             },
+    //         })
+    //         console.log('resProduct', resProduct)
+
+    //         if(resProduct.ec === 0) {
+    //             setIsLoadingUpdate(false)
+    //             toast(resProduct.ms)
+    //             if(mode === 'edit') {
+    //                 navigate('/auth/admin/products')
+    //             } else {
+    //                 form.resetFields()
+    //                 setPricePreview('')
+    //                 setSalePricePreview('')
+    //             }
+    //         } else {
+    //             setIsLoadingUpdate(false)
+    //             toast(resProduct.ms)
+    //         }
+    //     } catch(e){
+    //         setIsLoadingUpdate(false)
+    //         toast(e?.ms || 'Có lỗi xảy ra')
+    //         console.error('Lỗi khi tạo/cập nhật sản phẩm:', e)
+    //     }
+    // }
+
     const onFinishFailed = errorInfo => {
-        console.log('Failed:', errorInfo)
-    }
-
-    const handleChangeSwitchFlashSale = checked => {
-        console.log(`switch to ${checked}`)
-    }
-
-    const handleChangeSwitchHidden = checked => {
-        console.log(`switch to ${checked}`)
+        console.log('Lỗi form:', errorInfo)
     }
 
     const handlePricePreview = (e) => {
@@ -65,87 +240,109 @@ function ProductEdit() {
     const handleSalePricePreview = (e) => {
         if(e.target.name === 'sale_price') {
             setSalePricePreview(e.target.value)
-            console.log('sale', e.target.value)
         }
     }
 
     useEffect(() => {
-    if(id) {
-        (async () => {
-            const res = await axiosApi.post('/api/get-product', {id: id})
-            if(res.ec === 0 && res.dt) {
-                setProducts(res.dt)
-                const pro = res.dt
-                setPricePreview(pro.price)
-                setSalePricePreview(pro.sale_price)
-                setFileList([
-                    {
-                      uid: '-1',
-                      name: 'thumbnail.jpg',
-                      status: 'done',
-                      url: pro.thumbnail,
-                    },
-                  ])
-            }
-        })()
-    }   
-    },[id, form])
+        if(mode === 'edit') {
+            setIsLoadingUpdate(true)
+            if(id) {
+                (async () => {
+                    try{
+                        const res = await axiosApi.post('/api/get-product', {id: id})
+                        if(res.ec === 0 && res.dt) {
+                            const pro = res.dt
+                            setProducts(pro)
+                            setPricePreview(pro.price)
+                            setSalePricePreview(pro.sale_price)
+                            setIsLoadingUpdate(false)
+                        }
+                    } catch(e) {
+                        console.log(e)
+                    }
+                })()
+            } 
+        } 
+    },[id, form, mode])
 
     useEffect(() => {
-        if(products) {
+        function appendVersionParam(url) {
+            if(url) {
+                const cleanUrl = url.split('?')[0] // loại bỏ mọi query string
+                return `${cleanUrl}?v=${crypto.randomUUID()}`
+            }
+        }
+        if(mode === 'edit' && products) {
             form.setFieldsValue({
-                name: products?.name,
-                description: products?.description,
-                Category: products?.Category?.name,
-                Brand: products?.Brand?.name,
-                price: products?.price,
-                sale_price: products?.sale_price,
-                stock: products?.stock_quantity,
+                id: products.id || '',
+                name: products.name || '',
+                description: products.description || '',
+                Category: products.Category?.id || 'Chọn danh mục',
+                Brand: products.Brand?.id || 'Chọn thương hiệu',
+                price: products.price || '',
+                sale_price: products.sale_price || '',
+                stock: products.stock_quantity || '',
                 avatar: [
                     {
-                      uid: '-1',
-                      name: 'thumbnail.jpg',
+                      uid: uuidv4(),
+                      name: `thumbnail${uuidv4()}.jpg`,
                       status: 'done',
-                      url: products.thumbnail,
+                      url: appendVersionParam(products?.thumbnail),
                     },
                 ],
-                collection: []
+                collection: Array.isArray(products.Product_images) 
+                    ?   products.Product_images.map(img => {
+                            const uuid = uuidv4()
+                            return    {
+                                    uid: img.id,
+                                    name: `collection${uuid}.jpg`,
+                                    status: 'done',
+                                    url: appendVersionParam(img?.url)
+                                }
+                            }) 
+                    : []
             })
         }
-    }, [form, products])
+
+    }, [form, products, mode])
 
     useEffect(() => {
         if(content) {
             form.setFieldsValue({
-                content: content,
+                content: content || '',
             })
         }
     }, [form, content])
     
+
+    // if(loading) return <Spin />
     
   return (
     <div className={cs('edit')}>
+        <div className={cs(`overlay-loading ${isLoadingUpdate ? 'show' : ''}`)}><Spin size='large'/></div>
         <Form
             form={form}
             className={cs('form')}
             name="basic"
             labelCol={{ span: 8 }}
             wrapperCol={{ span: 16 }}
-            style={{ maxWidth: '100%' }}
+            style={{ maxWidth: '100%', flash_sale: true }}
             initialValues={{ remember: true }}
-            onFinish={onFinish}
+            onFinish={handleSubmitAndUploadClient}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
+            
         >
             <div className={cs('form-left')}>
-                {/* <input type="file" name='file'  accept="image/*" onChange={(e) => console.log(e.target.files)} /> */}
-                <h1 className={cs('heading')}>Thông tin sản phẩm</h1>
+                <h1 className={cs('heading')}>{title}</h1>
+
+                {mode !== 'edit' ? null : <InputItem id='id' label='Mã sản phẩm' name='id' type='text' disabled />}
                 <InputItem id='name' label='Tên sản phẩm' name='name' type='text' maxLength={140} />
                 <InputItem id='slug' label='Slug' name='description' type='text' maxLength={140} />
                 <div className={cs('input-box')}>
-                    <InputItem id='description-short' label='Mô tả ngắn' name='description-short' type='text' maxLength={100}/>
+                    <InputItem id='description_short' label='Mô tả ngắn' name='description_short' type='text' maxLength={100}/>
                     <div>
-                        <Form.Item name="Category" label="Danh mục">
+                        <Form.Item name="Category" label="Danh mục" rules={[{ required: true, message: 'Vui lòng chọn danh mục' }]}>
                             <Select
                                 // defaultValue=""
                                 // className={cs('select-category')}
@@ -154,36 +351,42 @@ function ProductEdit() {
                                 allowClear
                                 placeholder="Chọn danh mục"
                                 options={[
-                                    { value: 'pc', label: 'PC' },
-                                    { value: 'screen', label: 'Màn hình' },
-                                    { value: 'laptop', label: 'Laptop' },
-                                    { value: 'keyboard', label: 'Bàn phím' },
-                                    { value: 'mouse', label: 'Chuột' },
-                                    { value: 'headphone', label: 'Tai nghe' },
-                                    { value: 'chair', label: 'Ghế' },
-                                    { value: 'accessory', label: 'Linh kiện' },
-                                    { value: 'network', label: 'Thiết bị mạng' },
+                                    { value: 1, label: 'Màn hình' },
+                                    { value: 2, label: 'Bàn phím' },
+                                    { value: 3, label: 'Chuột' },
+                                    { value: 4, label: 'Tai nghe' },
+                                    { value: 6, label: 'Laptop' },
+                                    { value: 7, label: 'PC' },
+                                    { value: 9, label: 'Ghế' },
+                                    { value: 10, label: 'Thiết bị mạng' },
+                                    { value: 11, label: 'Linh kiện' },
                                 ]}
                             />
                         </Form.Item>
                     </div>
                     <div>
-                        <Form.Item name="Brand" label="Thương hiệu">
+                        <Form.Item name="Brand" label="Thương hiệu" rules={[{ required: true, message: 'Vui lòng chọn thương hiệu' }]}>
                             <Select
                                 // defaultValue=""
                                 allowClear
                                 style={{ minWidth: 160}}
                                 placeholder="Chọn thương hiệu"
                                 options={[
-                                    { value: 'pc', label: 'PC' },
-                                    { value: 'screen', label: 'Màn hình' },
-                                    { value: 'laptop', label: 'Laptop' },
-                                    { value: 'keyboard', label: 'Bàn phím' },
-                                    { value: 'mouse', label: 'Chuột' },
-                                    { value: 'headphone', label: 'Tai nghe' },
-                                    { value: 'chair', label: 'Ghế' },
-                                    { value: 'accessory', label: 'Linh kiện' },
-                                    { value: 'network', label: 'Thiết bị mạng' },
+                                    { value: 1, label: 'ASUS' },
+                                    { value: 2, label: 'MSI' },
+                                    { value: 3, label: 'LENOVO' },
+                                    { value: 4, label: 'DELL' },
+                                    { value: 5, label: 'LG' },
+                                    { value: 6, label: 'ACER' },
+                                    { value: 7, label: 'VIEWSONIC' },
+                                    { value: 8, label: 'GIGABYTE' },
+                                    { value: 9, label: 'AOC' },
+                                    { value: 10, label: 'HKC' },
+                                    { value: 11, label: 'RAZER' },
+                                    { value: 12, label: 'LOGITECH' },
+                                    { value: 15, label: 'CORSAIR' },
+                                    { value: 16, label: 'INTEL' },
+                                    { value: 17, label: 'AMD' },
                                 ]}
                             />
                         </Form.Item>
@@ -192,7 +395,7 @@ function ProductEdit() {
                 <div className={cs('label-editor')}><label >Mô tả chỉ tiết</label></div>
                 <Editor content={content} setContent={setContent} />
                 <Form.Item label={null}>
-                    <Button type="primary" htmlType="submit">
+                    <Button loading={isLoadingUpdate}  type="primary" htmlType="submit">
                         Lưu thay đổi
                     </Button>
                 </Form.Item>
@@ -216,26 +419,42 @@ function ProductEdit() {
                             </div>
                         </div>
                     </div>
-                    <UploadFile label='Ảnh đại diện' name='avatar' noAvatar fileList={fileList} setFileList={setFileList}/>
-                    <UploadFile label='Bộ sưu tập ảnh' name='collection' fileList={fileList} setFileList={setFileList} multiple={true} />
-
-                    {/* <ul className={cs('list-img')}> */}
-                        {/* {listImg.length > 0 && listImg.map((list, i) => (
-                            <li key={i} className={cs('list-img-item')}>
-                                <img src={list.response.files.file} alt='avatar'/>
-                                
-                            </li>
-                        ))} */}
-                    {/* </ul> */}
+                    <UploadFile 
+                        label='Ảnh đại diện' 
+                        name='avatar' 
+                        noAvatar 
+                        multiple={false}
+                    />
+                    <UploadFile 
+                        label='Bộ sưu tập ảnh' 
+                        name='collection'  
+                        multiple={true}
+                    />
                     <InputItem id='stock' label='Tồn kho' name='stock' type='number' maxLength={10} />
                     <div className={cs('flex-switch')}>
                         <div className={cs('flex-item')}>
-                            <div className={cs('label-editor')}><label >Đang khuyến mãi</label></div>
-                            <Switch defaultChecked onChange={handleChangeSwitchFlashSale} />
+                            <div className={cs('label-editor')}>
+                                <label>Đang khuyến mãi</label>
+                            </div>
+                            <Form.Item
+                                name="flash_sale"
+                                valuePropName="checked"
+                                noStyle 
+                            >
+                                <Switch />
+                            </Form.Item>
                         </div>
                         <div className={cs('flex-item')}>
-                            <div className={cs('label-editor')}><label >Ẩn sản phẩm</label></div>
-                            <Switch defaultChecked onChange={handleChangeSwitchHidden} />
+                            <div className={cs('label-editor')}>
+                                <label>Ẩn sản phẩm</label>
+                            </div>
+                            <Form.Item
+                                name="flash_sale"
+                                valuePropName="checked"
+                                noStyle 
+                            >
+                                <Switch />
+                            </Form.Item>
                         </div>
                     </div>
                 </div>

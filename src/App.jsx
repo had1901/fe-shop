@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react';
 import axiosApi from './services/axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from './store/auth/authSlice';
-import { LoadingOutlined } from '@ant-design/icons';
+import { LoadingOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { Flex, Spin } from 'antd';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import AuthPrivateRoute from './components/PrivateRoute/AuthPrivateRoute';
@@ -33,7 +33,7 @@ import ProductAdmin from './pages/admin/products/ProductAdmin';
 import ProductEdit from './pages/admin/products/ProductEdit';
 
 
-const menuAdmin = [
+const routesAdmin = [
   {
       path: '',
       component: <Dashboard category='keyboard' />,
@@ -48,11 +48,11 @@ const menuAdmin = [
   },
   {
       path: 'products/edit/:id',
-      component: <ProductEdit  />,
+      component: <ProductEdit title='Chỉnh sửa thông tin sản phẩm' mode='edit' />,
   },
   {
-      path: 'categories',
-      component: <Seller category='laptop' />,
+      path: 'products/add-new-product',
+      component: <ProductEdit  title='Thêm mới sản phẩm' mode='create'/>,
   },
   {
       path: 'brands',
@@ -86,9 +86,9 @@ const menuAdmin = [
 
 function App() {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
-  const user = useSelector(state => state.auth.info)
+  // const user = useSelector(state => state.auth.info)
 
   const render = (arr) => {
     if(arr.length > 0) {
@@ -174,8 +174,8 @@ function App() {
 
         <Route element={<AuthPrivateRoute />}>
           <Route path='/auth/admin' element={<LayoutAdmin />}>
-            {menuAdmin.map(route => (
-              <Route path={route.path} element={route.component} />
+            {routesAdmin.map((route, i) => (
+              <Route key={i} path={route.path} element={route.component} />
             ))}
           </Route>
         </Route>

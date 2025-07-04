@@ -50,8 +50,8 @@ function Editor({ content, setContent }) {
       const html = editorRef.current.root.innerHTML
       setContent(html) // cập nhật state
       form.setFieldsValue({content: html})
-      console.log('Nội dung HTML:', html)
       // outputContentRef.current.innerHTML = html
+      editorRef.current.disable()
     })
 
     return () => {
@@ -63,7 +63,7 @@ function Editor({ content, setContent }) {
 
   return (
     <div className={cs('editor')}>
-      <Form.Item>
+      <Form.Item rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}>
         <div ref={containerRef} style={{ height: '300px', width: '100%' }} />
       </Form.Item>
       <Form.Item name="content" hidden>

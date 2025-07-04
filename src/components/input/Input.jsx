@@ -3,7 +3,7 @@ import useStyles from '../../hooks/useStyles'
 import styles from './Input.module.scss'
 import { Form, Input } from 'antd'
 
-function InputItem({ id, label, value, name, type, maxLength, showCount= true, handlePricePreview}) {
+function InputItem({ id, label, value, name, type, maxLength, disabled, showCount= true, handlePricePreview}) {
     const cs = useStyles(styles)
     
   return (
@@ -12,7 +12,7 @@ function InputItem({ id, label, value, name, type, maxLength, showCount= true, h
             {label}
             <span className={cs('require-text')}>*</span>
         </label>
-        <Form.Item name={name} className={cs('input-wrap')}>
+        <Form.Item name={name} className={cs('input-wrap')} rules={[{ required: name !== 'id' && true, message: 'Vui lòng nhập trường này' }]}>
             <Input 
                 name={name}
                 value={value}
@@ -23,6 +23,7 @@ function InputItem({ id, label, value, name, type, maxLength, showCount= true, h
                 maxLength={maxLength} 
                 autoComplete='true'
                 onChange={handlePricePreview}
+                disabled={disabled}
             />
         </Form.Item>
         {/* <input id={id} type={type} className={cs('input-item')} /> */}

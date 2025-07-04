@@ -2,7 +2,7 @@ import axios from "axios";
 
 const axiosApi = axios.create({
     baseURL: 'http://localhost:8888/',
-    timeout: 10000,
+    timeout: 30000,
     withCredentials: true
 })
 
@@ -33,7 +33,7 @@ axiosApi.interceptors.response.use((response) => {
     handleLogout()
   }
   // console.log('error-response', error)
-  return Promise.reject(error.response.data)
+  return Promise.reject(error.response?.data || { ms: 'Lỗi không xác định Axios', ec: 1, er: error })
 })
 
 export default axiosApi
