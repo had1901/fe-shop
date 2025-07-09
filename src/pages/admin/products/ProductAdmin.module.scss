@@ -4,7 +4,14 @@
     // border-radius: 8px;
     padding: 20px 40px;
 }
+// .dark-theme{
+//     background: #141414;
+//     color: #d4e1d9;
+// }
 .row-table{
+    // table-layout: fixed;
+    // background: #e30119;
+    border: none;
     height: 50px !important;
 }
 .col-table{
@@ -21,9 +28,19 @@
 .text-color{
     font-weight: 600;
 }
-
+.created-at{
+    color: #08ae70;
+    font-weight: 500;
+    white-space: nowrap;
+}
 .heading-tab{
     // display: flex;
     // align-items: center;
     margin-bottom: 20px;
+}
+.flex-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
 }

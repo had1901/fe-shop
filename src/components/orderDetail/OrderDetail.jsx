@@ -66,7 +66,7 @@ function OrderDetail({ detail }) {
                 <tbody>
                     {detail?.Order_details?.length && detail?.Order_details.map((item, i) => (
                         <tr key={i}>
-                            <td className={cs('order-col img-product')}><img src={item?.Product?.thumbnail} /></td>
+                            <td className={cs('order-col img-product')}><img loading='lazy' src={item?.Product?.thumbnail} /></td>
                             <td className={cs('order-col')}><span>{item?.Product?.name}</span></td>
                             <td className={cs('order-col')}><span>{item?.quantity}</span></td>
                             <td className={cs('order-col price')}><span>{convertPrice(item?.Product?.sale_price)}</span></td>

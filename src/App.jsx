@@ -31,6 +31,7 @@ import LayoutAdmin from './pages/admin/LayoutAdmin';
 import Dashboard from './pages/admin/dashboard/Dashboard';
 import ProductAdmin from './pages/admin/products/ProductAdmin';
 import ProductEdit from './pages/admin/products/ProductEdit';
+import AccountAdmin from './pages/admin/account/AccountAdmin';
 
 
 const routesAdmin = [
@@ -64,7 +65,7 @@ const routesAdmin = [
   },
   {
       path: 'accounts',
-      component: <Seller category='pc' />,
+      component: <AccountAdmin />,
   },
   {
       path: 'promotion',

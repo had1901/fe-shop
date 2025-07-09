@@ -40,7 +40,7 @@ const ProductCard = memo(forwardRef(({
           </div>
         }
         <picture className={cs('product_card_img')}>
-          <img ref={imgRef} src={productItem.thumbnail} alt={productItem.thumbnail} data-src={productItem.thumbnail} data-id={productItem.src}/>
+          <img loading='lazy' ref={imgRef} src={productItem.thumbnail} alt={productItem.thumbnail} data-src={productItem.thumbnail} data-id={productItem.src}/>
         </picture>
         <div className={cs('product_card_bottom')}>
           <div className={cs('product_label')}>

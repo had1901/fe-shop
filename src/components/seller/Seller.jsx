@@ -26,7 +26,7 @@ function Seller({ category }) {
             <div className="container">
                 <div className='title-banner'>
                     <Link to='#' className={cs('banner_best_seller')}>
-                        <img src={bestSeller}/>
+                        <img loading='lazy' src={bestSeller}/>
                     </Link>
                 </div>
                 <div className={cs('products')}>
@@ -35,7 +35,7 @@ function Seller({ category }) {
                     </ul>
                 </div>
                 <div>
-                    <img src={viewMore} alt="Xem thêm" className={cs('btn_more')} />
+                    <img loading='lazy' src={viewMore} alt="Xem thêm" className={cs('btn_more')} />
                 </div>
             </div>
         </section>

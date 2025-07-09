@@ -40,13 +40,13 @@ function SellerProduct({ category = 'pc' }) {
   return (
      <div className={cs('seller_wrap')}>
             <section className={cs('top')}>
-                <img src={s1} alt='banner' />
+                <img loading='lazy' src={s1} alt='banner' />
                 <div className={cs('navbar')}>
                     <div className={cs('sub_container', 'container')}>
                         <div className={cs('sub_row', 'row')}>
                             {navLaptop.map((nav, index) => (
                                 <div key={index} className={cs('sub_col hover')}>
-                                    <img src={nav} alt='img' className={cs('nav_img')} />
+                                    <img loading='lazy' src={nav} alt='img' className={cs('nav_img')} />
                                 </div>
                             ))}
                         </div>
@@ -57,7 +57,7 @@ function SellerProduct({ category = 'pc' }) {
                         <div className={cs('sub_row', 'row')}>
                             {brandLaptop.map((nav, index) => (
                                 <div key={index} className={cs('brand_col hover')}>
-                                    <img src={nav} alt='img' className={cs('nav_img')} />
+                                    <img loading='lazy' src={nav} alt='img' className={cs('nav_img')} />
                                 </div>
                             ))}
                         </div>

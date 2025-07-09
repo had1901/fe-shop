@@ -6,6 +6,7 @@ import authReducer from "./auth/authSlice";
 import productReducer from './product/productSlice';
 import cartReducer from './cart/cartSlice';
 import orderReducer from './order/orderSlice';
+import adminReducer from './admin/adminSlice';
 
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' 
@@ -23,6 +24,7 @@ const persistConfig = {
         product: productReducer,
         cart: cartReducer,
         order: orderReducer,
+        admin: adminReducer,
   })
   const persistedReducer = persistReducer(persistConfig, rootReducer)
 

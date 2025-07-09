@@ -29,7 +29,7 @@ function BannerSale({ bannerList }) {
     <Fragment>
       {bannerList.map((src, index) => (
         <div ref={el => bannerRef.current[index] = el} key={index} className='col-xxl-3'>
-            <img src={src} className={cs('bannerImg')}/>
+            <img loading='lazy' src={src} className={cs('bannerImg')}/>
         </div>
       ))}
     </Fragment>

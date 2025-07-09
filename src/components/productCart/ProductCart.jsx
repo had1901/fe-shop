@@ -81,7 +81,7 @@ function ProductCart({ item }) {
         <div className={cs('inner-product-cart')}>
             <div className={cs('product-cart-img')}>
                 <Link to='#' className={cs('product-cart-img-link')}>
-                    <img src={item?.product?.thumbnail} alt="" />
+                    <img loading='lazy' src={item?.product?.thumbnail} alt="" />
                 </Link>
                 <Popconfirm
                     title="Xóa sản phẩm"

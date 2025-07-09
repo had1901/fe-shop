@@ -2,10 +2,12 @@ import React from 'react'
 import styles from './FilterAdmin.module.scss'
 import useStyles from '../../hooks/useStyles'
 import { Input, Select } from 'antd'
+import { DatePicker, Space } from 'antd'
+const { RangePicker } = DatePicker
 
-function FilterAdmin({ handleSearchText, handleChangeSortCategory, handleChangeSortProduct }) {
+function FilterAdmin({ handleSearchText, handleChangeSortCategory, handleChangeSortProduct, handleChangeSortDate }) {
   const cs = useStyles(styles)
-
+  
   return (
     <div className={cs('filter')}>
             <div className={cs('filter-search input-search')}>
@@ -40,11 +42,19 @@ function FilterAdmin({ handleSearchText, handleChangeSortCategory, handleChangeS
                         { value: 'all', label: 'Tất cả' },
                         { value: 'min-max', label: 'Giá tăng dần' },
                         { value: 'max-min', label: 'Giá giảm dần' },
+                        { value: 'old-date', label: 'Cũ nhất' },
+                        { value: 'new-date', label: 'Mới nhất' },
                         { value: 'asc', label: 'Theo tên từ A - Z' },
                         { value: 'desc', label: 'Theo tên từ Z - A' },
                     ]}
                 />
             </div>
+             <div className={cs('filter-search filter-date')}>
+                <h3 htmlFor="">Lọc theo ngày tạo</h3>
+                <RangePicker onChange={handleChangeSortDate}/>
+            </div>
+                
+
         </div>
   )
 }

@@ -10,18 +10,22 @@ import {
     CommentOutlined,
     GatewayOutlined,
     HomeOutlined,
+    MoonOutlined,
     OrderedListOutlined,
     ProductOutlined,
     RiseOutlined,
     SafetyOutlined,
     SettingOutlined,
+    SunOutlined,
     ThunderboltOutlined,
     ToolOutlined,
     UserOutlined,
   } from '@ant-design/icons'
-import { Avatar, Badge, Breadcrumb, Layout, Menu, Space } from 'antd'
+import { Avatar, Badge, Breadcrumb, ConfigProvider, Layout, Menu, Segmented, Space } from 'antd'
 import useStyles from '../../hooks/useStyles'
 import Seller from '../../components/seller/Seller'
+import { useDispatch, useSelector } from 'react-redux'
+import { setTheme } from '../../store/admin/adminSlice'
 
 
   const { Header, Content, Footer, Sider } = Layout
@@ -36,11 +40,28 @@ import Seller from '../../components/seller/Seller'
 function LayoutAdmin() {
     const cs = useStyles(styles)
     const [collapsed, setCollapsed] = useState(false)
-
+    const [size, setSize] = useState('middle')
+    const dispatch = useDispatch()
     const breadcrumbList = [
         { title: 'User' }, 
         { title: 'Bill' }
     ]
+    const themeRedux = useSelector(state => state.admin.theme)
+    // const themeConfig = {
+    //   token: {
+    //     // Seed Token
+    //     colorPrimary: '#ccc',
+    //     borderRadius: 2,
+
+    //     // Alias Token
+    //     colorBgContainer: '#141414',
+    //     lightSiderBg: '#000',
+    //     siderBg: '#ccc'
+    //   },
+    // }
+    const handleChangeTheme = (value) => {
+      dispatch(setTheme(value))
+    }
 
     const menuItems = [
         configMenuItem(<NavLink to={'/auth/admin'} >Trang chủ</NavLink>, '1', <HomeOutlined />),
@@ -55,42 +76,54 @@ function LayoutAdmin() {
         configMenuItem(<NavLink to={'/auth/admin/feedback'} >Đánh giá sản phẩm</NavLink>, '9', <CommentOutlined />),
         configMenuItem(<NavLink to={'/auth/admin/analytics'} >Thống kê</NavLink>, '10', <BarChartOutlined />),
         configMenuItem(<NavLink to={'/auth/admin/setting'} >'Cài đặt'</NavLink>, '11', <SettingOutlined />),
-      ]
+    ]
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-        <Sider 
-            className={cs('sidebar')}
-            style={{ background: '#fff' }} 
-            collapsible 
-            collapsed={collapsed} 
-            onCollapse={value => setCollapsed(value)} 
-            breakpoint={{ xs:'480px', sm:'576px', md:'768px', lg:'992px', xl:'1200px', xxl:'1400px'}}
-        >   
-            <div className={cs('menu-sidebar')}>
-                <Link to={'/'} className={cs('logo')}>
-                    <img src={logoHeader} className={cs('logo-header')}/>
-                    {/* <img src={logoMobile} className={cs('logo-mobile')}/> */}
-                </Link>
-               
-                <Menu  theme="light" defaultSelectedKeys={['1']} mode="inline" items={menuItems} />
-            </div>
-        </Sider>
-        <Layout>
-            <Header className={cs('header')}>
-                <Badge count={5} size='small' className={cs('dot-bell')}>
-                    <BellOutlined className={cs('bell-notification')}/>
-                </Badge>
-                <Avatar size={34} icon={<UserOutlined />} className={cs('user-info')} />
+    // <ConfigProvider >
+      <Layout style={{ minHeight: '100vh' }}>
+          <Sider 
+              className={cs('sidebar')}
+              style={{ background: '#fff' }} 
+              collapsible 
+              collapsed={collapsed} 
+              onCollapse={value => setCollapsed(value)} 
+              breakpoint={{ xs:'480px', sm:'576px', md:'768px', lg:'992px', xl:'1200px', xxl:'1400px'}}
+          >   
+              <div className={cs('menu-sidebar')}>
+                  <Link to={'/'} className={cs('logo')}>
+                      <img loading='lazy' src={logoHeader} className={cs('logo-header')}/>
+                      {/* <img loading='lazy' src={logoMobile} className={cs('logo-mobile')}/> */}
+                  </Link>
+                
+                  <Menu className={cs('sidebar-main')} theme={themeRedux} defaultSelectedKeys={['1']} mode="inline" items={menuItems} />
+              </div>
+          </Sider>
+          <Layout>
+              <Header className={cs('header')}>
+                  <Segmented
+                    size={size}
+                    shape="round"
+                    options={[
+                      { value: 'light', icon: <SunOutlined /> },
+                      { value: 'dark', icon: <MoonOutlined /> },
+                    ]}
+                    onChange={handleChangeTheme}
+                  />
+                  <Badge count={5} size='small' className={cs('dot-bell')}>
+                      <BellOutlined className={cs('bell-notification')}/>
+                  </Badge>
+                  <Avatar size={34} icon={<UserOutlined />} className={cs('user-info')} />
 
-            </Header>
-            <Content style={{ margin: '0 16px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }} items={breadcrumbList} />
-                <Outlet />
-            </Content>
-            <Footer style={{ textAlign: 'center' }}>GearVN ©{new Date().getFullYear()} HAD</Footer>
-        </Layout>
-    </Layout>
+              </Header>
+              <Content style={{ margin: '0 16px' }}>
+                  <Breadcrumb style={{ margin: '16px 0' }} items={breadcrumbList} />
+                  <Outlet />
+              </Content>
+              <Footer style={{ textAlign: 'center' }}>GearVN ©{new Date().getFullYear()} HAD</Footer>
+          </Layout>
+      </Layout>
+    // </ConfigProvider>
+    
   )
 }
 

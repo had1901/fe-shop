@@ -1,30 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import axiosApi from '../services/axios'
 
-function useAxios(url) {
-    const [data,setData] = useState([])
-    const [loading,setLoading] = useState(true)
-    const [error,setError] = useState(null)
+function useFetch() {
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
 
-    useEffect(() => {
-        const fetchApi = async () => {
+    const handleApi = useCallback(async (method, url, body = null) => {
             try{ 
-                const api = await axiosApi.get(url)
-                console.log('api', api)
-                if(api.data) {
-                    setData(api.data)
+                setLoading(true)
+                const res = await axiosApi({
+                    url,
+                    method,
+                    data: body
+                })
+                console.log('useFetch', res)
+                if(res.ec === 0) {
+                    if(res.dt) {
+                        setData(res.data)
+                    }
+                    setLoading(false)
                 }
+                return res
             } catch(e) {
-                console.log('e', e)
-                setError(e.message)
+                console.log('error-userFetch', e)
+                setError(e.ms)
             } finally {
                 setLoading(false)
             }
-        }
-        fetchApi()
-    },[url])
+        },[])
 
-    return {data, loading, error}
+    return [data, loading, error, handleApi]
 }
 
-export default useAxios
+export default useFetch

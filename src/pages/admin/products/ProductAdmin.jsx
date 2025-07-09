@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Input, message, Popconfirm, Table, Tooltip } from 'antd'
+import React, { useCallback, useEffect, useState } from 'react'
+import { Badge, Button, Input, message, Popconfirm, Statistic, Table, Tooltip } from 'antd'
 import styles from './ProductAdmin.module.scss'
 import useStyles from '../../../hooks/useStyles'
 import { DeleteOutlined, EditOutlined, PlusCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons'
@@ -8,6 +8,8 @@ import { convertPrice } from '../../../utils/convertString/_convertPrice'
 import { Link } from 'react-router'
 import { debounce } from '~/utils/debounce/_debounce';
 import FilterAdmin from '../../../components/filter/FilterAdmin'
+import { formatDate } from '../../../utils/convertString/_formatTime'
+import { useSelector } from 'react-redux';
 
 
 
@@ -19,9 +21,28 @@ function ProductAdmin() {
     const [loading, setLoading] = useState(false)
     const [filterProduct, setFilterProduct] = useState({
         category: 'all',
-        price_name: 'all',
-        search: ''
+        sortBy: 'all',
+        search: '',
+        date: {}
     })
+    const themeRedux = useSelector(state => state.admin.theme)
+    console.log(themeRedux)
+    const filterByCreateAt = useCallback((data) => {
+        const startFilter = new Date(filterProduct.date.start).setHours(0,0,0,0)
+        const endFilter = new Date(filterProduct.date.end).setHours(23,59,59,999)
+        if(data?.length) {
+            const fil = data.filter(item => {
+                if(item.createdAt) {
+                    const createdAt = new Date(item.createdAt).getTime()
+                    return createdAt >= startFilter && createdAt <= endFilter
+                }
+                }
+            )
+            return fil
+        }
+        return []
+    },[filterProduct.date.start, filterProduct.date.end])
+    
     
     const columns = [
         {
@@ -37,7 +58,7 @@ function ProductAdmin() {
             title: 'Ảnh',
             dataIndex: 'thumbnail',
             key: 'thumbnail',
-            render: (_,record) => <div><img src={record.thumbnail} /></div>,
+            render: (_,record) => <div><img loading='lazy' src={record.thumbnail} /></div>,
             width: '100px',
             align: 'center',
             className: cs('col-table')
@@ -100,6 +121,15 @@ function ProductAdmin() {
             width: '8%',
             className: cs('col-table'),
             render: (value, record) =>  <span className={cs('price')}>{convertPrice(value)}</span>
+        },
+        {
+            title: 'Ngày tạo',
+            dataIndex: 'createdAt',
+            key: 'createdAt',
+            align: 'center',
+            width: '8%',
+            className: cs('col-table'),
+            render: (value, record) =>  <span className={cs('created-at')}>{formatDate(record.createdAt)}</span>
     
         },
         {
@@ -150,6 +180,7 @@ function ProductAdmin() {
         console.log(e.target)
         message.success('Click on Yes')
     }
+
       const handleCancel = e => {
         console.log(e)
         message.error('Click on No')
@@ -164,13 +195,71 @@ function ProductAdmin() {
     }
 
     const handleChangeSortProduct = value => {
-        setFilterProduct(prev => ({...prev, price_name: value}))
+        setFilterProduct(prev => ({...prev, sortBy: value}))
     }
     
+    const handleChangeSortDate = value => {
+        const startDate = value[0]
+        const endDate = value[1]
+        setFilterProduct(prev => ({...prev, date: { start: startDate.$d, end: endDate.$d }}))
+    }
+
     const handleSearchText = debounce((e) => {
         setFilterProduct(prev => ({...prev, search: e.target.value}))
     },500)
 
+    const handleFilterAndSort = useCallback(() => {
+        setLoading(true)
+        const fil = filterByCreateAt()
+        console.log('fil', fil)
+        let filterProductList
+        let result
+        filterProductList = products.filter(item => {         
+            if(filterProduct.category === 'all') {
+                return removeHash(item.name).includes(removeHash(filterProduct.search)) && item
+            }
+            if(filterProduct.category !== 'all') {
+                const matchName = filterProduct.sortBy 
+                    ? removeHash(item.name).includes(removeHash(filterProduct.search)) 
+                    : true
+                const matchCategory = filterProduct.category 
+                    ? removeHash(item.name).includes(removeHash(filterProduct.search)) && item.Category.tag.includes(filterProduct.category) 
+                    : true
+                return matchName && matchCategory
+            }
+        })
+       if(filterProductList?.length > 0) {
+            filterProduct.sortBy === 'asc' && filterProductList.sort((a,b) =>  a.name.localeCompare(b.name))
+            filterProduct.sortBy === 'desc' && filterProductList.sort((a,b) =>  b.name.localeCompare(a.name))
+            filterProduct.sortBy === 'min-max' && filterProductList.sort((a,b) =>  a.price - b.price)
+            filterProduct.sortBy === 'max-min' && filterProductList.sort((a,b) =>  b.price - a.price)
+            filterProduct.sortBy === 'new-date' && filterProductList.sort((a,b) =>  new Date(b.createdAt) - new Date(a.createdAt))
+            filterProduct.sortBy === 'old-date' && filterProductList.sort((a,b) =>  new Date(a.createdAt) - new Date(b.createdAt))
+        }
+
+        if(filterProduct.date.start && filterProduct.date.end) {
+            result = filterByCreateAt(filterProductList)
+        } else {
+            result = filterProductList
+        }
+
+        
+        console.log('filter-1', filterProductList)
+        console.log('result', result)
+        setFiltered(result)
+
+        return true
+    },[products, filterProduct.sortBy, filterProduct.category, filterProduct.search, filterProduct.date.start, filterProduct.date.end, filterByCreateAt])
+    
+    // filter product
+    useEffect(() => {
+        const isFilter = handleFilterAndSort()
+        if(isFilter) {
+            setLoading(false)
+        }
+    },[filterProduct.sortBy, filterProduct.category, filterProduct.search, handleFilterAndSort])
+    
+    // call api lấy tất cả sản phẩm
     useEffect(() => {
         (async () => {
             setLoading(true)
@@ -179,53 +268,42 @@ function ProductAdmin() {
                 setProducts(data.dt)
                 setLoading(false)
             }
+            setLoading(false)
+
         })()
     },[])
 
-    
- 
-    useEffect(() => {
-        const filterProductList = products.filter(item => {         
-            if(filterProduct.category === 'all') {
-                return removeHash(item.name).includes(removeHash(filterProduct.search)) && item
-            }
-            if(filterProduct.category !== 'all') {
-                const matchName = filterProduct.price_name ? removeHash(item.name).includes(removeHash(filterProduct.search)) : true
-                const matchCategory = filterProduct.category ? removeHash(item.name).includes(removeHash(filterProduct.search)) && item.Category.tag.includes(filterProduct.category) : true
-                return matchName && matchCategory 
-            }
-        })
-
-        filterProduct.price_name === 'asc' && filterProductList.sort((a,b) =>  a.name.localeCompare(b.name))
-        filterProduct.price_name === 'desc' && filterProductList.sort((a,b) =>  b.name.localeCompare(a.name))
-        filterProduct.price_name === 'min-max' && filterProductList.sort((a,b) =>  a.price - b.price)
-        filterProduct.price_name === 'max-min' && filterProductList.sort((a,b) =>  b.price - a.price)
-            
-        setFiltered(filterProductList)
-    },[products, filterProduct.price_name, filterProduct.category, filterProduct.search])
-    
-
   return (
-    <div className={cs('products-admin')}>
+    <div className={cs(`products-admin`, `${themeRedux === 'dark' ? 'dark-theme' : ''}`)}>
         <div className={cs('heading-tab')}>
             <FilterAdmin 
                 handleChangeSortCategory={handleChangeSortCategory} 
                 handleSearchText={handleSearchText} 
                 handleChangeSortProduct={handleChangeSortProduct}
+                handleChangeSortDate={handleChangeSortDate}
             />
-            <Link to={'add-new-product'}>
-                <Button color='primary' variant='filled'>
-                    <PlusCircleOutlined />
-                    Thêm sản phẩm mới
-                </Button>
-            </Link>
+            <div className={cs('flex-box')}>
+                <div className={cs('flex-box')}>
+                    <Link to={'add-new-product'}>
+                        <Button color='primary' variant='filled'>
+                            <PlusCircleOutlined />
+                            Thêm sản phẩm mới
+                        </Button>
+                    </Link>
+                    <Badge className='' status="success" text={`Kết quả tìm kiếm: ${filtered?.length} sản phẩm`} />
+                </div>
+                <Badge status="success" text={`Tổng sản phẩm: ${products.length}`} />
+
+            </div>
         </div>
         <Table 
             columns={columns} 
             dataSource={filtered} 
             rowKey="id"
+            size='middle'
+            tableLayout='fixed'
             loading={loading}
-            // rowClassName={() => `${cs('row-table')}`}
+            rowClassName={() => `${cs('row-table')}`}
             pagination={{
                 position: ['bottomCenter'],
                 pageSize: 15,

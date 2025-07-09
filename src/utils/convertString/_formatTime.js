@@ -12,7 +12,7 @@ export function formatTime(vnpTime) {
     
   }
 
-  export function formatDate(isoString) {
+  export function formatDate(isoString, hasTime = false) {
     if(isoString) {
       const date = new Date(isoString)
   
@@ -23,8 +23,10 @@ export function formatTime(vnpTime) {
       const hours = String(date.getHours()).padStart(2, '0')
       const minutes = String(date.getMinutes()).padStart(2, '0')
       const seconds = String(date.getSeconds()).padStart(2, '0')
-    
-      return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`
+      if(hasTime) {
+        return `${day}/${month}/${year} - ${hours}:${minutes}:${seconds}`
+      } 
+        return `${day}/${month}/${year}`
     }
     
   }

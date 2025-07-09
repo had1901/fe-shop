@@ -73,7 +73,17 @@ button, table, select{
 .ant-col-16{
 	min-width: 100% !important;
 }
-
+.dark-theme{
+	background: #141414 !important;
+    color: #d4e1d9 !important;
+}
+.light-theme{
+	background: #141414 !important;
+    color: #808080 !important;
+}
+.text-color-base{
+	
+}
 // PC
 @media (min-width: 992px) and (max-width: 1200px) {
     

@@ -16,7 +16,7 @@ function CartStatus() {
     <div className={cs('cart-status')}>
       {selected === 'qr-code' && 
           (<div className={cs('img-qr')}>
-            <img src={`https://api.vietqr.io/image/970436-1029440094-qqCIgOE.jpg?accountName=HOANG%20TRUNG%20DUC&amount=${total}&addInfo=${idCode}`}/>
+            <img loading='lazy' src={`https://api.vietqr.io/image/970436-1029440094-qqCIgOE.jpg?accountName=HOANG%20TRUNG%20DUC&amount=${total}&addInfo=${idCode}`}/>
             <div className={cs('info-pay')}>
               <p>Ngân hàng: <span>Vietcombank</span></p>
               <p>Số tài khoản: <span>1029440094</span></p>

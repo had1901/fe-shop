@@ -1,0 +1,99 @@
+
+.account-admin{
+    background: #fff;
+    // border-radius: 8px;
+    padding: 20px 40px;
+}
+.row-table{
+    table-layout: fixed;
+    height: 50px !important;
+}
+.col-table{
+    // vertical-align: middle;
+    width: auto;
+    padding: 8px 10px !important;
+    overflow: hidden;
+}
+.price{
+    color: #e30119;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.text-color{
+    font-weight: 600;
+}
+
+.heading-tab{
+    // display: flex;
+    // align-items: center;
+    margin-bottom: 20px;
+}
+.list-permission{
+    display: flex;
+    // align-items: start;
+    flex-wrap: wrap;
+    row-gap: 8px;
+    height: 100%;
+    
+}
+.permission{
+    text-transform: capitalize;
+    font-weight: 500;
+}
+.flex-box{
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+.text-read{
+    display: inline-block;
+    text-transform: capitalize;
+    min-width: 60px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-weight: 500;
+    background: #5d9cf5;
+    color: #fff;
+    margin: 2px 0;
+    white-space: nowrap;
+
+}
+.text-create{
+    display: inline-block; 
+    text-transform: capitalize;
+    padding: 4px 10px;
+    min-width: 60px;
+    border-radius: 6px;
+    background: #1bc989;
+    color: #fff;
+    margin: 2px 0;
+    font-weight: 500;
+    white-space: nowrap;
+
+}
+.text-update{
+    display: inline-block;
+    text-transform: capitalize;
+    min-width: 60px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #ffc76c;
+    color: #fff;
+    margin: 2px 0;
+    font-weight: 500;
+    white-space: nowrap;
+
+}
+.text-delete{
+    display: inline-block;
+    text-transform: capitalize;
+    min-width: 60px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: #f56668;
+    color: #ffffff;
+    white-space: nowrap;
+    margin: 2px 0;
+    font-weight: 500;
+
+}

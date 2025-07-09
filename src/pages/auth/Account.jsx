@@ -94,7 +94,7 @@ function Account() {
                 </div>
                 <div className='col-xl-9 col-lg-9 col-md-9 col-sm-9'>
                     <div className='content-right' style={{background: '#fff', height: '100%'}}>
-                        {/* {orders.length < 0 && <div><img src={nodata} alt="" /></div>} */}
+                        {/* {orders.length < 0 && <div><img loading='lazy' src={nodata} alt="" /></div>} */}
                         <AnimatePresence mode="wait" className={cs('sidebar-right')}>
                             <motion.div
                                 key={accountTab}

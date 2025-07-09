@@ -57,7 +57,6 @@ function HomePage() {
     }, {})
     const resultArray = Object.values(groupedByCategory)
     setProducts(resultArray)
-
   },[data])
 
 

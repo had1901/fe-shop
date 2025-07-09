@@ -94,7 +94,7 @@ function Header() {
               <div className={cs('bannerWrap', 'container')}>
                     <div className='row'>
                       <picture className='col-xxl-12 col-xl-12 d-lg-none'>
-                        <img src={bannerHeader} className={cs('headerBannerImg')} />
+                        <img loading='lazy' src={bannerHeader} className={cs('headerBannerImg')} />
                       </picture>
                     </div>
               </div>
@@ -104,8 +104,8 @@ function Header() {
                     <div className={cs('navbarHeader', 'row')}>
                         <div className=''>
                             <Link to={'/'} className={cs('divnk')}>
-                                <img src={logoHeader} className={cs('logoHeader')}/>
-                                <img src={logoMobile} className={cs('logo_mobile')}/>
+                                <img loading='lazy' src={logoHeader} className={cs('logoHeader')}/>
+                                <img loading='lazy' src={logoMobile} className={cs('logo_mobile')}/>
                             </Link>
                         </div>
                         <div ref={categoryRef} onClick={handleToggleNavbar} className={cs('categoryHeader')}>

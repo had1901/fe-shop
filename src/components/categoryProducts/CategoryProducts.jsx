@@ -12,7 +12,7 @@ function CategoryProducts() {
                 <li key={index} className={cs('product_item')}>
                     <a href='#' className={cs('product_item_link')}>
                         <figure >
-                            <img src={item.src} alt='category' className={cs('product_item_img')}/>
+                            <img loading='lazy' src={item.src} alt='category' className={cs('product_item_img')}/>
                             <figcaption className={cs('product_item_text')}>{item.name}</figcaption>
                         </figure>
                     </a>

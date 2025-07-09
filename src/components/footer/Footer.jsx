@@ -134,7 +134,7 @@ function Footer() {
                                 </div>
                                 :
                                 <a href='' className={cs('link')}>
-                                  <img src={about}/>
+                                  <img loading='lazy' src={about}/>
                                 </a>
                             }
                           </div>
@@ -151,7 +151,7 @@ function Footer() {
                           <div className={cs('ship_list')}>
                             {ship.map((shipItem, i) => (
                               <div key={i} className={cs('pay_item')}>
-                                <img src={shipItem}/>
+                                <img loading='lazy' src={shipItem}/>
                               </div>
                             ))}
                           </div>
@@ -161,7 +161,7 @@ function Footer() {
                           <div className={cs('ship_list')}>
                             {payMethod.map((pay, i) => (
                               <div key={i} className={cs('pay_item')}>
-                                <img src={pay}/>
+                                <img loading='lazy' src={pay}/>
                               </div>
                             ))}
                           </div>
@@ -182,7 +182,7 @@ function Footer() {
             </ul>
           </div>
           <div className={cs('congthuong')}>
-            <img src='https://theme.hstatic.net/200000722513/1001090675/14/logo-bct.png?v=8407'/>
+            <img loading='lazy' src='https://theme.hstatic.net/200000722513/1001090675/14/logo-bct.png?v=8407'/>
           </div>
         </div>
       </div>

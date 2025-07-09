@@ -184,7 +184,7 @@ function DetailProductPage() {
                 <div className={cs('slide-show')} style={{ transform: `translateX(${-currentIndex * width}px)`}}>
                   {sliders.length && sliders.map((src, index) => (
                     <span key={index} className={cs('img-item')} ref={imgRef}>
-                      <img src={product?.thumbnail} alt="product" className={cs('img')}/>
+                      <img loading='lazy' src={product?.thumbnail} alt="product" className={cs('img')}/>
                     </span>
                   ))}
                 </div>
@@ -255,7 +255,7 @@ function DetailProductPage() {
               <div className={cs('action-buys')}>
                 <button className={cs('btn-buynow')} onClick={() => handleBuy(product)}>
                   {addCart 
-                  ? <DotLottieReact src='../../../public/add-to-cart.lottie' loop autoplay style={{ width: '20%', margin: '0 auto'}}/>
+                  ? <DotLottieReact loading='lazy' src='../../../public/add-to-cart.lottie' loop autoplay style={{ width: '20%', margin: '0 auto'}}/>
                   : (<>
                       <span>Mua ngay</span>
                       <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
@@ -352,7 +352,7 @@ function DetailProductPage() {
                 <li key={item.id} className={cs('list-news-item')}>
                     <a className={cs('list-news-link')}>
                       <div className={cs('content-thumbnail')}>
-                        <img src="https://file.hstatic.net/200000722513/article/gearvn-link-nhan-spin-coin-master-banner_c728769f9fe84e42a60b56bdf6773831_grande.jpg" alt="" />
+                        <img loading='lazy' src="https://file.hstatic.net/200000722513/article/gearvn-link-nhan-spin-coin-master-banner_c728769f9fe84e42a60b56bdf6773831_grande.jpg" alt="" />
                       </div>
                       <p className={cs('news-title')}>{item.title}</p>
                     </a>

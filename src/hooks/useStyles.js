@@ -5,7 +5,7 @@ const useStyles = (styles) => {
 
     const cs = (classCustom, ...classGlobal) => {
         if(typeof classCustom !== 'string') {
-          throw new Error('Cần truyền một chuỗi vào đây!!!')
+          throw new Error('Cần truyền một chuỗi class vào đây!!!')
         }
         if(classCustom === '') {
           return ''

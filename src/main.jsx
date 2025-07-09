@@ -11,7 +11,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 const client_id = '297134669558-t7k2nnfnsdt7eaqnag7b7b66csugrjg8.apps.googleusercontent.com'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
     <Provider store={store}>
       <GoogleOAuthProvider clientId={client_id}>
         <PersistGate loading={null} persistor={persistor}>
@@ -21,5 +21,5 @@ createRoot(document.getElementById('root')).render(
         </PersistGate>
       </GoogleOAuthProvider>
     </Provider>
-  </StrictMode> 
+  // </StrictMode> 
 )
