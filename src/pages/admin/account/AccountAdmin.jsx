@@ -15,18 +15,36 @@ function AccountAdmin() {
     const cs = useStyles(styles)
     const [loading, setLoading] = useState(false)
     const [accounts, setAccounts] = useState([])
+    const [user, setUser] = useState({})
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [mode, setMode] = useState('create')
+    const [filtered, setFiltered] = useState([])
+
+    console.log(filtered)
     const showModal = () => {
         setIsModalOpen(true)
         setMode('create')
-
     }
-    console.log('data', data)
-    const handleGetProductById = (id) => { 
+    const handleGetUserById = async (id) => { 
         console.log(id)
         setIsModalOpen(true)
         setMode('edit')
+        setLoading(true)
+        try{
+
+            const res = await axiosApi.get(`/auth/admin/read-accounts/${id}`)
+            if(res.ec === 0) {
+                console.log(res.dt)
+                setUser(res?.dt)
+                setLoading(false)
+            }
+        }catch(e) {
+            console.log(e)
+            
+        }finally{
+            setLoading(false)
+        }
+
     }
  
     const handleDelete = async (id) => { 
@@ -122,7 +140,7 @@ function AccountAdmin() {
               return (
                 <ul className={cs('list-permission')} >
                     {record.Role.Permisstions.map(per => (
-                        <li>{changeColorText(per.action)}</li>
+                        <li key={per.id}>{changeColorText(per.action)}</li>
                     ))}
                 </ul>
 
@@ -143,7 +161,7 @@ function AccountAdmin() {
                         <div>
                             <Tooltip placement="top" title={'Chỉnh sửa'}>
                                 <Link to={''}> 
-                                    <Button color="primary" variant="outlined" onClick={() => handleGetProductById(record.id)}><EditOutlined /></Button>
+                                    <Button color="primary" variant="outlined" onClick={() => handleGetUserById(record.id)}><EditOutlined /></Button>
                                 </Link>
                             </Tooltip>
                         </div>
@@ -194,6 +212,10 @@ function AccountAdmin() {
      <div className={cs('account-admin')}>
         <div className={cs('heading-tab')}>
             <FilterAdmin 
+                data={accounts}
+                setLoading={setLoading}
+                setFiltered={setFiltered}
+                page='account'
                 // handleChangeSortCategory={handleChangeSortCategory} 
                 // handleSearchText={handleSearchText} 
                 // handleChangeSortProduct={handleChangeSortProduct}
@@ -211,11 +233,11 @@ function AccountAdmin() {
                 <Badge status="success" text={`Tổng tài khoản: ${accounts.length}`} />
 
             </div>
-            <AccountEdit mode={mode} isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} handleGetUsers={handleApi} />
+            <AccountEdit mode={mode} isModalOpen={isModalOpen} user={user} handleGetUsers={handleGetUsers} setIsModalOpen={setIsModalOpen} />
         </div>
         <Table 
             columns={columns} 
-            dataSource={accounts} 
+            dataSource={filtered} 
             rowKey="id"
             loading={loading}
             rowClassName={() => `${cs('row-table')}`}

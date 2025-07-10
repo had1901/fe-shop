@@ -63,6 +63,7 @@ function DetailProductPage() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [width, setWidth] = useState(0)
+  const [newImgs, setNewImgs] = useState([])
   const [open, setOpen] = useState(false)
   const cs = useStyles(styles)
   const boxRef = useRef()
@@ -78,6 +79,9 @@ function DetailProductPage() {
   const [addCart, setAddCart] = useState(false)
   const { id } = useParams()
 
+  console.log(product)
+
+  
   const handlePrev = debounce(() => {
     if(currentIndex > 0) {
         setIsAnimating(true)
@@ -86,7 +90,7 @@ function DetailProductPage() {
   }, 200)
 
   const handleNext = debounce(() => {
-    if(currentIndex < sliders.length - 1) { 
+    if(currentIndex < newImgs.length - 1) { 
         setIsAnimating(true)
         setCurrentIndex(prev => prev + 1)
     }
@@ -138,7 +142,9 @@ function DetailProductPage() {
   }
 
   useEffect(() => {
-    setWidth(imgRef.current.getBoundingClientRect().width)
+    if(imgRef.current) {
+      setWidth(imgRef.current.getBoundingClientRect().width)
+    }
   },[currentIndex])
 
   useLayoutEffect(() => {
@@ -162,6 +168,17 @@ function DetailProductPage() {
     getProduct()
   },[dispatch, id])
 
+  useEffect(() => {
+
+    if(product) {
+      const listImg = [{
+        id: Date.now() + 'URL1',
+        url: product?.thumbnail 
+      }, ...product.Product_images]
+      setNewImgs(listImg)
+    }
+    
+  }, [product])
 
   return (
     <div className={cs('product-inner', 'container')}>
@@ -182,9 +199,9 @@ function DetailProductPage() {
             <div className={cs('wrapper-slide')}>
               <div className={cs('carousel')}>
                 <div className={cs('slide-show')} style={{ transform: `translateX(${-currentIndex * width}px)`}}>
-                  {sliders.length && sliders.map((src, index) => (
+                  {newImgs.length && newImgs.map((item, index) => (
                     <span key={index} className={cs('img-item')} ref={imgRef}>
-                      <img loading='lazy' src={product?.thumbnail} alt="product" className={cs('img')}/>
+                      <img loading='lazy' src={item.url} alt="product" className={cs('img')}/>
                     </span>
                   ))}
                 </div>
@@ -199,28 +216,21 @@ function DetailProductPage() {
                         // ref={chevRightRef}
                         className={cs('arrow-right chevron')}
                         onClick={handleNext}
-                        style={{ color: currentIndex === sliders.length - 1 ? '#ccc' : '#1f1f1f'}}
+                        style={{ color: currentIndex === newImgs.length - 1 ? '#ccc' : '#1f1f1f'}}
                     ><FaChevronRight /></button>
                   </div>
               </div>
               
             </div>
             <ul className={cs('list-img-product')}>
-                {blogs.length && blogs.map((item, index) => (
+                {newImgs.length && newImgs.map((item, index) => (
                     <li 
                       onClick={() => setCurrentIndex(index)} 
-                      className={cs('img-item')} 
-                      style={{ 
-                        width: '50px', 
-                        height: '50px', 
-                        background: 'violet', 
-                        margin: '6px',
-                        borderRadius: '6px',
-                        border: index === currentIndex ? '5px solid red' : 'transparent'
-                      }}
-                      key={index}
+                      className={cs('img-item-sub')} 
+                      style={{ outline: index === currentIndex ? '1px solid #262626' : 'transparent' }}
+                      key={item.id}
                     >
-                      <span>{index}</span>
+                      <img src={item.url} />
                     </li>
                   ))}
             </ul>

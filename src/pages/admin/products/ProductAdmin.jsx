@@ -26,7 +26,7 @@ function ProductAdmin() {
         date: {}
     })
     const themeRedux = useSelector(state => state.admin.theme)
-    console.log(themeRedux)
+
     const filterByCreateAt = useCallback((data) => {
         const startFilter = new Date(filterProduct.date.start).setHours(0,0,0,0)
         const endFilter = new Date(filterProduct.date.end).setHours(23,59,59,999)
@@ -167,14 +167,7 @@ function ProductAdmin() {
         },
     ]
 
-    const removeHash = (str) => {
-        return str
-          .normalize('NFD')                      // Tách dấu ra khỏi ký tự
-          .replace(/[\u0300-\u036f]/g, '')       // Xóa dấu
-          .replace(/đ/g, 'd')                    // thay đ -> d
-          .replace(/Đ/g, 'D')
-          .toLowerCase();                        // Viết thường
-    }
+    
 
     const handleConfirm = e => {
         console.log(e.target)
@@ -190,74 +183,68 @@ function ProductAdmin() {
         console.log(id)
     }
 
-    const handleChangeSortCategory = value => {
-        setFilterProduct(prev => ({...prev, category: value}))
-    }
+    // const handleChangeSortCategory = value => {
+    //     setFilterProduct(prev => ({...prev, category: value}))
+    // }
 
-    const handleChangeSortProduct = value => {
-        setFilterProduct(prev => ({...prev, sortBy: value}))
-    }
+    // const handleChangeSortProduct = value => {
+    //     setFilterProduct(prev => ({...prev, sortBy: value}))
+    // }
     
-    const handleChangeSortDate = value => {
-        const startDate = value[0]
-        const endDate = value[1]
-        setFilterProduct(prev => ({...prev, date: { start: startDate.$d, end: endDate.$d }}))
-    }
+    // const handleChangeSortDate = value => {
+    //     const startDate = value[0]
+    //     const endDate = value[1]
+    //     setFilterProduct(prev => ({...prev, date: { start: startDate.$d, end: endDate.$d }}))
+    // }
 
-    const handleSearchText = debounce((e) => {
-        setFilterProduct(prev => ({...prev, search: e.target.value}))
-    },500)
+    // const handleSearchText = debounce((e) => {
+    //     setFilterProduct(prev => ({...prev, search: e.target.value}))
+    // },500)
 
-    const handleFilterAndSort = useCallback(() => {
-        setLoading(true)
-        const fil = filterByCreateAt()
-        console.log('fil', fil)
-        let filterProductList
-        let result
-        filterProductList = products.filter(item => {         
-            if(filterProduct.category === 'all') {
-                return removeHash(item.name).includes(removeHash(filterProduct.search)) && item
-            }
-            if(filterProduct.category !== 'all') {
-                const matchName = filterProduct.sortBy 
-                    ? removeHash(item.name).includes(removeHash(filterProduct.search)) 
-                    : true
-                const matchCategory = filterProduct.category 
-                    ? removeHash(item.name).includes(removeHash(filterProduct.search)) && item.Category.tag.includes(filterProduct.category) 
-                    : true
-                return matchName && matchCategory
-            }
-        })
-       if(filterProductList?.length > 0) {
-            filterProduct.sortBy === 'asc' && filterProductList.sort((a,b) =>  a.name.localeCompare(b.name))
-            filterProduct.sortBy === 'desc' && filterProductList.sort((a,b) =>  b.name.localeCompare(a.name))
-            filterProduct.sortBy === 'min-max' && filterProductList.sort((a,b) =>  a.price - b.price)
-            filterProduct.sortBy === 'max-min' && filterProductList.sort((a,b) =>  b.price - a.price)
-            filterProduct.sortBy === 'new-date' && filterProductList.sort((a,b) =>  new Date(b.createdAt) - new Date(a.createdAt))
-            filterProduct.sortBy === 'old-date' && filterProductList.sort((a,b) =>  new Date(a.createdAt) - new Date(b.createdAt))
-        }
+    // const handleFilterAndSort = useCallback(() => {
+    //     setLoading(true)
+    //     let filterProductList
+    //     let result
+    //     filterProductList = products.filter(item => {         
+    //         if(filterProduct.category === 'all') {
+    //             return removeHash(item.name).includes(removeHash(filterProduct.search)) && item
+    //         }
+    //         if(filterProduct.category !== 'all') {
+    //             const matchName = filterProduct.sortBy 
+    //                 ? removeHash(item.name).includes(removeHash(filterProduct.search)) 
+    //                 : true
+    //             const matchCategory = filterProduct.category 
+    //                 ? removeHash(item.name).includes(removeHash(filterProduct.search)) && item.Category.tag.includes(filterProduct.category) 
+    //                 : true
+    //             return matchName && matchCategory
+    //         }
+    //     })
+    //    if(filterProductList?.length > 0) {
+    //         filterProduct.sortBy === 'asc' && filterProductList.sort((a,b) =>  a.name.localeCompare(b.name))
+    //         filterProduct.sortBy === 'desc' && filterProductList.sort((a,b) =>  b.name.localeCompare(a.name))
+    //         filterProduct.sortBy === 'min-max' && filterProductList.sort((a,b) =>  a.price - b.price)
+    //         filterProduct.sortBy === 'max-min' && filterProductList.sort((a,b) =>  b.price - a.price)
+    //         filterProduct.sortBy === 'new-date' && filterProductList.sort((a,b) =>  new Date(b.createdAt) - new Date(a.createdAt))
+    //         filterProduct.sortBy === 'old-date' && filterProductList.sort((a,b) =>  new Date(a.createdAt) - new Date(b.createdAt))
+    //     }
 
-        if(filterProduct.date.start && filterProduct.date.end) {
-            result = filterByCreateAt(filterProductList)
-        } else {
-            result = filterProductList
-        }
+    //     if(filterProduct.date.start && filterProduct.date.end) {
+    //         result = filterByCreateAt(filterProductList)
+    //     } else {
+    //         result = filterProductList
+    //     }
+    //     setFiltered(result)
 
-        
-        console.log('filter-1', filterProductList)
-        console.log('result', result)
-        setFiltered(result)
-
-        return true
-    },[products, filterProduct.sortBy, filterProduct.category, filterProduct.search, filterProduct.date.start, filterProduct.date.end, filterByCreateAt])
+    //     return true
+    // },[products, filterProduct.sortBy, filterProduct.category, filterProduct.search, filterProduct.date.start, filterProduct.date.end, filterByCreateAt])
     
-    // filter product
-    useEffect(() => {
-        const isFilter = handleFilterAndSort()
-        if(isFilter) {
-            setLoading(false)
-        }
-    },[filterProduct.sortBy, filterProduct.category, filterProduct.search, handleFilterAndSort])
+    // // filter product
+    // useEffect(() => {
+    //     const isFilter = handleFilterAndSort()
+    //     if(isFilter) {
+    //         setLoading(false)
+    //     }
+    // },[filterProduct.sortBy, filterProduct.category, filterProduct.search, handleFilterAndSort])
     
     // call api lấy tất cả sản phẩm
     useEffect(() => {
@@ -277,10 +264,14 @@ function ProductAdmin() {
     <div className={cs(`products-admin`, `${themeRedux === 'dark' ? 'dark-theme' : ''}`)}>
         <div className={cs('heading-tab')}>
             <FilterAdmin 
-                handleChangeSortCategory={handleChangeSortCategory} 
-                handleSearchText={handleSearchText} 
-                handleChangeSortProduct={handleChangeSortProduct}
-                handleChangeSortDate={handleChangeSortDate}
+                data={products}
+                setFiltered={setFiltered}
+                setLoading={setLoading}
+                page='product'
+                // handleChangeSortCategory={handleChangeSortCategory} 
+                // handleSearchText={handleSearchText} 
+                // handleChangeSortProduct={handleChangeSortProduct}
+                // handleChangeSortDate={handleChangeSortDate}
             />
             <div className={cs('flex-box')}>
                 <div className={cs('flex-box')}>

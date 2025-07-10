@@ -144,7 +144,7 @@ function Dashboard() {
       const [ordersRes, ordersGroupDate, usersRes, productsRes] = await Promise.allSettled([
         axiosApi.get('/get-all-order'),
         axiosApi.get('/get-group-orders-date'),
-        axiosApi.get('/auth/get-all-user'),
+        axiosApi.get('/auth/admin/read-accounts'),
         axiosApi.get('/api/get-all-product')
       ])
     

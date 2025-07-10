@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Select, Space, Tag } from 'antd'
-import React, { Children, useState } from 'react'
+import React, { Children, useEffect, useState } from 'react'
 import axiosApi from '../../../services/axios'
 import { toast } from 'react-toastify'
 
@@ -11,8 +11,9 @@ import { toast } from 'react-toastify'
 //     { value: '4', label: 'Xóa', color: 'red' },
 // ]
 
-function AccountEdit({ isModalOpen , setIsModalOpen, handleGetUsers, mode = 'edit'}) {
+function AccountEdit({ isModalOpen, setIsModalOpen, handleGetUsers, user, mode = 'edit'}) {
     const [loading, setLoading] = useState(false)
+    const [form] = Form.useForm()
 
     const handleSubmit = async (e) => {
         const data = e
@@ -29,7 +30,7 @@ function AccountEdit({ isModalOpen , setIsModalOpen, handleGetUsers, mode = 'edi
                 setIsModalOpen(false)
                 setLoading(false)
                 toast(createAccount.ms)
-                handleGetUsers()
+                await handleGetUsers()
             } 
         }catch(e){
             console.log(e)
@@ -74,6 +75,29 @@ function AccountEdit({ isModalOpen , setIsModalOpen, handleGetUsers, mode = 'edi
     //     )
     // }
 
+    const renderDataInit = (data) => {
+        if(mode === 'edit' && Object.entries(data).length > 0) {
+            return {
+                id: data?.id,
+                username: data?.username,
+                email: data?.email,
+                roleId: data.Role.id, 
+            }
+        }
+           
+        
+    }
+    useEffect(() => {
+        if (mode === 'edit' && user) {
+            form.setFieldsValue({
+                id: user?.id,
+                username: user?.username,
+                email: user?.email,
+                roleId: user?.Role?.id == '1' ? 'Admin' : 'Customer',
+            })
+        }
+    }, [user, mode])
+
   return (
     <div>
         <Modal
@@ -84,18 +108,16 @@ function AccountEdit({ isModalOpen , setIsModalOpen, handleGetUsers, mode = 'edi
             onCancel={handleCancel}
         >
             <Form
+                form={form}
                 name="basic"
                 onFinish={handleSubmit}
                 onFinishFailed={handleSubmitError}
                 autoComplete="on"
                 layout='vertical'
-                initialValues={{
-                    roleId: '2',
-                    // permissionId: '3'
-                }}
+                initialValues={renderDataInit(user)}
             >
                 <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-                    {mode === 'edit' && <Input placeholder="ID" disabled/>}
+                    <Input placeholder="ID" disabled hidden />
                     <Form.Item
                         label="Username"
                         name="username"
