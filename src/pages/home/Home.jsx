@@ -16,7 +16,9 @@ import News from '../../components/news/News';
 import { useResponsive } from '~/hooks/useResponsive';
 import axiosApi from './../../services/axios';
 import useStyles from '../../hooks/useStyles';
+const apiUrl = import.meta.env.VITE_API_URL
 
+console.log(apiUrl)
 function HomePage() {
   const cs = useStyles(styles)
   const numberDisplay = useResponsive()
