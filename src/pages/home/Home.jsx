@@ -16,9 +16,11 @@ import News from '../../components/news/News';
 import { useResponsive } from '~/hooks/useResponsive';
 import axiosApi from './../../services/axios';
 import useStyles from '../../hooks/useStyles';
-const apiUrl = import.meta.env.VITE_API_URL
+// const apiUrl = import.meta.env.VITE_API_URL
 
-console.log(apiUrl)
+console.log("MODE:", import.meta.env.MODE)
+console.log("API URL:", import.meta.env.VITE_API_URL)
+
 function HomePage() {
   const cs = useStyles(styles)
   const numberDisplay = useResponsive()
@@ -26,7 +28,6 @@ function HomePage() {
   const [products, setProducts] = useState([])
   const [listProductSale, setProductSale] = useState([])
 
-  console.log(products)
   useEffect(() => {
     const getProducts = async () => {
       const products =  await axiosApi.get('api/get-all-product')
