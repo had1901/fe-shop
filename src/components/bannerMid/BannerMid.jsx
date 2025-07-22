@@ -24,18 +24,18 @@ function BannerMid() {
   const cs = useStyles(styles)
   const bannerRef = useRef([])
 
-  const handleMove = () => {
-    const banner = bannerRef.current
-    gsap.to(banner[0], 
-        {
-            // opacity: 0,
-            y: 100,
-            duration: 0.8,
-            // delay: 0.6,
-            ease: 'power1.inOut',
-        },
-      )
-  }
+  // const handleMove = () => {
+  //   const banner = bannerRef.current
+  //   gsap.to(banner[0], 
+  //       {
+  //           // opacity: 0,
+  //           y: 100,
+  //           duration: 0.8,
+  //           // delay: 0.6,
+  //           ease: 'power1.inOut',
+  //       },
+  //     )
+  // }
   useLayoutEffect(() => {
     const banner = bannerRef.current
     if (!banner[0] || !banner[1]) return
@@ -85,7 +85,7 @@ function BannerMid() {
     <div className={cs('banner_mid_wrap')}>
       {listBanner.length && 
         listBanner.map((item, i) => (
-          <Link key={i} ref={el => bannerRef.current[i] = el} to='#' className={cs('banner_mid_item')} onClick={handleMove}>
+          <Link key={i} ref={el => bannerRef.current[i] = el} to='#' className={cs('banner_mid_item')} >
             <img loading='lazy' src={item.src} className={cs('banner_mid_img')} alt={item.alt} />
           </Link>
         ))}

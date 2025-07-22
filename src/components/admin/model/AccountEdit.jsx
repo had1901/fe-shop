@@ -2,6 +2,7 @@ import { Button, Form, Input, Modal, Select, Space, Tag } from 'antd'
 import React, { Children, useEffect, useState } from 'react'
 import axiosApi from '../../../services/axios'
 import { toast } from 'react-toastify'
+import { renderRules } from '../../../utils/validation/_validation'
 
 
 // const permissionOptions = [
@@ -15,8 +16,14 @@ function AccountEdit({ isModalOpen, setIsModalOpen, handleGetUsers, user, mode =
     const [loading, setLoading] = useState(false)
     const [form] = Form.useForm()
 
-    const handleSubmit = async (e) => {
-        const data = e
+    const handleSubmit = async (value) => {
+        let data = value
+        if(value.roleId === 'Admin') {
+            data = {...data, roleId: '1'}
+        }
+        if(value.roleId === 'Customer') {
+            data = {...data, roleId: '2'}
+        }
         const action = mode === 'edit' ? 'update' : 'create'
         const method = mode === 'edit' ? 'PUT' : 'POST'
         setLoading(true)
@@ -48,6 +55,7 @@ function AccountEdit({ isModalOpen, setIsModalOpen, handleGetUsers, user, mode =
 
 
     const handleCancel = (e) => {
+        console.log(e)
         setIsModalOpen(false)
     }
 
@@ -84,19 +92,18 @@ function AccountEdit({ isModalOpen, setIsModalOpen, handleGetUsers, user, mode =
                 roleId: data.Role.id, 
             }
         }
-           
-        
     }
+
     useEffect(() => {
         if (mode === 'edit' && user) {
             form.setFieldsValue({
                 id: user?.id,
                 username: user?.username,
                 email: user?.email,
-                roleId: user?.Role?.id == '1' ? 'Admin' : 'Customer',
+                roleId: user?.Role?.id === 1 ? 'Admin' : 'Customer',
             })
         }
-    }, [user, mode])
+    }, [user, mode, form])
 
   return (
     <div>
@@ -117,24 +124,26 @@ function AccountEdit({ isModalOpen, setIsModalOpen, handleGetUsers, user, mode =
                 initialValues={renderDataInit(user)}
             >
                 <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
-                    <Input placeholder="ID" disabled hidden />
+                    <Form.Item label='ID' name='id'>
+                        <Input placeholder="ID" disabled hidden />
+                    </Form.Item>
                     <Form.Item
                         label="Username"
                         name="username"
-                        rules={[{ required: true, message: 'Please input your username!' }]}
+                        rules={renderRules(3, 40, 'text')}
                     >
                         <Input placeholder="Username" name='username' />
                     </Form.Item>
                     <Form.Item
                         label="Email"
                         name="email"
-                        rules={[{ required: true, message: 'Please input your email!' }]}
+                        rules={renderRules(3, 40, 'email')}
                     >
                         <Input placeholder="Email" name='email'/></Form.Item>
                     <Form.Item
                         label="Vai trò"
                         name="roleId"
-                        rules={[{ required: true, message: 'Please input your role!' }]}
+                        rules={renderRules(1, 40, 'text')}
                     >
                         <Select
                             style={{ width: 120 }}                   

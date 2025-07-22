@@ -1,0 +1,50 @@
+
+@use '../../utils/scss/mixin' as *;
+@use '../../utils/scss/variables' as *;
+
+.toolbar-menu{
+    position: fixed;
+    display: none;
+    left: 0;
+    right: 0;
+    // width: 100%;
+    bottom: env(safe-area-inset-bottom, 0);
+    height: 60px;
+    background: #fff;
+    border-top: 2px solid $color-primary;
+
+    @include screen(tablet) {
+        display: block;
+    }
+    @include screen(mobile) {
+        display: block;
+    }
+
+    .toolbar-menu-list{
+        height: 100%;
+        padding: 0 14px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .toolbar-menu-item{
+        flex: 1;
+        height: 100%;
+    }
+    .toolbar-menu-link{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        height: 100%;
+
+    }
+    .toolbar-menu-icon{
+        // text-align: center;
+    }
+    .toolbar-menu-text{
+        font-size: rem(12);
+    }
+}

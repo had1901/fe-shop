@@ -282,6 +282,7 @@ function ProductEdit({ title, mode = 'edit' }) {
                 price: products.price || '',
                 sale_price: products.sale_price || '',
                 stock: products.stock_quantity || '',
+                content: products.content || '',
                 avatar: [
                     {
                       uid: uuidv4(),
@@ -339,8 +340,8 @@ function ProductEdit({ title, mode = 'edit' }) {
                 {mode !== 'edit' ? null : <InputItem id='id' label='Mã sản phẩm' name='id' type='text' disabled />}
                 <InputItem id='name' label='Tên sản phẩm' name='name' type='text' maxLength={140} />
                 <InputItem id='slug' label='Slug' name='description' type='text' maxLength={140} />
+                <InputItem id='description_short' label='Mô tả ngắn' name='description_short' type='text' maxLength={100}/>
                 <div className={cs('input-box')}>
-                    <InputItem id='description_short' label='Mô tả ngắn' name='description_short' type='text' maxLength={100}/>
                     <div>
                         <Form.Item name="Category" label="Danh mục" rules={[{ required: true, message: 'Vui lòng chọn danh mục' }]}>
                             <Select
@@ -391,9 +392,15 @@ function ProductEdit({ title, mode = 'edit' }) {
                             />
                         </Form.Item>
                     </div>
+                    {/* <Form.Item name="flash_sale" label='Đang khuyến mãi' valuePropName="checked">
+                        <Switch />
+                    </Form.Item>
+                    <Form.Item name="isHidden" label='Ẩn sản phẩm' valuePropName="checked">
+                        <Switch />
+                    </Form.Item> */}
                 </div>
                 <div className={cs('label-editor')}><label >Mô tả chỉ tiết</label></div>
-                <Editor content={content} setContent={setContent} />
+                <Editor content={products.content} setContent={setContent} />
                 <Form.Item label={null}>
                     <Button loading={isLoadingUpdate}  type="primary" htmlType="submit">
                         Lưu thay đổi
@@ -431,28 +438,15 @@ function ProductEdit({ title, mode = 'edit' }) {
                         multiple={true}
                     />
                     <InputItem id='stock' label='Tồn kho' name='stock' type='number' maxLength={10} />
+                   
                     <div className={cs('flex-switch')}>
                         <div className={cs('flex-item')}>
-                            <div className={cs('label-editor')}>
-                                <label>Đang khuyến mãi</label>
-                            </div>
-                            <Form.Item
-                                name="flash_sale"
-                                valuePropName="checked"
-                                noStyle 
-                            >
+                            <Form.Item name="flash_sale" label='Đang khuyến mãi' valuePropName="checked">
                                 <Switch />
                             </Form.Item>
                         </div>
                         <div className={cs('flex-item')}>
-                            <div className={cs('label-editor')}>
-                                <label>Ẩn sản phẩm</label>
-                            </div>
-                            <Form.Item
-                                name="flash_sale"
-                                valuePropName="checked"
-                                noStyle 
-                            >
+                            <Form.Item name="isHidden" label='Ẩn sản phẩm' valuePropName="checked">
                                 <Switch />
                             </Form.Item>
                         </div>

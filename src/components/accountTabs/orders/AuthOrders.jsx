@@ -82,8 +82,10 @@ function AuthOrders() {
   const statusFilter = tabsAction[tabActive]?.status || 'all'
   const filterOrders = orders.filter(item => {
     const matchSearch = item.order_code.includes(searchOrder)
-    const matchStatus = statusFilter === 'all' || item.status_payment === statusFilter
-    return matchSearch && matchStatus
+    const matchStatusOrder = statusFilter === 'all' || item.status_payment === statusFilter 
+    // const matchStatusTransport = statusFilter === 'all' || item.status_transpost === statusFilter
+
+    return matchSearch && matchStatusOrder 
   })
   
   const handleViewDetail = (orderId) => {

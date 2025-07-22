@@ -14,14 +14,21 @@ function Breadcrumb({product}) {
         <div className={cs('img-nav')}>
             <MdHome className={cs('breadcrumb-link-home')}/> 
             <Link to={'/'} className={cs('breadcrumb-link')}>
-                <span>Trang chủ / </span>
+                <span>Trang chủ</span>
             </Link>
+            <span> / </span>
             {pathnames.length && pathnames.map((name, index) => {
                 const isLast = index === pathnames.length - 1
                 if(isLast) {
                     return <span className={cs('breadcrumb-link-sub')}>{product?.name}</span>
                 } else {
-                    return <Link className={cs('breadcrumb-link')}>{product?.Category?.name} / </Link>
+                    return (
+                        <>
+                            <Link className={cs('breadcrumb-link')}>{product?.Category?.name}</Link>
+                            <span> / </span>
+                        </>
+                        
+                    )
                 }
             })}
         </div>

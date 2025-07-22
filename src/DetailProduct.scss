@@ -1,0 +1,39 @@
+.quill-content p {
+  margin: 0 0 10px ;
+  line-height: 1.6 ;
+}
+
+.quill-content h1 {
+  font-size: 2rem !important;
+  font-weight: bold !important;
+}
+
+.quill-content ul {
+  list-style-type: disc !important;
+  padding-left: 20px !important;
+}
+
+.quill-content ul {
+  list-style-type: decimal !important;
+  padding-left: 20px !important;
+}
+
+.quill-content blockquote {
+  border-left: 4px solid #ccc !important;
+  padding-left: 1em !important;
+  color: #666 !important;
+  font-style: italic !important;
+}
+
+// .quill-content .ql-align-center {
+//   text-align: center;
+// }
+// .quill-content .ql-align-right {
+//   text-align: right;
+// }
+// .quill-content .ql-align-left {
+//   text-align: left;
+// }
+// .quill-content .ql-align-justify {
+//   text-align: justify;
+// }

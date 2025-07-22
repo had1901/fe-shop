@@ -7,7 +7,8 @@ import { persistor, store } from './store/store.js'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
+import 'quill/dist/quill.snow.css' // Quan trọng!
+import './DetailProduct.scss'
 const client_id = '297134669558-t7k2nnfnsdt7eaqnag7b7b66csugrjg8.apps.googleusercontent.com'
 
 createRoot(document.getElementById('root')).render(

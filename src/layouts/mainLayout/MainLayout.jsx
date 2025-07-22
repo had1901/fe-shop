@@ -6,6 +6,7 @@ import styles from './MainLayout.module.scss'
 import { toggle } from '~/store/navbar/navbarSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from '~/hooks/useStyles';
+import ToolbarMenu from '../../components/toolbar/ToolbarMenu';
 
 function MainLayout() {
   const [toggleClass, setToggleClass] = useState('')
@@ -30,6 +31,7 @@ function MainLayout() {
         <a href='#' onClick={handleToggleNavbar} className={cs(toggleClass)}/>
         <Header />
         <Outlet />
+        <ToolbarMenu />
         <Footer />
     </div>
   )

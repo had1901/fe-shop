@@ -1,3 +1,6 @@
+@use "sass:math";
+
+
 @mixin position($pos) {
     @if $pos == top-left {
         top: 0;
@@ -33,3 +36,39 @@
     height: $height;
 }
 
+@mixin screen($device) {
+    @if $device == 'laptop' {
+        @media (min-width: 992px) and (max-width: 1400px) {
+            @content;
+        }
+    }
+    @if $device == 'tablet' {
+        @media (min-width: 576px) and (max-width: 991px) {
+            @content;
+        }
+    }
+     @if $device == 'mobile' {
+        @media (max-width: 575px) {
+            @content;
+        }
+    }
+}
+
+@function rem($px, $base: 16) {
+  @return math.div($px, $base) * 1rem;
+}
+
+@mixin limit-line($line) {
+    @if $line == 1 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    @if $line > 1 {
+        display: -webkit-box;
+        -webkit-line-clamp: $line;     /* 👈 Số dòng muốn hiển thị */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    
+}

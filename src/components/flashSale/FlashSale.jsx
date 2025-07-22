@@ -8,6 +8,7 @@ import { FaChevronLeft } from "react-icons/fa6";
 import { FaChevronRight } from "react-icons/fa6";
 import useStyles from '~/hooks/useStyles';
 import axiosApi from '../../services/axios';
+import TabDate from './TabDate';
 
 function FlashSale() {
     // const [currentIndex, setCurrentIndex] = useState(0)
@@ -21,6 +22,7 @@ function FlashSale() {
     const [isClick, setIsClick] = useState(false)
     const [data, setData] = useState([])
     const cs = useStyles(styles)
+    
 
     const handleDragStop = () => {
         setIsDragging(false)
@@ -68,6 +70,15 @@ function FlashSale() {
         }, 500)
     }, [isClick])
 
+    const getDateNow = () => {
+        const now = new Date()
+        const day = now.getDate()
+        const month = now.getMonth() + 1
+        return `${day}/${month}`
+    }
+
+    
+
     useEffect(() => {
         window.addEventListener("mouseup", handleDragStop)
         window.addEventListener("mouseleave", handleDragStop)
@@ -77,6 +88,7 @@ function FlashSale() {
         }
     }, [])
 
+    // auto loop
     useEffect(() => {
         // const slider = productSaleRef.current
 
@@ -105,30 +117,23 @@ function FlashSale() {
         const getProductFlashSale = async () => {
             const products = await axiosApi.get('api/get-all-product')
             if(products) {
-                const filterFlashSale = products.dt.filter(item => item.flash_sale === 1) 
+                const filterFlashSale = products.dt.filter(item => item.flash_sale === true) 
                 setData(filterFlashSale)
             }
         }
         getProductFlashSale()
     },[])
+
   return (
     <div ref={flashSaleRef} className={cs('flashSale')}>
         <div className={cs('flash_sale_body')}>
             <div className={cs('flash_sale_content')}>
                 <section className={cs('heading')}>
                     <div className={cs('wrap')}>
-                        <div className={cs('tabCountDown')}>
-                            <span className={cs('countDown')}>00</span>
-                            <span className={cs('countDownDot')}>:</span>
-                            <span className={cs('countDown')}>00</span>
-                            <span className={cs('countDownDot')}>:</span>
-                            <span className={cs('countDown')}>00</span>
-                            <span className={cs('countDownDot')}>:</span>
-                            <span className={cs('countDown')}>00</span>
-                        </div>
+                        {/* <TabDate /> */}
                         <i className={cs('icon')}><IoIosFlash /></i>
                         <h3 className={cs('title')}>Flash sale 10h mỗi ngày</h3>
-                        <Button content='25/3' customClass='btnFlashSale' isLink />
+                        <Button content={getDateNow()} customClass='btnFlashSale' isLink />
                     </div>
                 </section>
                 <section ref={productContentRef} className={cs('content_sale')}>

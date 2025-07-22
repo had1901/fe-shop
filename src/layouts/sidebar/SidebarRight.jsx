@@ -50,12 +50,12 @@ function SidebarRight() {
 
   return (
     <div className='col-xl-10 col-lg-12 col-md-12 col-sm-12'>
-        <div className={cs('sidebarRight')}>
-            <div className={cs('sidebarSliderLeft')}>
-                <div>
+        <div className={cs('sidebar-right')}>
+            <div className={cs('sidebar-slider-left')}>
+                <div className={cs('slider-img')}>
                     <Slider sliders={sliderListImage}/>
                 </div>
-                <div className={cs('sidebarBannerList')}>
+                <div className={cs('sidebar-banner-list')}>
                     {bannerListLeft.map((item, index) => (
                         <div ref={el => bannerLeftRef.current[index] = el} key={index}>
                             <a href='#'>
@@ -65,10 +65,10 @@ function SidebarRight() {
                 </div>
             </div>
     
-            <div className={cs('sidebarBannerRight')}>
+            <div className={cs('sidebar-banner-right')}>
                 <ul className={cs('list_banner')}>
                     {bannerListRight.map((item, index) => (
-                        <li ref={el => bannerRightRef.current[index] = el} key={index}>
+                        <li ref={el => bannerRightRef.current[index] = el} key={index} className={cs('list-item')}>
                             <a href='#'>
                                 <img loading='lazy' src={item}/>
                             </a>

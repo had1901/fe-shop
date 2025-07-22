@@ -1,3 +1,23 @@
-// .bannerImg{
-//     padding: 8px 5px;
-// }
+@use '../../utils//scss/mixin' as *;
+
+
+.banner-list{
+    margin: 16px 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    // padding: 0 10px;
+
+    &::-webkit-scrollbar{
+        display: none;
+    }
+    @include screen(tablet){
+        // display: none;
+        margin: 10px 0;
+
+    }
+    @include screen(mobile){
+        // display: none;
+        margin: 6px 0;
+
+    }
+}

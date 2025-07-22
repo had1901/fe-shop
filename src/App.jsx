@@ -1,6 +1,6 @@
 
 import './App.scss'
-import { Routes, Route, useNavigate } from 'react-router'
+import { Routes, Route, useNavigate, useLocation } from 'react-router'
 import AuthPage from './pages/auth/index';
 import DetailProductPage from './pages/details/DetailProduct';
 import DashboardPage from './pages/admin/dashboard/Dashboard';
@@ -32,6 +32,12 @@ import Dashboard from './pages/admin/dashboard/Dashboard';
 import ProductAdmin from './pages/admin/products/ProductAdmin';
 import ProductEdit from './pages/admin/products/ProductEdit';
 import AccountAdmin from './pages/admin/account/AccountAdmin';
+import OrderAdmin from './pages/admin/order/OrderAdmin';
+import Setting from './pages/admin/setting/Setting';
+import Slideshow from './pages/admin/interface/Slideshow';
+import Banner from './pages/admin/interface/Banner';
+import Categories from './pages/admin/categories/Categories';
+import AddressPage from './pages/address/AddressPage';
 
 
 const routesAdmin = [
@@ -39,10 +45,10 @@ const routesAdmin = [
       path: '',
       component: <Dashboard category='keyboard' />,
   },
-  {
-      path: '',
-      component: <Seller category='pc' />,
-  },
+  // {
+  //     path: '',
+  //     component: <Seller category='pc' />,
+  // },
   {
       path: 'products',
       component: <ProductAdmin  />,
@@ -56,12 +62,24 @@ const routesAdmin = [
       component: <ProductEdit  title='Thêm mới sản phẩm' mode='create'/>,
   },
   {
+      path: 'categories',
+      component: <Categories />,
+  },
+  {
+      path: 'banners',
+      component: <Banner />,
+  },
+  {
+      path: 'slideshow',
+      component: <Slideshow />,
+  },
+  {
       path: 'brands',
       component: <Seller category='pc' />,
   },
   {
       path: 'orders',
-      component: <Seller category='pc' />,
+      component: <OrderAdmin />,
   },
   {
       path: 'accounts',
@@ -81,7 +99,7 @@ const routesAdmin = [
   },
   {
       path: 'setting',
-      component: <Seller category='pc' />,
+      component: <Setting />,
   },
 ]
 
@@ -89,6 +107,7 @@ function App() {
   const dispatch = useDispatch()
   // const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
+  const { pathname } = useLocation()
   // const user = useSelector(state => state.auth.info)
 
   const render = (arr) => {
@@ -134,6 +153,10 @@ function App() {
   //   if(user.Role.name === 'admin') navigate('/auth/admin')
   // },[user, navigate])
 
+  useEffect(() => {
+      window.scrollTo({top: 0, behavior: "smooth"})
+  },[pathname])
+
   if(isLoading) return (
     <>
       <Flex align="center" gap="middle">
@@ -151,6 +174,7 @@ function App() {
           <Route path='cart' element={<CartPage />} />
           <Route path='payment/vnpay-return' element={<Payment />} />
           <Route path='order' element={<OrderPage />} />
+          <Route path='address' element={<AddressPage />} />
             
           <Route path='pages' element={<SellerHome />} >
             {render(menuItems)}

@@ -98,7 +98,7 @@ function FormModal({ isLogin }) {
 
     if(isLogin) {
       return (
-        <Form
+      <Form
         name="basic"
         labelCol={{ span: 6 }}
         wrapperCol={{ span: 16 }}

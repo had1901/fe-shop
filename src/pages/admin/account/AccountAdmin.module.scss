@@ -45,6 +45,16 @@
     align-items: start;
     justify-content: space-between;
 }
+.role-user{
+    text-transform: capitalize;
+}
+.col-table{
+    vertical-align: middle;
+}
+.created-at{
+    color: #b0373b;
+    font-weight: 500;
+}
 .text-read{
     display: inline-block;
     text-transform: capitalize;

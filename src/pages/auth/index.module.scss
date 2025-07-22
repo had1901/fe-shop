@@ -1,0 +1,16 @@
+@use '../../utils/scss/mixin' as *;
+
+.auth{
+    padding: 60px 0;
+    background-color: #ececec;
+
+    @include screen(laptop){
+        padding: 40px 0;
+    }
+    @include screen(tablet){
+        padding: 20px 0;
+    }
+    @include screen(mobile){
+        padding: 0;
+    }
+}

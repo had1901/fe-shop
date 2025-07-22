@@ -65,25 +65,25 @@ function CartPay() {
           </li>
           <li>
             <span>Tổng tiền</span>
-            <span className={cs('price')}>{convertPrice(total)}</span>
+            <span className={cs('price')}>{convertPrice(total)}</span>s
           </li>
         </ol>
         <div className={cs('pay-method')}>
           <h2>Chọn phương thức thanh toán</h2>
-          <div className={cs('radio-method')}>
+          <div className={cs('radio-method')} onClick={() => handleClick({ target: { value: 'cod' } })}>
             <input id='cod' type="radio" name='pay-method' value='cod' checked={selected === 'cod'} onChange={handleClick}/>
             <label htmlFor="cod">Thanh toán khi nhận hàng (COD)</label>
             <div className={cs('logo-method')}><img loading='lazy' src="https://cdn-icons-png.flaticon.com/512/9198/9198191.png" alt="" /></div>
           </div>
-          <div className={cs('radio-method')}>
+          <div className={cs('radio-method')} onClick={() => handleClick({ target: { value: 'qr-code' } })}>
             <input id='qr-code' type="radio" name='pay-method' value='qr-code' checked={selected === 'qr-code'} onChange={handleClick} />
             <label htmlFor="qr-code">Chuyển khoản ngân hàng</label>
-            <div className={cs('logo-method')}><img loading='lazy' src="https://png.pngtree.com/png-vector/20190225/ourmid/pngtree-concept-banking-logo-png-image_712961.jpg" alt="" /></div>
+            <div className={cs('logo-method')}><img loading='lazy' src="https://previews.123rf.com/images/urfandadashov/urfandadashov1808/urfandadashov180824291/109059488-bank-vector-icon-isolated-on-transparent-background-bank-logo-concept.jpg" alt="" /></div>
           </div>
-          <div className={cs('radio-method')}>
+          <div className={cs('radio-method')} onClick={() => handleClick({ target: { value: 'vnp' } })}>
             <input id='vnp' type="radio" name='pay-method' value='vnp' checked={selected === 'vnp'} onChange={handleClick} />
             <label htmlFor="vnp">Thanh toán qua <span className={cs('vnpay-method')}>VNPAY</span></label>
-            <div className={cs('logo-method')}><img loading='lazy' src="https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg" alt="" /></div>
+            <div className={cs('logo-method')}><img loading='lazy' src="https://cdn-new.topcv.vn/unsafe/https://static.topcv.vn/company_logos/cong-ty-cp-giai-phap-thanh-toan-viet-nam-vnpay-6194ba1fa3d66.jpg" alt="" /></div>
           </div>
         </div>
       </div>

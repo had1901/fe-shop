@@ -16,7 +16,6 @@ function FilterAdmin({ data, setLoading, setFiltered, page = 'product' }) {
             date: {}
         })
 
-        console.log(filterData)
     // Tìm kiếm theo tên
     const handleSearchText = debounce((e) => {
         console.log(e.target.value)
@@ -38,7 +37,6 @@ function FilterAdmin({ data, setLoading, setFiltered, page = 'product' }) {
         if(value === null) {
             setFilterData(prev => ({...prev, date: {}}))
         }
-        console.log('date', value)
         if(value?.length > 0) {
             const startDate = value[0]
             const endDate = value[1]
@@ -51,6 +49,7 @@ function FilterAdmin({ data, setLoading, setFiltered, page = 'product' }) {
             const startFilter = new Date(filterData.date.start).setHours(0,0,0,0)
             const endFilter = new Date(filterData.date.end).setHours(23,59,59,999)
             if(data?.length) {
+                console.log('fil-date')
                 const fil = data.filter(item => {
                     if(item.createdAt) {
                         const createdAt = new Date(item.createdAt).getTime()
@@ -120,8 +119,25 @@ function FilterAdmin({ data, setLoading, setFiltered, page = 'product' }) {
             setFiltered(result)
             setLoading(false)
         }
+
+        if(page === 'order') {
+            setLoading(true)
+            let filterDataList
+            let result
+            filterDataList = data.filter(item => removeHash(item?.username || item?.shipping_address || item?.order_code || item?.pay_method).includes(removeHash(filterData?.search)) && item )
+
+            // lọc theo khoảng thời gian
+            if(filterData.date.start && filterData.date.end) {
+                result = filterByCreateAt(filterDataList)
+            } else {
+                result = filterDataList
+            }
+
+            setFiltered(result)
+            setLoading(false)
+        }
             
-    },[data, filterData.sortBy, filterData.category, filterData.search, filterData.date.start, filterData.date.end, page, filterByCreateAt])
+    },[data, filterData.sortBy, filterData.category, filterData.search, filterData.date.start, filterData.date.end, page, filterByCreateAt, setFiltered, setLoading])
         
     useEffect(() => {
         const isFilter = handleFilterAndSort()

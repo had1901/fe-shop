@@ -4,5 +4,7 @@ export const removeHash = (str) => {
           .replace(/[\u0300-\u036f]/g, '')       // Xóa dấu
           .replace(/đ/g, 'd')                    // thay đ -> d
           .replace(/Đ/g, 'D')
-          .toLowerCase();                        // Viết thường
+          .replace(/\s+/g, '')
+          .toLowerCase()
+          .trim()                        // Viết thường
     }

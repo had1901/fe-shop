@@ -129,7 +129,7 @@ function Dashboard() {
 
   // Tạo chart
   useEffect(() => {
-    const chartOrderStatus =  createChart(chartRef1, chartInstance1, 'Trạng thái đơn hàng', 'doughnut', dataStatusOrders, ['#2dc26d', '#fe5252', '#ffdb6d'])
+    const chartOrderStatus =  createChart(chartRef1, chartInstance1, 'Trạng thái đơn hàng', 'doughnut', dataStatusOrders, ['#fe5252', '#ffdb6d', '#2dc26d'])
     const chart2 = createChart(chartRef2, chartInstance2, 'Đơn đặt hàng trong 7 ngày gần nhất', 'bar', dataTotalOrder, '#d14781')
 
     return () => {

@@ -16,7 +16,8 @@ function News() {
                 {newsListSale.map((newItem, i) => (
                     <li key={i} className={cs('news_item')}>
                         <a href={newItem.href} className={cs('news_link')}>
-                            <img loading='lazy' src={newItem.src} alt='news' className={cs('news_img')}/>
+                            <div className={cs('img-box')}><img loading='lazy' src={newItem.src} alt='news' className={cs('news_img')}/></div>
+                            <p className={cs('news-text')}>{newItem.title}</p>
                         </a>
                     </li>
                 ))}
@@ -31,7 +32,8 @@ function News() {
                 {newsListTech.map((newItem, i) => (
                     <li key={i} className={cs('news_item')}>
                         <a href={newItem.href} className={cs('news_link')}>
-                            <img loading='lazy' src={newItem.src} alt='news' className={cs('news_img')}/>
+                            <div className={cs('img-box')}><img loading='lazy' src={newItem.src} alt='news' className={cs('news_img')}/></div>
+                            <p className={cs('news-text')}>{newItem.title}</p>
                         </a>
                     </li>
                 ))}

@@ -1,0 +1,24 @@
+.drop-zone{
+    height: 50px;
+    width: 100%;
+    color: #fff;
+    opacity: 1;
+    transition: opacity, height 0.2s linear;
+    background-color: rgba(231, 231, 231, 0.281);
+    border-radius: 8px;
+    border: 2px dashed #7a7a7a;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // margin: 10px 0;
+    // position: absolute;
+    // left: 0;
+    // right: 0;
+    // bottom: -50%;
+    // z-index: 10;
+}
+.hidden{
+    opacity: 0;
+    height: 14px;
+}

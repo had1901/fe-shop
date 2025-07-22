@@ -93,85 +93,85 @@ function Footer() {
   return (
     <footer className={cs('footer')}>
       <div className={cs('fo', 'container')}>
-        <div className={cs('foo', 'row')}>
-          {footer.slice(0,3).map((item, index) => (
-            <div key={index} className='col-sm-12 col-md-6 col-lg-3 col-xl-2'>
-              <div className={cs('heading')}>
-                <h3>{item.title}</h3>
-              </div>
-              <div className={cs('wrap_list')}>
-                <ul className={cs('list')}>
-                  {item.list.map((about, index) => (
-                    <li key={index} className={cs('item')}>
-                      <a href='' className={cs('link')}>{about}</a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          ))}
-
-          {footer.slice(3).map((item, index) => (
-            <div key={index}>
-              <div  className='col-sm-12 col-md-6 col-lg-3 col-xl-3'>
+        <div className='row'>
+            {footer.slice(0,3).map((item, index) => (
+              <div key={index} className='col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-mn-6'>
                 <div className={cs('heading')}>
                   <h3>{item.title}</h3>
                 </div>
                 <div className={cs('wrap_list')}>
                   <ul className={cs('list')}>
-                    {item.list.map((about, i) => (
-                      <li key={i} className={cs('item')}>
-                          <div>
-                            {about.name ?
-                                <div className={cs('content')}>
-                                  <p>{about.name}</p>
-                                  <a 
-                                    href={about.content.includes('@') ? `mailto:${about.content}` : `tel:${about.content}`} 
-                                    className={cs('link_content')}
-                                  >
-                                    {about?.content}
-                                  </a>
-                                </div>
-                                :
-                                <a href='' className={cs('link')}>
-                                  <img loading='lazy' src={about}/>
-                                </a>
-                            }
-                          </div>
+                    {item.list.map((about, index) => (
+                      <li key={index} className={cs('item')}>
+                        <a href='' className={cs('link')}>{about}</a>
                       </li>
                     ))}
-                    
                   </ul>
-                  
                 </div>
               </div>
-              <div className='col-sm-12 col-md-6 col-lg-3 col-xl-3'>
-                        <div>
-                          <h3>Đơn vị vận chuyển</h3>
-                          <div className={cs('ship_list')}>
-                            {ship.map((shipItem, i) => (
-                              <div key={i} className={cs('pay_item')}>
-                                <img loading='lazy' src={shipItem}/>
-                              </div>
-                            ))}
+            ))}
+
+            {footer.slice(3).map((item, index) => (
+              <div key={index} className='col-xxl-3 col-xl-3 col-lg-3 col-md-6 col-sm-6 col-mn-6'>
+                <div >
+                  <div className={cs('heading')}>
+                    <h3>{item.title}</h3>
+                  </div>
+                  <div className={cs('wrap_list')}>
+                    <ul className={cs('list')}>
+                      {item.list.map((about, i) => (
+                        <li key={i} className={cs('item')}>
+                            <div>
+                              {about.name ?
+                                  <div className={cs('content')}>
+                                    <p className={cs('link')}>{about.name}</p>
+                                    <a 
+                                      href={about.content.includes('@') ? `mailto:${about.content}` : `tel:${about.content}`} 
+                                      className={cs('link_content')}
+                                    >
+                                      {about?.content}
+                                    </a>
+                                  </div>
+                                  :
+                                  <a href='' className={cs('link')}>
+                                    <img loading='lazy' src={about}/>
+                                  </a>
+                              }
+                            </div>
+                        </li>
+                      ))}
+                      
+                    </ul>
+                    
+                  </div>
+                </div>
+                {/* <div className='col-sm-12 col-md-6 col-lg-3 col-xl-3'>
+                          <div>
+                            <h3>Đơn vị vận chuyển</h3>
+                            <div className={cs('ship_list')}>
+                              {ship.map((shipItem, i) => (
+                                <div key={i} className={cs('pay_item')}>
+                                  <img loading='lazy' src={shipItem}/>
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        </div>
-                        <div >
-                          <h3>Cách thức thanh toán</h3>
-                          <div className={cs('ship_list')}>
-                            {payMethod.map((pay, i) => (
-                              <div key={i} className={cs('pay_item')}>
-                                <img loading='lazy' src={pay}/>
-                              </div>
-                            ))}
+                          <div >
+                            <h3>Cách thức thanh toán</h3>
+                            <div className={cs('ship_list')}>
+                              {payMethod.map((pay, i) => (
+                                <div key={i} className={cs('pay_item')}>
+                                  <img loading='lazy' src={pay}/>
+                                </div>
+                              ))}
+                            </div>
                           </div>
-                        </div>
+                </div> */}
               </div>
-            </div>
-          ))}
+            ))}
         </div>
         <div className={cs('contact')}>
-          <div className={cs('contact_social')}>
+          <div className={cs('social')}>
             <span>Kết nối với chúng tôi</span>
             <ul className={cs('social_list')}>
               <li><a className={cs('social_link')} href={fb}/></li>
@@ -181,7 +181,7 @@ function Footer() {
               <li><a className={cs('social_link')} href={gr_fb}/></li>
             </ul>
           </div>
-          <div className={cs('congthuong')}>
+          <div className={cs('checked')}>
             <img loading='lazy' src='https://theme.hstatic.net/200000722513/1001090675/14/logo-bct.png?v=8407'/>
           </div>
         </div>

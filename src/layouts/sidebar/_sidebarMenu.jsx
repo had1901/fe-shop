@@ -19,12 +19,13 @@ import banner3 from "~/assets/banner/b3.webp";
 import banner4 from "~/assets/banner/b4.webp";
 import banner5 from "~/assets/banner/b5.webp";
 import SellerProduct from "../../pages/seller/SellerProduct";
+import { listImgLaptopGaming, listImgLaptopOffice, listImgPC } from "../../pages/seller/_images";
 
 export const menuItems = [
     {
         id: 1,
         icon: <IoLaptopOutline />,
-        component: <SellerProduct category='laptop' />,
+        component: <SellerProduct category='laptop' album='laptop-office' promotionColor='#036ceb' listImg={listImgLaptopOffice} />,
         label: 'Laptop',
         href: 'laptop-van-phong',
         products: [
@@ -130,7 +131,7 @@ export const menuItems = [
     {
         id: 2,
         icon: <MdLaptopMac />,
-        component: <SellerProduct category='laptop' />,
+        component: <SellerProduct category='laptop' album='laptop-gaming' promotionColor='#cc1408' listImg={listImgLaptopGaming} />,
         label: 'Laptop Gaming',
         href: 'laptop-gaming',
         products: [
@@ -250,7 +251,7 @@ export const menuItems = [
     {
         id: 3,
         icon: <PiComputerTower />,
-        component: <SellerProduct category='pc' />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC} />,
         label: 'PC GVN',
         href: 'pc-gvn',
         products: [
@@ -354,329 +355,9 @@ export const menuItems = [
         ]
     },
     {
-        id: 4,
-        icon: <PiComputerTower />,
-        component: <SellerProduct category='pc' />,
-        label: 'Main, CPU, VGA',
-        href: 'pc-gvn#',
-        products: [
-            {
-                label: 'VGA RTX 50 SERIES',
-                href: '/thuong-hieu',
-                items: [
-                    'RTX 5090',
-                    'RTX 5080',
-                    'RTX 5070Ti',
-                    'RTX 5070',
-                ]
-            },
-            {
-                label: 'VGA (Trên 12 GB VRAM)',
-                href: '/thuong-hieu',
-                items: [
-                    'RTX 4070Ti SUPER (16GB)',
-                    'RTX 4070Ti SUPER (16GB)',
-                    'RTX 4080 SUPER (16GB)',
-                    'RTX 4090 SUPER (24GB)',
-                ]
-            },
-            {
-                label: 'VGA (Dưới 12 GB VRAM)',
-                href: '/thuong-hieu',
-                items: [
-                    'RTX 4060Ti (8 - 16GB)',
-                    'RTX 4060 (8GB)',
-                    'RTX 3060 (12GB)',
-                    'RTX 3050 (6 - 8GB)',
-                    'GTX 1650 (4GB)',
-                    'GT 710 / GT 1030 (2-4GB)',
-                ]
-            },
-            {
-                label: 'VGA - Card màn hình',
-                href: '/thuong-hieu',
-                items: [
-                    'NVIDIA Quadro',
-                    'AMD Radeon',
-                ]
-            },
-            {
-                label: 'Bo mạch chủ Intel',
-                href: '/thuong-hieu',
-                items: [
-                    'Z890 (Mới)',
-                    'Z790',
-                    'B760',
-                    'H610',
-                    'X299X',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Bo mạch chủ AMD',
-                href: '/thuong-hieu',
-                items: [
-                    'AMD X870 (Mới)',
-                    'AMD X670',
-                    'AMD X570',
-                    'AMD B650 (Mới)',
-                    'AMD B550',
-                    'AMD A320',
-                    'AMD TRX40',
-                ]
-            },
-            {
-                label: 'CPU - Bộ vi xử lý Intel',
-                href: '/thuong-hieu',
-                items: [
-                    'CPU Intel Core Ultra Series 2 (Mới)',
-                    'CPU Intel 9',
-                    'CPU Intel 7',
-                    'CPU Intel 5',
-                    'CPU Intel 3',
-                ]
-            },
-            {
-                label: 'CPU - Bộ vi xử lý AMD',
-                href: '/thuong-hieu',
-                items: [
-                    'CPU AMD Athlon',
-                    'CPU AMD R3',
-                    'CPU AMD R5',
-                    'CPU AMD R7',
-                    'CPU AMD R9',
-                ]
-            },
-        ]
-    },
-    {
-        id: 5,
-        icon: <PiComputerTower />,
-        component: <SellerProduct category='pc' />,
-        label: 'Case, Nguồn, Tản',
-        href: 'pc-gvn#',
-        products: [
-            {
-                label: 'Case - Theo hãng',
-                href: '/thuong-hieu',
-                items: [
-                    'Case ASUS',
-                    'Case Corsair',
-                    'Case Lianli',
-                    'Case NZXT',
-                    'Case Inwin',
-                    'Case Thermaltake',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Case - Theo giá',
-                href: '/thuong-hieu',
-                items: [
-                    'Dưới 1 triệu',
-                    'Từ 1 triệu đến 2 triệu',
-                    'Trên 2 triệu',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Nguồn - Theo Hãng',
-                href: '/thuong-hieu',
-                items: [
-                    'Nguồn ASUS',
-                    'Nguồ̀n DeepCool',
-                    'Nguồn Corsair',
-                    'Nguồn NZXT',
-                    'Nguồn MSI',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Nguồn - Theo công suất',
-                href: '/thuong-hieu',
-                items: [
-                    'Từ 400w - 500w',
-                    'Từ 500w - 600w',
-                    'Từ 700w - 800w',
-                    'Trên 1000w',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Phụ kiện PC',
-                href: '/thuong-hieu',
-                items: [
-                    'Dây LED',
-                    'Dây rise - Dựng VGA',
-                    'Giá đỡ VGA',
-                    'Keo tản nhiệt',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Loại tản nhiệt',
-                href: '/thuong-hieu',
-                items: [
-                    'Tản nhiệt AIO 240mm',
-                    'Tản nhiệt AIO 280mm',
-                    'Tản nhiệt AIO 360mm',
-                    'Tản nhiệt AIO 420mm',
-                    'Tản nhiệt khí',
-                    'Fan RGB',
-                    'Xem tất cả',
-                ]
-            },
-            
-        ]
-    },
-    {
-        id: 6,
-        icon: <PiGraphicsCardLight />,
-        component: <SellerProduct category='pc' />,
-        label: 'Ỏ cứng, RAM, Thẻ nhớ',
-        href: 'pc-gvn#',
-        products: [
-            {
-                label: 'Dung lượng RAM',
-                href: '/thuong-hieu',
-                items: [
-                    '8 GB',
-                    '16 GB',
-                    '32 GB',
-                    '64 GB',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Loại RAM',
-                href: '/thuong-hieu',
-                items: [
-                    'DDR4',
-                    'DDR5',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Hãng RAM',
-                href: '/thuong-hieu',
-                items: [
-                    'Corsair',
-                    'Kingston',
-                    'G.Skill',
-                    'PNY',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Dung lượng HDD',
-                href: '/thuong-hieu',
-                items: [
-                    'HDD 1 TB',
-                    'HDD 2 TB',
-                    'HDD 4 TB - 6 TB',
-                    'HDD trên 8 TB',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Hãng HDD',
-                href: '/thuong-hieu',
-                items: [
-                    'WesterDigital',
-                    'Seagate',
-                    'Toshiba',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Dung lượng SSD',
-                href: '/thuong-hieu',
-                items: [
-                    '120GB - 128GB',
-                    '250GB - 256GB',
-                    '480GB - 512GB',
-                    '960GB - 1TB',
-                    '2TB',
-                    'Trên 2TB',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Hãng SSD',
-                href: '/thuong-hieu',
-                items: [
-                    'Samsung',
-                    'Wester Digital',
-                    'Kingston',
-                    'Corsair',
-                    'PNY',
-                    'Xem tất cả',
-                ]
-            },
-            {
-                label: 'Thẻ nhớ / USB',
-                href: '/thuong-hieu',
-                items: [
-                    'Sandisk',
-                ]
-            },
-            {
-                label: 'Ổ cứng di động',
-                href: '/thuong-hieu',
-                items: []
-            },
-        ]
-    },
-    {
-        id: 7,
-        icon: <PiSpeakerHifiLight />,
-        component: <SellerProduct category='pc' />,
-        label: 'Loa, Micro, Webcam',
-        href: 'pc-gvn#',
-        products: [
-            {
-                label: 'Thương hiệu loa',
-                href: '/thuong-hieu',
-                items: [
-                    'Edifier',
-                    'Razer',
-                    'Logitech',
-                    'SoundMax',
-                ]
-            },
-            {
-                label: 'Kiểu Loa',
-                href: '/thuong-hieu',
-                items: [
-                    'Loa vi tínhB',
-                    'Loa Bluetooth',
-                    'Loa Soundbar',
-                    'Loa mini',
-                    'Sub phụ (Loa trầm)',
-                ]
-            },
-            {
-                label: 'Webcam',
-                href: '/thuong-hieu',
-                items: [
-                    'Độ phân giải 4k',
-                    'Độ phân giải Full HD (1080p)',
-                    'Độ phân giải 720p',
-                ]
-            },
-            {
-                label: 'Microphone',
-                href: '/thuong-hieu',
-                items: [
-                    'Micro HyperX',
-                ]
-            },
-        ]
-    },
-    {
         id: 8,
         icon: <BsDisplay />,
-        component: <SellerProduct category='screen' />,
+        component: <SellerProduct category='screen' album='screen' promotionColor='#824101' listImg={listImgLaptopOffice} />,
         label: 'Màn hình',
         href: 'man-hinh',
         products: [
@@ -800,9 +481,330 @@ export const menuItems = [
         ]
     },
     {
+        id: 4,
+        icon: <PiComputerTower />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
+        label: 'Main, CPU, VGA',
+        href: 'pc-gvn#',
+        products: [
+            {
+                label: 'VGA RTX 50 SERIES',
+                href: '/thuong-hieu',
+                items: [
+                    'RTX 5090',
+                    'RTX 5080',
+                    'RTX 5070Ti',
+                    'RTX 5070',
+                ]
+            },
+            {
+                label: 'VGA (Trên 12 GB VRAM)',
+                href: '/thuong-hieu',
+                items: [
+                    'RTX 4070Ti SUPER (16GB)',
+                    'RTX 4070Ti SUPER (16GB)',
+                    'RTX 4080 SUPER (16GB)',
+                    'RTX 4090 SUPER (24GB)',
+                ]
+            },
+            {
+                label: 'VGA (Dưới 12 GB VRAM)',
+                href: '/thuong-hieu',
+                items: [
+                    'RTX 4060Ti (8 - 16GB)',
+                    'RTX 4060 (8GB)',
+                    'RTX 3060 (12GB)',
+                    'RTX 3050 (6 - 8GB)',
+                    'GTX 1650 (4GB)',
+                    'GT 710 / GT 1030 (2-4GB)',
+                ]
+            },
+            {
+                label: 'VGA - Card màn hình',
+                href: '/thuong-hieu',
+                items: [
+                    'NVIDIA Quadro',
+                    'AMD Radeon',
+                ]
+            },
+            {
+                label: 'Bo mạch chủ Intel',
+                href: '/thuong-hieu',
+                items: [
+                    'Z890 (Mới)',
+                    'Z790',
+                    'B760',
+                    'H610',
+                    'X299X',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Bo mạch chủ AMD',
+                href: '/thuong-hieu',
+                items: [
+                    'AMD X870 (Mới)',
+                    'AMD X670',
+                    'AMD X570',
+                    'AMD B650 (Mới)',
+                    'AMD B550',
+                    'AMD A320',
+                    'AMD TRX40',
+                ]
+            },
+            {
+                label: 'CPU - Bộ vi xử lý Intel',
+                href: '/thuong-hieu',
+                items: [
+                    'CPU Intel Core Ultra Series 2 (Mới)',
+                    'CPU Intel 9',
+                    'CPU Intel 7',
+                    'CPU Intel 5',
+                    'CPU Intel 3',
+                ]
+            },
+            {
+                label: 'CPU - Bộ vi xử lý AMD',
+                href: '/thuong-hieu',
+                items: [
+                    'CPU AMD Athlon',
+                    'CPU AMD R3',
+                    'CPU AMD R5',
+                    'CPU AMD R7',
+                    'CPU AMD R9',
+                ]
+            },
+        ]
+    },
+    {
+        id: 5,
+        icon: <PiComputerTower />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
+        label: 'Case, Nguồn, Tản',
+        href: 'pc-gvn#',
+        products: [
+            {
+                label: 'Case - Theo hãng',
+                href: '/thuong-hieu',
+                items: [
+                    'Case ASUS',
+                    'Case Corsair',
+                    'Case Lianli',
+                    'Case NZXT',
+                    'Case Inwin',
+                    'Case Thermaltake',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Case - Theo giá',
+                href: '/thuong-hieu',
+                items: [
+                    'Dưới 1 triệu',
+                    'Từ 1 triệu đến 2 triệu',
+                    'Trên 2 triệu',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Nguồn - Theo Hãng',
+                href: '/thuong-hieu',
+                items: [
+                    'Nguồn ASUS',
+                    'Nguồ̀n DeepCool',
+                    'Nguồn Corsair',
+                    'Nguồn NZXT',
+                    'Nguồn MSI',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Nguồn - Theo công suất',
+                href: '/thuong-hieu',
+                items: [
+                    'Từ 400w - 500w',
+                    'Từ 500w - 600w',
+                    'Từ 700w - 800w',
+                    'Trên 1000w',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Phụ kiện PC',
+                href: '/thuong-hieu',
+                items: [
+                    'Dây LED',
+                    'Dây rise - Dựng VGA',
+                    'Giá đỡ VGA',
+                    'Keo tản nhiệt',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Loại tản nhiệt',
+                href: '/thuong-hieu',
+                items: [
+                    'Tản nhiệt AIO 240mm',
+                    'Tản nhiệt AIO 280mm',
+                    'Tản nhiệt AIO 360mm',
+                    'Tản nhiệt AIO 420mm',
+                    'Tản nhiệt khí',
+                    'Fan RGB',
+                    'Xem tất cả',
+                ]
+            },
+            
+        ]
+    },
+    {
+        id: 6,
+        icon: <PiGraphicsCardLight />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
+        label: 'Ỏ cứng, RAM, Thẻ nhớ',
+        href: 'pc-gvn#',
+        products: [
+            {
+                label: 'Dung lượng RAM',
+                href: '/thuong-hieu',
+                items: [
+                    '8 GB',
+                    '16 GB',
+                    '32 GB',
+                    '64 GB',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Loại RAM',
+                href: '/thuong-hieu',
+                items: [
+                    'DDR4',
+                    'DDR5',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Hãng RAM',
+                href: '/thuong-hieu',
+                items: [
+                    'Corsair',
+                    'Kingston',
+                    'G.Skill',
+                    'PNY',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Dung lượng HDD',
+                href: '/thuong-hieu',
+                items: [
+                    'HDD 1 TB',
+                    'HDD 2 TB',
+                    'HDD 4 TB - 6 TB',
+                    'HDD trên 8 TB',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Hãng HDD',
+                href: '/thuong-hieu',
+                items: [
+                    'WesterDigital',
+                    'Seagate',
+                    'Toshiba',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Dung lượng SSD',
+                href: '/thuong-hieu',
+                items: [
+                    '120GB - 128GB',
+                    '250GB - 256GB',
+                    '480GB - 512GB',
+                    '960GB - 1TB',
+                    '2TB',
+                    'Trên 2TB',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Hãng SSD',
+                href: '/thuong-hieu',
+                items: [
+                    'Samsung',
+                    'Wester Digital',
+                    'Kingston',
+                    'Corsair',
+                    'PNY',
+                    'Xem tất cả',
+                ]
+            },
+            {
+                label: 'Thẻ nhớ / USB',
+                href: '/thuong-hieu',
+                items: [
+                    'Sandisk',
+                ]
+            },
+            {
+                label: 'Ổ cứng di động',
+                href: '/thuong-hieu',
+                items: []
+            },
+        ]
+    },
+    {
+        id: 7,
+        icon: <PiSpeakerHifiLight />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
+        label: 'Loa, Micro, Webcam',
+        href: 'pc-gvn#',
+        products: [
+            {
+                label: 'Thương hiệu loa',
+                href: '/thuong-hieu',
+                items: [
+                    'Edifier',
+                    'Razer',
+                    'Logitech',
+                    'SoundMax',
+                ]
+            },
+            {
+                label: 'Kiểu Loa',
+                href: '/thuong-hieu',
+                items: [
+                    'Loa vi tínhB',
+                    'Loa Bluetooth',
+                    'Loa Soundbar',
+                    'Loa mini',
+                    'Sub phụ (Loa trầm)',
+                ]
+            },
+            {
+                label: 'Webcam',
+                href: '/thuong-hieu',
+                items: [
+                    'Độ phân giải 4k',
+                    'Độ phân giải Full HD (1080p)',
+                    'Độ phân giải 720p',
+                ]
+            },
+            {
+                label: 'Microphone',
+                href: '/thuong-hieu',
+                items: [
+                    'Micro HyperX',
+                ]
+            },
+        ]
+    },
+    
+    {
         id: 9,
         icon: <CiKeyboard />,
-        component: <SellerProduct category='keyboard' />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
         label: 'Bàn phím',
         href: 'ban-phim-may-tinh',
         products: [
@@ -871,7 +873,7 @@ export const menuItems = [
     {
         id: 10,
         icon: <PiMouseSimpleLight />,
-        component: <SellerProduct category='pc' />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
         label: 'Chuột + Lót chuột',
         href: 'chuot-may-tinh',
         products: [
@@ -890,7 +892,7 @@ export const menuItems = [
     {
         id: 11,
         icon: <TfiHeadphone />,
-        component: <SellerProduct category='' />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
         label: 'Tai Nghe',
         href: 'tai-nghe-may-tinh',
         products: [
@@ -909,7 +911,7 @@ export const menuItems = [
     {
         id: 12,
         icon: <PiOfficeChairLight />,
-        component: <SellerProduct category='' />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
         label: 'Ghế - Bàn',
         href: 'ghe-gia-tot',
         products: [
@@ -928,7 +930,7 @@ export const menuItems = [
     {
         id: 13,
         icon: <GrCloudSoftware />,
-        component: <SellerProduct category='' />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
         label: 'Phần mềm, mạng',
         href: 'thiet-bi-mang',
         products: [
@@ -947,7 +949,7 @@ export const menuItems = [
     {
         id: 14,
         icon: <PiGameControllerLight />,
-        component: <SellerProduct category='' />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
         label: 'Handheld, Console',
         href: 'may-choi-game',
         products: [
@@ -966,7 +968,7 @@ export const menuItems = [
     {
         id: 15,
         icon: <PiGameControllerLight />,
-        component: <SellerProduct category='' />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
         label: 'Phụ kiện (Hub, sạc, cáp..)',
         href: 'phu-kien',
         products: [
@@ -985,7 +987,7 @@ export const menuItems = [
     {
         id: 16,
         icon: <PiGiftLight />,
-        component: <SellerProduct category='' />,
+        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
         label: 'Dịch vụ và thông tin khác',
         href: '',
         products: [

@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from 'react'
-import viewMore from '~/assets/seller/laptop/brand/xem-them.webp'
-import bestSeller from '~/assets/seller/laptop/brand/best-seller.webp'
+import viewMore from '../../assets/hero/xem-them.png'
+import laptop_office_promotion from '../../assets/hero/laptop-office/promotion.png'
+import laptop_gaming_promotion from '../../assets/hero/laptop-gaming/promotion.png'
 import { Link } from 'react-router'
 import ProductList from '~/components/productList/ProductList'
 import useStyles from '~/hooks/useStyles'
 import styles from './Seller.module.scss'
 import axiosApi from '../../services/axios'
 
-function Seller({ category }) {
+function Seller({ category, album }) {
     const cs = useStyles(styles)
     const [data, setDate] = useState([])
 
+    const renderBanner = () => {
+        switch(album){
+            case 'laptop-office':
+                return <img loading='lazy' src={laptop_office_promotion} alt='banner-promotion' />
+            case 'laptop-gaming':
+                return <img loading='lazy' src={laptop_gaming_promotion} alt='banner-promotion' />
+            // case 'pc-gaming':
+            //     return <img loading='lazy' src={pc_gaming} alt='banner' />
+            // case 'screen':
+            //     return <img loading='lazy' src={man_hinh} alt='banner' />
+        }
+      }
     useEffect(() => {
         const fetchProductByCategory = async () => {
             const res = await axiosApi.get(`api/get-product-type?category=${category}`)
@@ -26,7 +39,7 @@ function Seller({ category }) {
             <div className="container">
                 <div className='title-banner'>
                     <Link to='#' className={cs('banner_best_seller')}>
-                        <img loading='lazy' src={bestSeller}/>
+                        {renderBanner()}
                     </Link>
                 </div>
                 <div className={cs('products')}>
@@ -34,7 +47,7 @@ function Seller({ category }) {
                         <ProductList products={data} numberDisplay={5} noHeading />
                     </ul>
                 </div>
-                <div>
+                <div className={cs('banner-view-more')}>
                     <img loading='lazy' src={viewMore} alt="Xem thêm" className={cs('btn_more')} />
                 </div>
             </div>

@@ -54,16 +54,22 @@ $grid-gutter: 20px;
     flex: 1 0;
 }
 
+// .p-4{
+//     padding-left: 4px !important;
+//     padding-right: 4px !important;
+// }
+
 .col-no-gap {
     flex: 1 0;
     @extend %no-gutter;
 }
 
-.no-gutter {
+.p-0 {
     @extend %no-gutter;
 }
 
 $grid-breakpoints: (
+  mn: 340px,
   sm: 576px,
   md: 768px,
   lg: 992px,
@@ -72,6 +78,7 @@ $grid-breakpoints: (
 );
 
 $container-max-widths: (
+  mn: 100%,
   sm: 576px,
   md: 720px,
   lg: 960px,
@@ -90,10 +97,24 @@ $gutters: (
 
 
 @each $breakpoint, $value in $grid-breakpoints{
-    $max-width: map.get($container-max-widths, $breakpoint);
+    $max-width: if($breakpoint == sm, 100%, map.get($container-max-widths, $breakpoint));
     $infix: if($breakpoint == xs, '', '-#{$breakpoint}');
 
     
+    // @media (max-width: $value) {
+    //     @for $i from 1 through $grid-column {
+    //         .col-#{$i} {
+    //             width: calc(100% / $grid-column * $i);
+    //             flex: 0 0 auto;
+    //         }
+    //     }
+    // }
+    @for $i from 1 through 10 {
+        .p-#{4 * $i} {
+            padding-left: #{4 * $i}px !important;
+            padding-right: #{4 * $i}px !important;
+        }
+    }
 
     @media (min-width: $value) {
         .container{
@@ -107,12 +128,16 @@ $gutters: (
 
             }
         }
+        
+        
         @for $i from 1 through $grid-column {
             .col#{$infix}-#{$i} {
-                width: calc(100% / $grid-column * $i)  ;
+                width: calc(100% / $grid-column * $i);
                 flex: 0 0 auto;
             }
         }
+
+        
 
         @for $i from 0 to $grid-column {
             .offset#{$infix}-#{$i} {
@@ -149,6 +174,12 @@ $gutters: (
             display: none;
         }
     }
+    // @for $i from 1 through $grid-column {
+    //     .col-#{$i} {
+    //         width: calc(100% / $grid-column * $i)  ;
+    //         flex: 0 0 auto;
+    //     }
+    // }
 }
 .toast{
     color: red;

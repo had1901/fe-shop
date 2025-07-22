@@ -27,6 +27,7 @@ function ProductList({ products, title, numberDisplay, noHeading }) {
           opacity: 0,
           y: 50,
           duration: 0.8,
+          position: 'relative',
           delay: index * 0.1,
           scrollTrigger: {
             trigger: element,

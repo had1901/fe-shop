@@ -1,9 +1,13 @@
 import React from 'react'
 import { Outlet } from 'react-router';
+import styles from './index.module.scss'
+import useStyles from '../../hooks/useStyles';
 
 function AuthPage() {
+  const cs = useStyles(styles)
+
   return (
-      <div style={{ padding: '60px 0', background: '#ececec'}}>
+      <div className={cs('auth')}>
         <Outlet />
       </div> 
   )

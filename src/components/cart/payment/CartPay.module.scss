@@ -42,10 +42,14 @@
     display: flex;
     align-items: center;
     cursor: pointer;
+    background: #ececece7;
+    border-radius: 8px;
+    padding: 4px 10px;
 }
 .radio-method input{
     margin-right: 8px;
     cursor: pointer;
+    pointer-events: none;
 }
 .logo-method{
     max-width: 40px;

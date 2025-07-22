@@ -1,3 +1,6 @@
+@use '../../utils/scss/mixin' as *;
+@use '../../utils/scss/variables' as *;
+
 $primary-color: #e30119;
 $category-color: #bc1728;
 $main-width: 1200px;
@@ -5,29 +8,53 @@ $bg-white: #fff;
 
 
 
-.headerBanner{
+.header-banner{
     background-color: black;
     min-height: 52px;
-    &Img{
-        width: 100%;
+
+    // Laptop - tablet
+    @media (min-width: 740px) and (max-width: 991px) {
+        display: none;
+        
+    }
+    // Mobile
+    @media (min-width: 576px) and (max-width: 739px) {
+        display: none;
+    }
+    @media (max-width: 575px) {
+        display: none;
     }
 }
-.contentHeader{
+.content-header{
     background-color: $primary-color;
-    position: relative;
     position: sticky;
+    // padding-top: env(safe-area-inset-top, 20);
+    // padding-top: 18px;
     top: 0;
+    left: 0;
     z-index: 16;
 
-    .navbarHeader{
+    // @include screen(mobile) {
+    //     position: sticky;
+    //     top: rem(16);
+    // }
+
+    .navbar-header{
         position: relative;
+        display: flex;
         flex-wrap: nowrap;
-        // height: inherit;
         align-items: center;
         padding: 16px 0;
         gap: 10px;
+
+        @include screen(tablet) {
+            padding: 8px 14px;
+        }
+        @include screen(mobile) {
+            padding: 4px 14px;
+        }
         
-        .categoryHeader{
+        .category-header{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -39,20 +66,86 @@ $bg-white: #fff;
             color: $bg-white;
             border-radius: 4px;
 
+            @include screen(tablet) {
+                display: none;
+                width: 50px;
+
+            }
+            @include screen(mobile) {
+                display: none;
+                width: 50px;
+
+            }
+
             .categoryIcon{
                 font-size: 24px;
                 display: inline-flex;
             }
-            .categoryText{
+            .category-text{
                 font-weight: 600;
                 font-size: 12px;
                 user-select: none;
+
+                @include screen(tablet) {
+                    display: none;
+                }
+                @include screen(mobile) {
+                    display: none;
+                }
             }
         }
-        .categoryHeader:hover {
+        .category-header:hover {
             cursor: pointer;
         }
-        
+        .overlay-menu-mobile{
+            background: transparent;
+            width: 100%;
+            height: 100%;
+        }
+        .category-header-mobile{
+            display: none;
+            justify-content: center;
+            align-items: center;
+            gap: 9px;
+            width: 105px;
+            height: 42px;
+            padding: 2px 4px;
+            background-color: $category-color;
+            color: $bg-white;
+            border-radius: 4px;
+
+            @include screen(tablet) {
+                display: flex;
+                width: 50px;
+                background-color: transparent;
+            }
+            @include screen(mobile) {
+                display: flex;
+                width: 50px;
+                background-color: transparent;
+            }
+
+            .categoryIcon{
+                font-size: 24px;
+                display: inline-flex;
+            }
+            .category-text{
+                font-weight: 600;
+                font-size: 12px;
+                user-select: none;
+
+                @include screen(tablet) {
+                    display: none;
+                }
+                @include screen(mobile) {
+                    display: none;
+                }
+            }
+        }
+        .category-header-mobile:hover {
+            cursor: pointer;
+        }
+    
         .link{
             height: inherit;
             display: block;
@@ -63,16 +156,22 @@ $bg-white: #fff;
         .inputSearchWrap{
             position: relative;
             background-color: #fff;
+            border-radius: 6px;
 
             .inputSearch{
                 width: 100%;
                 height: 42px;
                 border-radius: 4px;
                 padding: 8px 50px 8px 15px;
-                font-size: 14px;
+                font-size: rem(14);
                 font-weight: 500;
                 border: none;
                 outline: none;
+
+                @include screen(mobile){
+                    font-size: rem(12);
+                    height: 36px;
+                }
             }
 
             .inputIcon{
@@ -95,19 +194,99 @@ $bg-white: #fff;
         }
         
     }
-    // .navbarHeader li{
-    //     height: 42px;
-    // }
     
 }
-.option_wrap{
+.banner-img{
+    height: 100%;
+}
+.option-wrap{
     display: flex;
-    // align-items: center;
     gap: 10px;
+
+    @include screen(tablet){
+        display: none;
+    }
+    @include screen(mobile){
+        display: none;
+    }
+}
+.option-wrap-mobile{
+    color: #111111;
+    display: flex;
+    flex-direction: column;
+
+    .account{
+        cursor: pointer;
+        transition: color 0.2s ease-in-out;
+
+        &:hover{
+            color: #53afff;
+        }
+    }
+    .navbar-text-link-mobile{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: #e9e9e9;
+        // margin-bottom: 4px;
+        border-bottom: 1px solid #ccc;
+        padding: 8px;
+        border-radius: 2px;
+    }
+    .navbar-text-link-mobile-info{
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        // background: #e9e9e9;
+        margin-bottom: 4px;
+        padding: 8px;
+    }
+    
+}
+.option-wrap-mobile-heading{
+    font-size: rem(16);
+    font-weight: 500;
+    padding: 10px 6px;
+}
+.nav-mobile{
+    display: none;
+    overflow-x: auto;
+    padding: 10px 6px 14px;
+
+    @include screen(tablet){
+        display: flex;
+        gap: 6px;
+    }
+    @include screen(mobile){
+        display: flex;
+        gap: 6px;
+    }
+
+    .nav-link-mobile{
+        // min-width: 20%;
+        text-align: center;
+        padding: 0 6px;
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+    .nav-text-mobile{
+        font-size: rem(12);
+        color: #fff;
+    }
 }
 .logo_mobile{
     display: none;
-}
+
+    @include screen(tablet){
+        display: block;
+        width: 40px;
+    }
+
+    @include screen(mobile){
+        display: block;
+        width: 30px;
+    }
+}  
 .icon-size{
     width: 36px;
     height: 100%;
@@ -117,10 +296,18 @@ $bg-white: #fff;
 .icon-size > svg {
     height: inherit;
 }
-.logoHeader{
+.logo-header{
     width: 140px;
     height: 100%;
     display: block;
+
+    @include screen(tablet){
+        display: none;
+    }
+
+    @include screen(mobile){
+        display: none;
+    }
 }
 
 .navbarListRight{
@@ -182,22 +369,30 @@ $bg-white: #fff;
 .mt_banner{
     margin-top: 126px;
 }
-.contentNavigate{
+.content-navigate{
     background-color: $bg-white;
-    .navigate{
-        
+
+
+    @include screen(tablet) {
+        display: none;
     }
-    .navigateList{
+
+    @include screen(mobile) {
+        display: none;
+    }
+
+    .navigate-list{
         height: 100%;
         display: flex;
-        padding: 6px 0;
+        flex-wrap: wrap;
+        padding: 4px 0;
     }
     
-    .navigateItem{
-        
+    .navigate-item{
         position: relative;
         cursor: pointer;
         flex: 1;
+        
         
         &::after{
             content: '';
@@ -209,14 +404,21 @@ $bg-white: #fff;
             height: 62%;
             margin: auto;
             background: #CFCFCF;
+
+        }
+
+        @include screen(tablet) {
+            &:nth-child(3)::after {
+                display: none;
+            }
         }
     }
     
     
-    .navigateItem:last-child::after{
+    .navigate-item:last-child::after{
         content: none;
     }
-    .navigateItem a{
+    .navigate-item a{
         height: 100%;
         display: flex;
         align-items: center;
@@ -238,9 +440,19 @@ $bg-white: #fff;
         font-size: 20px;
     }
 }
-.cart_mb{
+.cart-mobile{
     display: none;
     margin: 0;
+    background: #BE1529;
+    border-radius: 4px; 
+    padding: 6px 2px;
+    @include screen(tablet) {
+        display: block;
+    }
+
+    @include screen(mobile) {
+        display: block;
+    }
 }
 .menu_mb_list{
     display: none;
@@ -265,29 +477,26 @@ $bg-white: #fff;
     text-align: center;
     border-radius: 999px;
 }
-// laptop
-@media (min-width: 992px) and (max-width: 1200px) {
-    .contentHeader{
-        .navbarHeader {
-            gap: 10px;
+.wrap-text{
     
-            .categoryHeader .categoryText {
-                display: none;
-            }
-            .categoryHeader{
-                width: 50px;
-            }
-        }
-    }
-    .navbarHeader .wrapText{
+    @include screen(laptop) {
         display: none;
     }
+    @include screen(tablet) {
+        display: none;
+    }
+    @include screen(mobile) {
+        display: none;
+    }
+}
+// laptop
+@media (min-width: 992px) and (max-width: 1200px) {
     
     .bgColorLogin{
         width: auto;
         background-color: transparent;
     }
-    .contentNavigate{
+    .content-navigate{
         .navigateList{
             overflow-x: auto;
             flex-wrap: nowrap;
@@ -298,45 +507,29 @@ $bg-white: #fff;
         }
     }
 }
+// .navbar-wrap{
+//     max-width: 100%;
 
+//     @include screen(tablet) {
+//         padding: 0 18px;
+//     }
+
+//     @include screen(mobile) {
+//         display: block;
+//         padding: 0 14px;
+//     }
+// }
 // tablet
 @media (min-width: 740px) and (max-width: 991px) {
     .logoHeader{
         display: none;
     }
-    .logo_mobile{
-        display: block;
-        width: 40px;
-    }
-    .contentHeader{
-        .navbarHeader {
-            gap: 10px;
-            padding: 8px 0;
-            .categoryHeader .categoryText {
-                display: none;
-            }
-            .categoryHeader{
-                width: 50px;
-            }
-        }
-        .inputSearchWrap {
-            .inputSearch{
-                height: 30px;
-            }
-        }
-    }
-    .option_wrap{
-        display: none;
-    }
-    .navbarWrap{
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-        padding: 0 10px;
-    }
-    .cart_mb{
-        display: block;
-    }
+    // .navbar-wrap{
+    //     max-width: 100%;
+    //     margin-left: 0;
+    //     margin-right: 0;
+    //     padding: 0 10px;
+    // }
     .menu_mb_list{
         display: flex;
         flex-wrap: nowrap;
@@ -385,22 +578,6 @@ $bg-white: #fff;
     .logo_mobile{
         display: block;
         width: 40px;
-    }
-    .navbarWrap{
-        max-width: 100%;
-        margin-left: 0;
-        margin-right: 0;
-        padding: 0 10px;
-    }
-    .cart_mb{
-        display: block;
-        margin: 0;
-    }
-    .contentNavigate{
-        display: none;
-    }
-    .option_wrap{
-        display: none;
     }
 }
 

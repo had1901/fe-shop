@@ -17,17 +17,10 @@ import { useNavigate, useParams } from 'react-router'
 import { Button, Modal } from 'antd';
 import { setProduct } from '../../store/product/productSlice'
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-
-const sliders = [
-  'http://localhost:5173/src/assets/flash_sale/img/f1.webp',
-  'http://localhost:5173/src/assets/flash_sale/img/f4.webp',
-  'http://localhost:5173/src/assets/flash_sale/img/f3.webp',
-  'http://localhost:5173/src/assets/flash_sale/img/f2.webp',
-  'http://localhost:5173/src/assets/flash_sale/img/f5.webp',
-  'http://localhost:5173/src/assets/flash_sale/img/f6.webp',
-  'http://localhost:5173/src/assets/flash_sale/img/f7.webp',
-  
-]
+import { AiOutlineClose } from 'react-icons/ai'
+import { TbEyeSearch } from "react-icons/tb";
+import '../../DetailProduct.scss'
+import 'quill/dist/quill.snow.css'
 const blogs = [
   {
     id: 1,
@@ -69,17 +62,21 @@ function DetailProductPage() {
   const boxRef = useRef()
   const btnRef = useRef()
   const newsRef = useRef()
+  const contentRef = useRef()
   const dispatch = useDispatch()
   const product = useSelector(state => state.product.info)
   const user = useSelector(state => state.auth.info)
-  const carts = useSelector(state => state.cart.carts)
+  // const carts = useSelector(state => state.cart.carts)
   const navigate = useNavigate()
-  const [cartTemp, setCartTemp] = useState([])
+  // const [cartTemp, setCartTemp] = useState([])
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [addCart, setAddCart] = useState(false)
+  const [previewURL, setPreviewURL] = useState('')
+  const [isShowPreview, setIsShowPreview] = useState(false)
   const { id } = useParams()
 
-  console.log(product)
+
+  
 
   
   const handlePrev = debounce(() => {
@@ -100,27 +97,50 @@ function DetailProductPage() {
     setOpen(!open)
   }
 
-  const handleBuy = async (product) => {
+  const handleBuy = async (product, action) => {
     // dispatch(addToCart({...product, quantity: 1}))
-    setAddCart(true)
-    if(!user) {
-      showModal()
-      return
+    if(action === 'add-to-cart'){
+      setAddCart(true)
+          if(!user) {
+            showModal()
+            return
+          }
+          dispatch(setLoading(true))
+          const res = await axiosApi.post('/add-cart', ({product, user}))
+          if(res.ec === 0) {
+            toast('Đã thêm vào giỏ hàng')
+            setTimeout(() => {
+              dispatch(setLoading(false))
+              // setAddCart(false)
+            }, 1000)
+            setTimeout(() => {
+              // navigate('/cart')
+              setAddCart(false)
+            }, 2500)
+          }
     }
-    dispatch(setLoading(true))
-    const res = await axiosApi.post('/add-cart', ({product, user}))
-    if(res.ec === 0) {
-      toast('Đã thêm vào giỏ hàng')
-      setTimeout(() => {
-        dispatch(setLoading(false))
-        // setAddCart(false)
-      }, 1000)
-      setTimeout(() => {
-        // navigate('/cart')
-        setAddCart(false)
-      }, 2500)
+    if(action === 'buy-now'){
+      setAddCart(true)
+      if(!user) {
+        showModal()
+        return
+      }
+      dispatch(setLoading(true))
+      const res = await axiosApi.post('/add-cart', ({product, user}))
+      if(res.ec === 0) {
+        toast('Đã thêm vào giỏ hàng')
+        setTimeout(() => {
+          dispatch(setLoading(false))
+          // setAddCart(false)
+        }, 1000)
+        setTimeout(() => {
+          // navigate('/cart')
+          setAddCart(false)
+        }, 2500)
+      }
+      navigate('/cart')
     }
-    
+
     const fetchCarts = async () => {
       const res = await axiosApi.post('get-all-cart', {id: user.id})
       if(res.dt) {
@@ -139,6 +159,12 @@ function DetailProductPage() {
   }
   const handleCancel = () => {
     setIsModalOpen(false)
+  }
+
+  const handlePreviewImg = (e) => {
+    console.log(e.target.parentElement?.children[0]?.src)
+    setPreviewURL(e.target.parentElement?.children[0]?.src)
+    setIsShowPreview(true)
   }
 
   useEffect(() => {
@@ -169,7 +195,6 @@ function DetailProductPage() {
   },[dispatch, id])
 
   useEffect(() => {
-
     if(product) {
       const listImg = [{
         id: Date.now() + 'URL1',
@@ -177,7 +202,9 @@ function DetailProductPage() {
       }, ...product.Product_images]
       setNewImgs(listImg)
     }
-    
+    if(product?.content) {
+      contentRef.current.innerHTML = product.content ?? ''
+    }
   }, [product])
 
   return (
@@ -192,109 +219,110 @@ function DetailProductPage() {
       >
         <p>Vui lòng đăng nhập để đặt hàng!</p>
       </Modal>
+      <div className={cs(`overlay-preview ${isShowPreview && ' show-preview'}`)} onClick={() => setIsShowPreview(false)}>
+        {isShowPreview && <img src={previewURL} alt="preview" />}
+        <AiOutlineClose className={cs('icon-close')} onClick={() => setIsShowPreview(false)}/>
+      </div>
       <Breadcrumb product={product} />
-      <div className={cs('product-main', 'row')}>
-        <section className='col-xl-7'>
-          <div className={cs('box-slide')}>
-            <div className={cs('wrapper-slide')}>
-              <div className={cs('carousel')}>
-                <div className={cs('slide-show')} style={{ transform: `translateX(${-currentIndex * width}px)`}}>
-                  {newImgs.length && newImgs.map((item, index) => (
-                    <span key={index} className={cs('img-item')} ref={imgRef}>
-                      <img loading='lazy' src={item.url} alt="product" className={cs('img')}/>
-                    </span>
-                  ))}
+      <div className={cs('product-main')}>
+        <div className='row'>
+          <section className='col-xxl-7 col-xl-7 col-lg-6 col-md-12 col-sm-12 col-mn-12'>
+            <div className={cs('box-slide')}>
+              <div className={cs('wrapper-slide')}>
+                <div className={cs('carousel')}>
+                  <ul className={cs('slide-show')} style={{ transform: `translateX(${-currentIndex * width}px)`}}>
+                    {newImgs.length && newImgs.map((item, index) => (
+                      <li key={index} className={cs('img-item')} ref={imgRef} onClick={handlePreviewImg}>
+                          <img loading='lazy' src={item.url} alt="product" className={cs('img')}/>
+                          <div className={cs('icon-preview')}> <TbEyeSearch  /></div>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className={cs('arrow')}>
+                      <button 
+                          // ref={chevLeftRef}
+                          className={cs('arrow-left chevron')}
+                          onClick={handlePrev}
+                          style={{ color: currentIndex === 0 ? '#ccc' : '#1f1f1f'}}
+                      ><FaChevronLeft /></button>
+                      <button 
+                          // ref={chevRightRef}
+                          className={cs('arrow-right chevron')}
+                          onClick={handleNext}
+                          style={{ color: currentIndex === newImgs.length - 1 ? '#ccc' : '#1f1f1f'}}
+                      ><FaChevronRight /></button>
+                    </div>
                 </div>
-                <div className={cs('arrow')}>
-                    <button 
-                        // ref={chevLeftRef}
-                        className={cs('arrow-left chevron')}
-                        onClick={handlePrev}
-                        style={{ color: currentIndex === 0 ? '#ccc' : '#1f1f1f'}}
-                    ><FaChevronLeft /></button>
-                    <button 
-                        // ref={chevRightRef}
-                        className={cs('arrow-right chevron')}
-                        onClick={handleNext}
-                        style={{ color: currentIndex === newImgs.length - 1 ? '#ccc' : '#1f1f1f'}}
-                    ><FaChevronRight /></button>
-                  </div>
+                
               </div>
-              
-            </div>
-            <ul className={cs('list-img-product')}>
-                {newImgs.length && newImgs.map((item, index) => (
-                    <li 
-                      onClick={() => setCurrentIndex(index)} 
-                      className={cs('img-item-sub')} 
-                      style={{ outline: index === currentIndex ? '1px solid #262626' : 'transparent' }}
-                      key={item.id}
-                    >
-                      <img src={item.url} />
-                    </li>
-                  ))}
-            </ul>
-            <div className={cs('calculator')}>
-              <div>
-                <span>Tạm tính: </span>
-                <span className={cs('calculator-number')}>0</span>đ
-              </div>
-              <button className={cs('add-to-cart')}>
-                <FaCartPlus />
-                <span>Thêm vào giỏ</span>
-              </button>
-            </div>
-          </div>
-        </section>
-        <section className='col-xl-5'>
-            <div className={cs('content')}>
-
-              <h1 className={cs('product-name')}>{product?.name}</h1>
-              <div className={cs('review')}>
-                <span className={cs('rating')}>{product?.rating_count}.0 <FaStar fill='#FF8A00' className={cs('rating-star')}/></span>
-                <span className={cs('review-comment')}>Xem đánh giá</span>
-              </div>
-
-              <div className={cs('product-price')}>
-                <span className={cs('price')}>{convertPrice(product?.price)}</span>
-                <del>{convertPrice(product?.sale_price)}</del>
-                <span className={cs('percent')}>-{product?.salce_percent}%</span>
-              </div>
-              
-              <Sale title='Quà tặng khuyến mãi' isIconGift listSale={arr2}/>
-              <div className={cs('action-buys')}>
-                <button className={cs('btn-buynow')} onClick={() => handleBuy(product)}>
-                  {addCart 
-                  ? <DotLottieReact loading='lazy' src='../../../public/add-to-cart.lottie' loop autoplay style={{ width: '20%', margin: '0 auto'}}/>
-                  : (<>
-                      <span>Mua ngay</span>
-                      <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
-                    </>)
-                  }
+              <ul className={cs('list-img-product')}>
+                  {newImgs.length && newImgs.map((item, index) => (
+                      <li 
+                        onClick={() => setCurrentIndex(index)} 
+                        className={cs('img-item-sub')} 
+                        style={{ outline: index === currentIndex ? '1px solid #262626' : 'transparent' }}
+                        key={index}
+                      >
+                        <img src={item.url} />
+                      </li>
+                    ))}
+              </ul>
+              <div className={cs('calculator')}>
+                <div>
+                  <span>Tạm tính: </span>
+                  <span className={cs('calculator-number')}>0</span>đ
+                </div>
+                <button className={cs('add-to-cart')} onClick={() => handleBuy(product, 'add-to-cart')}>
+                  <FaCartPlus />
+                  <span>Thêm vào giỏ</span>
                 </button>
               </div>
-              <div className={cs('info-general')}>
-                <h5 className={cs('info-title')}>Thông tin chung:</h5>
-                <p ><strong>- Hỗ trợ đổi mới trong 7 ngày</strong></p>
-                <p className={cs('credit-card')}>
-                  Hỗ trợ trả góp MPOS (thẻ tín dụng)
-                  (<span className={cs('view-more')}>Xem chi tiết</span>)
-                </p>
-                <p><strong>- Khuyến mãi giảm thêm 100K khi mua kèm PC/Laptop</strong></p>
-              </div>
-              <Sale title='Khuyến mãi' headerColor='#CFCFCF' listSale={arr2}/>
-              <Address place='HCM' placeList={placeList.HCM} />
-              <Address place='HN' placeList={placeList.HN} />
             </div>
-        </section>
+          </section>
+          <section className='col-xxl-5 col-xl-5 col-lg-6 col-md-12 col-sm-12 col-mn-12'>
+              <div className={cs('content')}>
+  
+                <h1 className={cs('product-name')}>{product?.name}</h1>
+                <div className={cs('review')}>
+                  <span className={cs('rating')}>{product?.rating_count}.0 <FaStar fill='#FF8A00' className={cs('rating-star')}/></span>
+                  <span className={cs('review-comment')}>Xem đánh giá</span>
+                </div>
+  
+                <div className={cs('product-price')}>
+                  <span className={cs('price')}>{convertPrice(product?.sale_price)}</span>
+                  <del>{convertPrice(product?.price)}</del>
+                  <span className={cs('percent')}>-{product?.sale_percent}%</span>
+                </div>
+                
+                <Sale title='Quà tặng khuyến mãi' isIconGift listSale={arr2}/>
+                <div className={cs('action-buys')}>
+                  <button className={cs('btn-buy-now')} onClick={() => handleBuy(product, 'buy-now')}>
+                    <span>Mua ngay</span>
+                    <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
+                  </button>
+                </div>
+                <div className={cs('info-general')}>
+                  <h5 className={cs('info-title')}>Thông tin chung:</h5>
+                  <p ><strong>- Hỗ trợ đổi mới trong 7 ngày</strong></p>
+                  <p className={cs('credit-card')}>
+                    Hỗ trợ trả góp MPOS (thẻ tín dụng)
+                    (<span className={cs('view-more')}>Xem chi tiết</span>)
+                  </p>
+                  <p><strong>- Khuyến mãi giảm thêm 100K khi mua kèm PC/Laptop</strong></p>
+                </div>
+                <Sale title='Khuyến mãi' headerColor='#CFCFCF' listSale={arr2}/>
+                <Address place='HCM' placeList={placeList.HCM} />
+                <Address place='HN' placeList={placeList.HN} />
+              </div>
+          </section>
+        </div>
       </div>
       <div className='row'>
-        <div className='col-xl-8'>
+        <div className='col-xxl-8 col-xl-8 col-lg-6 col-md-12 col-sm-12 col-mn-12'>
           <div ref={boxRef} className={cs('product-info')}>
               <div className={cs('box-wrap')}>
                 <h3 className={cs('info-title')}>Thông tin sản phẩm</h3>
                 <div>
-                  <h4>Thông số kỹ thuật</h4>
                   <div className={cs('box-table')}>
                     <table className={cs('table-product-info')}>
                       <tbody>
@@ -347,6 +375,7 @@ function DetailProductPage() {
                     </table>
                   </div>
                   <p className={cs('text-example')}>* Hình ảnh minh hoạ có thể khác với cấu hình thực tế </p>
+                  <div className="quill-content haha" ref={contentRef}></div>
                   <button ref={btnRef} onClick={handleToggle} className={cs(`btn-toggle ${!open && 'fade-overlay'}`)}>
                     <i><IoChevronUpOutline /></i>
                   </button>
@@ -354,7 +383,7 @@ function DetailProductPage() {
               </div>
           </div>
         </div>
-        <div className='col-xl-4'>
+        <div className='col-xxl-4 col-xl-4 col-lg-6 col-md-12 col-sm-12 col-mn-12'>
           <div ref={newsRef} className={cs(`news ${open && 'sticky-news'}`)}>
             <h3>Tin tức về công nghệ</h3>
             <ul className={cs('list-news')}>

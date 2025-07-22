@@ -4,10 +4,12 @@ import clsx from "clsx";
 import { FaChevronRight } from "react-icons/fa6";
 import { FaChevronLeft } from "react-icons/fa6";
 import gsap from 'gsap';
+import useStyles from '../../hooks/useStyles';
 
 
 
 function Slider({ sliders }) {
+    const cs = useStyles(styles)
     const [currentIndex, setCurrentIndex] = useState(0)
     const [isAnimating, setIsAnimating] = useState(false)
     const chevLeftRef = useRef(null)
@@ -92,36 +94,36 @@ function Slider({ sliders }) {
         
     },[])
   return (
-    <div ref={sliderRef} className={clsx(styles.slider)}>
+    <div ref={sliderRef} className={cs('slider')}>
         {sliders.map((img, index) => (
             <img 
                 loading='lazy'
                 key={index} 
                 src={img.src} 
                 alt={img.id} 
-                className={clsx(styles.sliderImg, { [styles.show]: index === currentIndex })}
+                className={cs(`slider-img ${index === currentIndex && 'show'}`)}
             />
         ))}
-        <ul className={clsx(styles.sliderDots)}>
+        <ul className={cs('sliderDots')}>
             {sliders.map((_, index) => (
-                <li key={index} className={clsx(styles.dot)}>
+                <li key={index} className={cs('dot')}>
                     <button 
-                        className={clsx(styles.dotBtn, { [styles.active]: index === currentIndex })}
+                        className={cs(`dot-btn ${index === currentIndex && 'active'}` )}
                         onClick={() => handleChangeSlider(index)}
                     >  
                     </button>
                 </li>
             ))}
         </ul>
-        <div className={clsx(styles.arrow)}>
+        <div className={cs('arrow')}>
             <button 
                 ref={chevLeftRef}
-                className={clsx(styles.arrowLeft, styles.chevron)}
+                className={cs('arrowLeft chevron')}
                 onClick={ handlePrev}
             ><FaChevronLeft /></button>
             <button 
                 ref={chevRightRef}
-                className={clsx(styles.arrowRight, styles.chevron)}
+                className={cs('arrowRight chevron')}
                 onClick={handleNext}
             ><FaChevronRight /></button>
         </div>

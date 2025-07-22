@@ -15,14 +15,16 @@ import SidebarRight from '../../layouts/sidebar/SidebarRight';
 import News from '../../components/news/News';
 import { useResponsive } from '~/hooks/useResponsive';
 import axiosApi from './../../services/axios';
+import useStyles from '../../hooks/useStyles';
 
 function HomePage() {
+  const cs = useStyles(styles)
   const numberDisplay = useResponsive()
   const [data, setData] = useState([])
   const [products, setProducts] = useState([])
   const [listProductSale, setProductSale] = useState([])
 
-  
+  console.log(products)
   useEffect(() => {
     const getProducts = async () => {
       const products =  await axiosApi.get('api/get-all-product')
@@ -61,23 +63,21 @@ function HomePage() {
 
 
   return (
-      <main className={clsx(styles.app)}>
-            <div className={clsx(styles.app_main)}>
-              <div className={clsx(styles.menu_wrap, 'container')}>
-                  <div className={clsx(styles.wrapper_feature , 'row')}>
+      <main className={cs('app')}>
+            <div className={cs('app-main')}>
+              <div className='container'>
+                  <div className='row'>
                     <SidebarMenu></SidebarMenu>
                     <SidebarRight></SidebarRight>
                   </div>
-                  <div className={clsx(styles.bannerList, 'row')}>
-                    <BannerSale bannerList={bannerListBottom}/>
-                  </div>
+                  <BannerSale bannerList={bannerListBottom}/>
                   <ViewedProduct title='Sản phẩm đã xem' />
                   <FlashSale />
                   <BannerMid />
+                  <ProductList products={products[4]?.items || []} numberDisplay={numberDisplay} title='PC bán chạy' method='Trả góp 0%'/>           
+                  <ProductList products={products[3]?.items || []} numberDisplay={numberDisplay} title='Laptop bán chạy' method='Trả góp 0%'/>               
                   <ProductList products={products[0]?.items || []} numberDisplay={numberDisplay} title='Màn hình bán chạy' method='Trả góp 0%'/>               
-                  <ProductList products={products[3]?.items || []} numberDisplay={numberDisplay} title='PC bán chạy' method='Trả góp 0%'/>               
                   <ProductList products={products[1]?.items || []} numberDisplay={numberDisplay} title='Bàn phím bán chạy' method='Trả góp 0%'/>  
-                  <ProductList products={products[2]?.items || []} numberDisplay={numberDisplay} title='Laptop gaming bán chạy' method='Trả góp 0%'/>           
                   
                   <BannerDisplay />  
                   <CategoryProducts />

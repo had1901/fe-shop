@@ -5,6 +5,7 @@ import useStyles from '../../hooks/useStyles'
 import styles from './Editor.module.scss'
 import { Form, Input } from 'antd'
 import { CgLaptop } from 'react-icons/cg'
+// import 'react-quill/dist/quill.snow.css'
 
 const options = {
   debug: 'info',
@@ -39,7 +40,7 @@ function Editor({ content, setContent }) {
   const editorRef = useRef(null)
   const outputContentRef = useRef(null)
  
-  // console.log('Content', content)
+  console.log('Content', content)
 
   useEffect(() => {
     Quill.debug(false)
@@ -51,7 +52,7 @@ function Editor({ content, setContent }) {
       setContent(html) // cập nhật state
       form.setFieldsValue({content: html})
       // outputContentRef.current.innerHTML = html
-      editorRef.current.disable()
+      // editorRef.current.disable()
     })
 
     return () => {
@@ -61,9 +62,14 @@ function Editor({ content, setContent }) {
     }
   }, [setContent, form])
 
+  useEffect(() => {
+    if(containerRef.current && editorRef.current) {
+      editorRef.current.clipboard.dangerouslyPasteHTML(content)
+    }
+  },[editorRef, content])
   return (
     <div className={cs('editor')}>
-      <Form.Item rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}>
+      <Form.Item name="content" rules={[{ required: true, message: 'Vui lòng nhập trường này' }]}>
         <div ref={containerRef} style={{ height: '300px', width: '100%' }} />
       </Form.Item>
       <Form.Item name="content" hidden>

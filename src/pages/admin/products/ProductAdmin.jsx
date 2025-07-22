@@ -6,10 +6,10 @@ import { DeleteOutlined, EditOutlined, PlusCircleOutlined, QuestionCircleOutline
 import axiosApi from '../../../services/axios'
 import { convertPrice } from '../../../utils/convertString/_convertPrice'
 import { Link } from 'react-router'
-import { debounce } from '~/utils/debounce/_debounce';
 import FilterAdmin from '../../../components/filter/FilterAdmin'
 import { formatDate } from '../../../utils/convertString/_formatTime'
 import { useSelector } from 'react-redux';
+import { toast } from 'react-toastify'
 
 
 
@@ -19,30 +19,7 @@ function ProductAdmin() {
     const [products, setProducts] = useState([])
     const [filtered, setFiltered] = useState([])
     const [loading, setLoading] = useState(false)
-    const [filterProduct, setFilterProduct] = useState({
-        category: 'all',
-        sortBy: 'all',
-        search: '',
-        date: {}
-    })
     const themeRedux = useSelector(state => state.admin.theme)
-
-    const filterByCreateAt = useCallback((data) => {
-        const startFilter = new Date(filterProduct.date.start).setHours(0,0,0,0)
-        const endFilter = new Date(filterProduct.date.end).setHours(23,59,59,999)
-        if(data?.length) {
-            const fil = data.filter(item => {
-                if(item.createdAt) {
-                    const createdAt = new Date(item.createdAt).getTime()
-                    return createdAt >= startFilter && createdAt <= endFilter
-                }
-                }
-            )
-            return fil
-        }
-        return []
-    },[filterProduct.date.start, filterProduct.date.end])
-    
     
     const columns = [
         {
@@ -52,7 +29,7 @@ function ProductAdmin() {
             width: '4%',
             align: 'center',
             className: cs('col-table'),
-            render: (value, record) =>  <span className={cs('text-color')}>{value}</span>
+            render: (value) =>  <span className={cs('text-color')}>{value}</span>
         },
         {
             title: 'Ảnh',
@@ -111,7 +88,7 @@ function ProductAdmin() {
             align: 'center',
             width: '8%',
             className: cs('col-table'),
-            render: (value, record) =>  <span className={cs('price')}>{convertPrice(value)}</span>
+            render: (value) =>  <span className={cs('price')}>{convertPrice(value)}</span>
         },
         {
             title: 'Giá khuyến mãi',
@@ -120,7 +97,7 @@ function ProductAdmin() {
             align: 'center',
             width: '8%',
             className: cs('col-table'),
-            render: (value, record) =>  <span className={cs('price')}>{convertPrice(value)}</span>
+            render: (value) =>  <span className={cs('price')}>{convertPrice(value)}</span>
         },
         {
             title: 'Ngày tạo',
@@ -148,7 +125,7 @@ function ProductAdmin() {
                                 description="Bạn chắc chắn muốn xóa sản phầm này?"
                                 cancelText="Hủy"
                                 okText="Xóa"
-                                onConfirm={handleConfirm}
+                                onConfirm={() => handleDelete(record.id)}
                                 onCancel={handleCancel}
                                 icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                             >
@@ -167,14 +144,24 @@ function ProductAdmin() {
         },
     ]
 
-    
-
-    const handleConfirm = e => {
-        console.log(e.target)
-        message.success('Click on Yes')
+    const handleDelete = async (id) => {
+            try{
+                setLoading(true)
+                const res = await axiosApi.delete(`/api/delete-product/${id}`)
+                if(res.ec === 0) {
+                    setLoading(false)
+                    toast(res.ms)
+                    await handleGetAllProduct()
+                }
+            } catch(e){
+                    console.log(e)
+                    toast(e.ms)
+            } finally{
+                    setLoading(false)
+            }
     }
 
-      const handleCancel = e => {
+    const handleCancel = e => {
         console.log(e)
         message.error('Click on No')
     }
@@ -183,72 +170,7 @@ function ProductAdmin() {
         console.log(id)
     }
 
-    // const handleChangeSortCategory = value => {
-    //     setFilterProduct(prev => ({...prev, category: value}))
-    // }
-
-    // const handleChangeSortProduct = value => {
-    //     setFilterProduct(prev => ({...prev, sortBy: value}))
-    // }
-    
-    // const handleChangeSortDate = value => {
-    //     const startDate = value[0]
-    //     const endDate = value[1]
-    //     setFilterProduct(prev => ({...prev, date: { start: startDate.$d, end: endDate.$d }}))
-    // }
-
-    // const handleSearchText = debounce((e) => {
-    //     setFilterProduct(prev => ({...prev, search: e.target.value}))
-    // },500)
-
-    // const handleFilterAndSort = useCallback(() => {
-    //     setLoading(true)
-    //     let filterProductList
-    //     let result
-    //     filterProductList = products.filter(item => {         
-    //         if(filterProduct.category === 'all') {
-    //             return removeHash(item.name).includes(removeHash(filterProduct.search)) && item
-    //         }
-    //         if(filterProduct.category !== 'all') {
-    //             const matchName = filterProduct.sortBy 
-    //                 ? removeHash(item.name).includes(removeHash(filterProduct.search)) 
-    //                 : true
-    //             const matchCategory = filterProduct.category 
-    //                 ? removeHash(item.name).includes(removeHash(filterProduct.search)) && item.Category.tag.includes(filterProduct.category) 
-    //                 : true
-    //             return matchName && matchCategory
-    //         }
-    //     })
-    //    if(filterProductList?.length > 0) {
-    //         filterProduct.sortBy === 'asc' && filterProductList.sort((a,b) =>  a.name.localeCompare(b.name))
-    //         filterProduct.sortBy === 'desc' && filterProductList.sort((a,b) =>  b.name.localeCompare(a.name))
-    //         filterProduct.sortBy === 'min-max' && filterProductList.sort((a,b) =>  a.price - b.price)
-    //         filterProduct.sortBy === 'max-min' && filterProductList.sort((a,b) =>  b.price - a.price)
-    //         filterProduct.sortBy === 'new-date' && filterProductList.sort((a,b) =>  new Date(b.createdAt) - new Date(a.createdAt))
-    //         filterProduct.sortBy === 'old-date' && filterProductList.sort((a,b) =>  new Date(a.createdAt) - new Date(b.createdAt))
-    //     }
-
-    //     if(filterProduct.date.start && filterProduct.date.end) {
-    //         result = filterByCreateAt(filterProductList)
-    //     } else {
-    //         result = filterProductList
-    //     }
-    //     setFiltered(result)
-
-    //     return true
-    // },[products, filterProduct.sortBy, filterProduct.category, filterProduct.search, filterProduct.date.start, filterProduct.date.end, filterByCreateAt])
-    
-    // // filter product
-    // useEffect(() => {
-    //     const isFilter = handleFilterAndSort()
-    //     if(isFilter) {
-    //         setLoading(false)
-    //     }
-    // },[filterProduct.sortBy, filterProduct.category, filterProduct.search, handleFilterAndSort])
-    
-    // call api lấy tất cả sản phẩm
-    useEffect(() => {
-        (async () => {
+    const handleGetAllProduct = useCallback(async () => {
             setLoading(true)
             const data = await axiosApi.get('/api/get-all-product')
             if(data.ec === 0 && data.dt) {
@@ -256,9 +178,14 @@ function ProductAdmin() {
                 setLoading(false)
             }
             setLoading(false)
-
-        })()
     },[])
+    
+    // call api lấy tất cả sản phẩm
+    useEffect(() => {
+        (async () => {
+            await handleGetAllProduct()
+        })()
+    },[handleGetAllProduct])
 
   return (
     <div className={cs(`products-admin`, `${themeRedux === 'dark' ? 'dark-theme' : ''}`)}>
@@ -268,10 +195,6 @@ function ProductAdmin() {
                 setFiltered={setFiltered}
                 setLoading={setLoading}
                 page='product'
-                // handleChangeSortCategory={handleChangeSortCategory} 
-                // handleSearchText={handleSearchText} 
-                // handleChangeSortProduct={handleChangeSortProduct}
-                // handleChangeSortDate={handleChangeSortDate}
             />
             <div className={cs('flex-box')}>
                 <div className={cs('flex-box')}>

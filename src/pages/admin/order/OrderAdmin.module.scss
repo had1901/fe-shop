@@ -1,0 +1,41 @@
+
+.order-admin{
+    background: #fff;
+    // border-radius: 8px;
+    padding: 20px 40px;
+}
+.col-table{
+    vertical-align: middle;
+    overflow: hidden;
+}
+// .created-at{
+//     color: #b0373b;
+//     font-weight: 500;
+// }
+.text-color{
+    font-weight: 600;
+}
+// .created-at{
+//     color: #b0373b;
+//     font-weight: 500;
+//     white-space: nowrap;
+// }
+.heading-tab{
+    // display: flex;
+    // align-items: center;
+    margin-bottom: 20px;
+}
+.price{
+    margin: 0;
+}
+
+.flex-box{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+.total-price{
+    color: #e30119;
+    font-weight: 500;
+}

@@ -1,21 +1,78 @@
 @use '../../utils/scss/variables' as *;
+@use '../../utils/scss/mixin' as *;
 
 .product-main{
     background: #fff;
     border-radius: 4px;
 }
+.overlay-preview{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(46, 46, 46, 0.637);
+    transition: all 0.3s ease-in-out;
+    
+}
+.show-preview{
+    position: fixed;
+    inset: 0;
+    display: flex;
+    z-index: 99;
+}
+@keyframes scalePreview {
+    from{
+        opacity: 0;
+        transform: scale(0);
+    } to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+.overlay-preview img{
+    width: auto;
+    height: 80%;
+    animation: scalePreview 0.3s;
+    transition: all 0.3s ease-in-out;
+}
+.icon-close{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    padding: 6px;
+    background-color: #727272b2;
+    border-radius: 999px;
+    right: 30px;
+    top: 30px;
+    color: #c9c9c9;
+    cursor: pointer;
+}
 .box-slide{
-    padding: 30px;
+    padding: 24px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+
+    @include screen(mobile) {
+        padding: 10px 24px;
+        display: block;
+    }
 }
 .wrapper-slide{
-    width: 100%;
+    width: 50%;
     height: 500px;
     margin: 0 auto;
     overflow: hidden;
 
+    @media (min-width: 740px) and (max-width: 991px) {
+        height: 400px;
+    }
+    // Mobile
+    @media (min-width: 576px) and (max-width: 739px) {
+        height: 300px;
+    }
+    @media (max-width: 575px) {
+        height: 200px;
+    }
 }
 .slide-show{
     display: flex;
@@ -23,7 +80,8 @@
     height: 100%;
     // padding-top: 100%;
     transition: all 0.7s ease;
-    align-items: flex-start;
+    align-items: center;
+    // justify-content: center;
 }
 .carousel{
     position: relative;
@@ -53,17 +111,40 @@
     right: 0;
 }
 .img-item{
+    position: relative;
     width: 100%;
     height: 100%;
     flex-shrink: 0;
+    cursor: pointer;
 }
 
+.icon-preview{
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    color: #fff;
+    font-size: 30px;
+    width: 100%;
+    height: 100%;
+    display: none;
+    
+    background-color: #8d8d8d71;
+}
+.img-item:hover .icon-preview{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .list-img-product{
     height: 100px;
     display: flex;
     align-items: start;
     gap: 4px;
 
+    @include screen(mobile) {
+        height: 80px;
+    }
+    
 }
 .img-item-sub{
     display: block;
@@ -78,6 +159,15 @@
     align-items: center;
     gap: 14px;
     margin-bottom: 20px;
+
+    @include screen(tablet) {
+        font-size: rem(20);
+        margin-bottom: 14px;
+    }
+    @include screen(mobile) {
+        font-size: rem(18);
+        margin-bottom: 2px;
+    }
 }
 .product-price del {
     color: #6D6E72;
@@ -85,10 +175,18 @@
     font-weight: 400;
 }
 .price{
-    font-size: 32px;
+    font-size: rem(32);
     line-height: 40px;
     font-weight: 600;
     color: #E30019;
+
+    @include screen(tablet) {
+        font-size: rem(28);
+    }
+    @include screen(mobile) {
+        font-size: rem(22);
+    }
+   
 }
 
 .percent{
@@ -104,13 +202,38 @@
 
 .content{
     padding: 24px;
+
+    @include screen(mobile) {
+        padding: 10px 24px;
+    }
 }
 .product-name{
     margin-bottom: 12px;
+    color: $color-text-heading;
+    font-size: rem(24);
+    font-weight: 500;
+
+    @include screen(tablet) {
+        font-size: rem(20);
+        margin-bottom: 8px;
+    }
+    @include screen(mobile) {
+        font-size: rem(18);
+        margin-bottom: 4px;
+    }
+    
 }
 .review{
     margin-bottom: 12px;
     
+    @include screen(tablet) {
+        font-size: rem(20);
+        margin-bottom: 8px;
+    }
+    @include screen(mobile) {
+        font-size: rem(18);
+        margin-bottom: 2px;
+    }
 }
 .rating{
     font-size: 14px;
@@ -118,11 +241,7 @@
 .rating-star{
     font-size: 13px;
 }
-.product-name{
-    color: $color-text-heading;
-    font-size: 24px;
-    font-weight: 500;
-}
+
 .review{
     color: #FF8A00;
 }
@@ -135,7 +254,7 @@
     display: flex;
     margin: 16px 0;
 }
-.btn-buynow{
+.btn-buy-now{
     width: 100%;
     text-align: center;
     padding: 10px 10px 14px;
@@ -157,13 +276,13 @@
     outline: none !important;
     cursor: pointer;
 }
-.btn-buynow span{
+.btn-buy-now span{
     display: block;
 }
-.btn-buynow span:first-child{
+.btn-buy-now span:first-child{
     font-size: 20px;
 }
-.btn-buynow span:nth-last-child(1){
+.btn-buy-now span:nth-last-child(1){
     margin-top: 6px;
 }
 
@@ -186,6 +305,10 @@
     margin-top: 20px;
     border-top: 1px solid #dbdbdba4;
     border-bottom: 1px solid #dbdbdba4;
+    
+    @include screen(mobile) {
+        margin-top: 8px;
+    }
 }
 .add-to-cart{
     display: flex;
@@ -217,13 +340,12 @@
     position: relative;
     margin: 20px 0;
     max-height: 250px;
-    margin-right: 24px;
     border-radius: 6px;
     overflow: hidden;
     transition: max-height 0.5s ease
 }
 .box-wrap{
-    padding: 24px 0 24px 24px;
+    padding: rem(24);
     background-color: #fff;
 }
 .product-info h4{
@@ -231,9 +353,14 @@
     font-weight: 500;
 }
 .info-title{
-    font-size: 24px;
+    font-size: rem(24);
     font-weight: 600;
-    margin-bottom: 16px;
+    margin-bottom: rem(16);
+
+    @include screen(mobile) {
+        font-size: rem(18);
+        margin-bottom: rem(10);
+    }
 }
 
 .box-table{
@@ -244,6 +371,7 @@
     color: #428bca;
     font-weight: 500;
     font-size: 16px;
+    text-align: center;
 }
 .table-product-info td:nth-child(1){
     background-color: #f7f7f7;
@@ -278,13 +406,19 @@
     margin-left: 10px;
 }
 .news{
-    
     height: auto;
-    max-height: 380px;
-    margin-top: 20px;
-    padding: 14px;
+    // min-height: 380px;
+    margin: 20px 0;
+    padding: 24px;
     background: #fff;
     border-radius: 6px;
+
+    @include screen(tablet) {
+        margin-top: 0;
+    }
+    @include screen(mobile) {
+        margin-top: 0;
+    }
 }
 .news h3{
     font-weight: 600;
@@ -298,9 +432,12 @@
 }
 .list-news{
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 .list-news-item{
-    margin-top: 10px;
+    // margin-top: 10px;
     
 }
 .news-title{

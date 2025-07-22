@@ -1,14 +1,13 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import styles from './AccountAdmin.module.scss'
 import useStyles from '../../../hooks/useStyles'
 import axiosApi from '../../../services/axios'
-import { Badge, Button, Flex, message, Popconfirm, Space, Statistic, Table, Tag, Tooltip } from 'antd'
-import { data, Link } from 'react-router'
+import { Badge, Button, Popconfirm, Space, Statistic, Table, Tag, Tooltip } from 'antd'
+import { Link } from 'react-router'
 import FilterAdmin from '../../../components/filter/FilterAdmin'
 import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined, PlusCircleOutlined, QuestionCircleOutlined, SyncOutlined } from '@ant-design/icons';
 import AccountEdit from '../../../components/admin/model/AccountEdit'
 import { toast } from 'react-toastify'
-import useFetch from '../../../hooks/userAxios'
 
 
 function AccountAdmin() {
@@ -20,7 +19,6 @@ function AccountAdmin() {
     const [mode, setMode] = useState('create')
     const [filtered, setFiltered] = useState([])
 
-    console.log(filtered)
     const showModal = () => {
         setIsModalOpen(true)
         setMode('create')
@@ -55,6 +53,7 @@ function AccountAdmin() {
                 setIsModalOpen(false)
                 setLoading(false)
                 toast(res.ms)
+                await handleGetUsers()
             }
         }catch(e) {
             console.log(e)
@@ -96,7 +95,7 @@ function AccountAdmin() {
             width: '4%',
             align: 'center',
             className: cs('col-table'),
-            render: (value, record) =>  <span className={cs('text-color')}>{value}</span>
+            render: (value) =>  <span className={cs('text-color')}>{value}</span>
         },
         {
             title: 'Tên tài khoản',
@@ -126,7 +125,7 @@ function AccountAdmin() {
             className: cs('col-table'),
             render: (value, record) => {
                 
-                return <span className={cs(`${record?.Role?.id === 1 ? 'price' : ''}`)}>{record?.Role?.name || 'Customer'}</span>
+                return <span className={cs(`role-user ${record?.Role?.id === 1 ? 'price' : ''}`)}>{record?.Role?.name || 'Customer'}</span>
             }
         },
         {
@@ -216,9 +215,6 @@ function AccountAdmin() {
                 setLoading={setLoading}
                 setFiltered={setFiltered}
                 page='account'
-                // handleChangeSortCategory={handleChangeSortCategory} 
-                // handleSearchText={handleSearchText} 
-                // handleChangeSortProduct={handleChangeSortProduct}
             />
             <div className={cs('flex-box')}>
                 <Space>

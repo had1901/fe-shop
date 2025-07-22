@@ -8,11 +8,11 @@ function InputItem({ id, label, value, name, type, maxLength, disabled, showCoun
     
   return (
     <div className={cs('input-container')}>
-        <label htmlFor={id} className={cs('input-label')}>
+        {/* <label htmlFor={id} className={cs('input-label')}>
             {label}
             <span className={cs('require-text')}>*</span>
-        </label>
-        <Form.Item name={name} className={cs('input-wrap')} rules={[{ required: name !== 'id' && true, message: 'Vui lòng nhập trường này' }]}>
+        </label> */}
+        <Form.Item name={name} label={label} className={cs('input-wrap')} rules={[{ required: name !== 'id' && true, message: 'Vui lòng nhập trường này' }]}>
             <Input 
                 name={name}
                 value={value}

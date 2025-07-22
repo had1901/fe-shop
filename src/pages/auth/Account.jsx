@@ -69,7 +69,7 @@ function Account() {
     const user = useSelector(state => state.auth.info)
     const cs = useStyles(styles)
     let currentTab = accountTabs.find(tab => tab.key === accountTab)
-    
+    console.log(user)
   return (
     <div className={cs('account')}>
         <div className='container'>
@@ -78,7 +78,7 @@ function Account() {
                     <div className={cs('sidebar-left')}>
                         <div className={cs('username')}>
                             <div className={cs('avatar')}><FaUserCircle /></div>
-                            <span>{user?.username}</span>
+                            <span>{`${user?.firstname} ${user?.lastname}`}</span>
                         </div>
                         <ul className={cs('menu-profile')}>
                             <li>

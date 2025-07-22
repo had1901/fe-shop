@@ -1,27 +1,104 @@
+@use '../../utils/scss/mixin' as *;
+
 .news{
     background: #fff;
     padding: 20px;
     border-radius: 6px;
     margin-top: 20px;
+
+    @include screen(tablet) {
+        padding: 10px 16px;
+        margin-top: 16px;
+    }
+    @include screen(mobile) {
+        padding: 6px 10px;
+        margin-top: 12px;
+    }
 }
 .news_heading{
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
-    font-size: 24px;
+    font-size: rem(24);
+
+    @include screen(tablet) {
+        font-size: rem(22);
+        padding: 10px 0 0;
+    }
+    @include screen(mobile) {
+        font-size: rem(20);
+        padding: 10px 0 0;
+
+    }
+}
+.news_heading h3{
+
+    @include screen(mobile) {
+        font-size: rem(16);
+    }
 }
 .news_heading h4{
-    font-size: 18px;
+    font-size: rem(18);
+
+    @include screen(mobile) {
+        font-size: rem(12);
+    }
 }
 .news_list {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
     overflow: hidden;
-}
 
+    @include screen(mobile) {
+            justify-content: flex-start;
+    }
+
+}
+.img-box{
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid #ebebebea;
+}
 .news_item{
     width: calc(100% / 4 - 10px);
     padding: 10px;
+    flex-shrink: 0;
+
+    @include screen(tablet) {
+        width: calc(100% / 3 - 10px);
+        padding: 8px;
+    }
+    @include screen(mobile) {
+        width: calc(100% / 2 - 10px);
+        flex-grow: 1;
+        padding: 8px 4px;
+    }
+}
+
+.news-text{
+    padding: 4px 0;
+    line-height: 1.3rem;
+    @include limit-line(3);
+
+    @include screen(laptop) {
+        font-size: rem(14);
+        line-height: 1.2rem;
+        @include limit-line(3)
+
+    }
+    @include screen(tablet) {
+        font-size: rem(14);
+        line-height: 1.2rem;
+        @include limit-line(2)
+
+    }
+    @include screen(mobile) {
+        font-size: rem(12);
+        line-height: 1rem;
+
+        @include limit-line(2)
+    }
 }

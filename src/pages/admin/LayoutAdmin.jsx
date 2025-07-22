@@ -72,10 +72,14 @@ function LayoutAdmin() {
         ]),
         configMenuItem(<NavLink to={'/auth/admin/orders'} >Đơn hàng</NavLink>, '6', <OrderedListOutlined />),
         configMenuItem(<NavLink to={'/auth/admin/accounts'} >Tài khoản</NavLink>, '7', <UserOutlined />),
-        configMenuItem(<NavLink to={'/auth/admin/promotion'} >Khuyến mãi</NavLink>, '8', <ThunderboltOutlined />),
-        configMenuItem(<NavLink to={'/auth/admin/feedback'} >Đánh giá sản phẩm</NavLink>, '9', <CommentOutlined />),
-        configMenuItem(<NavLink to={'/auth/admin/analytics'} >Thống kê</NavLink>, '10', <BarChartOutlined />),
-        configMenuItem(<NavLink to={'/auth/admin/setting'} >'Cài đặt'</NavLink>, '11', <SettingOutlined />),
+        configMenuItem(<NavLink to={''} >Giao diện</NavLink>, '8', <ProductOutlined />, [
+          configMenuItem(<NavLink to={'/auth/admin/banners'} >Banner</NavLink>, '9'),
+          configMenuItem(<NavLink to={'/auth/admin/slideshow'} >Slideshow</NavLink>, '10'),
+        ]),
+        configMenuItem(<NavLink to={'/auth/admin/promotion'} >Khuyến mãi</NavLink>, '11', <ThunderboltOutlined />),
+        configMenuItem(<NavLink to={'/auth/admin/feedback'} >Đánh giá sản phẩm</NavLink>, '12', <CommentOutlined />),
+        configMenuItem(<NavLink to={'/auth/admin/analytics'} >Thống kê</NavLink>, '13', <BarChartOutlined />),
+        configMenuItem(<NavLink to={'/auth/admin/setting'} >'Cài đặt'</NavLink>, '14', <SettingOutlined />),
     ]
 
   return (
