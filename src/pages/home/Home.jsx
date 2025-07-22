@@ -18,8 +18,7 @@ import axiosApi from './../../services/axios';
 import useStyles from '../../hooks/useStyles';
 // const apiUrl = import.meta.env.VITE_API_URL
 
-console.log("MODE:", import.meta.env.MODE)
-console.log("API URL:", import.meta.env.VITE_API_URL)
+
 
 function HomePage() {
   const cs = useStyles(styles)

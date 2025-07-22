@@ -39,6 +39,8 @@ import Banner from './pages/admin/interface/Banner';
 import Categories from './pages/admin/categories/Categories';
 import AddressPage from './pages/address/AddressPage';
 
+console.log("MODE:", import.meta.env.MODE)
+console.log("API URL:", import.meta.env.VITE_API_URL)
 
 const routesAdmin = [
   {
