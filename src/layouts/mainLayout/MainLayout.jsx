@@ -6,7 +6,7 @@ import { toggle } from '~/store/navbar/navbarSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from '~/hooks/useStyles';
 import ToolbarMenu from '../../components/toolbar/ToolbarMenu';
-import Header from './../header/Header';
+import Header from './../header/Header.jsx';
 
 function MainLayout() {
   const [toggleClass, setToggleClass] = useState('')
