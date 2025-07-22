@@ -12,15 +12,15 @@ import { BsCashCoin, BsClipboard2Check } from "react-icons/bs";
 import { BsCartCheck } from "react-icons/bs";
 import { FaRegUser } from "react-icons/fa6";
 
-import { navigateList } from './_navigation';
+import { navigateList } from './_navigation.jsx';
 // import { menuItems, renderMenuItems } from '../sidebar/_sidebarMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggle } from '~/store/navbar/navbarSlice';
-import SidebarMenu from './../sidebar/SidebarMenu';
+import SidebarMenu from '../sidebar/SidebarMenu.jsx';
 import { debounce } from '~/utils/debounce/_debounce';
 import { Link } from 'react-router';
 import useStyles from '~/hooks/useStyles';
-import { open } from '../../store/navbar/formLoginSlice';
+import { open } from '../../store/navbar/formLoginSlice.js';
 import { PiHandWaving } from 'react-icons/pi';
 import { HiOutlineClipboardDocumentList } from 'react-icons/hi2';
 import { MdOutlineLogout } from 'react-icons/md';
