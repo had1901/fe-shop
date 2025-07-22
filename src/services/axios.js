@@ -28,7 +28,8 @@ axiosApi.interceptors.request.use((request) => {
 axiosApi.interceptors.response.use((response) => {
   return response.data
 }, (error) => {
-  if(error.response?.status === 404) {
+  console.log(error.response)
+  if(error.response?.data?.hasToken === false) {
     const handleLogout = async () => {
       return await axiosApi.post('/auth/logout', {})
     }
