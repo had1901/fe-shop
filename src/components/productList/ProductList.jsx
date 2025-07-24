@@ -43,42 +43,44 @@ function ProductList({ products, title, numberDisplay, noHeading }) {
   },[products])
 
   return (
-    <section className={cs('product_list')}>
-      <div className={cs('content')}>
-        <div className={cs('header')} hidden={noHeading ? true : false}>
-          <div className={cs('top')} >
-            <h3 className={cs('heading')}>{title}</h3>
-            <span className={cs('pay_method')}>
-              <i className={cs('icon')}><MdLocalShipping /></i>
-              <span className={cs('text')}>{products?.method}</span>
-            </span>
+    <section className={cs('product_list', 'row')}>
+      <div className='col gx-xxl-2 gx-xl-2 gx-lg-2 gx-md-0 gx-sm-0 gx-mn-0'>
+        <div className={cs('content')}>
+          <div className={cs('header')} hidden={noHeading ? true : false}>
+            <div className={cs('top')} >
+              <h3 className={cs('heading')}>{title}</h3>
+              <span className={cs('pay_method')}>
+                <i className={cs('icon')}><MdLocalShipping /></i>
+                <span className={cs('text')}>{products?.method}</span>
+              </span>
+            </div>
+            {/* <ul className={cs('pc_list')}>
+              {productList.map((brand) => (
+                <li key={brand} className={cs('pc_item')}>
+                  <a href='#' className={cs('pc_item_link')}>{brand}</a>
+                </li>
+                
+              ))}
+                <li className={cs('pc_item')}>
+                  <a href='#' className={cs('pc_item_link')}>Xem tất cả</a>
+                </li>
+            </ul> */}
           </div>
-          {/* <ul className={cs('pc_list')}>
-            {productList.map((brand) => (
-              <li key={brand} className={cs('pc_item')}>
-                <a href='#' className={cs('pc_item_link')}>{brand}</a>
-              </li>
-              
-            ))}
-              <li className={cs('pc_item')}>
-                <a href='#' className={cs('pc_item_link')}>Xem tất cả</a>
-              </li>
-          </ul> */}
-        </div>
-        <div className={cs('sliders')}>
-          <div ref={trackRef}  className={cs('slider_track')}>
-            {products.length && products.map((item, i) => (
-              <ProductCard 
-                    key={i} 
-                    ref={el => cardRef.current[i] = el} 
-                    productItem={item} 
-                    columnValue={numberDisplay} 
-                    hasTechnical 
-                    hasLabelTop 
-                  />
-            ))}
-            <Button onclick={prevSlide} content={<FaChevronLeft/>} customClass='btn-slider btn-left-products' />
-            <Button onclick={nextSlide} content={<FaChevronRight/>} customClass='btn-slider btn-right-products' />
+          <div className={cs('sliders')}>
+            <div ref={trackRef}  className={cs('slider_track')}>
+              {products.length && products.map((item, i) => (
+                <ProductCard 
+                      key={i} 
+                      ref={el => cardRef.current[i] = el} 
+                      productItem={item} 
+                      columnValue={numberDisplay} 
+                      hasTechnical 
+                      hasLabelTop 
+                    />
+              ))}
+              <Button onclick={prevSlide} content={<FaChevronLeft/>} customClass='btn-slider btn-left-products' />
+              <Button onclick={nextSlide} content={<FaChevronRight/>} customClass='btn-slider btn-right-products' />
+            </div>
           </div>
         </div>
       </div>

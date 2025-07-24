@@ -11,6 +11,12 @@
 .flash_sale_body{
     padding: 0 10px;
 
+    @include screen(tablet){
+        padding: 0;
+    }
+    @include screen(mobile){
+        padding: 0;
+    }
 }
 .flash_sale_content{
     // background-image: url('../../assets/flash_sale/background.webp');
@@ -19,6 +25,9 @@
     overflow: hidden;
     border-radius: 8px;
 
+    @include screen(tablet){
+        border-radius: 0;
+    }
     @include screen(mobile){
         border-radius: 0;
     }

@@ -1,19 +1,24 @@
-@use '../../utils/scss/mixin' as *;
+@use '~/utils/scss/mixin' as *;
 
 .product_list{
-    background-color: #fff;
+    // background-color: #fff;
     border-radius: 6px;
     margin-top: 20px;
 
     @include screen(tablet){
         margin-top: 16px;
+        border-radius: 0;
+
     }
     @include screen(mobile){
         margin-top: 12px;
+        border-radius: 0;
+        
     }
 }
 .content{
     padding: 10px;
+    background-color: #ffffff;
 }
 .haha{
     background: #e35050;
@@ -47,7 +52,7 @@
         font-size: rem(18);
     }
     @include screen(mobile){
-        font-size: rem(16);
+        font-size: rem(18);
     }
 
     &::after{
