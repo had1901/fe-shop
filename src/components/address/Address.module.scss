@@ -1,6 +1,12 @@
+@use '../../utils/scss/mixin' as *;
+
 .address{
     position: relative;
     padding-top: 20px;
+
+    @include screen(mobile){
+        padding-top: 10px;
+    }
 }
 .address::before{
     content: '';
@@ -15,12 +21,20 @@
     font-weight: bold;
     font-size: 18px;
     text-decoration: underline;
+
+    @include screen(mobile){
+        font-size: rem(16);
+    }
 }
 .item{
     word-spacing: 2px;
     margin: 12px 0;
     display: flex;
-    font-size: 14px;
+    font-size: rem(14);
     align-items: center;
     font-weight: 500;
+
+    @include screen(mobile){
+        font-size: rem(12);
+    }
 }

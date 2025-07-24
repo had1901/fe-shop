@@ -24,6 +24,10 @@
 .header{
     display: flex;
     padding: 12px 20px 12px;
+
+    @include screen(mobile){
+        padding: 4px 20px 12px;
+    }
 }
 .top{
     display: flex;
@@ -94,6 +98,7 @@
 
 .sliders{
     position: relative;
+    margin: 0 -4px;
 }
 .slider_track{
     display: flex;
@@ -101,8 +106,7 @@
     width: 100%;
     scroll-snap-type: x proximity;
     scroll-behavior: smooth;
-    overflow: hidden;
-
+    // overflow: hidden;
     &::-webkit-scrollbar{
         display: none;
     }    
@@ -111,5 +115,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+
 }
+
 

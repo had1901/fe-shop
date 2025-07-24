@@ -9,6 +9,7 @@ import { FaChevronRight } from "react-icons/fa6";
 import useStyles from '~/hooks/useStyles';
 import axiosApi from '../../services/axios';
 import TabDate from './TabDate';
+import { useResponsive } from '../../hooks/useResponsive';
 
 function FlashSale() {
     // const [currentIndex, setCurrentIndex] = useState(0)
@@ -22,8 +23,8 @@ function FlashSale() {
     const [isClick, setIsClick] = useState(false)
     const [data, setData] = useState([])
     const cs = useStyles(styles)
-    
-
+    const numberDisplay = useResponsive()
+    console.log('flash-sale', numberDisplay)
     const handleDragStop = () => {
         setIsDragging(false)
     }
@@ -150,7 +151,7 @@ function FlashSale() {
                                 <ProductCard 
                                     key={i} 
                                     ref={(el) => itemRef.current[i] = el} 
-                                    columnValue={6} 
+                                    columnValue={numberDisplay} 
                                     productItem={product} 
                                     hasFlashSale
                                 />

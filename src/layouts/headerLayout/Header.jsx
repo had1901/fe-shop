@@ -186,7 +186,7 @@ function Header() {
 
                         <div className={cs('search')}>
                           <div className={cs('inputSearchWrap')} >
-                            <input type='text' placeholder='Bạn cần tìm gì?' className={cs('inputSearch')}  />
+                            <input type='text' placeholder='Bạn cần tìm gì?' name='search' className={cs('inputSearch')}  />
                             <span className={cs('inputIcon')}><IoSearch /></span>
                           </div>
                         </div>
@@ -237,15 +237,6 @@ function Header() {
 
                                         </Link>
                                       </li>
-                                      {/* <li className={cs('dropdown-model-user-item')}>
-                                        <Link to='/logout'>
-                                          <span className={cs('dropdown-model-user-link')}>
-                                            <MdOutlineLogout />
-                                            <span>Đã xem gần đây</span>
-                                          </span>
-
-                                        </Link>
-                                      </li> */}
                                       <li className={cs('dropdown-model-user-item')} onClick={handleLogout}>
                                         <Link href='#' >
                                           <span className={cs('dropdown-model-user-link')}>

@@ -1,24 +1,87 @@
+@use '~/utils/scss/mixin' as *;
+
+
 .cart-status{
     margin: 30px 0;
+
+    @include screen(laptop){
+        margin: 22px 0;
+    }
+    @include screen(tablet){
+        margin: 18px 0;
+    }
+    @include screen(mobile){
+        margin: 12px 0;
+    }
 }
-
-
-
 .img-qr{
     width: 50%;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @include screen(laptop){
+        width: 60%;
+    }
+    @include screen(tablet){
+        width: 70%;
+    }
+    @include screen(mobile){
+        width: 80%;
+    }
+
+    img{
+        @include screen(laptop){
+            width: 80%;
+        }
+        @include screen(tablet){
+            width: 75%;
+        }
+        @include screen(mobile){
+            width: 70%;
+        }
+    }
 }
 .info-pay{
-    margin-top: 30px;
+    display: inline-block;
+    margin: 30px 0 0;
+
+    @include screen(tablet){
+        margin: 20px 0 0;
+    }
+    @include screen(mobile){
+        margin: 10px 0 0;
+    }
 }
+
 .info-pay p{
-    text-align: center;
+    text-align: left;
     margin-top: 8px;
-    font-weight: 500;
     white-space: nowrap;
+
+    @include screen(tablet){
+        // text-align: left;
+    }
+    @include screen(mobile){
+        text-align: left;
+        font-size: rem(14);
+    }
+}
+.qr-code-label{
+    display: inline-block;
+    min-width: rem(110);
+    font-weight: 500;
+
+    @include screen(mobile){
+        min-width: rem(90);
+    }
 }
 .info-pay span{
-    text-align: center;
     margin-top: 8px;
-    font-weight: 400;
+}
+.cart-status-price{
+    color: #E30019;
+    font-weight: 500;
 }

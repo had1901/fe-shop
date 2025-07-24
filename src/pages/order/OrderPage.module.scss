@@ -1,15 +1,29 @@
 
+@use '~/utils/scss/mixin' as *;
 
 .inner-order-page{
     border-radius: 6px;
     padding: 20px;
     background: #fff;
-    max-width: 50%;
+    max-width: 60%;
     margin: 20px auto;
+
+    @include screen(laptop){
+        max-width: 80%;
+    }
+    @include screen(tablet){
+        max-width: 100%;
+    }
+    @include screen(mobile){
+        max-width: 100%;
+        padding: 8px;
+        margin: 0;
+    }
 }
 .order-heading{
     background: #dcffd9;
-    color: #139407;
+    background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+    color: #2dc26d;
     padding: 14px 0;
     font-weight: 500;
     font-size: 18px;
@@ -22,27 +36,67 @@
     margin: 18px auto;
     width: 80%;
     text-align: center;
+
+    @include screen(tablet){
+        margin: 14px auto;
+    }
+    @include screen(mobile){
+        margin: 10px auto;
+        font-size: rem(14);
+    }
 }
 .info{
-    padding: 20px;
-    background: #dadada;
+    padding: rem(20);
+    // background: #dadada;
+    background-image: radial-gradient( circle 400px at 6.8% 8.3%,  rgba(255,244,169,1) 0%, rgba(255,244,234,1) 100.2% );
+    background-image: linear-gradient(to top, #fff1eb 0%, #ace0f9 100%);
+    background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
+    background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+    
+    border-radius: 6px;
+
+    @include screen(tablet){
+        padding: rem(14);
+    }
+    @include screen(mobile){
+        padding: rem(10);
+    }
 }
 .info-order{
     margin: 14px 0;
+
+    @include screen(tablet){
+        margin: 10px 0;
+    }
+    @include screen(mobile){
+        margin: 6px 0;
+    }
 }
 .info-order-header{
-    font-size: 16px;
+    font-size: rem(18);
     font-weight: 500;
-}
-.info-order-header{
-    font-size: 18px;
-    font-weight: 500;
+
+    @include screen(tablet){
+        font-size: rem(16);
+    }
+    @include screen(mobile){
+        font-size: rem(14);
+    }
 }
 .info-order-text{
     display: block;
     color: #2c2c2c;
-    padding-top: 8px;
-    font-size: 16px;
+    padding-top: rem(8);
+    font-size: rem(16);
+
+    @include screen(tablet){
+        padding-top: rem(6);
+        font-size: rem(14);
+    }
+    @include screen(mobile){
+        padding-top: rem(4);
+        font-size: rem(12);
+    }
 }
 .price{
     font-weight: 500;
@@ -53,5 +107,19 @@
     text-align: center;
 }
 .btn-link-home button{
-    margin-top: 20px;
+    margin-top: rem(20);
+
+    @include screen(tablet){
+        margin-top: rem(14);
+    }
+    @include screen(mobile){
+        margin-top: rem(10);
+    }
+}
+.btn{
+    background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+    box-shadow: none;
+    outline: none;
+    border: none;
+    color: #707070;
 }

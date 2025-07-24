@@ -9,9 +9,10 @@
     right: 0;
     // width: 100%;
     bottom: env(safe-area-inset-bottom, 0);
+    border-top: 2px solid $color-primary;
     height: 60px;
     background: #fff;
-    border-top: 2px solid $color-primary;
+    z-index: 10;
 
     @include screen(tablet) {
         display: block;

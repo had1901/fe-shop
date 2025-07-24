@@ -1,9 +1,11 @@
-
-
+@use '~/utils//scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
 
 .product_card{
     // --column: 5;
-    flex: 0 0 calc(100% / var(--column));
+    width: calc(100% / var(--column));
+    // flex: 1 1 calc((100% / var(--column)) - 4px);
+    flex-shrink: 0;
     padding: 0 4px;
     scroll-snap-align: start;
     will-change: transform;
@@ -18,12 +20,6 @@
     }
 }
 
-.product_card:last-child{
-    padding-right: 0;
-}
-.product_card:first-child{
-    padding-left: 0;
-}
 .product_card_bg{
     display: flex;
     flex-direction: column;
@@ -41,6 +37,8 @@
     padding-bottom: 10px;
     height: 34px;
     white-space: nowrap;
+    
+    
 }
 .product_card_img_wrap{
     
@@ -52,7 +50,7 @@
 }
 
 .product_card_bottom{
-    padding: 16px 0;
+    padding: 16px 0 0;
     // flex: 1;
 }
 .product_label{
@@ -80,20 +78,32 @@
     min-width: 100px;
     height: 100%;
     background-color: #1d9801;
+    background-color: $bg-button;
+    background-color: #85d2fc;
     padding: 5px 8px;
     border-radius: 999px;
     white-space: nowrap;
     text-align: center;
 
+    @include screen(mobile) {
+        padding: 4px 2px; 
+    }
+
 }
 .product_desc{
     margin: 0 0 10px;
-    font-size: 14px;
+    font-size: rem(14);
     font-weight: 600;
     position: relative;
     user-select: none;
     pointer-events: none;
     
+    @include screen(mobile) {
+        font-size: rem(12);
+        margin: 0;
+
+    }
+
     & h3{
         color: #333333;
         line-height: 20px;
@@ -149,6 +159,10 @@
 .price{
     margin-bottom: 8px;
 
+    @include screen(mobile) {
+        margin-bottom: 4px;
+    }
+
     &_default{
         font-size: 13px;
         font-weight: 400;
@@ -158,9 +172,11 @@
     }
     &_sale {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         user-select: none;
-
+        row-gap: 2px;
+        column-gap: 10px;
         &_main{
             font-size: 16px;
             font-weight: 600;
@@ -175,7 +191,7 @@
             border: 1px solid #E30019;
             line-height: 16px;
             font-size: 13px;
-            margin-left: 10px;
+            // margin-left: 10px;
             user-select: none;
         }
     }
@@ -185,7 +201,7 @@
     display: flex;
     align-items: center;
     font-size: 12px;
-    margin-bottom: 8px;
+    // margin-bottom: 8px;
     
     &_number{
         color: #FF8A00;

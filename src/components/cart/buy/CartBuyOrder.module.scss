@@ -1,9 +1,15 @@
+@use '~/utils/scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
+
 .form-cart{
-    max-width: 620px;
-    margin: 20px auto;
+    max-width: 800px;
+    margin: 20px 0;
     padding: 10px;
     background: #fff;
-    border-radius: 6px;
+
+    @include screen(mobile){
+        margin: 0;
+    }
 }
 .cart-header{
     border-radius: 6px;
@@ -83,6 +89,9 @@
     margin: 40px 0 0;
     text-align: center;
 
+    @include screen(mobile){
+        margin: 0;
+    }
 }
 .cart-content p{
     text-align: center;
@@ -103,6 +112,22 @@
 .cart-bot{
     padding: 24px 10px;
     border-top: 1px solid #b8b8b8;
+
+    // @include screen(mobile){
+    //     padding: 10px 6px;
+    // }
+}
+.heading{
+    display: none;
+    text-align: center;
+    padding: rem(10) rem(14);
+    border-radius: 2px;
+    color: $color-sub-text;
+    background: radial-gradient(circle,rgb(255, 255, 255) 0%, rgb(226, 226, 226) 100%);
+
+    @include screen(mobile){
+        display: block;
+    }
 }
 .shipping{
     display: flex;

@@ -1,21 +1,42 @@
+@use '../../utils/scss/mixin' as *;
+@use '../../utils/scss/variables' as *;
+
 .form-cart{
-    max-width: 620px;
-    min-height: 500px;
+    max-width: 800px;
+    min-height: 300px;
+    height: auto;
     margin: 20px auto;
     padding: 10px;
     background: #fff;
     border-radius: 6px;
+
+    @include screen(mobile){
+        margin: 0 auto;
+        border-radius: 0;
+
+    }
 }
 .cart-header{
     border-radius: 6px;
 
+    @include screen(mobile){
+        visibility: hidden;
+        height: 0;
+    }
 }
 .cart-checkout{
-    position: relative;
-    background: #ececece7;
-    padding: 24px;
+    position: sticky;
+    top: 50px;
+    // background: #ececece7;
+    background: #e6e6e6e7;
+    padding: rem(24);
+    border-radius: 4px;
 
+    @include screen(mobile){
+        padding: rem(14);
+    }
 }
+
 .steps{
 
     display: flex;
@@ -59,10 +80,17 @@
 .completed-text-step{
     color: rgb(0, 155, 39);
 }
+.step-text{
+    @include screen(mobile){
+        font-size: rem(14);
+    }
+}
 .active-text-step{
     // color: #E30019;
     color: rgb(0, 155, 39);
     font-weight: 500;
+
+    
 }
 .completed-step, .active-step, .completed-step, .active-text-step{
     // transition: color 0.2s ease;
@@ -103,41 +131,66 @@
 .cart-bot{
     padding: 24px 10px;
     border-top: 1px solid #b8b8b8;
+
+    @include screen(mobile){
+        padding: 14px 4px;
+    }
 }
 .shipping{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-size: 16px;
+    font-size: rem(16);
     font-weight: 500;
-    // border-top: 1px solid ;
+
+    @include screen(mobile){
+        font-size: rem(14);
+    }
 }
 .total-price{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-top: 14px;
+    margin-top: rem(14);
+
+    @include screen(mobile){
+        margin-top: rem(10);
+    }
 }
 .total-text{
     font-weight: 500;
-    font-size: 18px;
+    font-size: rem(18);
+
+    @include screen(mobile){
+        font-size: rem(14);
+    }
 }
 .total-number{
     color: #E30019;
     font-weight: 500;
-    font-size: 26px;
+    font-size: rem(26);
+
+    @include screen(mobile){
+        font-size: rem(16);
+    }
 }
 .btn-checkout{
     width: 100%;
     display: block;
     margin: 28px auto 20px;
     text-align: center;
-    height: 60px;
+    height: rem(60);
     border-radius: 4px;
-    font-size: 18px;
+    font-size: rem(18);
     font-weight: 600;
     color: #fff;
     background: #E30019;
+
+    @include screen(mobile){
+        margin: 10px auto 0;
+        height: rem(40);
+        font-size: rem(14);
+    }
 }
 .pad{
     width: 500px;

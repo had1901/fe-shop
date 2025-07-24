@@ -16,7 +16,7 @@ import CountUp from 'react-countup';
 import CartStatus from './status/CartStatus'
 import { useNavigate } from 'react-router'
 import { useForm } from "react-hook-form";
-import { Button } from 'antd'
+import { Button, Steps } from 'antd'
 import { generateOrderCode } from '../../utils/convertString/_gennerateOrderCode'
 
 const checkoutSteps = [
@@ -41,7 +41,7 @@ const checkoutSteps = [
 
 
 function Cart() {
-    const [currentStep, setCurrentStep] = useState(1)
+    const [currentStep, setCurrentStep] = useState(0)
     const cs = useStyles(styles)
     const stepIconRef = useRef([])
     const stepRef = useRef()
@@ -65,17 +65,17 @@ function Cart() {
     }
 
     const stepConfigs = {
-        1: {
+        0: {
           label: "Đặt hàng ngay",
-          action: () => setCurrentStep(2),
+          action: () => setCurrentStep(1),
         },
-        2: {
+        1: {
           label: "Đặt hàng",
           action: () => {
-            if(isValidateForm()) setCurrentStep(3)
+            if(isValidateForm()) setCurrentStep(2)
           },
         },
-        3: {
+        2: {
           label: "Thanh toán",
           action: async () => {
             const info = {
@@ -89,11 +89,11 @@ function Cart() {
             }
             localStorage.setItem('infoPayment', JSON.stringify(info))
             if(selected === 'cod' || selected === 'qr-code') {
-                setCurrentStep(4)
+                setCurrentStep(3)
             }
           },
         },
-        4: {
+        3: {
           label: "Hoàn tất",
           action: async () => {
             const res = await handleCreateOrder()
@@ -152,38 +152,40 @@ function Cart() {
 
     const renderComponentByStep = (currentStep) => {
             switch (currentStep) {
+                case 0:
+                    return <CartBuyOrder currentStep={currentStep}/>
                 case 1:
-                    return <CartBuyOrder />
-                case 2:
                     return <CartOrderInfo currentStep={currentStep} />
-                case 3:
+                case 2:
                     return <CartPay />
-                case 4:
+                case 3:
                     return <CartStatus />
                 default:
                     return <CartBuyOrder />
             }
     }
 
-    useLayoutEffect(() => {
-        const firstEl = stepIconRef.current[0];
-        const left = firstEl.offsetLeft + firstEl.offsetWidth / 2
-        setMargins({
-            marginLeft: left,
-            marginRight: left
-        })
-        stepIconRef.current = []
-    },[currentStep, stepIconRef])
+    // useLayoutEffect(() => {
+    //     const firstEl = stepIconRef.current[0];
+    //     const left = firstEl.offsetLeft + firstEl.offsetWidth / 2
+    //     setMargins({
+    //         marginLeft: left,
+    //         marginRight: left
+    //     })
+    //     stepIconRef.current = []
+    // },[currentStep, stepIconRef])
 
     // API lấy danh sách product
     useEffect(() => {
-        const fetchCarts = async () => {
-            const res = await axiosApi.post('get-all-cart', {id: user.id})
-            if(res?.dt?.length > 0) {
-                dispatch(setCarts(res?.dt))
-            }
-          }
-        fetchCarts()
+        if(user?.id){
+            const fetchCarts = async () => {
+                const res = await axiosApi.post('get-all-cart', {id: user.id})
+                if(res?.dt?.length > 0) {
+                    dispatch(setCarts(res?.dt))
+                }
+              }
+            fetchCarts()
+        }
     },[user?.id, dispatch, isLoading])
 
     // Tính tổng tiền giỏ hàng
@@ -205,7 +207,7 @@ function Cart() {
     return (
         <div className={cs('form-cart')}>
             <div className={cs('cart-header')}>
-                <div ref={stepRef} className={cs('cart-checkout')}>
+                {/* <div ref={stepRef} className={cs('cart-checkout')}>
                     <ul  className={cs('steps')}>
                         {checkoutSteps.length && checkoutSteps.map((step, index) => (
                             <li  
@@ -235,20 +237,45 @@ function Cart() {
                     >
                         <div className={cs('process')} style={{width: `${calculatorProcessBar()}%`}}></div>
                     </div>
+                </div> */}
+                <div className={cs('cart-checkout')}>
+                    <Steps
+                        current={currentStep}
+                        responsive={true}
+                        items={[
+                            {
+                                title: 'Giỏ hàng',
+                                // description: 'Dat hang',
+                            },
+                            {
+                                title: 'Thông tin',
+                                // description: 'Dat hang',
+                                // subTitle: 'Left 00:00:08',
+                            },
+                            {
+                                title: 'Thanh toán',
+                                // description: 'Dat hang',
+                            },
+                            {
+                                title: 'Hoàn tất',
+                                // description: 'Dat hang',
+                            },
+                        ]}
+                    />
                 </div>
             </div>
-            {   isLoading 
+            {isLoading 
                 ? (<div className={cs('spinner')}><FadeLoader  color="#ff8f8f" size={60} width={2} speedMultiplier={2} cssOverride={{ margin: '20px auto'}} /></div>) 
                 : renderComponentByStep(currentStep)
             } 
             {carts.length > 0 && 
                 <div className={cs('cart-bot')}>
                     <div className={cs('shipping')}>
-                        <span>Phí vận chuyển:</span>
+                        <span>Phí vận chuyển</span>
                         <span>Miễn phí</span>
                     </div>
                     <div className={cs('total-price')}>
-                        <span className={cs('total-text')}>Tổng tiền:</span>
+                        <span className={cs('total-text')}>Tổng tiền</span>
                         <span className={cs('total-number')}>
                             <CountUp
                                 end={total}
@@ -259,8 +286,13 @@ function Cart() {
                         </span>
                     </div>
                     
-                    <div onClick={() => stepConfigs[currentStep]?.action()}>
+                    {/* <div onClick={() => stepConfigs[currentStep]?.action()}>
                         <Button className={cs('btn-checkout')}>
+                            {stepConfigs[currentStep]?.label}
+                        </Button>
+                    </div> */}
+                    <div onClick={() => {stepConfigs[currentStep]?.action()}}>
+                        <Button className={cs('btn-checkout')} type='submit'>
                             {stepConfigs[currentStep]?.label}
                         </Button>
                     </div>

@@ -1,15 +1,15 @@
+@use '../../utils/scss/mixin' as *;
+
 .breadcrumb-navigate{
     padding: 16px 0;
 
-    // Mobile
-    @media (min-width: 576px) and (max-width: 739px) {
+    @include screen(tablet){
         padding: 10px 20px;
-        
     }
-    @media (max-width: 575px) {
-        padding: 8px 16px;
-        
+    @include screen(mobile){
+        display: none;
     }
+    
 }
 .img-nav{
     display: flex;

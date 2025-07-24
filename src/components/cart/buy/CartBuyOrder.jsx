@@ -11,13 +11,14 @@ import { convertPrice } from '../../../utils/convertString/_convertPrice';
 import { Link } from 'react-router'
 
 
-function CartBuyOrder() {
+function CartBuyOrder({ currentStep }) {
     const cs = useStyles(styles)
     const carts = useSelector(state => state.cart.carts)
     
   return (
         <div className={cs('form-cart')}>
             <div className={cs('cart-content')}>
+                {currentStep === 0 && <h3 className={cs('heading')}>Giỏ hàng của bạn</h3>}
                 {carts.length > 0 
                     ? carts.map((item, i) => (
                         <ProductCart key={i} item={item} />

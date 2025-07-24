@@ -74,25 +74,25 @@ function Account() {
     <div className={cs('account')}>
         <div className='container'>
             <div className={cs('information', 'row')}>
-                <div className='col-xl-3 col-lg-3 col-md-3 col-sm-3'>
+                <div className='col-xxl-3 col-xl-3 col-lg-4 col-md-2 col-sm-2 col-mn-12 p-md-6 gx-md-1 gx-sm-1 gx-mn-1'>
                     <div className={cs('sidebar-left')}>
                         <div className={cs('username')}>
                             <div className={cs('avatar')}><FaUserCircle /></div>
                             <span>{`${user?.firstname} ${user?.lastname}`}</span>
                         </div>
                         <ul className={cs('menu-profile')}>
-                            <li>
-                                {accountTabs.map(nav => (
+                            {accountTabs.map(nav => (
+                                <li className={cs(`menu-profile-item ${accountTab === nav.key && 'active'}`)}>
                                     <Link to={`#`} key={nav.key} className={cs('menu-profile-link')} onClick={() => setAccountTab(nav.key)}>
                                         <span className={cs('menu-profile-icon')}>{nav.icon}</span>
-                                        <span>{nav.title}</span>
+                                        <span className={cs('menu-profile-label')}>{nav.title}</span>
                                     </Link>
-                                ))}
-                            </li>
+                                </li>
+                            ))}
                         </ul>
                     </div>
                 </div>
-                <div className='col-xl-9 col-lg-9 col-md-9 col-sm-9'>
+                <div className='col-xxl-9 col-xl-9 col-lg-8 col-md-10 col-sm-10 col-mn-12 gx-md-1 gx-sm-1 gx-mn-1'>
                     <div className='content-right' style={{background: '#fff', height: '100%'}}>
                         {/* {orders.length < 0 && <div><img loading='lazy' src={nodata} alt="" /></div>} */}
                         <AnimatePresence mode="wait" className={cs('sidebar-right')}>

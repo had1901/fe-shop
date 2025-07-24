@@ -1,10 +1,13 @@
-@use '../../utils/scss/mixin' as *;
+@use '~/utils/scss/mixin' as *;
 
 .sidebar-right{
     display: flex;
     height: 100%;
     border-radius: 6px;
 
+    // @include screen(laptop){
+    //     flex-direction: column;
+    // }
     .sidebar-slider-left{
         display: flex;
         flex-direction: column;
@@ -44,8 +47,14 @@
 }
 .slider-img{
     opacity: 1;
-    padding: 8px;
+    // padding: 8px 0;
     
+    @include screen(tablet){
+        padding: 8px;
+    }
+    @include screen(mobile){
+        padding: 8px;
+    }
 }
 .sidebarRight img{
     width: 100%;

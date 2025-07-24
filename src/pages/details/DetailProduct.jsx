@@ -227,57 +227,59 @@ function DetailProductPage() {
       <div className={cs('product-main')}>
         <div className='row'>
           <section className='col-xxl-7 col-xl-7 col-lg-6 col-md-12 col-sm-12 col-mn-12'>
-            <div className={cs('box-slide')}>
-              <div className={cs('wrapper-slide')}>
-                <div className={cs('carousel')}>
-                  <ul className={cs('slide-show')} style={{ transform: `translateX(${-currentIndex * width}px)`}}>
-                    {newImgs.length && newImgs.map((item, index) => (
-                      <li key={index} className={cs('img-item')} ref={imgRef} onClick={handlePreviewImg}>
-                          <img loading='lazy' src={item.url} alt="product" className={cs('img')}/>
-                          <div className={cs('icon-preview')}> <TbEyeSearch  /></div>
-                      </li>
-                    ))}
-                  </ul>
-                  <div className={cs('arrow')}>
-                      <button 
-                          // ref={chevLeftRef}
-                          className={cs('arrow-left chevron')}
-                          onClick={handlePrev}
-                          style={{ color: currentIndex === 0 ? '#ccc' : '#1f1f1f'}}
-                      ><FaChevronLeft /></button>
-                      <button 
-                          // ref={chevRightRef}
-                          className={cs('arrow-right chevron')}
-                          onClick={handleNext}
-                          style={{ color: currentIndex === newImgs.length - 1 ? '#ccc' : '#1f1f1f'}}
-                      ><FaChevronRight /></button>
+              <div className={cs('box-slide')}>
+                  <div className={cs('carousel')}>
+                    <ul className={cs('slide-show')} style={{ transform: `translateX(${-currentIndex * width}px)`}}>
+                      {newImgs.length && newImgs.map((item, index) => (
+                        <li key={index} className={cs('img-item')} ref={imgRef} onClick={handlePreviewImg}>
+                            <img loading='lazy' src={item.url} alt="product" className={cs('img')}/>
+                            <div className={cs('icon-preview')}> <TbEyeSearch  /></div>
+                        </li>
+                      ))}
+                    </ul>
+                    <div className={cs('arrow')}>
+                        {
+                          newImgs.length > 2 && 
+                          (<>
+                            <button 
+                                // ref={chevLeftRef}
+                                className={cs('arrow-left chevron')}
+                                onClick={handlePrev}
+                                style={{ color: currentIndex === 0 ? '#ccc' : '#1f1f1f'}}
+                            ><FaChevronLeft /></button>
+                            <button 
+                                // ref={chevRightRef}
+                                className={cs('arrow-right chevron')}
+                                onClick={handleNext}
+                                style={{ color: currentIndex === newImgs.length - 1 ? '#ccc' : '#1f1f1f'}}
+                            ><FaChevronRight /></button>
+                          </>)
+                        }
                     </div>
                 </div>
-                
-              </div>
-              <ul className={cs('list-img-product')}>
-                  {newImgs.length && newImgs.map((item, index) => (
-                      <li 
-                        onClick={() => setCurrentIndex(index)} 
-                        className={cs('img-item-sub')} 
-                        style={{ outline: index === currentIndex ? '1px solid #262626' : 'transparent' }}
-                        key={index}
-                      >
-                        <img src={item.url} />
-                      </li>
-                    ))}
-              </ul>
-              <div className={cs('calculator')}>
-                <div>
-                  <span>Tạm tính: </span>
-                  <span className={cs('calculator-number')}>0</span>đ
+                <ul className={cs('list-img-product')}>
+                    {newImgs.length && newImgs.map((item, index) => (
+                        <li 
+                          onClick={() => setCurrentIndex(index)} 
+                          className={cs('img-item-sub')} 
+                          style={{ outline: index === currentIndex ? '1px solid #262626' : 'transparent' }}
+                          key={index}
+                        >
+                          <img src={item.url} />
+                        </li>
+                      ))}
+                </ul>
+                <div className={cs('calculator')}>
+                  <div>
+                    <span>Tạm tính: </span>
+                    <span className={cs('calculator-number')}>0</span>đ
+                  </div>
+                  <button className={cs('add-to-cart')} onClick={() => handleBuy(product, 'add-to-cart')}>
+                    <FaCartPlus />
+                    <span>Thêm vào giỏ</span>
+                  </button>
                 </div>
-                <button className={cs('add-to-cart')} onClick={() => handleBuy(product, 'add-to-cart')}>
-                  <FaCartPlus />
-                  <span>Thêm vào giỏ</span>
-                </button>
               </div>
-            </div>
           </section>
           <section className='col-xxl-5 col-xl-5 col-lg-6 col-md-12 col-sm-12 col-mn-12'>
               <div className={cs('content')}>

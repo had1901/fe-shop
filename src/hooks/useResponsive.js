@@ -6,13 +6,13 @@ export const useResponsive = () => {
 
     useEffect(() => {
         const sizeDisplay = () => {
-            if(window.innerWidth >= 1400) {
+            if(window.innerWidth >= 1200) {
                 setNumDisplay(5)
-            } else if(window.innerWidth >= 1200) {
+            } else if(window.innerWidth >= 992) {
                 setNumDisplay(4) 
-            } else if(window.innerWidth >= 998) {
-                setNumDisplay(3)
             } else if(window.innerWidth >= 768) {
+                setNumDisplay(3)
+            } else if(window.innerWidth <= 767) {
                 setNumDisplay(2)
             } else {
                 setNumDisplay(2)

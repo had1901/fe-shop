@@ -57,23 +57,23 @@ function SidebarMenu(props) {
   },[height])
 
   return (
-      <div ref={navbarRef} className={cs(`navbar ${fixedClass}`, 'col-xl-2 col-lg-2')}>
-        <ul className={cs('navMenu')}>
-            {menuItems.map((menu) => (
-              <li key={menu.id} data-index={menu.id} className={cs('menuItem')}>
-                <Link 
-                  to={menu.href !== '' ? `/pages/${menu.href}` : menu.href} 
-                  className={cs('menuItemLink')}
-                  onClick={handleToggleNavbar}
-                >
-                  <i className={cs('menuItemIcon')}>{menu.icon}</i>
-                  <span className={cs('menuItemText')}>{menu.label}</span>
-                  <span className={cs('menuItemArrow')}><TiChevronRight /></span>
-                </Link>
-                <MegaMenu products={menu.products}/>
-              </li>
-            ))}
-        </ul>
+      <div ref={navbarRef} className={cs(`navbar ${fixedClass}`, 'col-xxl-2 col-xl-2 col-lg-2 col-md-2 gx-xl-1 gx-lg-1')}>
+          <ul className={cs('navMenu')}>
+              {menuItems.map((menu) => (
+                <li key={menu.id} data-index={menu.id} className={cs('menuItem')}>
+                  <Link 
+                    to={menu.href !== '' ? `/pages/${menu.href}` : menu.href} 
+                    className={cs('menuItemLink')}
+                    onClick={handleToggleNavbar}
+                  >
+                    <i className={cs('menuItemIcon')}>{menu.icon}</i>
+                    <span className={cs('menuItemText')}>{menu.label}</span>
+                    <span className={cs('menuItemArrow')}><TiChevronRight /></span>
+                  </Link>
+                  <MegaMenu products={menu.products}/>
+                </li>
+              ))}
+          </ul>
       </div>
   )
 }

@@ -1,10 +1,10 @@
-@use '../../utils/scss/mixin' as *;
-@use '../../utils/scss/variables' as *;
+@use '~/utils/scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
 
 $primary-color: #e30119;
 $category-color: #bc1728;
 $main-width: 1200px;
-$bg-white: #fff;
+$bg-white: #fff7f7;
 
 
 
@@ -26,14 +26,16 @@ $bg-white: #fff;
     }
 }
 .content-header{
-    background-color: $primary-color;
+    // background-color: $primary-color;
+    // background: $bg-primary;
+    // background: linear-gradient(to top, #ffdae0, $bg-primary);
+    background: linear-gradient(to top, $bg-gradient, $bg-primary);
     position: sticky;
     // padding-top: env(safe-area-inset-top, 20);
     // padding-top: 18px;
     top: 0;
     left: 0;
     z-index: 16;
-
     // @include screen(mobile) {
     //     position: sticky;
     //     top: rem(16);
@@ -63,6 +65,7 @@ $bg-white: #fff;
             height: 42px;
             padding: 2px 4px;
             background-color: $category-color;
+            background-color: $bg-button;
             color: $bg-white;
             border-radius: 4px;
 
@@ -152,6 +155,7 @@ $bg-white: #fff;
         }
         .search{
             flex: 1;
+            // min-width: 500px;
         }
         .inputSearchWrap{
             position: relative;
@@ -201,10 +205,15 @@ $bg-white: #fff;
 }
 .option-wrap{
     display: flex;
-    gap: 10px;
+    // gap: rem(10);
 
+    @include screen(laptop){
+        // gap: rem(8);
+    }
     @include screen(tablet){
         display: none;
+        gap: 0;
+
     }
     @include screen(mobile){
         display: none;
@@ -313,20 +322,20 @@ $bg-white: #fff;
 .navbarListRight{
     display: flex;
     justify-content: space-between;
-
-
-    
 }
 .navbar-text-link{
-    // height: 100%;
     display: flex;
-    flex: 1;
+    // flex: 1;
     align-items: center;
     color: $bg-white;
     text-decoration: none;
-    font-size: 13px;
+    font-size: rem(15);
     font-weight: 600;
-    // padding: 4px 6px;
+    padding: 0 10px;
+
+    @include screen(mobile){
+        padding: 0;
+    }
 }
 
 .text-user{
@@ -355,12 +364,15 @@ $bg-white: #fff;
 .user-info:hover .dropdown-model-user{
     opacity: 1;
     visibility: visible;
+    transform: scale(1);
 }
 .bgColorLogin{
     width: auto; 
     height: 42px;
     border-radius: 6px;
+    margin-left: rem(8);
     background-color: $category-color;
+    background-color: $bg-button;
 }
 .bgColorLogin .navbar-text-link{
     height: 100%;
@@ -443,15 +455,23 @@ $bg-white: #fff;
 .cart-mobile{
     display: none;
     margin: 0;
-    background: #BE1529;
+    height: rem(42);
+    background: $bg-button;
     border-radius: 4px; 
-    padding: 6px 2px;
+    padding: 8px;
+
     @include screen(tablet) {
         display: block;
     }
-
     @include screen(mobile) {
         display: block;
+        height: rem(36);
+    }
+
+    .navbar-text-link{
+        @include screen(tablet) {
+            padding: 0;
+        }
     }
 }
 .menu_mb_list{
@@ -478,7 +498,9 @@ $bg-white: #fff;
     border-radius: 999px;
 }
 .wrap-text{
-    
+    // white-space: nowrap;
+    // color: $text-gray;
+
     @include screen(laptop) {
         display: none;
     }
@@ -492,10 +514,6 @@ $bg-white: #fff;
 // laptop
 @media (min-width: 992px) and (max-width: 1200px) {
     
-    .bgColorLogin{
-        width: auto;
-        background-color: transparent;
-    }
     .content-navigate{
         .navigateList{
             overflow-x: auto;
@@ -606,6 +624,8 @@ $bg-white: #fff;
     visibility: hidden;
     position: absolute;
     min-width: 300px;
+    transform-origin: 100% 10%;
+    transform: scale(0.5);
     top: 134%;
     right: 0;
     background: #fff;

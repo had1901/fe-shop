@@ -1,3 +1,6 @@
+@use '~/utils/scss/variables' as *;
+@use '~/utils/scss/mixin' as *;
+
 .flashSale{
     // width: 100%;
     height: 100%;
@@ -10,11 +13,26 @@
 
 }
 .flash_sale_content{
-    background-image: url('../../assets/flash_sale/background.webp');
+    // background-image: url('../../assets/flash_sale/background.webp');
+    // background: linear-gradient(to right, $bg-primary, #ffdde1);
+    background: linear-gradient(to bottom, $bg-primary, $bg-gradient);
+    overflow: hidden;
+    border-radius: 8px;
 
+    @include screen(mobile){
+        border-radius: 0;
+    }
 }
 .content_sale{
     padding: 20px 16px;
+
+    @include screen(tablet){
+        padding: 14px 12px;
+    }
+
+    @include screen(mobile){
+        padding: 10px;
+    }
 
 }
 .wrap_product_sale{
@@ -32,7 +50,14 @@
     align-items: center;
     width: 100%;
     padding: 12px 16px;
-    background: linear-gradient(180deg, #1ad0f7 0%, #2940B8 100%);
+    // background: linear-gradient(180deg, #1ad0f7 0%, #2940B8 100%);
+    // background: linear-gradient(to right, $bg-header, #ffdde1);
+    background: linear-gradient(to top, $bg-primary, $bg-gradient);
+
+    @include screen(mobile){
+        padding: 8px 10px 0;
+    }
+
     .tabCountDown{
         display: flex; 
         gap: 4px;
@@ -69,8 +94,8 @@
      color: #FFEE12;   
      font-style: italic;
      font-weight: 900;
-     font-size: 24px;
-     line-height: 32px;
+     font-size: rem(24);
+     line-height: rem(32);
      text-transform: uppercase;
      padding-right: 8px;
      position: relative;
@@ -81,6 +106,9 @@
      display: -webkit-box;
     user-select: none;
 
+    @include screen(mobile){
+        font-size: rem(20);
+    }
 }
 .list_product_sale{
     width: 100%;
@@ -99,6 +127,10 @@
 .list_product_more{
     padding: 16px 0;
     text-align: center;
+
+    @include screen(mobile){
+        padding: 10px 0 16px;
+    }
 }
 
 .interval_slider{

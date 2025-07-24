@@ -44,28 +44,28 @@ function CartPay() {
       <div>
         <ol className={cs('info-list')}>
           <li>
-            <span>Khách hàng</span>
+            <span className={cs('info-list-label')}>Khách hàng</span>
             <span>{info.name}</span>
           </li>
           <li>
-            <span>Số điện thoại</span>
+            <span className={cs('info-list-label')}>Số điện thoại</span>
             <span>{info.phone}</span>
           </li>
           <li>
-            <span>Địa chỉ nhận hàng</span>
+            <span className={cs('info-list-label')}>Địa chỉ nhận hàng</span>
             <span>{`${info.houseNumber}, ${info.wardCode}, ${info.districtCode}, ${info.cityCode}`}</span>
           </li>
           <li>
-            <span>Tạm tính</span>
+            <span className={cs('info-list-label')}>Tạm tính</span>
             <span className={cs('price')}>{convertPrice(total)}</span>
           </li>
           <li>
-            <span>Phí vận chuyển</span>
+            <span className={cs('info-list-label')}>Phí vận chuyển</span>
             <span className={cs('price')}>Miễn phí</span>
           </li>
           <li>
-            <span>Tổng tiền</span>
-            <span className={cs('price')}>{convertPrice(total)}</span>s
+            <span className={cs('info-list-label')}>Tổng tiền</span>
+            <span className={cs('price')}>{convertPrice(total)}</span>
           </li>
         </ol>
         <div className={cs('pay-method')}>

@@ -1,3 +1,6 @@
+@use '~/utils/scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
+
 .btnFlashSale{
     background-color: #fff;
     color: #000;
@@ -20,17 +23,24 @@
     line-height: 22px;
     color: #ffffff;
     background: #1AA6F7;
+    background: $bg-button;
     border-radius: 8px;
 }
 .btn-slider{
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 32px;
-    height: 32px;
+    width: rem(32);
+    height: rem(32);
     background: #ECECEC;
     box-shadow: 0px 0px 4.80687px rgba(0, 0, 0, 0.2);
     border-radius: 50%;
+
+    @include screen(mobile){
+        width: rem(24);
+        height: rem(24);
+        font-size: rem(10);
+    }
 }
 .btn-left-viewed{
     left: 10px;
@@ -46,7 +56,15 @@
 }
 .btn-left-products{
     left: 10px;
+
+    @include screen(mobile){
+        left: 0;
+    }
 }
 .btn-right-products{
     right: 10px;
+
+    @include screen(mobile){
+        right: 0;
+    }
 }

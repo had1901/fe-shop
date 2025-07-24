@@ -76,7 +76,7 @@ function OrderPage() {
             <div className={cs('info')}>
               <div className='row'>
                 {configInfoPayment.length > 0 && configInfoPayment.map((item, i) => (
-                  <div key={i} className='col-xl-6 col-lg-6 col-md-12 col-sm-12'>
+                  <div key={i} className='col-xxl-6 col-xl-6 col-lg-6 col-md-6 col-sm-12 col-mn-12'>
                     <div className={cs('info-order')}>
                       <h2 className={cs('info-order-header')}>{item.label}</h2>
                       <span className={cs(`info-order-text ${item.type === 'money' && 'price'}`)}>{item.renderInfo()}</span>
@@ -86,7 +86,7 @@ function OrderPage() {
             </div>
           </div>
           <Link to='/' className={cs('btn-link-home')}>
-            <Button type='primary'>Tiếp tục mua hàng</Button>
+            <Button type='primary' className={cs('btn')}>Tiếp tục mua hàng</Button>
           </Link>
         </div>
       </div>

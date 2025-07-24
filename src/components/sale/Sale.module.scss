@@ -1,3 +1,5 @@
+@use '../../utils/scss/mixin' as *;
+
 .sale{
     border: 1px solid #FFD9D9;
     border-radius: 4px;
@@ -14,17 +16,28 @@
     display: flex;
     align-items: center;
     padding: 12px 20px;
+
+    @include screen(mobile){
+        padding: 8px 10px;
+    }
 }
 .gift-icon{
+    @include screen(mobile){
+        font-size: rem(15);
+    }
 
 }
 .box-header h2{
     font-weight: 600;
-    font-size: 18px;
+    font-size: rem(18);
     line-height: 22px;
     color: #E30019;
     margin-bottom: 0;
     margin-left: 10px;
+
+    @include screen(mobile){
+        font-size: rem(14);
+    }
 }
 .gift-promo-list{
     padding: 6px 0;
@@ -37,6 +50,10 @@
     align-items: center;
     position: relative;
     padding: 6px 24px;
+
+    @include screen(mobile){
+        padding: 2px 10px;
+    }
 }
 .highlight-item::before{
     counter-increment: section;
@@ -56,9 +73,17 @@
     margin-top: 3px;
 }
 .highlight-link{
-    font-size: 14px;
+    font-size: rem(14);
     line-height: 1.6;
     width: calc(100% - 32px);
     display: inline-block;
     color: #111111;
+
+    @include limit-line(2);
+    
+    @include screen(mobile){
+        font-size: rem(12);
+    }
+
+    
 }

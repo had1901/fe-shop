@@ -36,21 +36,21 @@ function CartOrderInfo({ currentStep }) {
         <h3 className={cs('cart-title')}>Thông tin khách mua hàng</h3>
         <div className={cs('box-input-sex')}>
             <div className={cs('wrap-input-sex')}>
-              <input id='male' type="radio" checked={info.genre === 'male' ? true : false} name='genre' value='male' onChange={onChange} />
+              <input id='male' type="radio" checked={info.genre === 'male' ? true : false} name='genre' value='male' required onChange={onChange} />
               <label htmlFor="male">Anh</label>
             </div>
             <div className={cs('wrap-input-sex')}>
-              <input id='female' type="radio" checked={info.genre === 'female' ? true : false} name='genre' value='female' onChange={onChange} />
+              <input id='female' type="radio" checked={info.genre === 'female' ? true : false} name='genre' value='female' required onChange={onChange} />
               <label htmlFor="female">Chị</label>
             </div>
         </div>
         <div className={cs('input-info-customer')}>
           <div className={cs('input-info')}>
-            <input id='name' type="text" name='name' placeholder='Nhập họ tên' onChange={onChange}/>
+            <input id='name' type="text" name='name' required onChange={onChange}/>
             <label htmlFor="name">Nhập họ tên</label>
           </div>
           <div className={cs('input-info')}>
-            <input id='phone' type="text" name='phone' placeholder='Nhập số điện thoại' onChange={onChange}/>
+            <input id='phone' type="text" name='phone' required onChange={onChange}/>
             <label htmlFor="phone">Nhập số điện thoại</label>
           </div>
         </div>

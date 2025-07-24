@@ -54,7 +54,7 @@ function SelectAddress({ info, onChange }) {
     return (
         <div className={cs('select-province')}>
 
-            <select id="province" className={cs('province')} name='cityCode' onChange={onChange}>
+            <select id="province-city" className={cs('province')} name='cityCode' required onChange={onChange}>
                 <option value="">-- Chọn tỉnh/thành --</option>
                 {provinces.map(province => (
                     <option key={province.code} value={province.code}>
@@ -63,7 +63,7 @@ function SelectAddress({ info, onChange }) {
                 ))}
             </select>
 
-            <select id="province" className={cs('province')} name='districtCode' onChange={onChange}>
+            <select id="province-district" className={cs('province')} name='districtCode' required onChange={onChange}>
                 <option value="">-- Chọn quận/huyện --</option>
                 {selectedDistrictCode.length && selectedDistrictCode.map(district => (
                     <option key={district.code} value={district.code}>
@@ -72,7 +72,7 @@ function SelectAddress({ info, onChange }) {
                 ))}
             </select>
             
-            <select id="province" className={cs('province')} name='wardCode' onChange={onChange}>
+            <select id="province-ward" className={cs('province')} name='wardCode' required onChange={onChange}>
                 <option value="">-- Chọn xã/thị trấn --</option>
                 {selectedWardCode.length && selectedWardCode.map(ward => (
                     <option key={ward.code} value={ward.code}>
@@ -82,7 +82,7 @@ function SelectAddress({ info, onChange }) {
             </select>
 
             <div className={cs('address-number')}>
-                <input id='address-number' type="text" name='houseNumber' className={cs('province')} onChange={onChange}/>
+                <input id='address-number' type="text" name='houseNumber' className={cs('province')} required onChange={onChange}/>
                 <label htmlFor="address-number">Số nhà, tên đường</label>
             </div>
         </div>

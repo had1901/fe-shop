@@ -1,3 +1,6 @@
+@use '~/utils/scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
+
 .megaMenu{
     display: none;
     position: absolute;
@@ -29,7 +32,7 @@
 
     .megaMenuLinkTitle{
         display: block;
-        color: #e30119;
+        color: $color-primary;
         font-weight: 600;
         font-size: 14px;
         margin-bottom: 8px;

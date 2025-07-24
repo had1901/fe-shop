@@ -19,7 +19,7 @@
     }
 }
 .footer h3{
-    font-size: 16px;
+    font-size: rem(16);
     font-weight: 600;
 
     @include screen(tablet){
@@ -27,6 +27,7 @@
     }
     @include screen(mobile){
         // text-align: center;
+        font-size: rem(14);
     }
 }
 .foo{
@@ -114,7 +115,18 @@
     align-items: center;
     justify-content: space-between;
     padding: 10px 0;
+
+    @include screen(mobile){
+        font-size: rem(14);
+    }
 }
 .checked{
     width: 160px;
+
+    @include screen(tablet){
+        width: 140px;
+    }
+    @include screen(mobile){
+        width: 100px;
+    }
 }

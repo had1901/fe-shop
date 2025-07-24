@@ -38,8 +38,9 @@ import Slideshow from './pages/admin/interface/Slideshow';
 import Banner from './pages/admin/interface/Banner';
 import Categories from './pages/admin/categories/Categories';
 import AddressPage from './pages/address/AddressPage';
+import useStyles from './hooks/useStyles';
 
-console.log("MODE:", import.meta.env.MODE)
+console.log("mode", import.meta.env.MODE)
 console.log("API URL:", import.meta.env.VITE_API_URL)
 
 const routesAdmin = [
@@ -109,6 +110,7 @@ function App() {
   const dispatch = useDispatch()
   // const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
+  // const [boo, set] = useState(true)
   const { pathname } = useLocation()
   // const user = useSelector(state => state.auth.info)
 
@@ -159,13 +161,29 @@ function App() {
       window.scrollTo({top: 0, behavior: "smooth"})
   },[pathname])
 
-  if(isLoading) return (
-    <>
-      <Flex align="center" gap="middle">
-        <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
-      </Flex>
-    </>
-  )
+  if(isLoading) {
+    return (
+      <div className='app-vn'>
+        <p>Do <strong>server</strong> sử dụng dịch vụ miễn phí nên sẽ tạm thời đóng băng khi không truy cập
+          <br/> Vui lòng đợi server khởi động lại và nhấn F5 để tải lại trang 
+          <br/> Xem video giải trí trong khi đợi nhé (^_^)
+        </p>
+
+        <iframe 
+          className='video-yt'
+          src="https://www.youtube.com/embed/ZD3ZaytFKiU" 
+          title="Po Vs Tai Lung Final Battle | Kung Fu Panda" 
+          frameBorder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerPolicy="strict-origin-when-cross-origin" 
+          allowFullScreen>
+        </iframe>
+        {/* <Flex align="center" gap="middle">
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
+        </Flex> */}
+      </div>
+    )
+  }
   return (
     <>
       <Routes>

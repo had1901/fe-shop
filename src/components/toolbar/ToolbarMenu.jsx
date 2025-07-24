@@ -32,7 +32,7 @@ function ToolbarMenu() {
         },
         {
             title: 'Tài khoản',
-            href: '/auth',
+            href: '/auth/account',
             icon: <FaRegUser />
         },
     ]

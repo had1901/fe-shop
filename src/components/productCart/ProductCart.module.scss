@@ -1,10 +1,22 @@
 
+@use '~/utils/scss/mixin' as *;
+
 .product-cart{
-    margin-top: 30px;
+    margin-top: rem(30);
+
+    @include screen(mobile){
+        margin-top: rem(10);
+
+    }
 }
 .inner-product-cart{
     display: flex;
     padding: 0 10px;
+
+    @include screen(mobile){
+        padding: 0;
+
+    }
 }
 
 .product-cart-img{
@@ -14,6 +26,8 @@
     display: inline-block;
     border: 1px solid #ECECEC ;
     vertical-align: middle;
+    height: 100%;
+
 }
 .btn-delete{
     display: block;
@@ -23,19 +37,21 @@
 }
 .product-cart-title{
     flex: 3;
-    font-size: 15px;
+    font-size: rem(15);
     font-weight: 500;
-    margin-left: 8px;
+    padding: 0 8px;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    @include screen(mobile){
+        font-size: rem(12);
+    }
 }
 .product-cart-title h3{
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    line-clamp: 4;
-    box-orient: vertical;
-    line-height: 1.15;
-    overflow: hidden;
+    line-height: 1.05rem;
+    @include limit-line(4);
+    
 }
 .product-cart-price{
     text-align: right;
@@ -44,28 +60,37 @@
 .product-cart-price-sale{
     display: block;
     font-weight: 600;
-    font-size: 18px;
+    font-size: rem(18);
     color: #E30019;
+
+    @include screen(mobile){
+        font-size: rem(14);
+    }
 }
 .product-cart-price-origin{
     display: block;
     margin-top: 6px;
-    font-size: 14px;
+    font-size: rem(14);
     color: #6D6E72;
     text-decoration: line-through;
+
+    @include screen(mobile){
+        font-size: rem(12);
+    }
 }
 .product-cart-quantity{
     margin-top: 8px;
     display: flex;
     align-items: center;
+    justify-content: end;
 }
 .btn-quantity{
     display: inline-flex;
     align-items: center;
     justify-content: center;
     background: #fff;
-    height: 32px;
-    width: 32px;
+    height: rem(32);
+    width: rem(32);
     padding: 0;
     text-align: center;
     appearance: none;
@@ -74,13 +99,18 @@
     border-radius: 0;
     border: 1px solid #CFCFCF;
     border-radius: 4px 0 0 4px;
+
+    @include screen(mobile){
+        height: rem(24);
+        width: rem(24);
+    }
 }
 .input-quantity{
     background: #fff;
     font-weight: 400;
-    font-size: 14px;
-    height: 32px;
-    width: 50px;
+    font-size: rem(14);
+    height: rem(32);
+    width: rem(50);
     padding: 0;
     text-align: center;
     border: 1px solid #CFCFCF;
@@ -92,14 +122,27 @@
     appearance: none;
     overflow: visible;
     user-select: none;
+
+    @include screen(mobile){
+        height: rem(24);
+        width: rem(34);
+        font-size: rem(12);
+    }
 }
 // .input-quantity:focus{
 //     display: none;
 // }
 .btn-delete{
     cursor: pointer;
+    margin-top: auto;
     
     &:hover{
         color: #E30019;
+    }
+
+    @include screen(mobile){
+        margin-top: rem(4);
+        padding: 0 rem(8);
+        font-size: rem(12);
     }
 }

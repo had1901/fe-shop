@@ -1,4 +1,4 @@
-@use '../../utils//scss/mixin' as *;
+@use '~/utils//scss/mixin' as *;
 
 
 .app{
@@ -8,7 +8,7 @@
         padding: 20px 0 0;
 
         @include screen(tablet){
-            padding: 10px 0 0x;
+            padding: 0;
         }
         @include screen(mobile){
             padding: 0;

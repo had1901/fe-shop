@@ -83,6 +83,19 @@ function ProductCart({ item }) {
                 <Link to='#' className={cs('product-cart-img-link')}>
                     <img loading='lazy' src={item?.product?.thumbnail} alt="" />
                 </Link>
+                {/* <Popconfirm
+                    title="Xóa sản phẩm"
+                    description="Bạn có chắc muốn bỏ sản phẩm này không?"
+                    onConfirm={handleConfirm}
+                    onCancel={handleCancel}
+                    okText="Có"
+                    cancelText="Hủy"
+                >
+                    <Button className={cs('btn-delete')}>Xóa</Button>
+                </Popconfirm> */}
+            </div>
+            <div className={cs('product-cart-title')}>
+                <h3>{item?.product?.name} </h3>
                 <Popconfirm
                     title="Xóa sản phẩm"
                     description="Bạn có chắc muốn bỏ sản phẩm này không?"
@@ -93,9 +106,6 @@ function ProductCart({ item }) {
                 >
                     <Button className={cs('btn-delete')}>Xóa</Button>
                 </Popconfirm>
-            </div>
-            <div className={cs('product-cart-title')}>
-                <h3>{item?.product?.name} </h3>
             </div>
             <div className={cs('product-cart-price')}>
                 <div className={cs('product-cart-price-sale')}>{convertPrice(item?.product?.sale_price)}</div>
