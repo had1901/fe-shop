@@ -50,10 +50,10 @@ $bg-white: #fff7f7;
         gap: 10px;
 
         @include screen(tablet) {
-            padding: 8px 14px;
+            padding: 8px 0;
         }
         @include screen(mobile) {
-            padding: 4px 14px;
+            padding: 4px 0;
         }
         
         .category-header{
@@ -395,8 +395,6 @@ $bg-white: #fff7f7;
 
     .navigate-list{
         height: 100%;
-        display: flex;
-        flex-wrap: wrap;
         padding: 4px 0;
     }
     
@@ -458,7 +456,7 @@ $bg-white: #fff7f7;
     height: rem(42);
     background: $bg-button;
     border-radius: 4px; 
-    padding: 8px;
+    padding: 6px;
 
     @include screen(tablet) {
         display: block;

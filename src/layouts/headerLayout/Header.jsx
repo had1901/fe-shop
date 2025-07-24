@@ -282,19 +282,18 @@ function Header() {
       </div>
       <div className={cs('content-navigate')}>
         <div className='container'>
-            <ul className={cs('navigate-list row')}>
-              {
-                navigateList.map(item => (
-                  <li key={item.id} className={cs('navigate-item col')}>
-                    <a href='#' >
-                        <span className={cs('navigateIcon')}>{item.icon}</span>
-                        <span>{item.label}</span>
-                    </a>
-                </li>
-                ))
-              }
-              
-            </ul>
+            <ul className={cs('navigate-list', 'row')}>
+                {
+                  navigateList.map(item => (
+                    <li key={item.id} className={cs('navigate-item col')}>
+                      <a href='#' >
+                          <span className={cs('navigateIcon')}>{item.icon}</span>
+                          <span>{item.label}</span>
+                      </a>
+                  </li>
+                  ))
+                }
+              </ul>
         </div>
       </div>
     </>

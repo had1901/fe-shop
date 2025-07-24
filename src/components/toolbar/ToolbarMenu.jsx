@@ -5,10 +5,12 @@ import { AiOutlineHome, AiOutlineMenuFold } from 'react-icons/ai';
 import { IoBuildOutline } from "react-icons/io5";
 import { FaHeadphonesSimple, FaRegUser } from 'react-icons/fa6';
 import { Link } from 'react-router';
+import { useSelector } from 'react-redux';
 
 function ToolbarMenu() {
     const cs = useStyles(styles)
-
+    const user = useSelector(state => state.auth.info)
+    
     const toolbarList = [
         {
             title: 'Trang chủ',
@@ -31,7 +33,7 @@ function ToolbarMenu() {
             icon: <FaHeadphonesSimple />
         },
         {
-            title: 'Tài khoản',
+            title: user?.username || user?.name || 'Tài khoản',
             href: '/auth/account',
             icon: <FaRegUser />
         },

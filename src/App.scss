@@ -7,32 +7,31 @@ $grid-column: 12;
 $grid-gutter: 20px;
 
 %gutter-padding{
-    padding-left: calc(var(--grid-gutter-x) * 0.5);
-    padding-right: calc(var(--grid-gutter-x) * 0.5);
+    padding: 0 calc($grid-gutter * 0.5);
 }
 %no-gutter{
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    padding: 0 0 !important;
 }
 
 
 
 
 
-.container-fluid{
-    --grid-gutter-x: #{$grid-gutter};
-    --grid-gutter-y: #{$grid-gutter};
+// .container-fluid{
+//     --grid-gutter-x: #{$grid-gutter};
+//     --grid-gutter-y: #{$grid-gutter};
 
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    @extend %gutter-padding;
-}
+//     width: 100%;
+//     margin-left: auto;
+//     margin-right: auto;
+//     // @extend %gutter-padding;
+// }
 
 .container{
     // @extend .container-fluid
     margin-left: auto;
     margin-right: auto;
+    @extend %gutter-padding
 }
 
 .row{
@@ -43,10 +42,12 @@ $grid-gutter: 20px;
     flex-wrap: wrap;
     margin-left: calc(($grid-gutter) * 0.5 * -1);
     margin-right: calc(($grid-gutter) * 0.5 * -1);
-    margin-top: calc(var(--grid-gutter-y) - 1) ;
+    margin-top: calc(var(--grid-gutter-y) - 1);
 
-     > * {
-        @extend %gutter-padding;
+    > * {
+        padding-left: calc(var(--grid-gutter-x) * 0.5);
+        padding-right: calc(var(--grid-gutter-x) * 0.5);
+        // @extend %gutter-padding;
     }
 }
 
@@ -217,4 +218,11 @@ $gutters: (
 .video-yt{
     width: 66%;
     height: 60%;
+}
+
+@media (min-width: 992px) {
+  .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
 }

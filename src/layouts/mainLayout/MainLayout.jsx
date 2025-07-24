@@ -28,11 +28,11 @@ function MainLayout() {
     },[state])
   return (
     <div className={cs('wrapper')}>
-        <a href='#' onClick={handleToggleNavbar} className={cs(toggleClass)}/>
-        <Header />
-        <Outlet />
-        <ToolbarMenu />
-        <Footer />
+      <a href='#' onClick={handleToggleNavbar} className={cs(toggleClass)}/>
+      <Header />
+      <Outlet />
+      <ToolbarMenu />
+      <Footer />
     </div>
   )
 }

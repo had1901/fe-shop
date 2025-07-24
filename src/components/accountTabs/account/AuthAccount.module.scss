@@ -1,70 +1,124 @@
 @use '~/utils/scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
 
 .account{
     // background: #fff;
     border-radius: 6px;
-    min-height: 450px;
+    min-height: rem(450);
 
 }
 .title{
-    font-size: 22px;
+    font-size: rem(22);
     font-weight: 500;
     text-transform: uppercase;
     padding: 20px;
 
+    @include screen(mobile){
+        padding: rem(14) rem(14) rem(6);
+        font-size: rem(18);
+    }
+
 }
 .form-information{
     padding: 20px 20px 0 ;
+
+    @include screen(mobile){
+        padding: 16px 14px;
+    }
 }
 .input-form{
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: rem(20);
+
+    @include screen(mobile){
+        display: block;
+        margin-bottom: rem(14);
+    }
 }
 .input-label{
-    flex: 0 0 26%;
-    display: inline-block;
-    max-width: 26%;
+    width: rem(120);
     font-size: 16px;
     text-align: right;
+    color: $color-sub-text;
+    @include screen(tablet){
+        width: rem(110);
+        
+    }
+    @include screen(mobile){
+        display: block;
+        text-align: left;
+        width: 100%;
+    }
 }
 .input-field{
-    font-size: 16px;
-    flex: 0 0 50%;
-    max-width: 50%;
+    font-size: rem(16);
+    width: 50%;
     height: 36px;
-    margin-left: 30px;
+    margin-left: rem(30);
     padding: 6px 8px;
     outline: none;
     border: none;
     border: 1px solid #ccc;
     border-radius: 4px;
-    color: #333333;
+    color: #1b1b1b;
+
+    @include screen(mobile){
+        display: block;
+        width: 100%;
+        font-size: rem(14);
+        margin: rem(6) 0 0;
+    }
 }
 .gender-radio{
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-left: 30px;
+    gap: 20px;
+    margin-left: rem(30);
+
+    @include screen(mobile){
+        margin: rem(8) 0 0;
+    }
 }
 .gender-group{
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 8px;
+
+    label{
+        @include screen(mobile){
+            font-size: rem(14);
+        }
+    }
 }
 .select-form{
     min-width: 100px;
-    height: 40px;
+    height: rem(40);
     border: 1px solid #adadadc2;
-    margin-left: 30px;
+    margin-left: rem(30);
     padding: 3px 6px;
-}
+    border-radius: 4px;
+
+    @include screen(mobile){
+        margin: 8px 10px 0 0;
+        height: rem(36);
+    }
+} 
+// sn3 - trung quan - yen thuong - xa phu dong - gia lam
 .label-gender{
-    font-size: 15px;
+    font-size: rem(15);
 }
 .error-label{
     color: #e35050;
     margin-left: 4px;
+}
+
+.btn-submit{
+    text-align: center;
+
+    button{
+        background: $bg-button;
+    }
 }
 // .submit-btn{
 //     position: relative;

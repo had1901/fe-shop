@@ -63,18 +63,18 @@ function AuthAccount() {
 
           <div className={cs('input-form')}>
               <label htmlFor="username" className={cs('input-label')}>Tên tài khoản</label>
-              <input id='username' defaultValue={user.username && user.username} className={cs('input-field')} type="text" disabled />
+              <input id='username' name='username' defaultValue={user.username && user.username} className={cs('input-field')} type="text" disabled />
             </div>
 
             <div className={cs('input-form')}>
               <label htmlFor="firstname" className={cs('input-label')}>Họ</label>
-              <input id='firstname' defaultValue={user.firstname && user.firstname} className={cs('input-field')} type="text" {...register('firstname', { required: true, maxLength: 14 })} />
+              <input id='firstname' name='firstname' defaultValue={user.firstname && user.firstname} className={cs('input-field')} type="text" {...register('firstname', { required: true, maxLength: 14 })} />
               {errors.firstname && <span className={cs('error-label')}>Vui lòng nhập họ</span>}
             </div>
 
             <div className={cs('input-form')}>
               <label htmlFor="lastname" className={cs('input-label')}>Tên</label>
-              <input id='lastname' defaultValue={user.lastname && user.lastname} className={cs('input-field')} type="text" {...register('lastname', { required: true, maxLength: 14 })} />
+              <input id='lastname' name='lastname' defaultValue={user.lastname && user.lastname} className={cs('input-field')} type="text" {...register('lastname', { required: true, maxLength: 14 })} />
               {errors.lastname && <span className={cs('error-label')}>Vui lòng nhập tên</span>}
             </div>
     
@@ -101,7 +101,7 @@ function AuthAccount() {
     
             <div className={cs('input-form')}>
               <label htmlFor="email" className={cs('input-label')}>Email</label>
-              <input id='email' defaultValue={user.email && user.email} name='email' style={{border: user.email ? 'none' : '1px solid #ccc'}} className={cs('input-field')} type="email" {...register('email', { required: true, maxLength: 30 })} />
+              <input id='email' defaultValue={user.email && user.email} name='email' className={cs('input-field')} type="email" {...register('email', { required: true, maxLength: 30 })} />
               {errors.email && <span className={cs('error-label')}>Vui lòng nhập số email</span>}
             </div>
     
@@ -128,7 +128,7 @@ function AuthAccount() {
               {/* {errors.year && <span>Vui lòng chọn năm sinh</span>} */}
     
             </div>
-              <div><Button type='primary' htmlType='submit' value='Lưu thay đổi'>Lưu thay đổi</Button></div>
+              <div className={cs('btn-submit')}><Button type='primary' htmlType='submit' value='Lưu thay đổi'>Lưu thay đổi</Button></div>
           </form>
         </motion.div>
       </div>

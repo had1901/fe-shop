@@ -2,22 +2,22 @@
 
 
 .banner-list{
-    margin: 16px 0;
+    margin-top: 16px;
+    margin-bottom: 16px;
     flex-wrap: nowrap;
     overflow-x: auto;
-    // padding: 0 10px;
 
     &::-webkit-scrollbar{
         display: none;
     }
+    
     @include screen(tablet){
-        // display: none;
-        margin: 10px 0;
-
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
     @include screen(mobile){
-        // display: none;
-        margin: 6px 0;
+        margin-top: 6px;
+        margin-bottom: 6px;
 
     }
 }

@@ -28,7 +28,7 @@ function BannerSale({ bannerList }) {
   return (
     <div className={cs('banner-list', 'row')}>
       {bannerList.map((src, index) => (
-        <div ref={el => bannerRef.current[index] = el} key={index} className='col-xxl-3 col-xl-3 col-lg-4 col-md-8 col-sm-8 col-mn-8 p-0'>
+        <div ref={el => bannerRef.current[index] = el} key={index} className='col-xxl-3 col-xl-3 col-lg-4 col-md-8 col-sm-8 col-mn-8'>
             <img loading='lazy' src={src} className={cs('bannerImg')}/>
         </div>
       ))}

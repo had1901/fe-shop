@@ -74,7 +74,7 @@ function Account() {
     <div className={cs('account')}>
         <div className='container'>
             <div className={cs('information', 'row')}>
-                <div className='col-xxl-3 col-xl-3 col-lg-4 col-md-2 col-sm-2 col-mn-12 p-md-6 gx-md-1 gx-sm-1 gx-mn-1'>
+                <div className='col-xxl-3 col-xl-3 col-lg-4 col-md-2 col-sm-2 col-mn-12 p-md-6 gx-md-1'>
                     <div className={cs('sidebar-left')}>
                         <div className={cs('username')}>
                             <div className={cs('avatar')}><FaUserCircle /></div>
@@ -92,7 +92,7 @@ function Account() {
                         </ul>
                     </div>
                 </div>
-                <div className='col-xxl-9 col-xl-9 col-lg-8 col-md-10 col-sm-10 col-mn-12 gx-md-1 gx-sm-1 gx-mn-1'>
+                <div className='col-xxl-9 col-xl-9 col-lg-8 col-md-10 col-sm-10 col-mn-12 gx-md-1'>
                     <div className='content-right' style={{background: '#fff', height: '100%'}}>
                         {/* {orders.length < 0 && <div><img loading='lazy' src={nodata} alt="" /></div>} */}
                         <AnimatePresence mode="wait" className={cs('sidebar-right')}>

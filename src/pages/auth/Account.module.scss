@@ -25,22 +25,19 @@
 
     @include screen(tablet){
         display: block;
-        padding: 10px;
     }
     @include screen(mobile){
+        padding: 0;
         display: flex;
-        // padding: 10px 4px;
     }
 }
 .menu-profile-item{
-   
     border-radius: 4px;
-    
+
     @include screen(mobile){
         flex: 1;
     }
-}
-         
+}  
 .menu-profile-link{
     display: flex;
     align-items: center;
@@ -54,6 +51,8 @@
         gap: 4px;
         font-size: rem(24);
         padding: 12px 8px;
+        // color: $text-white;
+
     }
     @include screen(mobile){
         justify-content: center;
@@ -61,6 +60,7 @@
         gap: 4px;
         padding: 10px;
     }
+    
 }
 .menu-profile-icon{
     // font-size: 20px;
@@ -123,6 +123,15 @@
     background: #fff;
 }
 .active{
-    background: linear-gradient(to right, $bg-primary, #ffdde1); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, $bg-primary, #ffdde1); 
+    // color: $text-white;
+    background: #eaeaea; 
 
+
+    @include screen(tablet){
+        // background: $bg-gradient; 
+    }
+    @include screen(mobile){
+        // background: $bg-gradient; 
+    }
 }

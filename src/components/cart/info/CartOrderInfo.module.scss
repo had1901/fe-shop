@@ -1,4 +1,5 @@
 @use '~/utils/scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
 
 .cart-order-info{
     padding: rem(16);
@@ -32,7 +33,7 @@
     gap: 18px;
 
     @include screen(mobile){
-        margin-top: rem(10);
+        margin-top: rem(14);
     }
 }
 .input-info-customer input{
@@ -55,10 +56,6 @@
     outline: none !important;
     transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, color 0.2s ease-in-out;
 
-    @include screen(mobile){
-        height: rem(34);
-        font-size: rem(12);
-    }
 }
 .input-info{
     width: 100%;
@@ -71,7 +68,7 @@
     background: #fff;
     font-size: 12px;
     padding: 2px 6px;
-    color: #535353;
+    color: $color-sub-text;
 }
 .input-ship{
     display: flex; 

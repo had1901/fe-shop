@@ -49,7 +49,7 @@ function SidebarRight() {
     },[])
 
   return (
-    <div className='col-xxl-10 col-xl-10 col-lg-10 col-md-12 col-sm-12 col-mn-12 gx-xl-1 gx-lg-1'>
+    <div className='col-xxl-10 col-xl-10 col-lg-10 col-md-12 col-sm-12 col-mn-12'>
         <div className={cs('sidebar-right')}>
             <div className={cs('sidebar-slider-left')}>
                 <div className={cs('slider-img')}>

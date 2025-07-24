@@ -1,19 +1,19 @@
-@use '../../utils/scss/mixin' as *;
-@use '../../utils/scss/variables' as *;
+@use '~/utils/scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
 
 .form-cart{
     max-width: 800px;
     min-height: 300px;
     height: auto;
     margin: 20px auto;
-    padding: 10px;
+    padding: rem(10);
     background: #fff;
     border-radius: 6px;
 
     @include screen(mobile){
         margin: 0 auto;
         border-radius: 0;
-
+        padding: 0;
     }
 }
 .cart-header{
@@ -133,7 +133,7 @@
     border-top: 1px solid #b8b8b8;
 
     @include screen(mobile){
-        padding: 14px 4px;
+        padding: 14px 10px 10px;
     }
 }
 .shipping{
@@ -187,7 +187,7 @@
     background: #E30019;
 
     @include screen(mobile){
-        margin: 10px auto 0;
+        margin: 16px auto 0;
         height: rem(40);
         font-size: rem(14);
     }

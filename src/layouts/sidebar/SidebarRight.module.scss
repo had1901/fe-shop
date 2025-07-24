@@ -35,10 +35,10 @@
         overflow: hidden;
         position: relative;
         @include screen(tablet){
-            padding: 8px 12px 0;
+            // padding: 8px 0 0;
         }
         @include screen(mobile){
-            padding: 4px 4px 0;
+            // padding: 4px 0 0;
         }
     }
 }
@@ -50,10 +50,10 @@
     // padding: 8px 0;
     
     @include screen(tablet){
-        padding: 8px;
+        margin: 8px 0;
     }
     @include screen(mobile){
-        padding: 8px;
+        margin: 8px 0;
     }
 }
 .sidebarRight img{
