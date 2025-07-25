@@ -8,6 +8,7 @@ import { Modal } from 'antd';
 function AuthAddress() {
   const cs = useStyles(styles)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [addressList, setAddressList] = useState([])
   const [data, setData] = useState({
     cityCode: '',
     districtCode: '',
@@ -46,6 +47,7 @@ function AuthAddress() {
           onCancel={handleCancel}
         >
           <SelectAddress info={data} onChange={handleChange} />
+          {!addressList.length && 'Hãy thêm một địa chỉ'}
       </Modal>
       </div>
     </motion.div>

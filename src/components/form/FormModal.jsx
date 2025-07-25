@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Checkbox, Form, Input } from 'antd'
+import { Button, Checkbox, Form, Input, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './FormModel.module.scss';
 import useStyles from '../../hooks/useStyles';
@@ -15,32 +15,46 @@ function FormModal({ isLogin }) {
   const cs = useStyles(styles)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
+  const [messageApi, contextHolder] = message.useMessage()
 
   const submitFormLogin = async values => {                                                        
     try {
-      const response = await toast.promise(
-        axiosApi.post('auth/login', values),
-        {
-          pending: 'Đang đăng nhập...',
-          success: 'Đăng nhập thành công',
-          error: 'Lỗi đăng nhập'
-        }
-      )
+      // const response = await toast.promise(
+      //   axiosApi.post('auth/login', values),
+      //   {
+      //     pending: 'Đang đăng nhập...',
+      //     success: 'Đăng nhập thành công',
+      //     error: 'Lỗi đăng nhập'
+      //   }
+      // )
+      const response = await axiosApi.post('auth/login', values)
       const user = response?.dt
+
       if (!user) throw new Error('Không nhận được dữ liệu người dùng')
+
       dispatch(setUser(user))
       localStorage.setItem('_infoClient', JSON.stringify(user))
-
+      messageApi.open({
+        type: 'success',
+        content: 'Đăng nhập thành công',
+      })
       // Navigate sau khi đã có user rõ ràng
       if (user?.Role?.name === 'admin') {
-        navigate('/auth/admin', { replace: true })
+        // setTimeout(() => {
+        //   navigate('/auth/admin', { replace: true })
+        // }, 10000)
       } else {
-        navigate('/', { replace: true })
+        // setTimeout(() => {
+        //   console.log('có user')
+        //   navigate('/', { replace: true })
+        // }, 10000)
       }
     } catch (e) {
       console.log('Lỗi đăng nhập:', e)
     }
+    
+    
+
   } 
 
     const submitFailedLogin = errorInfo => {
@@ -48,6 +62,7 @@ function FormModal({ isLogin }) {
     }
 
     const submitFormRegister = async values => {
+      console.log('dang ky')
       try{
         const result = await toast.promise(
           axiosApi.post('auth/register', values),
@@ -87,7 +102,9 @@ function FormModal({ isLogin }) {
         username: res.dt.name,
         ...res.dt
       }))
-      navigate('/')
+        console.log('có google')
+
+      // navigate('/')
       console.log('res-decode', res)
     }
 
@@ -111,6 +128,7 @@ function FormModal({ isLogin }) {
         className={cs('form')}
         validateMessages={validateMessages}
       >
+        {contextHolder}
         <h2 className={cs('label')}>Đăng nhập</h2>
         <Form.Item
           label="Username"
@@ -119,6 +137,7 @@ function FormModal({ isLogin }) {
           hasFeedback={true}
           rules={[{ required: true, message: 'Please input your username!' }]}
           initialValue='anhduc'
+          style={{ marginBottom: '14px'}}
         >
           <Input />
         </Form.Item>
@@ -134,11 +153,12 @@ function FormModal({ isLogin }) {
           <Input.Password />
         </Form.Item>
     
-        <Form.Item label={null}>
+        <div className={cs('btn-submit')}>
           <Button type="primary" htmlType="submit">
             Đăng nhập
           </Button>
-        </Form.Item>
+        </div>
+        
         <div className={cs('switch-form')}>
           <span>Bạn chưa có tài khoản?</span>
           <Link to='/auth/register' className={cs('link-register')}>Đăng ký ngay</Link>
@@ -217,11 +237,11 @@ function FormModal({ isLogin }) {
             <Input />
           </Form.Item>
   
-          <Form.Item label={null}>
+          <div className={cs('btn-submit')}>
             <Button type="primary" htmlType="submit">
               Đăng ký
             </Button>
-          </Form.Item>
+          </div>
           <div className={cs('switch-form')}>
             <span>Bạn đã có tài khoản?</span>
             <Link to='/auth' className={cs('link-register')}>Đăng nhập ngay</Link>

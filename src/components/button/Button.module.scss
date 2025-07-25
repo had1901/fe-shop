@@ -37,8 +37,8 @@
     border-radius: 50%;
 
     @include screen(mobile){
-        width: rem(24);
-        height: rem(24);
+        width: rem(30);
+        height: rem(30);
         font-size: rem(10);
     }
 }

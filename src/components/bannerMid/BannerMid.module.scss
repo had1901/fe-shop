@@ -2,25 +2,23 @@
 
 .banner_mid_wrap{
     position: relative;
-    display: none;
+    display: flex;
     flex-wrap: nowrap;
-    align-items: center;
-    gap: 10px;
+    // align-items: center;
     margin-top: 14px;
-    overflow: hidden;
+    overflow: auto;
 
     @include screen(mobile) {
-        flex-wrap: wrap;
+        // flex-wrap: wrap;
         margin-top: 4px;
-        padding: 0 4px;
-        gap: 4px;
+        // padding: 0 4px;
     }
 }
 .banner_mid_item{
     position: relative;
 }
 .banner_mid_wrap > * {
-    width: 100%;
+    // width: 100%;
 }
 .banner_mid_img{
     width: 100%;

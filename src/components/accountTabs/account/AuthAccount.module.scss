@@ -11,10 +11,9 @@
     font-size: rem(22);
     font-weight: 500;
     text-transform: uppercase;
-    padding: 20px;
 
     @include screen(mobile){
-        padding: rem(14) rem(14) rem(6);
+        padding: rem(10) rem(14) rem(6);
         font-size: rem(18);
     }
 
@@ -102,9 +101,9 @@
     @include screen(mobile){
         margin: 8px 10px 0 0;
         height: rem(36);
+        min-width: 80px;
     }
 } 
-// sn3 - trung quan - yen thuong - xa phu dong - gia lam
 .label-gender{
     font-size: rem(15);
 }

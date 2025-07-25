@@ -82,10 +82,10 @@ function BannerMid() {
   },[])
 
   return (
-    <div className={cs('banner_mid_wrap')}>
+    <div className={cs('banner_mid_wrap', 'row')}>
       {listBanner.length && 
         listBanner.map((item, i) => (
-          <Link key={i} ref={el => bannerRef.current[i] = el} to='#' className={cs('banner_mid_item')} >
+          <Link key={i} ref={el => bannerRef.current[i] = el} to='#' className={cs('banner_mid_item', 'col-xxl-6 col-xl-6 col-lg-6 col-md-8 col-sm-8 col-mn-8 gx-md-1 gx-sm-1 gx-mn-1')} >
             <img loading='lazy' src={item.src} className={cs('banner_mid_img')} alt={item.alt} />
           </Link>
         ))}

@@ -70,11 +70,16 @@ function Account() {
     const cs = useStyles(styles)
     let currentTab = accountTabs.find(tab => tab.key === accountTab)
     console.log(user)
+
+    const handleSwitchTab = (tab) => {
+        setAccountTab(tab)
+        window.scrollTo({ top: 0 })
+    }
   return (
     <div className={cs('account')}>
         <div className='container'>
             <div className={cs('information', 'row')}>
-                <div className='col-xxl-3 col-xl-3 col-lg-4 col-md-2 col-sm-2 col-mn-12 p-md-6 gx-md-1'>
+                <div className={cs('sticky', 'col-xxl-3 col-xl-3 col-lg-3 col-md-2 col-sm-2 col-mn-12 p-md-6 gx-md-1 gx-sm-1')}>
                     <div className={cs('sidebar-left')}>
                         <div className={cs('username')}>
                             <div className={cs('avatar')}><FaUserCircle /></div>
@@ -83,7 +88,7 @@ function Account() {
                         <ul className={cs('menu-profile')}>
                             {accountTabs.map(nav => (
                                 <li className={cs(`menu-profile-item ${accountTab === nav.key && 'active'}`)}>
-                                    <Link to={`#`} key={nav.key} className={cs('menu-profile-link')} onClick={() => setAccountTab(nav.key)}>
+                                    <Link to={`#`} key={nav.key} className={cs('menu-profile-link')} onClick={() => handleSwitchTab(nav.key)}>
                                         <span className={cs('menu-profile-icon')}>{nav.icon}</span>
                                         <span className={cs('menu-profile-label')}>{nav.title}</span>
                                     </Link>
@@ -92,8 +97,8 @@ function Account() {
                         </ul>
                     </div>
                 </div>
-                <div className='col-xxl-9 col-xl-9 col-lg-8 col-md-10 col-sm-10 col-mn-12 gx-md-1'>
-                    <div className='content-right' style={{background: '#fff', height: '100%'}}>
+                <div className='col-xxl-9 col-xl-9 col-lg-9 col-md-10 col-sm-10 col-mn-12 gx-md-1 gx-sm-1'>
+                    <div className={cs('content-right')}>
                         {/* {orders.length < 0 && <div><img loading='lazy' src={nodata} alt="" /></div>} */}
                         <AnimatePresence mode="wait" className={cs('sidebar-right')}>
                             <motion.div

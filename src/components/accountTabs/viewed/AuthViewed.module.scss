@@ -1,10 +1,21 @@
 
+@use '~/utils/scss/variables' as *;
+@use '~/utils/scss/mixin' as *;
+
 .viewed{
 }
 .title{
-    font-size: 22px;
+    font-size: rem(22);
     font-weight: 500;
     text-transform: uppercase;
-    padding: 20px;
 
-}
+    @include screen(tablet){
+        padding: rem(16);
+        font-size: rem(20);
+    }
+    @include screen(mobile){
+        padding: rem(10);
+        font-size: rem(18);
+
+    }
+}   

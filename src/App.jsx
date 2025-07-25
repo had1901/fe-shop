@@ -1,6 +1,6 @@
 
 import './App.scss'
-import { Routes, Route, useNavigate, useLocation } from 'react-router'
+import { Routes, Route, useLocation } from 'react-router'
 import AuthPage from './pages/auth/index';
 import DetailProductPage from './pages/details/DetailProduct';
 import DashboardPage from './pages/admin/dashboard/Dashboard';
@@ -15,16 +15,14 @@ import { menuItems } from './layouts/sidebar/_sidebarMenu';
 import { Bounce, ToastContainer } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import axiosApi from './services/axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setUser } from './store/auth/authSlice';
-import { LoadingOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { LoadingOutlined } from '@ant-design/icons';
 import { Flex, Spin } from 'antd';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import AuthPrivateRoute from './components/PrivateRoute/AuthPrivateRoute';
 import Account from './pages/auth/Account';
 import CartPage from './pages/cart/CartPage';
 import Payment from './pages/payment/Payment';
-import { setCarts } from './store/cart/cartSlice';
 import OrderPage from './pages/order/OrderPage';
 import Seller from './components/seller/Seller';
 import LayoutAdmin from './pages/admin/LayoutAdmin';
@@ -38,11 +36,11 @@ import Slideshow from './pages/admin/interface/Slideshow';
 import Banner from './pages/admin/interface/Banner';
 import Categories from './pages/admin/categories/Categories';
 import AddressPage from './pages/address/AddressPage';
-import useStyles from './hooks/useStyles';
 
 console.log("mode", import.meta.env.MODE)
 console.log("API URL:", import.meta.env.VITE_API_URL)
 
+const mode = import.meta.env.MODE
 const routesAdmin = [
   {
       path: '',
@@ -108,11 +106,8 @@ const routesAdmin = [
 
 function App() {
   const dispatch = useDispatch()
-  // const navigate = useNavigate()
   const [isLoading, setIsLoading] = useState(false)
-  // const [boo, set] = useState(true)
   const { pathname } = useLocation()
-  // const user = useSelector(state => state.auth.info)
 
   const render = (arr) => {
     if(arr.length > 0) {
@@ -161,14 +156,13 @@ function App() {
       window.scrollTo({top: 0, behavior: "smooth"})
   },[pathname])
 
-  if(isLoading) {
+  if(isLoading && mode === 'production') {
     return (
       <div className='app-vn'>
         <p>Do <strong>server</strong> sử dụng dịch vụ miễn phí nên sẽ tạm thời đóng băng khi không truy cập
           <br/> Vui lòng đợi server khởi động lại và nhấn F5 để tải lại trang 
           <br/> Xem video giải trí trong khi đợi nhé (^_^)
         </p>
-
         <iframe 
           className='video-yt'
           src="https://www.youtube.com/embed/ZD3ZaytFKiU" 
@@ -178,12 +172,20 @@ function App() {
           referrerPolicy="strict-origin-when-cross-origin" 
           allowFullScreen>
         </iframe>
-        {/* <Flex align="center" gap="middle">
-          <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
-        </Flex> */}
       </div>
     )
   }
+  
+  if(isLoading && mode === 'development') {
+     return (
+      <div className='app-vn'>
+        <Flex align="center" gap="middle">
+          <Spin indicator={<LoadingOutlined style={{ fontSize: 48 }} spin />} />
+        </Flex>
+      </div>
+    )
+  }
+
   return (
     <>
       <Routes>

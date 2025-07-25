@@ -36,11 +36,11 @@
     padding: 20px 16px;
 
     @include screen(tablet){
-        padding: 14px 12px;
+        padding: 14px 10px;
     }
 
     @include screen(mobile){
-        padding: 10px;
+        padding: 10px 6px;
     }
 
 }

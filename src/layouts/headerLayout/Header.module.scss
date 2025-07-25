@@ -155,7 +155,14 @@ $bg-white: #fff7f7;
         }
         .search{
             flex: 1;
-            // min-width: 500px;
+            min-width: rem(200);
+
+            @include screen(mobile){
+                min-width: rem(170);
+            }
+            @include screen(mobile){
+                min-width: rem(150);
+            }
         }
         .inputSearchWrap{
             position: relative;
@@ -205,7 +212,7 @@ $bg-white: #fff7f7;
 }
 .option-wrap{
     display: flex;
-    // gap: rem(10);
+    gap: rem(10);
 
     @include screen(laptop){
         // gap: rem(8);
@@ -213,7 +220,6 @@ $bg-white: #fff7f7;
     @include screen(tablet){
         display: none;
         gap: 0;
-
     }
     @include screen(mobile){
         display: none;
@@ -301,6 +307,15 @@ $bg-white: #fff7f7;
     height: 100%;
     font-size: 22px;
     text-align: center;
+    // margin-right: 4px;
+
+    @include screen(tablet){
+        margin-right: 0;
+    }
+
+    @include screen(mobile){
+        margin-right: 0;
+    }
 }
 .icon-size > svg {
     height: inherit;
@@ -331,12 +346,15 @@ $bg-white: #fff7f7;
     text-decoration: none;
     font-size: rem(15);
     font-weight: 600;
-    padding: 0 10px;
+    // padding: 0 10px;
 
     @include screen(mobile){
         padding: 0;
     }
 }
+// .text-nowrap{
+//     white-space: nowrap;
+// }
 
 .text-user{
     height: 100%;

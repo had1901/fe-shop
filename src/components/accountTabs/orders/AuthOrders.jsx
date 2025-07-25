@@ -13,6 +13,7 @@ import { formatDate } from '../../../utils/convertString/_formatTime';
 import OrderDetail from '../../orderDetail/OrderDetail';
 import { generateClass, generateStatusText } from '../../../utils/convertString/_gennerateOrderCode';
 import { fetchOrders } from './api_order';
+import { FaEye } from 'react-icons/fa6';
 
 const tabsAction = [
   {
@@ -32,7 +33,7 @@ const tabsAction = [
   },
   {
     id: 2,
-    label: 'Đang vận chuyển',
+    label: 'Đang giao hàng',
     status: 'shipping'
   },
   {
@@ -64,7 +65,7 @@ function AuthOrders() {
 
   const tableHeaders = [
     'Mã đơn hàng',
-    'Địa chỉ giao hàng',
+    'Địa chỉ',
     'Tổng tiền',
     'Trạng thái',
     'Xem chi tiết'
@@ -176,10 +177,10 @@ function AuthOrders() {
           </div>
         </div>
         <div className={cs('orders')}>
-          <div>
+          <div className={cs('orders-wrap')}>
             <table className={cs('table-order')}>
               <thead>
-                <tr>
+                <tr className={cs('table-row-head')}>
                   {tableHeaders.length && tableHeaders.map((label, i) => (
                     <td key={i} className={cs('table-label')}>{label}</td>
                   ))}
@@ -187,7 +188,7 @@ function AuthOrders() {
               </thead>
               <tbody>
                 {filterOrders.length > 0 && filterOrders.map((order) => (
-                  <tr key={order.id}>
+                  <tr key={order.id} className={cs('table-row')}>
                     <td className={cs('table-col')}>{order.order_code}</td>
                     <td className={cs('table-col')}>{order.shipping_address}</td>
                     <td className={cs('table-col total-price')}>{convertPrice(order.total_price)}</td>
@@ -195,7 +196,7 @@ function AuthOrders() {
                       <span className={cs(`status-order ${generateClass(order.status_payment)}`)}>{generateStatusText(order.status_payment)}</span>
                     </td>
                     <td className={cs('table-col center')}>
-                      <Button type="primary" onClick={() => handleViewDetail(order.id)}>Xem chi tiết</Button>
+                      <Button type="primary" className={cs('table-btn')} onClick={() => handleViewDetail(order.id)}><FaEye /></Button>
                       <Modal
                         title="Thông tin chi tiết đơn hàng"
                         closable={{ 'aria-label': 'Custom Close Button' }}

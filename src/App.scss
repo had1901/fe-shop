@@ -177,14 +177,9 @@ $gutters: (
             display: none;
         }
     }
-    
-    // @for $i from 1 through $grid-column {
-    //     .col-#{$i} {
-    //         width: calc(100% / $grid-column * $i)  ;
-    //         flex: 0 0 auto;
-    //     }
-    // }
 }
+
+
 .toast{
     color: red;
 }

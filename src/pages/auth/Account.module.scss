@@ -20,6 +20,20 @@
 .information{
     row-gap: 10px;
 }
+.content-right{
+    background: #fff; 
+    height: 100%;
+    min-height: 300px; 
+    padding: rem(20);
+    border-radius: 6px;
+
+    @include screen(tablet){
+        padding: rem(10);
+    }
+    @include screen(mobile){
+        padding: rem(10) 0 0;
+    }
+}
 .menu-profile{
     padding: 10px;
 
@@ -27,8 +41,9 @@
         display: block;
     }
     @include screen(mobile){
-        padding: 0;
+        padding: 6px;
         display: flex;
+        
     }
 }
 .menu-profile-item{
@@ -36,8 +51,15 @@
 
     @include screen(mobile){
         flex: 1;
+        border-radius: 4px;
     }
+
 }  
+.menu-profile-item.active .menu-profile-icon{
+    color: $bg-primary;
+    color: $text-white;
+}
+
 .menu-profile-link{
     display: flex;
     align-items: center;
@@ -63,7 +85,10 @@
     
 }
 .menu-profile-icon{
-    // font-size: 20px;
+    color: $color-sub-text;
+    @include screen(mobile){
+        font-size: rem(20);
+    }
 }
 .menu-profile-label{
     
@@ -78,14 +103,25 @@
         display: none;
     }
 }
+.sticky{
+    @include screen(mobile){
+        position: sticky;
+        top: 86px;
+        left: 0;
+        z-index: 99;
+    }
+    
+}
 .sidebar-left{
     min-height: 450px;
     height: 100%;
     background: #fff;
     border-radius: 6px;
-
+    box-shadow: 0px 2px 6px rgb(149 149 149 / 25%);
+    
     @include screen(mobile){
         min-height: auto;
+        
     }
 }
 .username{
@@ -126,6 +162,7 @@
     background: linear-gradient(to right, $bg-primary, #ffdde1); 
     // color: $text-white;
     background: #eaeaea; 
+    background: $bg-gradient; 
 
 
     @include screen(tablet){

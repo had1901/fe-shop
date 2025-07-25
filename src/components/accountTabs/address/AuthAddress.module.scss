@@ -1,13 +1,31 @@
+@use '~/utils/scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
+
 .address{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px;
+    // padding: rem(10);
+
+    @include screen(tablet){
+        padding: rem(14);
+    }
+    @include screen(mobile){
+        padding: 0 rem(10) rem(10);
+    }
 }
 .title{
-    font-size: 22px;
+    font-size: rem(22);
     font-weight: 500;
     text-transform: uppercase;
+    margin-right: 10px;
+
+    @include screen(tablet){
+        font-size: rem(20);
+    }
+    @include screen(mobile){
+        font-size: rem(18);
+    }
 }
 .add-address{
     font-weight: 500;
