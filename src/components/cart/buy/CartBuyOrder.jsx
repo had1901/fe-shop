@@ -11,18 +11,23 @@ import { convertPrice } from '../../../utils/convertString/_convertPrice';
 import { Link } from 'react-router'
 
 
-function CartBuyOrder({ currentStep }) {
+function CartBuyOrder({ currentStep, isLoading }) {
     const cs = useStyles(styles)
     const carts = useSelector(state => state.cart.carts)
-    
+    console.log('load', isLoading)
   return (
         <div className={cs('cart-order')}>
             <div className={cs('cart-content')}>
                 {currentStep === 0 && carts.length > 0 && <h3 className={cs('heading')}>Giỏ hàng của bạn</h3>}
                 {carts.length > 0 
-                    ? carts.map((item, i) => (
-                        <ProductCart key={i} item={item} />
-                    )) 
+                    ? (<div className={cs('cart-list')}>
+                        <div className={cs((`spinner ${isLoading === true ? 'loading' : ''}`))}>
+                            <div className={cs('loader-custom', 'loader')}></div> 
+                        </div>
+                        {carts.map((item, i) => (
+                            <ProductCart key={i} item={item} />
+                        ))}
+                     </div>)
                     : 
                     <>
                         <p className={cs('cart-content-text')}>Giỏ hàng của bạn đang trống</p>

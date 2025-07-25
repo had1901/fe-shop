@@ -18,6 +18,26 @@
     border-radius: 6px;
 
 }
+.cart-list{
+    padding: 20px 0;
+    position: relative;
+
+    .spinner{
+        display: none;
+        position: absolute;
+        inset: 0;
+        z-index: 9;
+        background-color: rgb(134 134 134 / 56%);
+
+        &.loading{
+            display: flex;
+        }
+    }
+    .loader-custom{
+        margin: auto;
+    }
+}
+
 .cart-checkout{
     position: relative;
     background: #FFEDED;
@@ -89,8 +109,9 @@
     transition: 0.2s ease;
 }
 .cart-content{
-    margin: 40px 0 0;
+    // margin: 40px 0 0;
     text-align: center;
+
 
     @include screen(mobile){
         margin: 0;

@@ -2,11 +2,13 @@
 @use '~/utils/scss/mixin' as *;
 
 .product-cart{
-    margin-top: rem(30);
+    margin-top: rem(28);
 
+    &:nth-child(1){
+        margin-top: 0;
+    }
     @include screen(mobile){
         margin-top: rem(16);
-
     }
 }
 .inner-product-cart{

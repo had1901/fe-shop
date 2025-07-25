@@ -153,7 +153,7 @@ function Cart() {
     const renderComponentByStep = (currentStep) => {
             switch (currentStep) {
                 case 0:
-                    return <CartBuyOrder currentStep={currentStep}/>
+                    return <CartBuyOrder currentStep={currentStep} isLoading={isLoading}/>
                 case 1:
                     return <CartOrderInfo currentStep={currentStep} />
                 case 2:
@@ -265,13 +265,13 @@ function Cart() {
                     />
                 </div>
             </div>
-            {isLoading 
+            {/* {isLoading 
                 ? (<div className={cs('spinner')}>
-                    {/* <FadeLoader  color="#ff8f8f" size={60} width={2} speedMultiplier={2} cssOverride={{ margin: '20px auto'}} /> */}
-                    <div className={cs('loader-custom', 'loader')}></div> 
+                        <div className={cs('loader-custom', 'loader')}></div> 
                     </div>) 
                 : renderComponentByStep(currentStep)
-            } 
+            } */}
+            {renderComponentByStep(currentStep)}
             {carts.length > 0 && 
                 <div className={cs('cart-bot')}>
                     <div className={cs('shipping')}>
