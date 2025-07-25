@@ -19,15 +19,15 @@ function FormModal({ isLogin }) {
 
   const submitFormLogin = async values => {                                                        
     try {
-      // const response = await toast.promise(
-      //   axiosApi.post('auth/login', values),
-      //   {
-      //     pending: 'Đang đăng nhập...',
-      //     success: 'Đăng nhập thành công',
-      //     error: 'Lỗi đăng nhập'
-      //   }
-      // )
-      const response = await axiosApi.post('auth/login', values)
+      const response = await toast.promise(
+        axiosApi.post('auth/login', values),
+        {
+          pending: 'Đang đăng nhập...',
+          success: 'Đăng nhập thành công',
+          error: 'Lỗi đăng nhập'
+        }
+      )
+      // const response = await axiosApi.post('auth/login', values)
       const user = response?.dt
 
       if (!user) throw new Error('Không nhận được dữ liệu người dùng')
@@ -40,14 +40,9 @@ function FormModal({ isLogin }) {
       })
       // Navigate sau khi đã có user rõ ràng
       if (user?.Role?.name === 'admin') {
-        // setTimeout(() => {
-        //   navigate('/auth/admin', { replace: true })
-        // }, 10000)
+        navigate('/auth/admin', { replace: true })
       } else {
-        // setTimeout(() => {
-        //   console.log('có user')
-        //   navigate('/', { replace: true })
-        // }, 10000)
+        navigate('/', { replace: true })
       }
     } catch (e) {
       console.log('Lỗi đăng nhập:', e)
