@@ -1,14 +1,17 @@
 @use '~/utils/scss/mixin' as *;
 @use '~/utils/scss/variables' as *;
 
-.form-cart{
+.cart-order{
     max-width: 800px;
     margin: 20px 0;
     padding: 10px;
     background: #fff;
+    height: 100%;
 
     @include screen(mobile){
-        margin: 0;
+        margin: auto;
+        height: 100%;
+
     }
 }
 .cart-header{

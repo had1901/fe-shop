@@ -9,13 +9,17 @@
     padding: rem(10);
     background: #fff;
     border-radius: 6px;
-
+    display: flex;
+    flex-direction: column;
+    
     @include screen(mobile){
         margin: 0 auto;
         border-radius: 0;
         padding: 0;
     }
 }
+
+
 .cart-header{
     border-radius: 6px;
 
@@ -201,7 +205,10 @@
     background-color: #E30019;
     padding-top: 50%;
 }
-// .spinner{
-//     display: flex;
-//     justify-content: center;
-// }
+.spinner{
+    min-height: 300px;
+    display: flex;
+    .loader-custom{
+        margin: auto;
+    }
+}

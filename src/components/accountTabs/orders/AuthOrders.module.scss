@@ -44,7 +44,7 @@
 .action-tab-item{
     text-align: center;
     font-size: rem(18);
-    padding: 10px 0;
+    padding: 10px;
     flex: 1;
     cursor: pointer;
     height: 100%;
@@ -55,8 +55,8 @@
         padding: 8px 0;
     }
     @include screen(mobile){
-        font-size: rem(13);
-        padding: 6px 0;
+        font-size: rem(12);
+        padding: 6px 4px;
     }
 }
 .action-tab-after{
@@ -85,6 +85,7 @@
     }
     @include screen(mobile){
         padding: 10px 0;
+        font-size: rem(12);
     }
 }
 .box-search-order{
@@ -137,6 +138,7 @@
     transform: translateY(-50%);
     background: #ccc;
 }
+
 .table-order{
     width: 100%;
 }
@@ -154,7 +156,7 @@
         font-size: rem(14);
         padding: 0 8px;
         background: $bg-button;
-        // border: 1px solid #818181;
+        background: linear-gradient(to top, #ffc1cb, #ff7f91);
         border: none;
         color: $text-white;
 
@@ -174,25 +176,12 @@
         background: $border-hover-color;
     }
 }
-// .table-label{
-//     text-align: center;
-//     vertical-align: middle;
-//     height: 40px;
-//     font-weight: 600;
-//     font-size: 14px;
-//     padding: 0 8px;
-//     background: $bg-button;
-//     // border: 1px solid #818181;
-//     border: none;
-//     color: $text-white;
-// }
+
 .table-col{
     padding: 8px;
     font-size: rem(14);
     vertical-align: middle;
     text-align: center;
-    // border-left: none;
-    // border-right: none;
     border: none;
     word-break: break-word;
 
@@ -202,11 +191,22 @@
 
     }
     @include screen(mobile){
-        padding: 6px;
-        font-size: rem(12);
-        
+        padding: 6px 4px;
+        font-size: rem(11);
     }
 }
+.table-col-address{
+    @include screen(tablet){
+        display: none;
+
+    }
+    @include screen(mobile){
+        display: none;
+
+    }
+}
+
+
 .table-btn{
     background: $text-white;
     border: 1px solid $bg-button;
@@ -233,10 +233,10 @@
     display: block;
 
     @include screen(tablet){
-        font-size: rem(13);
+        font-size: rem(12);
     }
     @include screen(mobile){
-        font-size: rem(11);
+        font-size: rem(10);
     }
 }
 .pending{

@@ -204,6 +204,7 @@ function Cart() {
         handleCalculatorTotalPrice()
     },[dispatch, carts])
 
+    
     return (
         <div className={cs('form-cart')}>
             <div className={cs('cart-header')}>
@@ -265,7 +266,10 @@ function Cart() {
                 </div>
             </div>
             {isLoading 
-                ? (<div className={cs('spinner')}><FadeLoader  color="#ff8f8f" size={60} width={2} speedMultiplier={2} cssOverride={{ margin: '20px auto'}} /></div>) 
+                ? (<div className={cs('spinner')}>
+                    {/* <FadeLoader  color="#ff8f8f" size={60} width={2} speedMultiplier={2} cssOverride={{ margin: '20px auto'}} /> */}
+                    <div className={cs('loader-custom', 'loader')}></div> 
+                    </div>) 
                 : renderComponentByStep(currentStep)
             } 
             {carts.length > 0 && 

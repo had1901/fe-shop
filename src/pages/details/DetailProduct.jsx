@@ -77,7 +77,7 @@ function DetailProductPage() {
 
 
   
-
+console.log(currentIndex, width)
   
   const handlePrev = debounce(() => {
     if(currentIndex > 0) {
@@ -174,7 +174,7 @@ function DetailProductPage() {
   },[currentIndex])
 
   useLayoutEffect(() => {
-    if(open) {
+    if(open && boxRef.current) {
       boxRef.current.style.maxHeight = '100%'
       btnRef.current.textContent = 'Thu gọn bài viết'
     } else {
@@ -262,10 +262,13 @@ function DetailProductPage() {
                         <li 
                           onClick={() => setCurrentIndex(index)} 
                           className={cs('img-item-sub')} 
-                          style={{ outline: index === currentIndex ? '1px solid #262626' : 'transparent' }}
+                          style={{ outline: index === currentIndex ? '1px solid #ff7f91' : 'transparent' }}
                           key={index}
+                          data-id={item.id}
+                          data-index={index}
+                          data-current={currentIndex}
                         >
-                          <img src={item.url} />
+                          <img src={item.url} alt='img-collection'/>
                         </li>
                       ))}
                 </ul>

@@ -7,10 +7,12 @@ import ProductList from '~/components/productList/ProductList'
 import useStyles from '~/hooks/useStyles'
 import styles from './Seller.module.scss'
 import axiosApi from '../../services/axios'
+import { useResponsive } from '~/hooks/useResponsive';
 
 function Seller({ category, album }) {
     const cs = useStyles(styles)
     const [data, setDate] = useState([])
+    const numberDisplay = useResponsive()
 
     const renderBanner = () => {
         switch(album){
@@ -44,7 +46,7 @@ function Seller({ category, album }) {
                 </div>
                 <div className={cs('products')}>
                     <ul className={cs('product_listing')}>
-                        <ProductList products={data} numberDisplay={5} noHeading />
+                        <ProductList products={data} numberDisplay={numberDisplay} noHeading />
                     </ul>
                 </div>
                 <div className={cs('banner-view-more')}>

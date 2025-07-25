@@ -1,6 +1,12 @@
+@use '~/utils/scss/variables' as *;
+@use '~/utils/scss/mixin' as *;
+
 .order-detail{
     overflow-x: scroll;
+
+    
 }
+
 .table-detail{
     width: 100%;
     table-layout: fixed;
@@ -19,49 +25,209 @@
 }
 .price{
     color: #e30119;
-    font-weight: 500;
-
+    font-weight: 600;
 }
 .list-order h2{
     margin: 20px 0;
-    font-size: 20px;
+    font-size: rem(20);
     font-weight: 500;
     color: #505050;
     text-align: center;
+
+    @include screen(tablet){
+        margin: 18px 0;
+        font-size: rem(16);
+    }
+    @include screen(mobile){
+        margin: 16px 0;
+        font-size: rem(16);
+    }
+}
+.list-order-product{
+    width: 100%;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    overflow: hidden;
+
 }
 .list-order-product li{
 
     display: flex;
 }
+.order-row-header{
+    border: none;
+    height: rem(40);
+    border-top-left-radius: 4px;
+
+    // @include screen(tablet){
+    //     height: rem(36);
+        
+    // }
+    // @include screen(mobile){
+    //     height: rem(32);
+        
+    // }
+}
+.order-row{
+    border: none;
+    // height: rem(90);
+
+    @include screen(tablet){
+        font-size: rem(13);
+    }
+    @include screen(mobile){
+        font-size: rem(11);
+    }
+}
 .order-label{
-    font-size: 16px;
+    font-size: rem(18);
     font-weight: 500;
-    background: #ccc;
+    padding: 0 6px;
+    // background: #ccc;
+    background: linear-gradient(to top, #ffc1cb, #ff7f91);
+    color: $text-white;
     text-align: center;
     vertical-align: middle;
-    border: 1px solid #a8a8a8;
+    border: none;
+
+    @include screen(laptop){
+        font-size: rem(16);
+    }
+    @include screen(tablet){
+        font-size: rem(14);
+    }
+    @include screen(mobile){
+        font-size: rem(12);
+        padding: 0 4px;
+
+    }
 }
 .order-col{
     text-align: center;
     vertical-align: middle;
+    height: rem(90);
+    // padding: 10px 0;
+    border: none;
+    border-bottom: 1px solid #ccc;
+
+    > span{
+        @include limit-line(2)
+    }
+
+    @include screen(tablet){
+        padding: 8px;
+        height: rem(80);
+
+    }
+    @include screen(mobile){
+        padding: 4px;
+        height: rem(60);
+
+    }
 }
 .img-product{
-    width: 8%;
+    width: 14%;
+    padding: 8px 0;
+
+    @include screen(tablet){
+        width: 16%;
+        padding: 0;
+    }
+    @include screen(mobile){
+        width: 18%;
+        padding: 0;
+    }
+    
 }
+
+// .order-info > thead,tbody,tr,td,th{
+//     padding-bottom: 0 !important;
+
+//     th{
+//         // background: #ccc;
+//         // padding: 4px 8px;
+//         span{
+//             color: #000 !important;
+//             font-size: 14px !important;
+//             font-weight: 500 !important;
+//         }
+//     }
+//     tr,td{
+//         border: none !important;
+//         padding-bottom: 10px !important;
+
+//     }
+
+//     @include screen(tablet) {
+//         padding-bottom: 0 !important;
+//     }
+//     @include screen(mobile) {
+//         padding-bottom: 0 !important;
+//     }
+// }
+.order-info{
+    --column: 4;
+    display: flex;
+    flex-wrap: wrap;
+
+    .order-info-item{
+        width: calc(100% / var(--column));
+        padding: 0 14px 20px;
+
+        > span{
+            display: block;
+        }
+
+        @include screen(laptop){
+            --column: 3;
+            padding: 0 12px 16px;
+        }
+        @include screen(tablet){
+            --column: 2;
+            padding: 0 10px 12px;
+        }
+        @include screen(mobile){
+            --column: 1;
+            padding: 0 0 8px;
+        }
+    }
+    .order-info-label{
+        font-weight: 500;
+        font-size: rem(16);
+
+        @include screen(mobile){
+            font-size: rem(14);
+        }
+    }
+    .order-info-content{
+        @include screen(mobile){
+            font-size: rem(12);
+        }
+    }
+    .btn-cancel{
+        width: 100%;
+        margin-top: 4px;
+    }
+}
+
+
+
+
+
 // status
 .status-order{
     text-align: center;
-    margin: 0 auto;
-    padding: 2px 4px;
-    // text-transform: capitalize;
+    // margin: 0 auto;
+    padding: 4px;
     font-size: 14px;
     border-radius: 4px;
     font-weight: 500;
     display: block;
+    margin-top: 4px;
 }
 .pending{
-    border: 1px solid #fed100;
-    color: #fed100;
+    border: 1px solid #d37b00;
+    color: #d37b00;
 }
 .completed{
     border: 1px solid #08ae70;

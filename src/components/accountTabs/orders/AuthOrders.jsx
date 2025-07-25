@@ -33,7 +33,7 @@ const tabsAction = [
   },
   {
     id: 2,
-    label: 'Đang giao hàng',
+    label: 'Vận chuyển',
     status: 'shipping'
   },
   {
@@ -166,7 +166,7 @@ function AuthOrders() {
             <div className={cs('inner-search-order')}>
               <input 
                 type="text" 
-                placeholder='Tìm đơn hàng theo Mã đơn hàng' 
+                placeholder='Tìm kiếm theo Mã đơn hàng' 
                 className={cs('search-order-input')}
                 value={searchOrder}
                 onChange={handleSearchOrder}
@@ -182,7 +182,7 @@ function AuthOrders() {
               <thead>
                 <tr className={cs('table-row-head')}>
                   {tableHeaders.length && tableHeaders.map((label, i) => (
-                    <td key={i} className={cs('table-label')}>{label}</td>
+                    <td key={i} className={cs(`table-label ${i === 1 && 'table-col-address'}`)}>{label}</td>
                   ))}
                 </tr>
               </thead>
@@ -190,35 +190,33 @@ function AuthOrders() {
                 {filterOrders.length > 0 && filterOrders.map((order) => (
                   <tr key={order.id} className={cs('table-row')}>
                     <td className={cs('table-col')}>{order.order_code}</td>
-                    <td className={cs('table-col')}>{order.shipping_address}</td>
+                    <td className={cs('table-col table-col-address')}>{order.shipping_address}</td>
                     <td className={cs('table-col total-price')}>{convertPrice(order.total_price)}</td>
                     <td className={cs(`table-col center`)}>
                       <span className={cs(`status-order ${generateClass(order.status_payment)}`)}>{generateStatusText(order.status_payment)}</span>
                     </td>
                     <td className={cs('table-col center')}>
                       <Button type="primary" className={cs('table-btn')} onClick={() => handleViewDetail(order.id)}><FaEye /></Button>
-                      <Modal
-                        title="Thông tin chi tiết đơn hàng"
-                        closable={{ 'aria-label': 'Custom Close Button' }}
-                        open={isModalOpen}
-                        onOk={handleOk}
-                        onCancel={handleCancel}
-                        cancelText='Đóng'
-                        focusTriggerAfterClose={true}
-                        width={{
-                          xs: '90%',
-                          sm: '85%',
-                          md: '75%',
-                          lg: '60%',
-                          xl: '60%',
-                          xxl: '60%',
-                        }}
-                      >
-                        <OrderDetail detail={detail} />
-                      </Modal>
                     </td>
                   </tr>
                 ))}
+                <Modal
+                  title="Chi tiết đơn hàng"
+                  closable={{ 'aria-label': 'Custom Close Button' }}
+                  open={isModalOpen}
+                  onOk={handleOk}
+                  onCancel={handleCancel}
+                  cancelText='Đóng'
+                  width={'90%'}
+                  mask={true}
+                  styles={{
+                    content: {
+                      padding: '14px 10px'
+                    }
+                  }}
+                >
+                  <OrderDetail detail={detail} />
+                </Modal>
               </tbody>
             </table>
           </div>

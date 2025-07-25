@@ -1,5 +1,5 @@
-@use '../../utils/scss/variables' as *;
-@use '../../utils/scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
+@use '~/utils/scss/mixin' as *;
 
 .product-main{
     background: #fff;
@@ -159,7 +159,6 @@
     display: flex;
     flex-wrap: wrap;
     align-items: start;
-    gap: 4px;
     margin-top: 10px;
     
     @include screen(mobile) {
@@ -171,7 +170,7 @@
     display: block;
     width: calc(100% / 10);
     height: 100%; 
-    border-radius: 6px;
+    border-radius: 4px;
     overflow: hidden;
     padding: 4px;
 
@@ -239,7 +238,7 @@
     padding: 24px;
 
     @include screen(mobile) {
-        padding: 10px 24px;
+        padding: 10px;
     }
 }
 .product-name{

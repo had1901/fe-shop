@@ -16,9 +16,9 @@ function CartBuyOrder({ currentStep }) {
     const carts = useSelector(state => state.cart.carts)
     
   return (
-        <div className={cs('form-cart')}>
+        <div className={cs('cart-order')}>
             <div className={cs('cart-content')}>
-                {currentStep === 0 && <h3 className={cs('heading')}>Giỏ hàng của bạn</h3>}
+                {currentStep === 0 && carts.length > 0 && <h3 className={cs('heading')}>Giỏ hàng của bạn</h3>}
                 {carts.length > 0 
                     ? carts.map((item, i) => (
                         <ProductCart key={i} item={item} />

@@ -1,7 +1,18 @@
+@use '~/utils/scss/variables' as *;
+@use '~/utils/scss/mixin' as *;
+
 .bottom{
     padding: 20px 0;
     background: #fffadc;
+
+    @include screen(mobile){
+        padding: 16px 0;
+    }
+    @include screen(mobile){
+        padding: 10px 0;
+    }
 }
+
 .banner_best_seller{
     display: block;
     width: 50%;
@@ -9,6 +20,13 @@
 }
 .btn_more{
     margin: 20px auto;
+
+    @include screen(mobile){
+        margin: 16px auto;
+    }
+    @include screen(mobile){
+        margin: 10px auto;
+    }
 }
 .banner-view-more{
     display: block;
