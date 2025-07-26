@@ -2,13 +2,26 @@
 @use '~/utils/scss/mixin' as *;
 
 .product-cart{
-    margin-top: rem(28);
+    margin-top: rem(20);
+    padding: 10px 0 20px;
+    border-bottom: 1px solid #ccc;
 
     &:nth-child(1){
         margin-top: 0;
     }
+
+    &:last-child{
+        border-bottom: none;
+        padding-bottom: 0;
+        
+    }
+    @include screen(tablet){
+        padding: 10px 0 16px;
+
+    }
     @include screen(mobile){
         margin-top: rem(16);
+        padding: 10px 0 10px;
     }
 }
 .inner-product-cart{
@@ -85,6 +98,13 @@
     display: flex;
     align-items: center;
     justify-content: end;
+
+    .btn-down{
+        border-radius: 0 4px 4px 0;
+    }
+    .btn-plus{
+        border-radius: 4px 0 0 4px;
+    }
 }
 .btn-quantity{
     display: inline-flex;
@@ -100,11 +120,11 @@
     font-size: 20px;
     border-radius: 0;
     border: 1px solid #CFCFCF;
-    border-radius: 4px 0 0 4px;
-
+    
+    
     @include screen(mobile){
-        height: rem(24);
-        width: rem(24);
+        height: rem(28);
+        width: rem(28);
     }
 }
 .input-quantity{
@@ -126,7 +146,7 @@
     user-select: none;
 
     @include screen(mobile){
-        height: rem(24);
+        height: rem(28);
         width: rem(34);
         font-size: rem(12);
     }

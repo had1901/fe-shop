@@ -36,6 +36,10 @@
     .loader-custom{
         margin: auto;
     }
+
+    @include screen(mobile){
+        padding: 10px 0 6px;
+    }
 }
 
 .cart-checkout{
