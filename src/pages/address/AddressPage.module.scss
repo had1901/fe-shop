@@ -27,3 +27,29 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     margin-bottom: 16px;
 }
+.map-container{
+    // background-image: url('https://watermark.lovepik.com/photo/40008/4882.jpg_wh1200.jpg');
+    
+}
+.mapbox{
+    margin: auto;
+    border-radius: 8px;
+    // box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    // background: #fff;
+    // width: w;
+    height: 800px;
+
+    @include screen(laptop){
+        height: 700px;
+    }
+    @include screen(tablet){
+        height: 600px;
+
+    }
+    @include screen(mobile){
+        height: 500px;
+
+    }
+    
+    
+}
