@@ -4,13 +4,13 @@
 .product_card{
     // --column: 5;
     width: calc(100% / var(--column));
-    // flex: 1 1 calc((100% / var(--column)) - 4px);
     flex-shrink: 0;
     padding: 0 4px;
     scroll-snap-align: start;
     will-change: transform;
     user-select: none;
     cursor: pointer;
+    // pointer-events: none;
     
     &_img{
         display: block;

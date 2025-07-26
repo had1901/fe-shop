@@ -24,7 +24,7 @@ function FlashSale() {
     const [data, setData] = useState([])
     const cs = useStyles(styles)
     const numberDisplay = useResponsive()
-    console.log('flash-sale', numberDisplay)
+    
     const handleDragStop = () => {
         setIsDragging(false)
     }

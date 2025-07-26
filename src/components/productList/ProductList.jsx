@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import styles from './ProductList.module.scss';
 import ProductCard from '../productCard/ProductCard';
 import Button from '../button/Button';
@@ -13,9 +13,17 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 
 function ProductList({ products, title, numberDisplay, noHeading }) {
-  const cardRef = useRef([])
-  const {trackRef, prevSlide, nextSlide} = useSlider(3, numberDisplay)
   const cs = useStyles(styles)
+  const cardRef = useRef([])
+  const [isActive, setIsActive] = useState(false)
+  // const [move, setMode] = useState(0)
+  const {trackRef, prevSlide, nextSlide, setWidthTrack, setCurrentSlide, widthTrack, widthItem} = useSlider(products.length, numberDisplay, isActive)
+
+
+  const handleScroll = () => {
+    const index = Math.round(trackRef.current.scrollLeft / cardRef.current[0].offsetWidth)
+    setCurrentSlide(index)
+  }
 
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger) 
@@ -67,7 +75,16 @@ function ProductList({ products, title, numberDisplay, noHeading }) {
             </ul> */}
           </div>
           <div className={cs('sliders')}>
-            <div ref={trackRef}  className={cs('slider_track')}>
+            <div 
+              ref={trackRef}  
+              className={cs('slider_track')} 
+              onMouseDown={() => setIsActive(true)}
+              onMouseUp={() => setIsActive(false)}
+              onTouchStart={() => setIsActive(true)}
+              onTouchEnd={() => setIsActive(false)}
+              onScroll={handleScroll}
+              // style={{ transform: `translateX: ${move}px`}}
+            >
               {products.length && products.map((item, i) => (
                 <ProductCard 
                       key={i} 

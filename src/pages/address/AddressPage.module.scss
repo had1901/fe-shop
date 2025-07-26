@@ -1,3 +1,6 @@
+@use '~/utils//scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
+
 .address{
     background: #fff;
     margin: 20px 0;
@@ -6,7 +9,8 @@
 }
 .heading{
     width: 60%;
-    background: #3a3a3a;
+    // background: #3a3a3a;
+    background: $bg-blue;
     text-align: center;
     padding: 20px;
     color: #fff;

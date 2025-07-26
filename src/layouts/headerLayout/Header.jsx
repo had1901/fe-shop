@@ -46,7 +46,6 @@ function Header() {
   const isLoading = useSelector(state => state.cart.isLoading)
   const [openMenu, setOpenMenu] = useState(false)
 
-  console.log(menuItems)
   
   const handleToggleNavbar = debounce(() => {
     dispatch(toggle())

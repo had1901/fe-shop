@@ -53,6 +53,7 @@ const arr2 = [
 
 function DetailProductPage() {
   const imgRef = useRef()
+  const thumbnailRef = useRef([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   const [width, setWidth] = useState(0)
@@ -74,10 +75,6 @@ function DetailProductPage() {
   const [previewURL, setPreviewURL] = useState('')
   const [isShowPreview, setIsShowPreview] = useState(false)
   const { id } = useParams()
-
-
-  
-console.log(currentIndex, width)
   
   const handlePrev = debounce(() => {
     if(currentIndex > 0) {
@@ -161,10 +158,11 @@ console.log(currentIndex, width)
     setIsModalOpen(false)
   }
 
-  const handlePreviewImg = (e) => {
-    console.log(e.target.parentElement?.children[0]?.src)
-    setPreviewURL(e.target.parentElement?.children[0]?.src)
-    setIsShowPreview(true)
+  const handlePreviewImg = (index) => {
+    if(thumbnailRef.current.length){
+      setPreviewURL(thumbnailRef.current[index].src)
+      setIsShowPreview(true)
+    }
   }
 
   useEffect(() => {
@@ -231,8 +229,8 @@ console.log(currentIndex, width)
                   <div className={cs('carousel')}>
                     <ul className={cs('slide-show')} style={{ transform: `translateX(${-currentIndex * width}px)`}}>
                       {newImgs.length && newImgs.map((item, index) => (
-                        <li key={index} className={cs('img-item')} ref={imgRef} onClick={handlePreviewImg}>
-                            <img loading='lazy' src={item.url} alt="product" className={cs('img')}/>
+                        <li key={index} className={cs('img-item')} ref={imgRef} onClick={() => handlePreviewImg(index)}>
+                            <img ref={(el) => thumbnailRef.current[index] = el} loading='lazy' src={item.url} alt="product" className={cs('img')}/>
                             <div className={cs('icon-preview')}> <TbEyeSearch  /></div>
                         </li>
                       ))}
