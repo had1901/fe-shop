@@ -651,7 +651,11 @@ $bg-white: #fff7f7;
     transition: all 0.2s linear;
 }
 .dropdown-model-user-item{
-    padding: 14px 0;
+
+    & a{
+        display: block;
+        padding: 14px 0;
+    }
 }
 .dropdown-model-user-link{
     display: flex; 

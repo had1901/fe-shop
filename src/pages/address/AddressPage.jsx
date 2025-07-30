@@ -33,18 +33,7 @@ const listAddress = [
 function AddressPage() {
     const cs = useStyles(styles)
     const mapRef = useRef(null)
-    const num = useResponsive()
-    console.log(num)
-    // const renderZoom = (num) => {
-    //   switch(num){
-    //     case 5: return 3
-    //     case 4: return 2
-    //     case 3: return 2
-    //     case 2: return 2
-    //     default: return 3
-    //   }
-    // }
-    // console.log(renderZoom(num))
+  
     useEffect(() => {
       if (mapRef.current) return
       mapboxgl.accessToken = 'pk.eyJ1IjoiZHVjdG9jbHgwMSIsImEiOiJjbWRrM2k0eXEwdHB4Mm1vajczbGwxaXFtIn0.FMgzB3BYi6cCUnT-i-6iMQ';
@@ -56,10 +45,10 @@ function AddressPage() {
         // center: [105.8342, 21.0278], // Hà Nội chẳng hạn
         center: [-74.5, 40],
         zoom: 2,
+        attributionControl: false,
         // pitch: 60, // Góc nghiêng để thấy 3D
         // bearing: -30, // Góc xoay
         // antialias: true // Để mượt 3D
-        attributionControl: false
       })
       mapRef.current.on('style.load', () => {
         mapRef.current.addSource('mapbox-dem', {

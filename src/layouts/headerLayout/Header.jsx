@@ -56,7 +56,6 @@ function Header() {
   }
 
   const onCloseMenu = () => {
-    console.log('close')
     setOpenMenu(false)
   }
 

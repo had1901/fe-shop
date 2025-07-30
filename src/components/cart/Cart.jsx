@@ -9,7 +9,7 @@ import { BsFillCartCheckFill } from 'react-icons/bs'
 import { FaAddressCard, FaCheck } from 'react-icons/fa6'
 import { IoCard, IoShieldCheckmark } from 'react-icons/io5'
 import { convertPrice } from '../../utils/convertString/_convertPrice'
-import { setCarts, setInfoCustomer, setTotal } from '../../store/cart/cartSlice'
+import { setCarts, setInfoCustomer, setLoading, setTotal } from '../../store/cart/cartSlice'
 import axiosApi from '../../services/axios'
 import FadeLoader from './../../../node_modules/react-spinners/esm/FadeLoader';
 import CountUp from 'react-countup';
@@ -18,6 +18,7 @@ import { useNavigate } from 'react-router'
 import { useForm } from "react-hook-form";
 import { Button, Steps } from 'antd'
 import { generateOrderCode } from '../../utils/convertString/_gennerateOrderCode'
+import { toast } from 'react-toastify'
 
 const checkoutSteps = [
     {
@@ -43,22 +44,18 @@ const checkoutSteps = [
 function Cart() {
     const [currentStep, setCurrentStep] = useState(0)
     const cs = useStyles(styles)
-    const stepIconRef = useRef([])
-    const stepRef = useRef()
     const carts = useSelector(state => state.cart.carts)
     const user = useSelector(state => state.auth.info)
     const total = useSelector(state => state.cart.total)
     const isLoading = useSelector(state => state.cart.isLoading)
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const [margins, setMargins] = useState({
-        marginLeft: 0,
-        marginRight: 0
-    })
     const selected = useSelector(state => state.cart.selected)
     const customer = useSelector(state => state.cart.infoCustomer)
-    const infoPayment = useSelector(state => state.order.infoPayment)
+    // const infoPayment = useSelector(state => state.order.infoPayment)
 
+    console.log(currentStep)
+    console.log('loading', isLoading)
     const isValidateForm = () => {
         const isAllFieldsFilled = Object.values(customer).every(value => value)
         return isAllFieldsFilled
@@ -86,11 +83,12 @@ function Cart() {
             }
             if(selected === "vnp") {
                 await handleCreatePaymentUrl()
+            } else if(selected === 'qr-code') {
+                setCurrentStep(3)
+            } else if(selected === 'cod') {
+                navigate('/order')
             }
             localStorage.setItem('infoPayment', JSON.stringify(info))
-            if(selected === 'cod' || selected === 'qr-code') {
-                setCurrentStep(3)
-            }
           },
         },
         3: {
@@ -121,8 +119,11 @@ function Cart() {
         }
     }
 
-    const handleCreateOrder = async () => {
-        const info = {
+    const handleCreateOrder = async () => {    
+        console.log('Tạo đơn') 
+        dispatch(setLoading(true))
+        try{
+            const info = {
                 ...customer,
                 userId: user.id,
                 total,
@@ -130,9 +131,16 @@ function Cart() {
                 methodPay: selected,
                 orderCode: generateOrderCode()
             }
-        localStorage.setItem('infoPayment', JSON.stringify(info))
-        const res = await axiosApi.post('/create-order', info)
-        return res
+            localStorage.setItem('infoPayment', JSON.stringify(info))
+            const res = await axiosApi.post('/create-order', info)
+            return res
+        }catch(e){
+            toast.error('Tạo đơn hàng thất bại. Vui lòng thử lại!')
+            console.log('Lỗi tạo đơn hàng', e)
+        }finally{
+            dispatch(setLoading(false))
+        }
+        
     }
 
     const handleRemoveCart = async () => {
@@ -144,36 +152,21 @@ function Cart() {
         dispatch(setCarts([]))
         return
     }
-    // Tính % các bước checkout
-    const calculatorProcessBar = () => {
-        if (checkoutSteps.length <= 1) return 0
-        return ((currentStep - 1) / (checkoutSteps.length - 1)) * 100
-    }
 
     const renderComponentByStep = (currentStep) => {
-            switch (currentStep) {
-                case 0:
-                    return <CartBuyOrder currentStep={currentStep} isLoading={isLoading}/>
-                case 1:
-                    return <CartOrderInfo currentStep={currentStep} />
-                case 2:
-                    return <CartPay />
-                case 3:
-                    return <CartStatus />
-                default:
-                    return <CartBuyOrder />
-            }
+        switch (currentStep) {
+            case 0:
+                return <CartBuyOrder currentStep={currentStep} isLoading={isLoading}/>
+            case 1:
+                return <CartOrderInfo currentStep={currentStep} />
+            case 2:
+                return <CartPay />
+            case 3:
+                return <CartStatus />
+            default:
+                return <CartBuyOrder />
+        }
     }
-
-    // useLayoutEffect(() => {
-    //     const firstEl = stepIconRef.current[0];
-    //     const left = firstEl.offsetLeft + firstEl.offsetWidth / 2
-    //     setMargins({
-    //         marginLeft: left,
-    //         marginRight: left
-    //     })
-    //     stepIconRef.current = []
-    // },[currentStep, stepIconRef])
 
     // API lấy danh sách product
     useEffect(() => {
@@ -208,37 +201,6 @@ function Cart() {
     return (
         <div className={cs('form-cart')}>
             <div className={cs('cart-header')}>
-                {/* <div ref={stepRef} className={cs('cart-checkout')}>
-                    <ul  className={cs('steps')}>
-                        {checkoutSteps.length && checkoutSteps.map((step, index) => (
-                            <li  
-                                key={step.name} 
-                                className={cs(`step-item `)}
-                            >
-                                <span 
-                                    ref={el => stepIconRef.current[index] = el}
-                                    className={cs(`step-icon ${currentStep > index + 1 || currentStep === checkoutSteps.length ? 'completed-step' : currentStep === index + 1 ? 'active-step' : ''}`)}
-                                >
-                                    {currentStep > index + 1 || currentStep === checkoutSteps.length ? <FaCheck /> : step.icon}
-                                </span>
-                                <span 
-                                    className={cs(`step-text ${currentStep > index + 1 || currentStep === checkoutSteps.length ? 'completed-text-step' : currentStep === index + 1 ? 'active-text-step' : ''}`)}
-                                >
-                                    {step.name}
-                                </span>
-                            </li>
-                        ))}
-                    </ul>
-                    <div 
-                        className={cs('process-bar')} 
-                        style={{
-                            left: margins.marginLeft + 'px',
-                            right: margins.marginLeft + 'px',
-                        }}
-                    >
-                        <div className={cs('process')} style={{width: `${calculatorProcessBar()}%`}}></div>
-                    </div>
-                </div> */}
                 <div className={cs('cart-checkout')}>
                     <Steps
                         current={currentStep}
@@ -289,14 +251,8 @@ function Cart() {
                             />
                         </span>
                     </div>
-                    
-                    {/* <div onClick={() => stepConfigs[currentStep]?.action()}>
-                        <Button className={cs('btn-checkout')}>
-                            {stepConfigs[currentStep]?.label}
-                        </Button>
-                    </div> */}
                     <div onClick={() => {stepConfigs[currentStep]?.action()}}>
-                        <Button className={cs('btn-checkout')} type='submit'>
+                        <Button className={cs('btn-checkout')} type='submit' disabled={isLoading}>
                             {stepConfigs[currentStep]?.label}
                         </Button>
                     </div>

@@ -1,14 +1,14 @@
 export function generateOrderCode() {
-    const now = new Date();
-    const yyyy = now.getFullYear();
-    const MM = String(now.getMonth() + 1).padStart(2, '0');
-    const dd = String(now.getDate()).padStart(2, '0');
-    const HH = String(now.getHours()).padStart(2, '0');
-    const mm = String(now.getMinutes()).padStart(2, '0');
+    const now = new Date()
+    const yyyy = now.getFullYear().toString().slice(2)
+    const MM = String(now.getMonth() + 1).padStart(2, '0')
+    const dd = String(now.getDate()).padStart(2, '0')
+    // const HH = String(now.getHours()).padStart(2, '0')
+    // const mm = String(now.getMinutes()).padStart(2, '0')
   
-    const random = Math.floor(1000 + Math.random() * 9000); // 4 số ngẫu nhiên
+    const random = Math.floor(1000 + Math.random() * 9000) // 4 số ngẫu nhiên
   
-    return `ORD${yyyy}${MM}${dd}${HH}${mm}${random}`
+    return `${yyyy}${MM}${dd}${random}`
   }
 
 

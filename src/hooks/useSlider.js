@@ -14,10 +14,10 @@ export function useSlider(length, numDisplayItem = 4, isActive) {
     // const [startX, setStartX] = useState(0) // vị trí chuột ban đầu
     // const [isNext, setIsNext] = useState(false) // check đang có kéo next hay không
 
-    console.log({
-        'current': currentSlide,
-        'length': length
-    })
+    // console.log({
+    //     'current': currentSlide,
+    //     'length': length
+    // })
     const prevSlide = () => {
         if(isClick) return
         const track = trackRef.current
@@ -81,7 +81,7 @@ export function useSlider(length, numDisplayItem = 4, isActive) {
         
         if(isActive){
             if(timerRef.current){
-                console.log('Đang click và dừng auto')
+                // console.log('Đang click và dừng auto')
                 clearInterval(timerRef.current)
                 timerRef.current = null
             }
@@ -89,16 +89,16 @@ export function useSlider(length, numDisplayItem = 4, isActive) {
             timerRef.current = setInterval(() => {
                 setCurrentSlide(prev => {
                     if(prev >= length){
-                        console.log('Dừng interval', timerRef.current)
+                        // console.log('Dừng interval', timerRef.current)
                         clearInterval(timerRef.current)
                         timerRef.current = null
                         return prev
                     }
-                    console.log('Đang chạy', timerRef.current)
+                    // console.log('Đang chạy', timerRef.current)
                     nextSlide()
                     return prev + 1
                 })
-                console.log('Interval')
+                // console.log('Interval')
             }, 3000)
             
         }

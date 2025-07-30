@@ -105,7 +105,7 @@ function DetailProductPage() {
           dispatch(setLoading(true))
           const res = await axiosApi.post('/add-cart', ({product, user}))
           if(res.ec === 0) {
-            toast('Đã thêm vào giỏ hàng')
+            toast.info('Đã thêm vào giỏ hàng')
             setTimeout(() => {
               dispatch(setLoading(false))
               // setAddCart(false)
