@@ -1,15 +1,11 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styles from './AuthOrders.module.scss'
 import useStyles from '../../../hooks/useStyles'
-import { motion } from 'framer-motion';
 import { IoIosSearch } from 'react-icons/io';
-import axiosApi from '../../../services/axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setCarts } from '../../../store/cart/cartSlice';
 import { setOrders } from '../../../store/order/orderSlice';
 import { convertPrice } from '../../../utils/convertString/_convertPrice';
 import { Button, Modal } from 'antd';
-import { formatDate } from '../../../utils/convertString/_formatTime';
 import OrderDetail from '../../orderDetail/OrderDetail';
 import { generateClass, generateStatusText } from '../../../utils/convertString/_gennerateOrderCode';
 import { fetchOrders } from './api_order';
