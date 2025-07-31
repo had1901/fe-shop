@@ -1,9 +1,9 @@
-export const debounce = (callback, waitTime) => {
+export const debounce = (callback, delay) => {
   let timeoutId = null
   return (...params) => {
     window.clearTimeout(timeoutId)
     timeoutId = setTimeout(() => {
       callback(...params)
-    }, waitTime)
+    }, delay)
   }
 }

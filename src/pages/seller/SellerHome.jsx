@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Outlet, useParams } from 'react-router'
-import { menuItems } from '../../layouts/sidebar/_sidebarMenu'
 
 // const components = [
     

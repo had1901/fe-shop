@@ -19,7 +19,7 @@ import tiktok from '~/assets/social/tiktok.webp'
 import yt from '~/assets/social/yt.webp'
 import zalo from '~/assets/social/zalo.webp'
 import gr_fb from '~/assets/social/gr_fb.webp'
-import useStyles from './../../hooks/useStyles';
+import useStyles from '../../hooks/useStyles';
 
 const footer = [
   {

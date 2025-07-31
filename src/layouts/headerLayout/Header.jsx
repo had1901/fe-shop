@@ -16,7 +16,7 @@ import { navigateList } from './_navigation.jsx';
 // import { menuItems, renderMenuItems } from '../sidebar/_sidebarMenu';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggle } from '~/store/navbar/navbarSlice';
-import SidebarMenu from '../sidebar/SidebarMenu.jsx';
+import SidebarMenu from '../../components/sidebar/SidebarMenu.jsx';
 import { debounce } from '~/utils/debounce/_debounce';
 import { Link } from 'react-router';
 import useStyles from '~/hooks/useStyles';
@@ -28,10 +28,11 @@ import usePost from '../../hooks/usePost.js';
 import { logout } from '../../store/auth/authSlice.js';
 import { setCarts } from '../../store/cart/cartSlice.js';
 import axiosApi from '../../services/axios.js';
-import { Button, Drawer } from 'antd';
+import { Avatar, Button, Drawer, List } from 'antd';
 import { AiOutlineHome } from 'react-icons/ai';
-import { menuItems } from '../sidebar/_sidebarMenu.jsx';
+import { menuItems } from '../../components/sidebar/_sidebarMenu.jsx';
 import { GoShieldCheck } from "react-icons/go";
+import { convertPrice } from '../../utils/convertString/_convertPrice.js';
 
 
 function Header() {
@@ -42,11 +43,13 @@ function Header() {
   const carts = useSelector(state => state.cart.carts)
   const dispatch = useDispatch()
   const cs = useStyles(styles)  
-  const { data, loading, postData, error } = usePost()
   const isLoading = useSelector(state => state.cart.isLoading)
   const [openMenu, setOpenMenu] = useState(false)
+  const [keyword, setKeyword] = useState('')
+  const [searchData, setSearchData] = useState([])
+  const { data, loading, postData, error } = usePost(false)
 
-  
+  console.log('keyword', keyword)
   const handleToggleNavbar = debounce(() => {
     dispatch(toggle())
   }, 200)
@@ -63,6 +66,19 @@ function Header() {
     dispatch(open())
   }
 
+  const handleSearch = debounce(async (keyword) => {
+    const word = keyword.toLowerCase().replace(/\s+/g, '').trim()
+    console.log(word)
+    try{
+      const res = await axiosApi.post('/api/search-product', { keyword: word })
+      if(res.ec === 0){
+        setSearchData(res.dt)
+        console.log(res?.dt)
+      }
+    }catch(e){
+      console.log(e)
+    }
+  }, 1000)
   
 
   const total = (carts) => {
@@ -89,6 +105,13 @@ function Header() {
     }
   },[state])
 
+  useEffect(() => {
+    if(keyword) {
+      handleSearch(keyword)
+    } else {
+      setSearchData([])
+    }
+  },[keyword])
   
   useLayoutEffect(() => {
     if(user) {
@@ -184,8 +207,28 @@ function Header() {
 
                         <div className={cs('search')}>
                           <div className={cs('inputSearchWrap')} >
-                            <input type='text' placeholder='Bạn cần tìm gì?' name='search' className={cs('inputSearch')}  />
+                            <input type='text' placeholder='Bạn cần tìm gì?' name='search' className={cs('inputSearch')} autoComplete='off' onChange={(e) => setKeyword(e.target.value)} />
                             <span className={cs('inputIcon')}><IoSearch /></span>
+                            <div className={cs('dropdown-search-result')} style={{ display: `${!searchData.length ? 'none' : 'block'}`}}>
+                              <List
+                                itemLayout="horizontal"
+                                dataSource={searchData}
+                                renderItem={(item, index) => (
+                                  <List.Item classNames>
+                                    <List.Item.Meta
+                                      avatar={<Avatar src={item.thumbnail} className={cs('img-thumbnail')}/>}
+                                      title={<a href="https://ant.design">{item.name}</a>}
+                                      description={
+                                        <>
+                                          <span className={cs('price-sale')}>{convertPrice(item.sale_price)}</span>
+                                          <span className={cs('price')}>{convertPrice(item.price)}</span>
+                                        </>
+                                      }
+                                    />
+                                  </List.Item>
+                                )}
+                              />
+                            </div>
                           </div>
                         </div>
                         <div className={cs('option-wrap')}>
@@ -270,8 +313,8 @@ function Header() {
                 </div>
           </div>
           <div className={cs('nav-mobile')}>
-            {menuItems.slice(0, 11).map(item => (
-              <Link to={`/pages/${item.href}`} className={cs('nav-link-mobile')} onClick={onCloseMenu}>
+            {menuItems.slice(0, 11).map((item, i) => (
+              <Link to={`/pages/${item.href}`} key={i} className={cs('nav-link-mobile')} onClick={onCloseMenu}>
                 {/* <span className={cs('icon-size')}>{item.icon}</span> */}
                 <div className={cs('nav-text-mobile')}>{item.label}</div>
               </Link>

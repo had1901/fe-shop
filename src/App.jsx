@@ -11,7 +11,6 @@ import ForgotPassword from './pages/auth/ForgotPassword';
 import MainLayout from './layouts/mainLayout/MainLayout';
 import HomePage from './pages/home/Home';
 import SellerHome from './pages/seller/SellerHome';
-import { menuItems } from './layouts/sidebar/_sidebarMenu';
 import { Bounce, ToastContainer } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import axiosApi from './services/axios';
@@ -36,6 +35,7 @@ import Slideshow from './pages/admin/interface/Slideshow';
 import Banner from './pages/admin/interface/Banner';
 import Categories from './pages/admin/categories/Categories';
 import AddressPage from './pages/address/AddressPage';
+import { menuItems } from './components/sidebar/_sidebarMenu';
 
 console.log("mode", import.meta.env.MODE)
 console.log("API URL:", import.meta.env.VITE_API_URL)

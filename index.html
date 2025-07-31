@@ -20,7 +20,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="/src/styles.css" rel="stylesheet">
-
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || []
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "371578a4-11c3-458a-ae96-f07b5ae6eb42",
+          notifyButton: {
+            enable: true,
+          },
+        })
+      })
+    </script>
     <title>Vite + React</title>
   </head>
   <body>

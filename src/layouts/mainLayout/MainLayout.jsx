@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Footer from '~/components/footer/Footer';
 import { Outlet } from 'react-router';
 import styles from './MainLayout.module.scss'
 import { toggle } from '~/store/navbar/navbarSlice';
@@ -7,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useStyles from '~/hooks/useStyles';
 import ToolbarMenu from '../../components/toolbar/ToolbarMenu';
 import Header from './../headerLayout/Header';
+import Footer from '../footerLayout/Footer';
 
 function MainLayout() {
   const [toggleClass, setToggleClass] = useState('')

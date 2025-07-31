@@ -1,7 +1,6 @@
-import React, { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { Fragment, useEffect, useLayoutEffect, useState } from 'react'
 import { NavLink, Link } from "react-router"
 import styles from './Home.module.scss';
-import clsx from "clsx";
 import { bannerListBottom } from './../../components/bannerSale/_bannerSale';
 import BannerSale from '../../components/bannerSale/BannerSale';
 import FlashSale from '../../components/flashSale/FlashSale';
@@ -10,13 +9,12 @@ import ViewedProduct from '../../components/viewedProduct/ViewedProduct';
 import ProductList from '../../components/productList/ProductList';
 import BannerDisplay from '../../components/bannerDisplay/BannerDisplay';
 import CategoryProducts from '../../components/categoryProducts/CategoryProducts';
-import SidebarMenu from '../../layouts/sidebar/SidebarMenu';
-import SidebarRight from '../../layouts/sidebar/SidebarRight';
 import News from '../../components/news/News';
 import { useResponsive } from '~/hooks/useResponsive';
 import axiosApi from './../../services/axios';
 import useStyles from '../../hooks/useStyles';
-// const apiUrl = import.meta.env.VITE_API_URL
+import SidebarMenu from '../../components/sidebar/SidebarMenu';
+import SidebarRight from '../../components/sidebar/SidebarRight';
 
 
 
