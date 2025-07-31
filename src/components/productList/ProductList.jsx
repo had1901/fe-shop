@@ -85,7 +85,7 @@ function ProductList({ products, title, numberDisplay, noHeading }) {
               onScroll={handleScroll}
               // style={{ transform: `translateX: ${move}px`}}
             >
-              {products.length && products.map((item, i) => (
+              {products.length > 0 && products.map((item, i) => (
                 <ProductCard 
                       key={i} 
                       ref={el => cardRef.current[i] = el} 
