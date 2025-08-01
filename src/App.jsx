@@ -14,10 +14,10 @@ import SellerHome from './pages/seller/SellerHome';
 import { Bounce, ToastContainer } from 'react-toastify';
 import { useEffect, useState } from 'react';
 import axiosApi from './services/axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from './store/auth/authSlice';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Flex, Spin } from 'antd';
+import { ConfigProvider, Flex, Spin } from 'antd';
 import AuthPrivateRoute from './components/PrivateRoute/AuthPrivateRoute';
 import Account from './pages/auth/Account';
 import CartPage from './pages/cart/CartPage';
@@ -36,6 +36,7 @@ import Banner from './pages/admin/interface/Banner';
 import Categories from './pages/admin/categories/Categories';
 import AddressPage from './pages/address/AddressPage';
 import { menuItems } from './components/sidebar/_sidebarMenu';
+import viVN from 'antd/locale/vi_VN';
 
 console.log("mode", import.meta.env.MODE)
 console.log("API URL:", import.meta.env.VITE_API_URL)
@@ -108,7 +109,8 @@ function App() {
   const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const { pathname } = useLocation()
-
+  const theme = useSelector(state => state.theme)
+  console.log(theme)
   const render = (arr) => {
     if(arr.length > 0) {
       return arr.map((item, index) => (
@@ -187,7 +189,15 @@ function App() {
   }
 
   return (
-    <>
+    <ConfigProvider 
+      theme={{
+        token: {
+          colorPrimary: '#1677ff',
+          colorTextBase: theme.color,
+          colorBgBase: theme.background
+        },
+      }}
+    >
       <Routes>
         <Route path='/' element={<MainLayout />}>
           <Route index element={<HomePage />} />
@@ -243,7 +253,7 @@ function App() {
         transition={Bounce}
         bodyClassName='toast'
       />
-    </>
+    </ConfigProvider>
   )
 
 }

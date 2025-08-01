@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">Tiệm ăn vặt</string>
-    <string name="title_activity_main">Tiệm ăn vặt</string>
-    <string name="package_name">com.gearvn.shop</string>
-    <string name="custom_url_scheme">com.gearvn.shop</string>
-</resources>

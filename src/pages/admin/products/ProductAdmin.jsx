@@ -211,6 +211,7 @@ function ProductAdmin() {
             </div>
         </div>
         <Table 
+            
             columns={columns} 
             dataSource={filtered} 
             rowKey="id"

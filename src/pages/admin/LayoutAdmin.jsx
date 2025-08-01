@@ -26,6 +26,7 @@ import useStyles from '../../hooks/useStyles'
 import Seller from '../../components/seller/Seller'
 import { useDispatch, useSelector } from 'react-redux'
 import { setTheme } from '../../store/admin/adminSlice'
+import { setDarkMode, setLightMode } from '../../store/theme/themeSlice'
 
 
   const { Header, Content, Footer, Sider } = Layout
@@ -60,7 +61,11 @@ function LayoutAdmin() {
     //   },
     // }
     const handleChangeTheme = (value) => {
-      dispatch(setTheme(value))
+      if(value === 'dark'){
+        dispatch(setDarkMode())
+      } else if(value === 'light'){
+        dispatch(setLightMode())
+      }
     }
 
     const menuItems = [

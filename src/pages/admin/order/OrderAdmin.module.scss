@@ -4,9 +4,14 @@
     // border-radius: 8px;
     padding: 20px 40px;
 }
+.row-table{
+    border: none;
+}
 .col-table{
     vertical-align: middle;
     overflow: hidden;
+    border: none;
+    border-bottom: 1px solid #ccc !important;
 }
 // .created-at{
 //     color: #b0373b;
@@ -20,6 +25,7 @@
 //     font-weight: 500;
 //     white-space: nowrap;
 // }
+
 .heading-tab{
     // display: flex;
     // align-items: center;

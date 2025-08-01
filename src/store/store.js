@@ -7,6 +7,7 @@ import productReducer from './product/productSlice';
 import cartReducer from './cart/cartSlice';
 import orderReducer from './order/orderSlice';
 import adminReducer from './admin/adminSlice';
+import themeReducer from './theme/themeSlice';
 
 import { 
   persistStore, 
@@ -34,6 +35,7 @@ const persistConfig = {
         cart: cartReducer,
         order: orderReducer,
         admin: adminReducer,
+        theme: themeReducer,
   })
   const persistedReducer = persistReducer(persistConfig, rootReducer)
 

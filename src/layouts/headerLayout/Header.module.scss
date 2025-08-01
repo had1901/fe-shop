@@ -684,14 +684,14 @@ $bg-white: #fff7f7;
     position: absolute;
     min-width: 300px;
     transform-origin: 100% 10%;
-    transform: scale(0.5);
+    transform: scale(0.9);
     top: 134%;
     right: 0;
     background: #fff;
     border-radius: 8px;
     padding: 10px;
     box-shadow: 0px 2px 6px rgba(193, 193, 193, 0.25);
-    transition: all 0.2s linear;
+    transition: all 0.12s ease;
 }
 .dropdown-model-user-item{
 

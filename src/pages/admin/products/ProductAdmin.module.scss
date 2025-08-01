@@ -10,13 +10,14 @@
 // }
 .row-table{
     // table-layout: fixed;
-    // background: #e30119;
     border: none;
     height: 50px !important;
 }
 .col-table{
     vertical-align: middle;
     width: auto;
+    border: none;
+    border-bottom: 1px solid #ccc !important;
     padding: 8px 10px !important;
     overflow: hidden;
 }

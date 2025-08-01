@@ -6,12 +6,15 @@
 }
 .row-table{
     table-layout: fixed;
+    border: none;
     height: 50px !important;
 }
 .col-table{
     // vertical-align: middle;
     width: auto;
     padding: 8px 10px !important;
+    border: none;
+    border-bottom: 1px solid #ccc !important;
     overflow: hidden;
 }
 .price{
