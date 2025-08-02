@@ -14,8 +14,7 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaWpforms } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
 import { AiOutlineLogout } from 'react-icons/ai'
-import { AnimatePresence, motion } from 'framer-motion';
-import nodata from '~/assets/nodata/no-data.png'
+import { AnimatePresence } from 'framer-motion';
 
 const accountTabs = [
     {

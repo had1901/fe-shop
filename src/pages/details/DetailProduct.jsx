@@ -10,13 +10,12 @@ import { placeList } from './../../components/address/_listPlace';
 import Address from './../../components/address/Address';
 import { debounce } from './../../utils/debounce/_debounce';
 import { IoChevronUpOutline } from 'react-icons/io5'
-import { addToCart, setCarts, setLoading } from '../../store/cart/cartSlice'
+import { setCarts, setLoading } from '../../store/cart/cartSlice'
 import axiosApi from './../../services/axios';
 import { toast } from 'react-toastify'
 import { useNavigate, useParams } from 'react-router'
 import { Button, Modal } from 'antd';
 import { setProduct } from '../../store/product/productSlice'
-import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { AiOutlineClose } from 'react-icons/ai'
 import { TbEyeSearch } from "react-icons/tb";
 import '../../DetailProduct.scss'
@@ -240,13 +239,11 @@ function DetailProductPage() {
                           newImgs.length > 2 && 
                           (<>
                             <button 
-                                // ref={chevLeftRef}
                                 className={cs('arrow-left chevron')}
                                 onClick={handlePrev}
                                 style={{ color: currentIndex === 0 ? '#ccc' : '#1f1f1f'}}
                             ><FaChevronLeft /></button>
                             <button 
-                                // ref={chevRightRef}
                                 className={cs('arrow-right chevron')}
                                 onClick={handleNext}
                                 style={{ color: currentIndex === newImgs.length - 1 ? '#ccc' : '#1f1f1f'}}

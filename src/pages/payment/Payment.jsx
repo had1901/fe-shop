@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { useLocation, useNavigate, useParams } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { formatTime } from './../../utils/convertString/_formatTime';
-import Cart from '../../components/cart/Cart';
 import styles from './Payment.module.scss'
 import useStyles from '../../hooks/useStyles';
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
@@ -9,7 +8,6 @@ import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { setInfoPayment } from '../../store/order/orderSlice';
 import axiosApi from '../../services/axios';
-import { generateOrderCode } from '../../utils/convertString/_gennerateOrderCode';
 import { setCarts } from '../../store/cart/cartSlice';
 
 

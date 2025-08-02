@@ -3,7 +3,6 @@ import useStyles from '../../hooks/useStyles'
 import styles from './AddressPage.module.scss'
 import AddressMap from '../../components/address/AddressMap'
 import mapboxgl from 'mapbox-gl'
-import { useResponsive } from '~/hooks/useResponsive';
 
 
 const listAddress = [
