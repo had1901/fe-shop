@@ -19,10 +19,6 @@ function OrderPage() {
   const total = useSelector(state => state.cart.total)
   
   const dispatch = useDispatch()
-  console.log('order', orders)
-  console.log('customer', customer)
-  console.log('infoPayment', infoPayment)
-  console.log('selected', selected)
 
   const configInfoPayment = [
     {
