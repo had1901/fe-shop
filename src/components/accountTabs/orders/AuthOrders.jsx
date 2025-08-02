@@ -10,6 +10,7 @@ import OrderDetail from '../../orderDetail/OrderDetail';
 import { generateClass, generateStatusText } from '../../../utils/convertString/_gennerateOrderCode';
 import { fetchOrders } from './api_order';
 import { FaEye } from 'react-icons/fa6';
+import { motion } from "framer-motion"
 
 const tabsAction = [
   {
