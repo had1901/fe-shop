@@ -15,6 +15,7 @@ import { FaWpforms } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
 import { AiOutlineLogout } from 'react-icons/ai'
 import { AnimatePresence } from 'framer-motion';
+import { motion } from "motion/react"
 
 const accountTabs = [
     {
