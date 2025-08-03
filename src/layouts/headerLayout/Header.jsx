@@ -210,6 +210,7 @@ function Header() {
                             <input type='text' placeholder='Bạn cần tìm gì?' name='search' className={cs('inputSearch')} autoComplete='off' onChange={(e) => setKeyword(e.target.value)} />
                             <span className={cs('inputIcon')}><IoSearch /></span>
                             <div className={cs('dropdown-search-result')} style={{ display: `${!searchData.length ? 'none' : 'block'}`}}>
+                              <h2 className={cs('dropdown-search-heading')}>Kết quả tìm kiếm</h2>
                               <List
                                 itemLayout="horizontal"
                                 dataSource={searchData}

@@ -157,7 +157,11 @@ $bg-white: #fff7f7;
             position: relative;
             flex: 1;
             min-width: rem(200);
-
+            
+            .dropdown-search-heading{
+                padding: 10px;
+                font-size: rem(14);
+            }
             .dropdown-search-result{
                 display: none;
                 position: absolute;
@@ -202,6 +206,7 @@ $bg-white: #fff7f7;
             @include screen(mobile){
                 min-width: rem(150);
             }
+            
         }
         .inputSearchWrap{
             position: relative;
