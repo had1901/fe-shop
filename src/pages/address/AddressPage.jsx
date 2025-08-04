@@ -1,8 +1,7 @@
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import useStyles from '../../hooks/useStyles'
 import styles from './AddressPage.module.scss'
 import AddressMap from '../../components/address/AddressMap'
-import mapboxgl from 'mapbox-gl'
 
 
 const listAddress = [
@@ -31,59 +30,8 @@ const listAddress = [
 
 function AddressPage() {
     const cs = useStyles(styles)
-    const mapRef = useRef(null)
   
-    useEffect(() => {
-      if (mapRef.current) return
-      mapboxgl.accessToken = 'pk.eyJ1IjoiZHVjdG9jbHgwMSIsImEiOiJjbWRrM2k0eXEwdHB4Mm1vajczbGwxaXFtIn0.FMgzB3BYi6cCUnT-i-6iMQ';
-      mapRef.current = new mapboxgl.Map({
-        container: 'map', // container ID
-        // style: 'mapbox://styles/mapbox/streets-v12', // style URL
-        style: 'mapbox://styles/mapbox/satellite-streets-v12', // style URL
-        // style: 'mapbox://styles/mapbox/standard',
-        // center: [105.8342, 21.0278], // Hà Nội chẳng hạn
-        center: [-74.5, 40],
-        zoom: 2,
-        attributionControl: false,
-        // pitch: 60, // Góc nghiêng để thấy 3D
-        // bearing: -30, // Góc xoay
-        // antialias: true // Để mượt 3D
-      })
-      mapRef.current.on('style.load', () => {
-        mapRef.current.addSource('mapbox-dem', {
-          type: 'raster-dem',
-          url: 'mapbox://mapbox.terrain-rgb',
-          tileSize: 512,
-          // maxzoom: 12
-        })
-        mapRef.current.setTerrain({ source: 'mapbox-dem', exaggeration: 1.5 });
-        mapRef.current.setLight({
-          anchor: 'viewport',
-          intensity: 0.5
-        })
-        // map.addLayer({
-        //   id: '3d-buildings',
-        //   source: 'composite',
-        //   'source-layer': 'building',
-        //   filter: ['==', 'extrude', 'true'],
-        //   type: 'fill-extrusion',
-        //   minzoom: 15,
-        //   paint: {
-        //     'fill-extrusion-color': '#aaa',
-        //     'fill-extrusion-height': [
-        //       'interpolate', ['linear'], ['zoom'],
-        //       15, 0,
-        //       15.05, ['get', 'height']
-        //     ],
-        //     'fill-extrusion-base': ['get', 'min_height'],
-        //     'fill-extrusion-opacity': 0.6
-        //   }
-        // })
-      })
-
-      
-      return () => mapRef.current?.remove()
-    },[])
+  
   return (
     <div className={'container'}>
         <div className={cs('address')}>

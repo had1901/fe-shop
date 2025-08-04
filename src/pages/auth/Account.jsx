@@ -14,8 +14,6 @@ import { FaUserCircle } from "react-icons/fa";
 import { FaWpforms } from "react-icons/fa";
 import { IoEye } from "react-icons/io5";
 import { AiOutlineLogout } from 'react-icons/ai'
-import { AnimatePresence } from 'framer-motion';
-import { motion } from "framer-motion"
 
 const accountTabs = [
     {
@@ -100,8 +98,8 @@ function Account() {
                 <div className='col-xxl-9 col-xl-9 col-lg-9 col-md-10 col-sm-10 col-mn-12 gx-md-1 gx-sm-1'>
                     <div className={cs('content-right')}>
                         {/* {orders.length < 0 && <div><img loading='lazy' src={nodata} alt="" /></div>} */}
-                        <AnimatePresence mode="wait" className={cs('sidebar-right')}>
-                            <motion.div
+                        <div className={cs('sidebar-right')}>
+                            <div
                                 key={accountTab}
                                 initial={{ opacity: 0}}
                                 animate={{ opacity: 1 }}
@@ -110,8 +108,8 @@ function Account() {
                                 
                             >
                                 {currentTab?.component}
-                            </motion.div>
-                        </AnimatePresence>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

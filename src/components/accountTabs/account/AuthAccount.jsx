@@ -4,7 +4,6 @@ import useStyles from '../../../hooks/useStyles'
 import styles from './AuthAccount.module.scss'
 import { useForm } from "react-hook-form"
 import { useDispatch, useSelector } from 'react-redux'
-import { AnimatePresence, motion } from "framer-motion";
 import { Button } from 'antd'
 import axiosApi from '../../../services/axios'
 import { toast } from 'react-toastify'
@@ -55,7 +54,7 @@ function AuthAccount() {
 
   return (
       <div className={cs('account')}>
-        <motion.div>
+        <div>
           <div className={cs('title')}>
             <h1 >Thông tin tài khoản</h1>
           </div>
@@ -130,7 +129,7 @@ function AuthAccount() {
             </div>
               <div className={cs('btn-submit')}><Button type='primary' htmlType='submit' value='Lưu thay đổi'>Lưu thay đổi</Button></div>
           </form>
-        </motion.div>
+        </div>
       </div>
   )
 }

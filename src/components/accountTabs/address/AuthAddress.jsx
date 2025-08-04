@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import styles from './AuthAddress.module.scss'
 import useStyles from '../../../hooks/useStyles'
-import { motion } from 'framer-motion';
 import SelectAddress from '../../selectAddress/SelectAddress';
 import { Modal } from 'antd';
 
@@ -31,7 +30,7 @@ function AuthAddress() {
     setData({...data, [e.target.name]: e.target.value})
   }
   return (
-    <motion.div 
+    <div 
       className={cs('address')}
     >
       <div>
@@ -50,7 +49,7 @@ function AuthAddress() {
           {!addressList.length && 'Hãy thêm một địa chỉ'}
       </Modal>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

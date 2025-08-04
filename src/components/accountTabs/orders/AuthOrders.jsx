@@ -10,7 +10,6 @@ import OrderDetail from '../../orderDetail/OrderDetail';
 import { generateClass, generateStatusText } from '../../../utils/convertString/_gennerateOrderCode';
 import { fetchOrders } from './api_order';
 import { FaEye } from 'react-icons/fa6';
-import { motion } from "framer-motion"
 import Skeleton from '../../skeleton/Skeleton';
 
 const tabsAction = [
@@ -135,7 +134,7 @@ function AuthOrders() {
   },[user.id, dispatch])
 
   return (
-    <motion.div 
+    <div 
       className={cs('orders')}
     >
       <div>
@@ -227,7 +226,7 @@ function AuthOrders() {
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

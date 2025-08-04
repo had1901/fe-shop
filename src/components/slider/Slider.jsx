@@ -97,7 +97,6 @@ function Slider({ sliders }) {
     <div ref={sliderRef} className={cs('slider')}>
         {sliders.map((img, index) => (
             <img 
-                loading='lazy'
                 key={index} 
                 src={img.src} 
                 alt={img.id} 
