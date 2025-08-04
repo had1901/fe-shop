@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import styles from './AccountAdmin.module.scss'
 import useStyles from '../../../hooks/useStyles'
 import axiosApi from '../../../services/axios'
-import { Badge, Button, Popconfirm, Space, Statistic, Table, Tag, Tooltip } from 'antd'
+import { Badge, Button, message, Popconfirm, Space, Statistic, Table, Tag, Tooltip } from 'antd'
 import { Link } from 'react-router'
 import FilterAdmin from '../../../components/filter/FilterAdmin'
 import { CheckCircleOutlined, CloseCircleOutlined, DeleteOutlined, EditOutlined, ExclamationCircleOutlined, PlusCircleOutlined, QuestionCircleOutlined, SyncOutlined } from '@ant-design/icons';
@@ -18,6 +18,7 @@ function AccountAdmin() {
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [mode, setMode] = useState('create')
     const [filtered, setFiltered] = useState([])
+    const [messageApi, contextHolder] = message.useMessage()
 
     const showModal = () => {
         setIsModalOpen(true)
@@ -51,16 +52,16 @@ function AccountAdmin() {
             const res = await axiosApi.delete(`/auth/admin/delete-account/${id}`)
             if(res.ec === 0) {
                 setIsModalOpen(false)
-                setLoading(false)
-                toast(res.ms)
+                messageApi.open({ type: 'success', content: res.ms })
                 await handleGetUsers()
             }
         }catch(e) {
             console.log(e)
             if(e.ec !== 0) {
-                toast(e.ms)
-                setLoading(false)
+                messageApi.open({ type: 'error', content: e.ms })
             }
+        }finally{
+            setLoading(false)
         }
     }
 
@@ -190,16 +191,16 @@ function AccountAdmin() {
     ]
 
    const handleGetUsers = useCallback(async () => {
+        setLoading(true)
         try{
-            setLoading(true)
             const res = await axiosApi.get('/auth/admin/read-accounts')
             if(res.ec === 0 && res.dt) {
                 setAccounts(res.dt)
-                setLoading(false)
             }
         } catch(e){
-            setLoading(false)
             console.log(e)
+        } finally{
+            setLoading(false)
         }
    }, [])
      
@@ -209,6 +210,7 @@ function AccountAdmin() {
 
   return (
      <div className={cs('account-admin')}>
+        {contextHolder}
         <div className={cs('heading-tab')}>
             <FilterAdmin 
                 data={accounts}

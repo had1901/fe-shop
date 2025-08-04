@@ -1,0 +1,34 @@
+
+
+.skeleton{
+    // width: 100%;
+    // min-height: 500px;
+    margin: 10px 0;
+    height: 100%;
+    background: #dcdcdc;
+    border-radius: 6px;
+    position: relative;
+    overflow: hidden;
+
+    &::after{
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+        background-image: linear-gradient(to left, #dcdcdc, rgb(206 206 206), #dcdcdc);
+        filter: blur(14px);
+        animation: auto 1.4s ease-in infinite;
+    }
+}
+
+@keyframes auto {
+    from{
+        left: -100%;
+    } to {
+        left: 100%;
+    }
+    
+    
+}

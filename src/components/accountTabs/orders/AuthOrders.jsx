@@ -11,6 +11,7 @@ import { generateClass, generateStatusText } from '../../../utils/convertString/
 import { fetchOrders } from './api_order';
 import { FaEye } from 'react-icons/fa6';
 import { motion } from "framer-motion"
+import Skeleton from '../../skeleton/Skeleton';
 
 const tabsAction = [
   {
@@ -184,7 +185,8 @@ function AuthOrders() {
                 </tr>
               </thead>
               <tbody>
-                {filterOrders.length > 0 && filterOrders.map((order) => (
+                {filterOrders.length > 0  
+                ? filterOrders.map((order) => (
                   <tr key={order.id} className={cs('table-row')}>
                     <td className={cs('table-col')}>{order.order_code}</td>
                     <td className={cs('table-col table-col-address')}>{order.shipping_address}</td>
@@ -196,7 +198,9 @@ function AuthOrders() {
                       <Button type="primary" className={cs('table-btn')} onClick={() => handleViewDetail(order.id)}><FaEye /></Button>
                     </td>
                   </tr>
-                ))}
+                ))
+                : <Skeleton col={1} height={40} />
+                }
                 <Modal
                   title="Chi tiết đơn hàng"
                   closable={{ 'aria-label': 'Custom Close Button' }}
@@ -216,6 +220,9 @@ function AuthOrders() {
                 </Modal>
               </tbody>
             </table>
+            {filterOrders.length < 0 && tableHeaders.map((_, i) => (
+              <Skeleton col={1} height={20} key={i}/>
+            ))}
           </div>
         </div>
       </div>

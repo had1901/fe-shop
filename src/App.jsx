@@ -17,7 +17,7 @@ import axiosApi from './services/axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from './store/auth/authSlice';
 import { LoadingOutlined } from '@ant-design/icons';
-import { ConfigProvider, Flex, Spin } from 'antd';
+import { ConfigProvider, Flex, message, Spin } from 'antd';
 import AuthPrivateRoute from './components/PrivateRoute/AuthPrivateRoute';
 import Account from './pages/auth/Account';
 import CartPage from './pages/cart/CartPage';
@@ -110,7 +110,9 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const { pathname } = useLocation()
   const theme = useSelector(state => state.theme)
-  console.log(theme)
+  const [messageApi, contextHolder] = message.useMessage()
+  const user = useSelector(state => state.auth.info)
+
   const render = (arr) => {
     if(arr.length > 0) {
       return arr.map((item, index) => (
@@ -150,9 +152,12 @@ function App() {
     
   },[dispatch])
 
-  // useEffect(() => {
-  //   if(user.Role.name === 'admin') navigate('/auth/admin')
-  // },[user, navigate])
+  useEffect(() => {
+    if(user){
+        messageApi.destroy()
+        messageApi.open({ type: 'success', content: 'Đăng nhập thành công', duration: 4 })
+    }
+  },[user, messageApi])
 
   useEffect(() => {
       window.scrollTo({top: 0, behavior: "smooth"})
@@ -198,6 +203,7 @@ function App() {
         },
       }}
     >
+      {contextHolder}
       <Routes>
         <Route path='/' element={<MainLayout />}>
           <Route index element={<HomePage />} />

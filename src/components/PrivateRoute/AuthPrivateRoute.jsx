@@ -17,9 +17,7 @@ function AuthPrivateRoute() {
         }
         return <Navigate to="/" replace />
     } 
-    // if(user?.id && user.Role.name.includes('admin')){
-    //     return <Navigate to="/auth/admin" replace />
-    // }
+
     return (
         <Outlet />
     )

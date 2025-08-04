@@ -262,7 +262,7 @@ function OrderAdmin() {
                 page='order'
             />
             <div className={cs('flex-box')}>
-                <div className={cs('flex-box')}>
+                {/* <div className={cs('flex-box')}>
                     <Link to={'add-new-product'}>
                         <Button color='primary' variant='filled'>
                             <PlusCircleOutlined />
@@ -270,7 +270,7 @@ function OrderAdmin() {
                         </Button>
                     </Link>
                     <Badge className='' status="success" text={`Kết quả tìm kiếm: ${filtered?.length} đơn hàng`} />
-                </div>
+                </div> */}
                 <Badge status="success" text={`Tổng sản phẩm: ${orders.length}`} />
 
             </div>

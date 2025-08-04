@@ -20,7 +20,8 @@ function ProductAdmin() {
     const [filtered, setFiltered] = useState([])
     const [loading, setLoading] = useState(false)
     const themeRedux = useSelector(state => state.admin.theme)
-    
+    const [messageApi, contextHolder] = message.useMessage()
+
     const columns = [
         {
             title: "ID",
@@ -73,7 +74,7 @@ function ProductAdmin() {
             }
         },
         {
-            title: 'Số lượng tồn kho',
+            title: 'Tồn kho',
             dataIndex: 'stock_quantity',
             key: 'stock_quantity',
             align: 'center',
@@ -145,20 +146,19 @@ function ProductAdmin() {
     ]
 
     const handleDelete = async (id) => {
-            try{
-                setLoading(true)
-                const res = await axiosApi.delete(`/api/delete-product/${id}`)
-                if(res.ec === 0) {
-                    setLoading(false)
-                    toast(res.ms)
-                    await handleGetAllProduct()
-                }
-            } catch(e){
-                    console.log(e)
-                    toast(e.ms)
-            } finally{
-                    setLoading(false)
+        setLoading(true)
+        try{
+            const res = await axiosApi.delete(`/api/delete-product/${id}`)
+            if(res.ec === 0) {
+                messageApi.open({ type: 'success', content: res.ms })
+                await handleGetAllProduct()
             }
+        } catch(e){
+            console.log(e)
+            messageApi.open({ type: 'success', content: e.ms })
+        } finally{
+            setLoading(false)
+        }
     }
 
     const handleCancel = e => {
@@ -172,12 +172,16 @@ function ProductAdmin() {
 
     const handleGetAllProduct = useCallback(async () => {
             setLoading(true)
-            const data = await axiosApi.get('/api/get-all-product')
-            if(data.ec === 0 && data.dt) {
-                setProducts(data.dt)
+            try{
+                const data = await axiosApi.get('/api/get-all-product')
+                if(data.ec === 0 && data.dt) {
+                    setProducts(data.dt)
+                }
+            } catch(e){
+                console.log(e)
+            } finally {
                 setLoading(false)
             }
-            setLoading(false)
     },[])
     
     // call api lấy tất cả sản phẩm
@@ -189,6 +193,7 @@ function ProductAdmin() {
 
   return (
     <div className={cs(`products-admin`, `${themeRedux === 'dark' ? 'dark-theme' : ''}`)}>
+        {contextHolder}
         <div className={cs('heading-tab')}>
             <FilterAdmin 
                 data={products}

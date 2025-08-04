@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import styles from './ProductEdit.module.scss'
 import useStyles from '../../../hooks/useStyles'
-import { Button, Checkbox, Form, Input, Select, Space, Spin, Switch } from 'antd'
+import { Button, Checkbox, Form, Input, message, Select, Space, Spin, Switch } from 'antd'
 import Editor from '../../../components/editor/Editor'
 import InputItem from '../../../components/input/Input'
 import UploadFile from '../../../components/upload/UploadFile'
@@ -19,7 +19,35 @@ import { v4 as uuidv4 } from 'uuid'
 // import { autoGravity } from '@cloudinary/url-gen/qualifiers/gravity';
 // import { AdvancedImage } from '@cloudinary/react';
 
- 
+const optionsCategory =[
+    { value: 1, label: 'Màn hình' },
+    { value: 2, label: 'Bàn phím' },
+    { value: 3, label: 'Chuột' },
+    { value: 4, label: 'Tai nghe' },
+    { value: 6, label: 'Laptop' },
+    { value: 7, label: 'PC' },
+    { value: 9, label: 'Ghế' },
+    { value: 10, label: 'Thiết bị mạng' },
+    { value: 11, label: 'Linh kiện' },
+]
+
+const optionsBrand = [
+    { value: 1, label: 'ASUS' },
+    { value: 2, label: 'MSI' },
+    { value: 3, label: 'LENOVO' },
+    { value: 4, label: 'DELL' },
+    { value: 5, label: 'LG' },
+    { value: 6, label: 'ACER' },
+    { value: 7, label: 'VIEWSONIC' },
+    { value: 8, label: 'GIGABYTE' },
+    { value: 9, label: 'AOC' },
+    { value: 10, label: 'HKC' },
+    { value: 11, label: 'RAZER' },
+    { value: 12, label: 'LOGITECH' },
+    { value: 15, label: 'CORSAIR' },
+    { value: 16, label: 'INTEL' },
+    { value: 17, label: 'AMD' },
+]
 function ProductEdit({ title, mode = 'edit' }) {
     const cs = useStyles(styles)
     const navigate = useNavigate()
@@ -30,19 +58,24 @@ function ProductEdit({ title, mode = 'edit' }) {
     const [salePricePreview, setSalePricePreview] = useState(0)
     const [content, setContent] = useState('')
     const [isLoadingUpdate, setIsLoadingUpdate] = useState(false)
+    const [messageApi, contextHolder] = message.useMessage()
 
   
 
     const handleUploadCloud = async (file, folder) => {
-        const formData = new FormData()
-        console.log('file', file)
-        formData.append('file', file)
-        formData.append('upload_preset', 'gearvn')
-        formData.append('folder', folder)
-        const res = await axios.post('https://api.cloudinary.com/v1_1/mp3-img/image/upload', formData)
-        console.log(res)
-        if (res.data){
-            return res.data.secure_url
+        try{
+            const formData = new FormData()
+            console.log('file', file)
+            formData.append('file', file)
+            formData.append('upload_preset', 'gearvn')
+            formData.append('folder', folder)
+            const res = await axios.post('https://api.cloudinary.com/v1_1/mp3-img/image/upload', formData)
+            console.log(res)
+            if (res.data){
+                return res.data.secure_url
+            }
+        } catch(e){
+            console.log(e)
         }
     }
 
@@ -57,21 +90,6 @@ function ProductEdit({ title, mode = 'edit' }) {
             ? await handleUploadCloud(values.avatar[0].originFileObj, 'gearvn/product-images/avatar')
             : values.avatar[0].url || ''
 
-        // if (values.avatar && values.avatar.length > 0) {
-        //     let file
-        //     const item = values.avatar[0]
-    
-        //     if (item.originFileObj) {
-        //         file = item.originFileObj
-        //     } else if (item.url) {
-        //         file = await urlToFile(item.url, Date.now(), 'image/*')
-        //     }
-        //     if (file) {
-        //         avatarUrl = 
-        //     }
-        // }
-        
-        
         // upload collection
         for(const file of values.collection) {
             if(file.originFileObj) {
@@ -81,21 +99,7 @@ function ProductEdit({ title, mode = 'edit' }) {
                 collectionUrls.push(file.url)
             }
         }
-        // await Promise.all(
-        //     values.collection.map(async (file, i) => {
-        //         let realFile
-        //         if (file.originFileObj) {
-        //             realFile = file.originFileObj
-        //         }
-        //         if (file.url) {
-        //             realFile = await urlToFile(file.url, Date.now(), 'image/*')
-        //         }
-        //         if(realFile) {
-        //             const url = await handleUploadCloud(realFile, 'gearvn/product-images/collection')
-        //             collectionUrls.push(url?.secure_url)
-        //         }
-        //     })
-        // )
+    
         console.log('avatar', avatarUrl )
         console.log('collection', collectionUrls )
 
@@ -104,7 +108,7 @@ function ProductEdit({ title, mode = 'edit' }) {
         formData.append('description', values.description)
         formData.append('price', values.price)
         formData.append('sale_price', values.sale_price)
-        formData.append('flash_sale', values.flash_sale)
+        formData.append('flash_sale', values.flash_sale || 0)
         formData.append('content', values.content)
         formData.append('stock', values.stock)
         formData.append('Brand', values.Brand)
@@ -122,11 +126,10 @@ function ProductEdit({ title, mode = 'edit' }) {
                     'Content-Type': 'multipart/form-data',
                 },
             })
-            // console.log('res', resProduct)
 
             if(resProduct.ec === 0) {
                 setIsLoadingUpdate(false)
-                toast(resProduct.ms)
+                messageApi.open({ type: 'success', content: resProduct.ms })
                 if(mode === 'edit') {
                     navigate('/auth/admin/products')
                 } else {
@@ -136,12 +139,13 @@ function ProductEdit({ title, mode = 'edit' }) {
                 }
             } else {
                 setIsLoadingUpdate(false)
-                toast(resProduct.ms)
+                messageApi.open({ type: 'error', content: resProduct.ms })
             }
         } catch(e){
-            setIsLoadingUpdate(false)
-            toast(e?.ms || 'Có lỗi xảy ra')
+            messageApi.open({ type: 'error', content: e.ms || 'Có lỗi xảy ra'})
             console.error('Lỗi khi tạo/cập nhật sản phẩm:', e)
+        } finally {
+            setIsLoadingUpdate(false)
         }
     }
 
@@ -314,12 +318,11 @@ function ProductEdit({ title, mode = 'edit' }) {
             })
         }
     }, [form, content])
-    
 
-    // if(loading) return <Spin />
     
   return (
     <div className={cs('edit')}>
+        {contextHolder}
         <div className={cs(`overlay-loading ${isLoadingUpdate ? 'show' : ''}`)}><Spin size='large'/></div>
         <Form
             form={form}
@@ -351,17 +354,7 @@ function ProductEdit({ title, mode = 'edit' }) {
                                 className='select-category'
                                 allowClear
                                 placeholder="Chọn danh mục"
-                                options={[
-                                    { value: 1, label: 'Màn hình' },
-                                    { value: 2, label: 'Bàn phím' },
-                                    { value: 3, label: 'Chuột' },
-                                    { value: 4, label: 'Tai nghe' },
-                                    { value: 6, label: 'Laptop' },
-                                    { value: 7, label: 'PC' },
-                                    { value: 9, label: 'Ghế' },
-                                    { value: 10, label: 'Thiết bị mạng' },
-                                    { value: 11, label: 'Linh kiện' },
-                                ]}
+                                options={optionsCategory}
                             />
                         </Form.Item>
                     </div>
@@ -372,23 +365,7 @@ function ProductEdit({ title, mode = 'edit' }) {
                                 allowClear
                                 style={{ minWidth: 160}}
                                 placeholder="Chọn thương hiệu"
-                                options={[
-                                    { value: 1, label: 'ASUS' },
-                                    { value: 2, label: 'MSI' },
-                                    { value: 3, label: 'LENOVO' },
-                                    { value: 4, label: 'DELL' },
-                                    { value: 5, label: 'LG' },
-                                    { value: 6, label: 'ACER' },
-                                    { value: 7, label: 'VIEWSONIC' },
-                                    { value: 8, label: 'GIGABYTE' },
-                                    { value: 9, label: 'AOC' },
-                                    { value: 10, label: 'HKC' },
-                                    { value: 11, label: 'RAZER' },
-                                    { value: 12, label: 'LOGITECH' },
-                                    { value: 15, label: 'CORSAIR' },
-                                    { value: 16, label: 'INTEL' },
-                                    { value: 17, label: 'AMD' },
-                                ]}
+                                options={optionsBrand}
                             />
                         </Form.Item>
                     </div>
@@ -402,7 +379,7 @@ function ProductEdit({ title, mode = 'edit' }) {
                 <div className={cs('label-editor')}><label >Mô tả chỉ tiết</label></div>
                 <Editor content={products.content} setContent={setContent} />
                 <Form.Item label={null}>
-                    <Button loading={isLoadingUpdate}  type="primary" htmlType="submit">
+                    <Button loading={isLoadingUpdate} type="primary" htmlType="submit" disabled={isLoadingUpdate} >
                         Lưu thay đổi
                     </Button>
                 </Form.Item>

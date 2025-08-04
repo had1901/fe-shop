@@ -36,30 +36,37 @@ import { setDarkMode, setLightMode } from '../../store/theme/themeSlice'
   }
 
   
-  
+  const breadcrumbMap = {
+    auth: 'Trang chủ',
+    admin: 'Quản trị viên',
+    orders: 'Đơn hàng',
+    accounts: 'Tài khoản',
+    products: 'Sản phẩm',
+    edit: 'Chỉnh sửa',
+    'add-new-product': 'Tạo mới',
+
+  }
 
 function LayoutAdmin() {
     const cs = useStyles(styles)
     const [collapsed, setCollapsed] = useState(false)
     const [size, setSize] = useState('middle')
     const dispatch = useDispatch()
-    const breadcrumbList = [
-        { title: 'User' }, 
-        { title: 'Bill' }
-    ]
+    const location = useLocation()
+    
+    console.log(location.pathname.split('/').filter(item => item))
+    const pathname = location.pathname.split('/').filter(item => item)
+    const breadcrumbList = pathname.map(item => {
+      return { title: breadcrumbMap[item] }
+    })
+    console.log(breadcrumbList)
+    
+    // const breadcrumbList = [
+    //     { title: 'Admin' }, 
+    //     { title: 'Bill' }
+    // ]
     const themeRedux = useSelector(state => state.admin.theme)
-    // const themeConfig = {
-    //   token: {
-    //     // Seed Token
-    //     colorPrimary: '#ccc',
-    //     borderRadius: 2,
-
-    //     // Alias Token
-    //     colorBgContainer: '#141414',
-    //     lightSiderBg: '#000',
-    //     siderBg: '#ccc'
-    //   },
-    // }
+  
     const handleChangeTheme = (value) => {
       if(value === 'dark'){
         dispatch(setDarkMode())

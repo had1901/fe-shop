@@ -1,20 +1,21 @@
 import React, { Fragment, useEffect, useLayoutEffect, useState } from 'react'
 import { NavLink, Link } from "react-router"
 import styles from './Home.module.scss';
-import { bannerListBottom } from './../../components/bannerSale/_bannerSale';
-import BannerSale from '../../components/bannerSale/BannerSale';
-import FlashSale from '../../components/flashSale/FlashSale';
-import BannerMid from '../../components/bannerMid/BannerMid';
-import ViewedProduct from '../../components/viewedProduct/ViewedProduct';
-import ProductList from '../../components/productList/ProductList';
-import BannerDisplay from '../../components/bannerDisplay/BannerDisplay';
-import CategoryProducts from '../../components/categoryProducts/CategoryProducts';
-import News from '../../components/news/News';
+import { bannerListBottom } from '~/components/bannerSale/_bannerSale';
+import BannerSale from '~/components/bannerSale/BannerSale';
+import FlashSale from '~/components/flashSale/FlashSale';
+import BannerMid from '~/components/bannerMid/BannerMid';
+import ViewedProduct from '~/components/viewedProduct/ViewedProduct';
+import ProductList from '~/components/productList/ProductList';
+import BannerDisplay from '~/components/bannerDisplay/BannerDisplay';
+import CategoryProducts from '~/components/categoryProducts/CategoryProducts';
+import News from '~/components/news/News';
 import { useResponsive } from '~/hooks/useResponsive';
-import axiosApi from './../../services/axios';
-import useStyles from '../../hooks/useStyles';
-import SidebarMenu from '../../components/sidebar/SidebarMenu';
-import SidebarRight from '../../components/sidebar/SidebarRight';
+import axiosApi from '~/services/axios';
+import useStyles from '~/hooks/useStyles';
+import SidebarMenu from '~/components/sidebar/SidebarMenu';
+import SidebarRight from '~/components/sidebar/SidebarRight';
+import Skeleton from '~/components/skeleton/Skeleton';
 
 
 
@@ -74,6 +75,7 @@ function HomePage() {
                   <ViewedProduct title='Sản phẩm đã xem' />
                   <FlashSale />
                   <BannerMid />
+                  <Skeleton />
                   <ProductList products={products[4]?.items || []} numberDisplay={numberDisplay} title='PC bán chạy' method='Trả góp 0%'/>           
                   <ProductList products={products[3]?.items || []} numberDisplay={numberDisplay} title='Laptop bán chạy' method='Trả góp 0%'/>               
                   <ProductList products={products[0]?.items || []} numberDisplay={numberDisplay} title='Màn hình bán chạy' method='Trả góp 0%'/>               

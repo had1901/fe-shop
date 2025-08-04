@@ -20,6 +20,7 @@ import { AiOutlineClose } from 'react-icons/ai'
 import { TbEyeSearch } from "react-icons/tb";
 import '../../DetailProduct.scss'
 import 'quill/dist/quill.snow.css'
+import Skeleton from '../../components/skeleton/Skeleton'
 const blogs = [
   {
     id: 1,
@@ -227,12 +228,15 @@ function DetailProductPage() {
               <div className={cs('box-slide')}>
                   <div className={cs('carousel')}>
                     <ul className={cs('slide-show')} style={{ transform: `translateX(${-currentIndex * width}px)`}}>
-                      {newImgs.length && newImgs.map((item, index) => (
+                      {newImgs.length > 0 
+                      ? newImgs.map((item, index) => (
                         <li key={index} className={cs('img-item')} ref={imgRef} onClick={() => handlePreviewImg(index)}>
                             <img ref={(el) => thumbnailRef.current[index] = el} loading='lazy' src={item.url} alt="product" className={cs('img')}/>
                             <div className={cs('icon-preview')}> <TbEyeSearch  /></div>
                         </li>
-                      ))}
+                      ))
+                      : <Skeleton col={1}/>
+                      }
                     </ul>
                     <div className={cs('arrow')}>
                         {
@@ -253,7 +257,7 @@ function DetailProductPage() {
                     </div>
                 </div>
                 <ul className={cs('list-img-product')}>
-                    {newImgs.length && newImgs.map((item, index) => (
+                    {newImgs.length > 0 && newImgs.map((item, index) => (
                         <li 
                           onClick={() => setCurrentIndex(index)} 
                           className={cs('img-item-sub')} 
@@ -265,7 +269,8 @@ function DetailProductPage() {
                         >
                           <img src={item.url} alt='img-collection'/>
                         </li>
-                      ))}
+                      ))
+                    }
                 </ul>
                 <div className={cs('calculator')}>
                   <div>

@@ -10,6 +10,7 @@ import { useSlider } from '~/hooks/useSlider';
 
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Skeleton from '../skeleton/Skeleton';
 
 
 function ProductList({ products, title, numberDisplay, noHeading }) {
@@ -85,16 +86,17 @@ function ProductList({ products, title, numberDisplay, noHeading }) {
               onScroll={handleScroll}
               // style={{ transform: `translateX: ${move}px`}}
             >
-              {products.length > 0 && products.map((item, i) => (
-                <ProductCard 
-                      key={i} 
-                      ref={el => cardRef.current[i] = el} 
-                      productItem={item} 
-                      columnValue={numberDisplay} 
-                      hasTechnical 
-                      hasLabelTop 
-                    />
-              ))}
+              { products.length > 0 && products.map((item, i) => (
+                  <ProductCard 
+                        key={i} 
+                        ref={el => cardRef.current[i] = el} 
+                        productItem={item} 
+                        columnValue={numberDisplay} 
+                        hasTechnical 
+                        hasLabelTop 
+                      />
+                ))
+              }
               <Button onclick={prevSlide} content={<FaChevronLeft/>} customClass='btn-slider btn-left-products' />
               <Button onclick={nextSlide} content={<FaChevronRight/>} customClass='btn-slider btn-right-products' />
             </div>

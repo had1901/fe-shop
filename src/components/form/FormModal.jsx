@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Checkbox, Form, Input, message } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import styles from './FormModel.module.scss';
@@ -16,36 +16,43 @@ function FormModal({ isLogin }) {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const [messageApi, contextHolder] = message.useMessage()
+  const [isLoading, setIsLoading] = useState(false)
 
-  const submitFormLogin = async values => {                                                        
+  const submitFormLogin = async values => {   
+    setIsLoading(true)  
+    messageApi.open({ type: 'loading', content: 'Đang đăng nhập...' })                                             
     try {
-      const response = await toast.promise(
-        axiosApi.post('auth/login', values),
-        {
-          pending: 'Đang đăng nhập...',
-          success: 'Đăng nhập thành công',
-          error: 'Lỗi đăng nhập'
-        }
-      )
-      // const response = await axiosApi.post('auth/login', values)
+      // const response = await toast.promise(
+      //   axiosApi.post('auth/login', values),
+      //   {
+      //     pending: 'Đang đăng nhập...',
+      //     success: 'Đăng nhập thành công',
+      //     error: 'Lỗi đăng nhập'
+      //   }
+      // )
+        
+      const response = await axiosApi.post('auth/login', values)
       const user = response?.dt
 
       if (!user) throw new Error('Không nhận được dữ liệu người dùng')
-
       dispatch(setUser(user))
       localStorage.setItem('_infoClient', JSON.stringify(user))
-      messageApi.open({
-        type: 'success',
-        content: 'Đăng nhập thành công',
-      })
-      // Navigate sau khi đã có user rõ ràng
-      if (user?.Role?.name === 'admin') {
-        navigate('/auth/admin', { replace: true })
-      } else {
-        navigate('/', { replace: true })
-      }
+      
+      // setTimeout(() => {
+      //   if (user?.Role?.name === 'admin') {
+      //     navigate('/auth/admin', { replace: true })
+      //   } else {
+      //     navigate('/', { replace: true })
+      //     console.log('Success-timer')
+
+      //   }
+      // }, 1000) 
     } catch (e) {
       console.log('Lỗi đăng nhập:', e)
+      messageApi.destroy()
+      messageApi.open({ type: 'error', content: 'Lỗi đăng nhập' })
+    } finally {
+      setIsLoading(false)
     }
     
     
@@ -57,7 +64,7 @@ function FormModal({ isLogin }) {
     }
 
     const submitFormRegister = async values => {
-      console.log('dang ky')
+      setIsLoading(true)                                                     
       try{
         const result = await toast.promise(
           axiosApi.post('auth/register', values),
@@ -79,6 +86,8 @@ function FormModal({ isLogin }) {
         if(!e.response.data.success) {
           return toast(e.response.data.ms)
         }
+      } finally {
+        setIsLoading(false) 
       }
     }
 
@@ -149,7 +158,7 @@ function FormModal({ isLogin }) {
         </Form.Item>
     
         <div className={cs('btn-submit')}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" disabled={isLoading}>
             Đăng nhập
           </Button>
         </div>
@@ -233,7 +242,7 @@ function FormModal({ isLogin }) {
           </Form.Item>
   
           <div className={cs('btn-submit')}>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" disabled={isLoading}>
               Đăng ký
             </Button>
           </div>

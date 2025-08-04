@@ -388,7 +388,6 @@ $bg-white: #fff7f7;
 }
 .navbar-text-link{
     display: flex;
-    // flex: 1;
     align-items: center;
     color: $bg-white;
     text-decoration: none;
@@ -396,6 +395,12 @@ $bg-white: #fff7f7;
     font-weight: 600;
     // padding: 0 10px;
 
+    @include screen(laptop){
+        padding: 0;
+    }
+    @include screen(tablet){
+        padding: 0;
+    }
     @include screen(mobile){
         padding: 0;
     }
@@ -443,6 +448,16 @@ $bg-white: #fff7f7;
 .bgColorLogin .navbar-text-link{
     height: 100%;
     padding-right: 10px;
+
+    @include screen(laptop) {
+        padding: 0 10px;
+    }
+    @include screen(tablet) {
+        padding-right: 0;
+    }
+    @include screen(mobile) {
+        padding-right: 0;
+    }
 }
 .mt_banner{
     margin-top: 126px;

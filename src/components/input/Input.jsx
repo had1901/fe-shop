@@ -8,11 +8,7 @@ function InputItem({ id, label, value, name, type, maxLength, disabled, showCoun
     
   return (
     <div className={cs('input-container')}>
-        {/* <label htmlFor={id} className={cs('input-label')}>
-            {label}
-            <span className={cs('require-text')}>*</span>
-        </label> */}
-        <Form.Item name={name} label={label} className={cs('input-wrap')} rules={[{ required: name !== 'id' && true, message: 'Vui lòng nhập trường này' }]}>
+        <Form.Item name={name} label={label} labelAlign='left' className={cs('input-wrap')} rules={[{ required: name !== 'id' && true, message: 'Vui lòng nhập trường này' }]}>
             <Input 
                 name={name}
                 value={value}
@@ -26,7 +22,6 @@ function InputItem({ id, label, value, name, type, maxLength, disabled, showCoun
                 disabled={disabled}
             />
         </Form.Item>
-        {/* <input id={id} type={type} className={cs('input-item')} /> */}
     </div>
   )
 }
