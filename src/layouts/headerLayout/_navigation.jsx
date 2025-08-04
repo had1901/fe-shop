@@ -17,35 +17,35 @@ export const navigateList = [
         id: 2,
         icon: <HiOutlineClipboardDocumentList />,
         label: 'Tin công nghệ',
-        link: '/pages/private-policy'
+        link: '/pages/chinh-sach-bao-mat'
 
     },
     {
         id: 3,
         icon: <GiAutoRepair />,
         label: 'Dịch vụ sửa chữa',
-        link: '/pages/private-policy'
+        link: '/pages/chinh-sach-bao-mat'
 
     },
     {
         id: 4,
         icon: <IoCardOutline />,
         label: 'Dịch vụ kỹ thuật tại nhà',
-        link: '/pages/private-policy'
+        link: '/pages/chinh-sach-bao-mat'
 
     },
     {
         id: 5,
         icon: <RiCoinsFill />,
         label: 'Điều khoản dịch vụ',
-        link: '/pages/rule-service'
+        link: '/pages/dieu-khoan-dich-vu'
 
     },
     {
         id: 6,
         icon: <AiOutlineFileProtect />,
         label: 'Chính sách bảo mật',
-        link: '/pages/private-policy'
+        link: '/pages/chinh-sach-bao-mat'
 
     },
 ]

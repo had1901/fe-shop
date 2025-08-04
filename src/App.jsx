@@ -218,8 +218,8 @@ function App() {
             
           <Route path='pages' element={<SellerHome />} >
             {render(menuItems)}
-            <Route path='private-policy' element={<PrivatePolicy />} />
-            <Route path='rule-service' element={<RuleService />} />
+            <Route path='chinh-sach-bao-mat' element={<PrivatePolicy />} />
+            <Route path='dieu-khoan-dich-vu' element={<RuleService />} />
           </Route>
 
           {/* Private route Auth */}

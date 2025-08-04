@@ -20,6 +20,7 @@ import yt from '~/assets/social/yt.webp'
 import zalo from '~/assets/social/zalo.webp'
 import gr_fb from '~/assets/social/gr_fb.webp'
 import useStyles from '../../hooks/useStyles';
+import { Link } from 'react-router';
 
 const footer = [
   {
@@ -103,7 +104,7 @@ function Footer() {
                   <ul className={cs('list')}>
                     {item.list.map((about, index) => (
                       <li key={index} className={cs('item')}>
-                        <a href='' className={cs('link')}>{about}</a>
+                        <Link to='/pages/chinh-sach-bao-mat' className={cs('link')}>{about}</Link>
                       </li>
                     ))}
                   </ul>
