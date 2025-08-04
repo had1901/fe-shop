@@ -183,7 +183,7 @@ function Footer() {
             </ul>
           </div>
           <div className={cs('checked')}>
-            <img loading='lazy' src='https://theme.hstatic.net/200000722513/1001090675/14/logo-bct.png?v=8407'/>
+            <img loading='lazy' src='https://theme.hstatic.net/200000722513/1001090675/14/logo-bct.png?v=8407' alt='valid-logo'/>
           </div>
         </div>
       </div>

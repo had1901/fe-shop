@@ -24,7 +24,11 @@ export default defineConfig({
       // '~comp': path.resolve(__dirname, './src/components'),
       // '~page': path.resolve(__dirname, './src/pages'),
       // '~hook': path.resolve(__dirname, './src/hooks'),
-    }
+    },
+    
+  },
+  build: {
+    sourcemap: true, // ✅ đúng vị trí
   }
   
 })

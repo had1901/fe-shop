@@ -29,7 +29,7 @@ function ViewedProduct({ title }) {
                             <a href={item.href} className={cs('productLink')}>
                                 <div className={cs('productLinkWrap')}>
                                     <div className={cs('productWrapImg')}>
-                                        <img loading='lazy' src={item.src} className={cs('productImg')}/>
+                                        <img loading='lazy' src={item.src} className={cs('productImg')} alt='product-viewed'/>
                                     </div>
                                     <div className={cs('productInfo')}>
                                         <h3 className={cs('productHeading')}>{item.name}</h3>

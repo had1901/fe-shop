@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /auth/admin/
+Disallow: /auth/account/
+Disallow: /api/
+
+Sitemap: https://gearvn-rust.vercel.app/

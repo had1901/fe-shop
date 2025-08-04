@@ -71,7 +71,7 @@
     display: flex;
     align-items: center;
     font-size: 14px;
-
+    
     @include screen(tablet){
         // justify-content: center;
     }
@@ -82,6 +82,7 @@
 
 .link_content{
     color: rgb(49, 131, 207);
+    padding: 8px 4px;
 }
 .content p {
 //    min-width: 70px;

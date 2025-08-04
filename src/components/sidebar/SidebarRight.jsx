@@ -59,7 +59,7 @@ function SidebarRight() {
                     {bannerListLeft.map((item, index) => (
                         <div ref={el => bannerLeftRef.current[index] = el} key={index}>
                             <a href='#'>
-                                <img loading='lazy' src={item} className={cs('sidebarBannerImg')} />
+                                <img loading='lazy' src={item} className={cs('sidebarBannerImg')} alt='banner'/>
                             </a>
                         </div>))}
                 </div>
@@ -70,7 +70,7 @@ function SidebarRight() {
                     {bannerListRight.map((item, index) => (
                         <li ref={el => bannerRightRef.current[index] = el} key={index} className={cs('list-item')}>
                             <a href='#'>
-                                <img loading='lazy' src={item}/>
+                                <img loading='lazy' src={item} alt='banner'/>
                             </a>
                         </li>))}
                 </ul>
