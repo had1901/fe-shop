@@ -94,7 +94,7 @@ function Header() {
     await postData('/auth/logout', {})
     localStorage.clear()
     dispatch(logout())
-    window.location.reload()
+    window.location.href = '/'
   }
 
   useEffect(() => {
