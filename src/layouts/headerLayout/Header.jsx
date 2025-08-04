@@ -202,6 +202,9 @@ function Header() {
                                 <span className={cs('icon-size')}><BsCashCoin /></span>
                                 <span className={cs('wrap-text-mobile')}>Thu cũ đổi mới</span>
                             </Link>
+                            <Button className={cs('navbar-text-link-mobile-info')} danger color='danger' onClick={handleLogout}>
+                                <span className={cs('wrap-text-mobile')}>Đăng xuất</span>
+                            </Button>
                           </div>
                         </Drawer>
 
