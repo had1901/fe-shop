@@ -166,7 +166,7 @@ function App() {
   if(isLoading && mode === 'production') {
     return (
       <div className='app-vn'>
-        <p>Do <strong>server</strong> sử dụng dịch vụ miễn phí nên sẽ tạm thời đóng băng khi không truy cập
+        <p>
           <br/> Vui lòng đợi server khởi động lại và nhấn F5 để tải lại trang 
           <br/> Xem video giải trí trong khi đợi nhé (^_^)
         </p>
