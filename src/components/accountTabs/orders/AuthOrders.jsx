@@ -210,9 +210,13 @@ function AuthOrders() {
                   cancelText='Đóng'
                   width={'90%'}
                   mask={true}
+
                   styles={{
                     content: {
-                      padding: '14px 10px'
+                      padding: '14px 10px',
+                      position: 'fixed',
+                      top: '5%'
+                      
                     }
                   }}
                 >
