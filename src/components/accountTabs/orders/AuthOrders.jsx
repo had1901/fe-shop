@@ -213,10 +213,7 @@ function AuthOrders() {
 
                   styles={{
                     content: {
-                      padding: '14px 10px',
-                      position: 'fixed',
-                      top: '5%'
-                      
+                      padding: '14px 10px'
                     }
                   }}
                 >
