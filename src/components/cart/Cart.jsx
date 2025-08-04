@@ -86,6 +86,10 @@ function Cart() {
             } else if(selected === 'qr-code') {
                 setCurrentStep(3)
             } else if(selected === 'cod') {
+                const res = await handleCreateOrder()
+                if(res?.ec === 0) {
+                    await handleRemoveCart()
+                }
                 navigate('/order')
             }
             localStorage.setItem('infoPayment', JSON.stringify(info))
