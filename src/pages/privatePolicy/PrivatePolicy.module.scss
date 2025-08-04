@@ -1,0 +1,25 @@
+@use '~/utils/scss/mixin' as *;
+
+.policy-container{
+    padding: 20px;
+    line-height: 1.3rem;
+
+    .section-title{
+        font-size: rem(22);
+        font-weight: 500;
+        margin: rem(20) 0;
+    }
+    .paragraph{
+        margin-bottom: rem(10);
+    }
+    .list{
+        display: flex;
+        gap: 20px;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        li{
+            text-decoration: dotted;
+        }
+    }
+}

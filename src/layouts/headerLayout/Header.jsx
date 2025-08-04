@@ -331,10 +331,10 @@ function Header() {
                 {
                   navigateList.map(item => (
                     <li key={item.id} className={cs('navigate-item col')}>
-                      <a href='#' >
+                      <Link to={item.link} >
                           <span className={cs('navigateIcon')}>{item.icon}</span>
                           <span>{item.label}</span>
-                      </a>
+                      </Link>
                   </li>
                   ))
                 }

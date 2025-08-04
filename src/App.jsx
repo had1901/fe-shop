@@ -37,6 +37,8 @@ import Categories from './pages/admin/categories/Categories';
 import AddressPage from './pages/address/AddressPage';
 import { menuItems } from './components/sidebar/_sidebarMenu';
 import viVN from 'antd/locale/vi_VN';
+import PrivatePolicy from './pages/privatePolicy/PrivatePolicy';
+import RuleService from './pages/ruleService/RuleService';
 
 console.log("mode", import.meta.env.MODE)
 console.log("API URL:", import.meta.env.VITE_API_URL)
@@ -216,6 +218,8 @@ function App() {
             
           <Route path='pages' element={<SellerHome />} >
             {render(menuItems)}
+            <Route path='private-policy' element={<PrivatePolicy />} />
+            <Route path='rule-service' element={<RuleService />} />
           </Route>
 
           {/* Private route Auth */}

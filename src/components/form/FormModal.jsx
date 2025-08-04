@@ -37,16 +37,6 @@ function FormModal({ isLogin }) {
       if (!user) throw new Error('Không nhận được dữ liệu người dùng')
       dispatch(setUser(user))
       localStorage.setItem('_infoClient', JSON.stringify(user))
-      
-      // setTimeout(() => {
-      //   if (user?.Role?.name === 'admin') {
-      //     navigate('/auth/admin', { replace: true })
-      //   } else {
-      //     navigate('/', { replace: true })
-      //     console.log('Success-timer')
-
-      //   }
-      // }, 1000) 
     } catch (e) {
       console.log('Lỗi đăng nhập:', e)
       messageApi.destroy()
@@ -64,27 +54,29 @@ function FormModal({ isLogin }) {
     }
 
     const submitFormRegister = async values => {
-      setIsLoading(true)                                                     
+      setIsLoading(true)    
+      messageApi.open({ type: 'loading', content: 'Đang đăng ký...' })                                             
       try{
-        const result = await toast.promise(
-          axiosApi.post('auth/register', values),
-          {
-            pending: 'Vui lòng chờ giây lát...',
-            success: 'Tạo thành công',
-            error: 'Không tạo được tài khoản'
-          }
-        )
-        // const result = await axios.post('http://localhost:8888/auth/register', values)
-        // console.log('result', result)
-        // if(result.data.success){
-        //   return toast(result.data.message)
-        // }
-        console.log(result)
-
+        // const result = await toast.promise(
+        //   axiosApi.post('auth/register', values),
+        //   {
+        //     pending: 'Vui lòng chờ giây lát...',
+        //     success: 'Tạo thành công',
+        //     error: 'Không tạo được tài khoản'
+        //   }
+        // )
+        const result = await axiosApi.post('auth/register', values)
+        console.log('result', result)
+        if(result.ec === 0){
+          messageApi.destroy()
+          messageApi.open({ type: 'success', content: result.message })
+        }
+        navigate('/auth')
       } catch(e) {
-        console.log(e.result.data)
-        if(!e.response.data.success) {
-          return toast(e.response.data.ms)
+        console.log(e)
+        if(!e.success) {
+          messageApi.destroy()
+          messageApi.open({ type: 'error', content: e.ms })
         }
       } finally {
         setIsLoading(false) 
@@ -101,15 +93,22 @@ function FormModal({ isLogin }) {
 
     const handleLoginGoogle = async (credentialResponse) => {
       const { credential } = credentialResponse
-      const res = await axiosApi.post('auth/google-login', {token: credential})
-      dispatch(setUser({
-        username: res.dt.name,
-        ...res.dt
-      }))
-        console.log('có google')
-
-      // navigate('/')
-      console.log('res-decode', res)
+      setIsLoading(true)
+      messageApi.open({ type: 'loading', content: 'Đang đăng nhập...' })                                             
+      try{
+        const res = await axiosApi.post('auth/google-login', {token: credential})
+        dispatch(setUser({
+          username: res.dt.name,
+          ...res.dt
+        }))
+        console.log('res-decode', res)
+      } catch(e){
+        console.log(e)
+        messageApi.destroy()
+        messageApi.open({ type: 'error', content: 'Lỗi đăng nhập' })
+      } finally{
+        setIsLoading(false)
+      }
     }
 
     const validateMessages = {
@@ -132,7 +131,6 @@ function FormModal({ isLogin }) {
         className={cs('form')}
         validateMessages={validateMessages}
       >
-        {contextHolder}
         <h2 className={cs('label')}>Đăng nhập</h2>
         <Form.Item
           label="Username"
@@ -185,6 +183,7 @@ function FormModal({ isLogin }) {
     } else {
       return (
         <>
+          {contextHolder}
           <Form
             name="basic"
             labelCol={{ span: 6 }}

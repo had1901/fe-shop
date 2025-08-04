@@ -10,31 +10,42 @@ export const navigateList = [
     {
         id: 1,
         icon: <CiCreditCard1 />,
-        label: 'Tự Build PC theo ý của bạn'
+        label: 'Tự Build PC theo ý của bạn',
+        link: '/pages'
     },
     {
         id: 2,
         icon: <HiOutlineClipboardDocumentList />,
-        label: 'Tin công nghệ'
+        label: 'Tin công nghệ',
+        link: '/pages/private-policy'
+
     },
     {
         id: 3,
         icon: <GiAutoRepair />,
-        label: 'Dịch vụ sửa chữa'
+        label: 'Dịch vụ sửa chữa',
+        link: '/pages/private-policy'
+
     },
     {
         id: 4,
         icon: <IoCardOutline />,
-        label: 'Dịch vụ kỹ thuật tại nhà'
+        label: 'Dịch vụ kỹ thuật tại nhà',
+        link: '/pages/private-policy'
+
     },
     {
         id: 5,
         icon: <RiCoinsFill />,
-        label: 'Thu cũ đổi mới'
+        label: 'Điều khoản dịch vụ',
+        link: '/pages/rule-service'
+
     },
     {
         id: 6,
         icon: <AiOutlineFileProtect />,
-        label: 'Tra cứu bảo hành'
+        label: 'Chính sách bảo mật',
+        link: '/pages/private-policy'
+
     },
 ]
