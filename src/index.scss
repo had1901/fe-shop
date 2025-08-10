@@ -45,7 +45,7 @@ body {
 	padding-left: env(safe-area-inset-left);
 	padding-right: env(safe-area-inset-right);
 	padding-bottom: env(safe-area-inset-bottom);
-	touch-action: none;     /* disables default gestures like pan, zoom */
+	// touch-action: none;     /* disables default gestures like pan, zoom */
 	-webkit-user-select: none;
 	user-select: none;
 }
