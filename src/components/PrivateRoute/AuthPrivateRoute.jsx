@@ -6,10 +6,12 @@ function AuthPrivateRoute() {
     const user = useSelector(state => state.auth.info)
     const location = useLocation()
 
+    // if(!ready) return null
+
     if(!user) {
         if(location.pathname.startsWith('/auth/account')) {
             console.log('Không có user')
-            return <Navigate to="/" replace />
+            return <Navigate to="/auth" replace />
         }
     }
     if(user && location.pathname === '/auth') {
