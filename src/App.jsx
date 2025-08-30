@@ -36,9 +36,10 @@ import Banner from './pages/admin/interface/Banner';
 import Categories from './pages/admin/categories/Categories';
 import AddressPage from './pages/address/AddressPage';
 import { menuItems } from './components/sidebar/_sidebarMenu';
-import viVN from 'antd/locale/vi_VN';
+// import viVN from 'antd/locale/vi_VN';
 import PrivatePolicy from './pages/privatePolicy/PrivatePolicy';
 import RuleService from './pages/ruleService/RuleService';
+import Chatbot from './components/Chatbot';
 
 console.log("mode", import.meta.env.MODE)
 console.log("API URL:", import.meta.env.VITE_API_URL)
@@ -165,6 +166,8 @@ function App() {
       window.scrollTo({top: 0, behavior: "smooth"})
   },[pathname])
 
+ 
+ 
   if(isLoading && mode === 'production') {
     return (
       <div className='app-vn'>
@@ -205,6 +208,7 @@ function App() {
         },
       }}
     >
+      <Chatbot />
       {contextHolder}
       <Routes>
         <Route path='/' element={<MainLayout />}>
