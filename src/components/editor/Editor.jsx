@@ -58,6 +58,7 @@ function Editor({ content, setContent }) {
     return () => {
       if (editorRef.current) {
         editorRef.current.off('text-change')
+        editorRef.current = null
       }
     }
   }, [setContent, form])

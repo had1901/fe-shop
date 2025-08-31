@@ -8,12 +8,16 @@ import useStyles from '~/hooks/useStyles'
 import styles from './Seller.module.scss'
 import axiosApi from '../../services/axios'
 import { useResponsive } from '~/hooks/useResponsive';
+import FilterAdmin from '../filter/FilterAdmin'
 
 function Seller({ category, album }) {
     const cs = useStyles(styles)
-    const [data, setDate] = useState([])
+    const [data, setData] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [filter, setFilter] = useState([])
     const numberDisplay = useResponsive()
-
+    console.log('filter', filter)
+    console.log(data)
     const renderBanner = () => {
         switch(album){
             case 'laptop-office':
@@ -30,7 +34,7 @@ function Seller({ category, album }) {
         const fetchProductByCategory = async () => {
             const res = await axiosApi.get(`api/get-product-type?category=${category}`)
             if(res?.ec === 0 && res.dt) {
-                setDate(res.dt)
+                setData(res.dt)
             }
         }
         fetchProductByCategory() 
@@ -44,9 +48,14 @@ function Seller({ category, album }) {
                         {renderBanner()}
                     </Link>
                 </div>
+                <FilterAdmin 
+                    data={data}
+                    setLoading={setLoading} 
+                    setFiltered={setFilter}
+                />
                 <div className={cs('products')}>
                     <ul className={cs('product_listing')}>
-                        <ProductList products={data} numberDisplay={numberDisplay} noHeading />
+                        <ProductList products={filter} numberDisplay={numberDisplay} noHeading />
                     </ul>
                 </div>
                 <div className={cs('banner-view-more')}>

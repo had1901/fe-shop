@@ -125,6 +125,7 @@ function App() {
     return null
   }
 
+  // validate lại user sau khi reload, check token xem hợp lệ không
   useEffect(() => {
     (async () => {
         setIsLoading(true)

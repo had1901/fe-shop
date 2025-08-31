@@ -10,11 +10,11 @@ const { RangePicker } = DatePicker
 function FilterAdmin({ data, setLoading, setFiltered, page = 'product' }) {
     const cs = useStyles(styles)
     const [filterData, setFilterData] = useState({
-            category: 'all',
-            sortBy: 'all',
-            search: '',
-            date: {}
-        })
+        category: 'all',
+        sortBy: 'all',
+        search: '',
+        date: {}
+    })
 
     // Tìm kiếm theo tên
     const handleSearchText = debounce((e) => {
@@ -65,41 +65,55 @@ function FilterAdmin({ data, setLoading, setFiltered, page = 'product' }) {
     const handleFilterAndSort = useCallback(() => {
         if(page === 'product') {
             setLoading(true)
-            let filterDataList
-            let result
-            filterDataList = data.filter(item => {         
-                if(filterData?.category === 'all') {
-                    return removeHash(item?.name).includes(removeHash(filterData?.search)) && item
-                }
-                if(filterData.category !== 'all') {
-                    const matchName = filterData?.sortBy 
-                        ? removeHash(item?.name).includes(removeHash(filterData?.search)) 
-                        : true
-                    const matchCategory = filterData?.category 
-                        ? removeHash(item?.name).includes(removeHash(filterData?.search)) && item?.Category?.tag.includes(filterData.category) 
-                        : true
-                    return matchName && matchCategory
-                }
-            })
+             let result = [...data]
 
-            if(filterDataList?.length > 0) {
-                filterData.sortBy === 'asc' && filterDataList.sort((a,b) =>  a.name.localeCompare(b.name))
-                filterData.sortBy === 'desc' && filterDataList.sort((a,b) =>  b.name.localeCompare(a.name))
-                filterData.sortBy === 'min-max' && filterDataList.sort((a,b) =>  a.price - b.price)
-                filterData.sortBy === 'max-min' && filterDataList.sort((a,b) =>  b.price - a.price)
-                filterData.sortBy === 'new-date' && filterDataList.sort((a,b) =>  new Date(b.createdAt) - new Date(a.createdAt))
-                filterData.sortBy === 'old-date' && filterDataList.sort((a,b) =>  new Date(a.createdAt) - new Date(b.createdAt))
+            // 1. Search theo tên
+            if (filterData?.search) {
+                result = result.filter(item =>
+                removeHash(item?.name).includes(removeHash(filterData.search))
+                )
             }
-    
-            if(filterData.date.start && filterData.date.end) {
-                result = filterByCreateAt(filterDataList)
-            } else {
-                result = filterDataList
+
+             // 2. Lọc theo category
+            if (filterData?.category && filterData.category !== 'all') {
+                result = result.filter(item =>
+                    item?.Category?.tag.includes(filterData.category)
+                )
+            }
+
+             // 3. Sort theo yêu cầu
+            if (filterData?.sortBy && result?.length > 0) {
+                switch (filterData.sortBy) {
+                case 'asc':
+                    result.sort((a, b) => a.name.localeCompare(b.name))
+                    break
+                case 'desc':
+                    result.sort((a, b) => b.name.localeCompare(a.name))
+                    break
+                case 'min-max':
+                    result.sort((a, b) => a.price - b.price)
+                    break
+                case 'max-min':
+                    result.sort((a, b) => b.price - a.price)
+                    break
+                case 'new-date':
+                    result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                    break
+                case 'old-date':
+                    result.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt))
+                    break
+                default:
+                    break
+                }
+            }
+
+            // 4. Lọc theo ngày tạo (nếu có)
+            if (filterData?.date?.start && filterData?.date?.end) {
+                result = filterByCreateAt(result) 
             }
 
             setFiltered(result)
             setLoading(false)
-    
             return true
         }
     
@@ -193,7 +207,8 @@ function FilterAdmin({ data, setLoading, setFiltered, page = 'product' }) {
             }
              <div className={cs('filter-search filter-date')}>
                 <h3 htmlFor="">Lọc theo ngày tạo</h3>
-                <RangePicker onChange={handleChangeSortDate}/>
+                <RangePicker onChange={handleChangeSortDate}  placement="bottomLeft" popupStyle={{ width: '100vw', maxWidth: '100%' }}
+  dropdownStyle={{ minWidth: '100%' }}/>
             </div>
                 
 

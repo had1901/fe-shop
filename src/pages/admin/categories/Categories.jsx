@@ -5,6 +5,7 @@ import { useEditor } from '@tiptap/react'
 import axiosApi from './../../../services/axios';
 import { toast } from 'react-toastify';
 
+
 function Categories() {
     const cs = useStyles(styles)
     const [categories, setCategories] = useState([])

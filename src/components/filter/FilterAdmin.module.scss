@@ -1,5 +1,10 @@
+@use '~/utils/scss/mixin' as *;
+@use '~/utils/scss/variables' as *;
+
 .filter{
     display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
     align-items: center;
     margin-bottom: 20px;
 }
@@ -14,6 +19,11 @@
     font-weight: 500;
     margin-bottom: 4px;
     // color: #808080;  
+
+    @include screen(mobile) {
+        font-size: 12px;
+    }
+
 }
 .filter-date{
     flex: 1;

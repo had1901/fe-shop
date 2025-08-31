@@ -79,8 +79,8 @@ function LayoutAdmin() {
         configMenuItem(<NavLink to={'/auth/admin'} >Trang chủ</NavLink>, '1', <HomeOutlined />),
         configMenuItem(<NavLink to={''} >Sản phẩm</NavLink>, '2', <ProductOutlined />, [
           configMenuItem(<NavLink to={'/auth/admin/products'} >Tất cả sản phẩm</NavLink>, '3'),
-          configMenuItem(<NavLink to={'/auth/admin/categories'} >Danh mục</NavLink>, '4'),
-          configMenuItem(<NavLink to={'/auth/admin/brands'} >Thương hiệu</NavLink>, '5'),
+          // configMenuItem(<NavLink to={'/auth/admin/categories'} >Danh mục</NavLink>, '4'),
+          // configMenuItem(<NavLink to={'/auth/admin/brands'} >Thương hiệu</NavLink>, '5'),
         ]),
         configMenuItem(<NavLink to={'/auth/admin/orders'} >Đơn hàng</NavLink>, '6', <OrderedListOutlined />),
         configMenuItem(<NavLink to={'/auth/admin/accounts'} >Tài khoản</NavLink>, '7', <UserOutlined />),

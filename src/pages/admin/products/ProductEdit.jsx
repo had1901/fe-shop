@@ -65,12 +65,10 @@ function ProductEdit({ title, mode = 'edit' }) {
     const handleUploadCloud = async (file, folder) => {
         try{
             const formData = new FormData()
-            console.log('file', file)
             formData.append('file', file)
             formData.append('upload_preset', 'gearvn')
             formData.append('folder', folder)
             const res = await axios.post('https://api.cloudinary.com/v1_1/mp3-img/image/upload', formData)
-            console.log(res)
             if (res.data){
                 return res.data.secure_url
             }
@@ -82,7 +80,6 @@ function ProductEdit({ title, mode = 'edit' }) {
     const handleSubmitAndUploadClient = async (values) => {
         const formData = new FormData()
         const collectionUrls = []
-        console.log('values', values)
         setIsLoadingUpdate(true)
 
         // upload avatar
@@ -100,9 +97,6 @@ function ProductEdit({ title, mode = 'edit' }) {
             }
         }
     
-        console.log('avatar', avatarUrl )
-        console.log('collection', collectionUrls )
-
         formData.append('id', values.id)
         formData.append('name', values.name)
         formData.append('description', values.description)

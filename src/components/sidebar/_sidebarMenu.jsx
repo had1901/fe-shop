@@ -800,7 +800,6 @@ export const menuItems = [
             },
         ]
     },
-    
     {
         id: 9,
         icon: <CiKeyboard />,
