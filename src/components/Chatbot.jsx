@@ -12,18 +12,21 @@ function Chatbot() {
         script.src = "https://client.crisp.chat/l.js"
         script.async = true
         document.head.appendChild(script)
+        
+        script.onload = () => {
+            // check last visit
+            const lastVisit = localStorage.getItem("lastVisit")
+            const now = Date.now()
 
-        // ép vị trí liên tục mỗi 0.5s
-    const interval = setInterval(() => {
-      const bubble = document.querySelector(".crisp-client .cc-nc")
-      if (bubble) {
-        bubble.style.bottom = "120px"
-        bubble.style.right = "20px"
-        bubble.style.zIndex = "9999"
-      }
-    }, 500)
+            // nếu user quay lại sau > 1 ngày (24h)
+            if (lastVisit && now - parseInt(lastVisit) > 24 * 60 * 60 * 1000) {
+                window.$crisp.push(["do", "session:reset"])
+            }
 
-    return () => clearInterval(interval)
+            // cập nhật lại timestamp
+            localStorage.setItem("lastVisit", now.toString())
+        }
+
     },[])
 
   return (

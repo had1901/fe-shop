@@ -2,7 +2,7 @@ import { Chart } from 'chart.js/auto'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import styles from './Dashboard.module.scss'
 import useStyles from '../../../hooks/useStyles'
-import { fetchOrders } from '../../../components/accountTabs/orders/api_order'
+// import { fetchOrders } from '../../../components/accountTabs/orders/api_order'
 import axiosApi from '../../../services/axios'
 import {
   AreaChartOutlined,
@@ -23,6 +23,22 @@ import {
 import { Link } from 'react-router'
 import { convertPrice } from '../../../utils/convertString/_convertPrice'
 
+function formatMoney(value) {
+  if (value >= 1_000_000) {
+    // Từ 1 triệu trở lên => format dạng M
+    return (value / 1_000_000).toFixed(2).replace(/\.?0+$/, "") + "M"
+  } else if (value >= 100) {
+    // Từ 100 đến 999 => hiển thị 3 chữ số
+    return value.toString().slice(0, 3) + "đ"
+  } else if (value >= 10) {
+    // Từ 10 đến 99 => hiển thị 2 chữ số
+    return value.toString().slice(0, 2) + "đ"
+  } else {
+    // Dưới 10 thì giữ nguyên
+    return value + "đ"
+  }
+}
+
 
 function Dashboard() {
   const cs = useStyles(styles)
@@ -40,7 +56,7 @@ function Dashboard() {
   const [dataTotalOrder, setDataTotalOrder] = useState([])
 
 
-  
+  console.log('dataTotalOrder', dataTotalOrder)
 
   // Tính doanh thu 
   const calculatorTotalRevenue = () => {
@@ -72,7 +88,7 @@ function Dashboard() {
     },
     {
       label: 'Doanh thu đơn hàng đã giao',
-      total: convertPrice(calculatorTotalRevenue()),
+      total: formatMoney(calculatorTotalRevenue()),
       icon: <Link to='/'><AreaChartOutlined className={cs('pro-icon')} /></Link>
     },
   ]
@@ -85,7 +101,7 @@ function Dashboard() {
   const labelsOrder = Object.keys(calculatorData)
   const valuesOrder = Object.values(calculatorData)
 
-  const values = []
+  // const values = []
   
   const dataStatusOrders = labelsOrder.map((item, index) => {
     const data = valuesOrder.filter(value => value)
@@ -129,7 +145,7 @@ function Dashboard() {
 
   // Tạo chart
   useEffect(() => {
-    const chartOrderStatus =  createChart(chartRef1, chartInstance1, 'Trạng thái đơn hàng', 'doughnut', dataStatusOrders, ['#fe5252', '#ffdb6d', '#2dc26d'])
+    const chartOrderStatus =  createChart(chartRef1, chartInstance1, 'Trạng thái đơn hàng', 'doughnut', dataStatusOrders, ['#ffdb6d', '#2dc26d', '#fe5252'])
     const chart2 = createChart(chartRef2, chartInstance2, 'Đơn đặt hàng trong 7 ngày gần nhất', 'bar', dataTotalOrder, '#d14781')
 
     return () => {
