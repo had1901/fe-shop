@@ -72,7 +72,7 @@ function HomePage() {
                     <SidebarRight></SidebarRight>
                   </div>
                   <BannerSale bannerList={bannerListBottom}/>
-                  <ViewedProduct title='Sản phẩm đã xem' />
+                  {/* <ViewedProduct title='Sản phẩm đã xem' /> */}
                   <FlashSale />
                   <BannerMid />
                   <Skeleton />

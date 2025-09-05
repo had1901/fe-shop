@@ -8,6 +8,10 @@ import slider7 from "~/assets/slide/a7.webp";
 import slider8 from "~/assets/slide/a8.webp";
 import slider9 from "~/assets/slide/a9.webp";
 import slider10 from "~/assets/slide/a10.webp";
+import slider11 from "~/assets/slide/a11.jpg";
+import slider12 from "~/assets/slide/a12.jpg";
+import slider13 from "~/assets/slide/a13.png";
+import slider14 from "~/assets/slide/a14.jpg";
 
 
 export const sliderListImage = [
@@ -50,5 +54,21 @@ export const sliderListImage = [
     {
         id: 10,
         src: slider10,
+    },
+    {
+        id: 11,
+        src: slider11,
+    },
+    {
+        id: 12,
+        src: slider12,
+    },
+    {
+        id: 13,
+        src: slider13,
+    },
+    {
+        id: 14,
+        src: slider14,
     },
 ]

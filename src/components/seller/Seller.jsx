@@ -48,11 +48,13 @@ function Seller({ category, album }) {
                         {renderBanner()}
                     </Link>
                 </div>
-                <FilterAdmin 
-                    data={data}
-                    setLoading={setLoading} 
-                    setFiltered={setFilter}
-                />
+                <div className={cs('filter')}>
+                    <FilterAdmin 
+                        data={data}
+                        setLoading={setLoading} 
+                        setFiltered={setFilter}
+                    />
+                </div>
                 <div className={cs('products')}>
                     <ul className={cs('product_listing')}>
                         <ProductList products={filter} numberDisplay={numberDisplay} noHeading />

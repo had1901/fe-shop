@@ -40,11 +40,13 @@ import { menuItems } from './components/sidebar/_sidebarMenu';
 import PrivatePolicy from './pages/privatePolicy/PrivatePolicy';
 import RuleService from './pages/ruleService/RuleService';
 import Chatbot from './components/Chatbot';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
-console.log("mode", import.meta.env.MODE)
-console.log("API URL:", import.meta.env.VITE_API_URL)
+// console.log("mode", import.meta.env.MODE)
+// console.log("API URL:", import.meta.env.VITE_API_URL)
 
 const mode = import.meta.env.MODE
+
 const routesAdmin = [
   {
       path: '',
@@ -172,7 +174,7 @@ function App() {
   if(isLoading && mode === 'production') {
     return (
       <div className='app-vn'>
-        <p>
+        {/* <p>
           <br/> Vui lòng đợi server khởi động lại và nhấn F5 để tải lại trang 
           <br/> Xem video giải trí trong khi đợi nhé (^_^)
         </p>
@@ -184,7 +186,13 @@ function App() {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
           referrerPolicy="strict-origin-when-cross-origin" 
           allowFullScreen>
-        </iframe>
+        </iframe> */}
+        <DotLottieReact
+          src='../public/waiting.lottie'
+          loop
+          autoplay
+          style={{ width: '40%', margin: '0 auto'}}
+        />
       </div>
     )
   }

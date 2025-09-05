@@ -803,7 +803,7 @@ export const menuItems = [
     {
         id: 9,
         icon: <CiKeyboard />,
-        component: <SellerProduct category='pc' album='pc-gaming' promotionColor='#3310b2' listImg={listImgPC}/>,
+        component: <SellerProduct category='ban-phim' album='ban-phim' promotionColor='#3310b2' listImg={listImgPC}/>,
         label: 'Bàn phím',
         href: 'ban-phim-may-tinh',
         products: [
